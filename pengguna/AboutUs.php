@@ -85,4 +85,51 @@
                     ["img" => "Images/Faiz.jpg", "name" => "Faiz Syafiq Nabily", "date" => "2024-04-17", "text" => "Jalan-jalan wisata dengan Nagan Tour memang nyaman dan menyenangkan dan memiliki banyak fitur sehingga merasa nyaman👍"],
                     ["img" => "Images/person1.jpg", "name" => "Aisyah Noviani", "date" => "2024-04-14", "text" => "Kedua kali tur Jogja pakai Wanderlust sangat puas dengan pelayanan yang baik dan ramah. Respon admin yang cepat."],
                     ["img" => "Images/person2.jpg", "name" => "Siti Amany", "date" => "2024-04-14", "text" => "Terima kasih buat mas Nopal yang on time jemput dan semua agenda bisa berjalan dengan lancar."],
-                    ["img" => "Images/person4.jpg", "name" => "Audri Melina Muthi", "date" => "2024-04-14", "text" => "Terima kasih buat mas
+                    ["img" => "Images/person4.jpg", "name" => "Audri Melina Muthi", "date" => "2024-04-14", "text" => "Terima kasih buat mas Ido yang on time jemput dan semua agenda berjalan lancar."],
+                    ["img" => "Images/person5.jpg", "name" => "Ratri Cahyaningsih", "date" => "2024-04-14", "text" => "Mas Aldi sangat on time dan menguasai jalur alternatif."],
+                    ["img" => "Images/person6.jpg", "name" => "Mintaka Maveen", "date" => "2024-10-26", "text" => "Mas Aldi sangat on time dan semua agenda berjalan lancar."]
+                ];
+
+                foreach ($reviews as $review) {
+                    echo '<div class="review">
+                            <div class="review-header">
+                                <img src="' . $review["img"] . '" alt="User">
+                                <div>
+                                    <div class="name">' . $review["name"] . '</div>
+                                    <div class="date">' . $review["date"] . '</div>
+                                </div>
+                            </div>
+                            <div class="review-text">' . $review["text"] . '</div>
+                            <div class="review-stars">★★★★★</div>
+                        </div>';
+                }
+                ?>
+            </div>
+        </div>
+
+        <h1 class="section-title">Kepercayaan Pelanggan</h1>
+        <div class="logos">
+            <?php
+            $logos = [
+                "Kementerian Pariwisata.png",
+                "Mandiri.png",
+                "Danamon.jpg",
+                "Telkom Indonesia.png",
+                "Pertamina.png",
+                "Daihatsu.png",
+                "Kimia Farma.png",
+                "KAI.png"
+            ];
+            foreach ($logos as $logo) {
+                echo '<img src="Images/' . $logo . '" alt="' . pathinfo($logo, PATHINFO_FILENAME) . '">';
+            }
+            ?>
+        </div>
+
+        <!-- Footer -->
+        <?php include 'footer.php'; ?>
+        <!-- Footer -->
+
+</body>
+
+</html>
