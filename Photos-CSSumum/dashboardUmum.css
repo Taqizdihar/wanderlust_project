@@ -1,3 +1,99 @@
 body {
-    
+    overscroll-behavior: none;
+    margin: 0;
+    height: auto;
+}
+
+
+.main {
+    display: grid;
+    height: 100%;
+    align-content: space-between;
+    animation-name: body;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes body {
+    0%   {background-image: url("1.jpg"); background-size: 1600px 800px; background-position: center;}
+    33%   {background-image: url("2.jpg"); background-size: 1600px 800px; background-position: center;}
+    66%   {background-image: url("3.jpg"); background-size: 1600px 800px; background-position: center;}
+    100%   {background-image: url("1.jpg"); background-size: 1600px 800px; background-position: center;}
+}
+
+.logo {
+    text-align: center;
+    color: white;
+    font: 30px "MuseoModerno", "sans-serif";
+    text-shadow: 1px 1px 3px black;
+    background-image: linear-gradient(to top, rgba(255,0,0,0), black);
+}
+
+.logo h2 {
+    margin-top: 10px;
+}
+
+.logo img {
+    height: 100px;
+    width: 100px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-image: linear-gradient(to bottom, rgba(255,0,0,0), black);
+}
+
+.buttons-container h3 {
+    margin-top: 15px;
+    margin-bottom: 0;
+    font: bold 30px "Verdana", sans-serif;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+}
+
+.buttons {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 300px;
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+}
+
+.buttons a {
+    height: 40px;
+    width: 80px;
+    border-radius: 15px;
+    text-decoration: none;
+    font: bold 15px "Verdana", "Tahoma", "sans-serif";
+    align-content: center;
+}
+
+#login {
+    color: white;
+    padding: 8px;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+#signin {
+    padding: 10px;
+    color: #1a54b3;
+    border: 2px solid #1a54b3;
+    background-color: white;
+}
+
+#login:hover {
+    background-color: white;
+    color: #1a54b3;
+    border: 2px solid #1a54b3;
+    padding: 8px;
+}
+
+#signin:hover {
+    background-color: #1a54b3;
+    color: white;
+    padding: 10px;
 }
