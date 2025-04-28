@@ -14,7 +14,7 @@ include "views/header.php";
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
         }
     } else {
-        include "login.php";
+        include "dashboardUmum.php";
     }
 ?>
 </main>
