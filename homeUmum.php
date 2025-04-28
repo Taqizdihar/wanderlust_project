@@ -10,13 +10,13 @@
 <body>
     <div class="main">
         <div class="logo">
-            <h2>Wander all around with</h2>
+            <h2>Wander everywhere with</h2><img src="Photos-CSSumum/Wanderlust Logo Plain.png" alt="Wanderlust Logo">
         </div>
         <div class="buttons-container">
-            <h3>Join us now</h3>
+            <h3>Find the wonders!</h3>
             <div class="buttons">
-                <a href="login.php" id="login">Log-In</a>
-                <a href="signin" id="signin">Sign-In</a>
+                <a href="indeks.php?page=login" id="login">Log-In</a>
+                <a href="indeks.php?page=signin" id="signin">Sign-In</a>
             </div>
         </div>
     </div>
