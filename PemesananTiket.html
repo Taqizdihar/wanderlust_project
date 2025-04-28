@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pemesanan Tiket</title>
+    <link rel="stylesheet" href="pemetiket.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
+</head>
+<body>
+    <!-- Navbar/header -->
+    <header>
+        <div class="header-content">
+          <div class="header-logo">
+            <img src="Images/Wanderlust Logo Circle.png" height="50" width="50" alt="Wanderlust Logo">
+            <a href="Home.html">Wanderlust</a>
+          </div>
+          <nav class="navbar">
+            <ul>
+              <li><a href="Login.html">Login</a></li>
+              <li><a href="Promo.html">Promo</a></li>
+              <li><a href="PemesananTiket.html">Tiket</a></li>
+              <li><a href="Tips.html">Tips</a></li>
+              <li><a href="ContactUs.html">Kontak Kami</a></li>
+              <li><a href="Agenda.html">Agenda</a></li>
+              <li><a href="Profil.html"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <!-- Navbar/header -->
+      <div class="search-container">
+        <div class="tabs">
+        </div>
+        <div class="search-box">
+          <input type="text" placeholder="Ketik kota tujuan atau nama properti">
+          <div class="date-picker">
+            <input type="date" value="2025-01-18">
+            <input type="date" value="2025-01-19">
+          </div>
+          <div class="guests">
+            <select>
+              <option value="2-dewasa">2 Dewasa, 1 anak anak</option>
+            </select>
+          </div>
+          <button class="btn-add-flight">+ Tambah Tiket</button>
+          <button class="btn-search">CARI</button>
+        </div>
+        <div class="rekomendasi-container">
+            <h2>Rekomendasi rumah liburan untuk Anda</h2>
+            <div class="tabs">
+                <span class="active">Jakarta</span>
+                <span>Bandung</span>
+                <span>Yogyakarta</span>
+                <span>Surabaya</span>
+                <span>Bali</span>
+            </div>
+            <div class="rekomendasi-cards">
+                <div class="rekomendasi-card">
+                    <img src="Images/Juanda Jakarta.webp" alt="Bobopod Juanda">
+                    <p>Bobopod Juanda, Jakarta</p>
+                    <span class="rating">9.1</span>
+                </div>
+                <div class="rekomendasi-card">
+                    <img src="Images/Tanah Abang.jpg" alt="Bobopod Tanah Abang">
+                    <p>Bobopod Tanah Abang, Jakarta</p>
+                    <span class="rating">9.1</span>
+                </div>
+                <div class="rekomendasi-card">
+                    <img src="Images/Andara Home.jpg" alt="Andara Home Setiabudi">
+                    <p>Andara Home Setiabudi</p>
+                    <span class="rating">9.0</span>
+                </div>
+                <div class="rekomendasi-card">
+                    <img src="Images/Apartemen.jpeg" alt="Apartemen 50m2">
+                    <p>Apartemen 50 m² dengan 1 kamar tidur</p>
+                    <span class="rating">8.7</span>
+                </div>
+            </div>
+            <a href="#" class="lihat-lainnya">Lihat properti (Jakarta) lainnya</a>
+        </div>
+        <div class="container">
+            <h1>Temukan Liburan Terbaik Kamu</h1>
+            <div class="grid">
+                <div class="card" style="background-image: url('paket.jpeg');">
+                    <div class="overlay">
+                        <h2>PAKET WISATA JOGJA</h2>
+                        <button>Detail</button>
+                    </div>
+                </div>
+                <div class="card" style="background-image: url('paket\ solo.jpeg');">
+                    <div class="overlay">
+                        <h2>PAKET WISATA SOLO</h2>
+                        <button>Detail</button>
+                    </div>
+                </div>
+                <div class="card" style="background-image: url('paket\ semarang.jpeg');">
+                    <div class="overlay">
+                        <h2>PAKET WISATA SEMARANG</h2>
+                        <button>Detail</button>
+                    </div>
+                </div>
+                <div class="card" style="background-image: url('paket\ dieng.jpeg');">
+                    <div class="overlay">
+                        <h2>PAKET WISATA DIENG</h2>
+                        <button>Detail</button>
+                    </div>
+                </div>
+                <div class="card" style="background-image: url('paket\ malang.jpeg');">
+                    <div class="overlay">
+                        <h2>PAKET WISATA MALANG</h2>
+                        <button>Detail</button>
+                    </div>
+                </div>
+                <div class="card" style="background-image: url('bali.jpeg');">
+                    <div class="overlay">
+                        <h2>PAKET WISATA BALI</h2>
+                        <button>Detail</button>
+                    </div>
+                </div>
+                <div class="card" style="background-image: url('paket\ lombok.jpeg');">
+                    <div class="overlay">
+                        <h2>PAKET WISATA LOMBOK</h2>
+                        <button>Detail</button>
+                    </div>
+                </div>
+                <div class="card" style="background-image: url('labuan\ bajo.jpeg');">
+                    <div class="overlay">
+                        <h2>PAKET WISATA LABUAN BAJO</h2>
+                        <button>Detail</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="column">
+            <h2>Kota Destinasi</h2>
+            <h3>Indonesia</h3>
+            <ul>
+                <li>Hotel  Yogyakarta</li>
+                <li>Hotel  Bandung</li>
+                <li>Hotel  Bali</li>
+                <li>Hotel  Semarang</li>
+                <li>Hotel  Solo</li>
+                <li>Hotel  Surabaya</li>
+                <li>Hotel  Medan</li>
+                <li>Hotel  Jakarta</li>
+                <li>Hotel  Jakarta</li>
+                <li>Hotel  Palembang</li>
+                <li>Hotel  Raja Ampat</li>
+                <li>Hotel  Manado</li>
+                <li>Hotel  Semarang</li>
+                <li>Hotel Lombok</li>
+                <li>Hotel  Padang</li>
+                <li>Hotel  Malang</li>
+                <li>Hotel  Bogor</li>
+            
+                
+            </ul>
+            <!-- Add more regions here -->
+        </div>
+        
+        <div class="column">
+            <h2>Kota & Wilayah</h2>
+            <h3>Indonesia</h3>
+            <ul>
+                <li>Yogyakarta</li>
+                <li>Bandung</li>
+                <li>Bali</li>
+                <li>Semarang</li>
+                <li>Solo</li>
+                <li>Surabaya</li>
+                <li>Medan</li>
+                <li>Jakarta</li>
+                <li>Palembang</li>
+                <li>Raja Ampat</li>
+                <li>Manado</li>
+                <li>Semarang</li>
+                <li>Lombok</li>
+                <li>Padang</li>
+                <li>Malang</li>
+                <li>Bogor</li>
+    
+            <!-- Add more regions here -->
+        </div>
+        <div class="column">
+            <h2>Panduan Destinasi</h2>
+            <h3>Asia</h3>
+            <ul>
+                <li>Panduan Yogyakarta</li>
+                <li>Panduan Bandung</li>
+                <li>Panduan Bali</li>
+                <li>Panduan Semarang</li>
+                <li>Panduan Solo</li>
+                <li>Panduan Surabaya</li>
+                <li>Panduan Medan</li>
+                <li>Panduan Jakarta</li>
+                <li>Panduan Jakarta</li>
+                <li>Panduan Palembang</li>
+                <li>PanduanRaja Ampat</li>
+                <li>Panduan Manado</li>
+                <li>Panduan Semarang</li>
+                <li>Panduan Lombok</li>
+                <li>Panduan Padang</li>
+                <li>Panduan Malang</li>
+                <li>Panduan Bogor</li>
+                <!-- Add more items here -->
+            </ul>
+            <!-- Add more regions here -->
+        </div>
+
+        <div class="column">
+            <h2>Agoda Homes</h2>
+            <h3>Apartemen di Asia</h3>
+            <ul>
+    
+                <li>Apartemen  Yogyakarta</li>
+                <li>Apartemen  Bandung</li>
+                <li>Apartemen  Bali</li>
+                <li>Apartemen  Semarang</li>
+                <li>Apartemen  Solo</li>
+                <li>Apartemen  Surabaya</li>
+                <li>Apartemen  Medan</li>
+                <li>Apartemen  Jakarta</li>
+                <li>Apartemen  Jakarta</li>
+                <li>Apartemen  Palembang</li>
+                <li>Apartemen  Raja Ampat</li>
+                <li>Apartemen  Manado</li>
+                <li>Apartemen  Semarang</li>
+                <li>Apartemen  Lombok</li>
+                <li>Apartemen  Padang</li>
+                <li>Apartemen  Malang</li>
+                <li>Apartemen  Bogor</li>
+            
+                <!-- Add more items here -->
+            </ul>
+            <!-- Add more regions here -->
+        </div>
+    </div>
+   <!--Footer-->
+   <footer>
+    <div class="footer-container">
+      <div class="footer-logo">
+        <img src="Images/Wanderlust Logo Circle.png" height="70" width="70" alt="Wanderlust Logo">
+        <div>
+          <h5>
+            Wanderlust
+            <span style="display: block; font: 15px 'Concert One', sans-serif;">Wander for Wonders</span>
+          </h5>
+        </div>
+      </div>
+      <div class="footbar">
+        <table>
+          <tr>
+            <td><a href="AboutUs.html">Tentang Kami</a></td>
+            <td><a href="Komunitas.html">Komunitas</a></td>
+            <td><a href="Profil.html">Profil</a></td>
+          </tr>
+          <tr>
+            <td><a href="ContactUs.html">Kontak Kami</a></td>
+            <td><a href="Tips.html">Tips & Trick</a></td>
+            <td><a href="Agenda.html">Agenda</a></td>
+          </tr>
+          <tr>
+            <td><a href="FAQs.html">FAQs</a></td>
+            <td><a href="Promo.html">Promo</a></td>
+            <td><a href="Home.html">Home</a></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <p>Copyright © 2024 Wanderlust. All rights reserved</p>
+  </footer>
+  <!--Footer-->
+</body>
+</body>
+</html>

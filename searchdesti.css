@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    overscroll-behavior: none;
+}
+
+header {
+    background-color: #2877f7;
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
+
+.header2 {
+    margin-top: 50px;
+    color: #007bff;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 5px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo a {
+    text-decoration: none;
+    color: white;
+    font: bold 30px "MuseoModerno", sans-serif;
+    padding-left: 10px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    padding: 5px;
+    margin: 0;
+}
+
+.navbar ul li a:hover {
+    color: rgb(0, 217, 255);
+}
+
+.navbar ul li a {
+    padding: 0px 20px;
+    text-decoration: none;
+    color: white;
+    font: 20px Arial, sans-serif;
+}
+
+.navbar ul li a img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+#home-content {
+    width: auto;
+    height: auto;
+}
+
+.header p {
+    margin-bottom: 20px;
+}
+.search-bar {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    border-radius: 20px;
+}
+
+.search-bar input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+.search-bar button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background-color: #007bff;
+}
+
+.activities {
+    padding: 20px;
+}
+
+.activities h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px #007bff(0, 0, 0, 0.1);
+    width: calc(20% - 20px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.card .card-body {
+    padding: 15px;
+}
+
+.card .card-body h3 {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.card .card-body .rating {
+    color: #f4b400;
+    margin-bottom: 10px;
+}
+
+.card .card-body .discount {
+    color:  #007bff;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+}
+
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 90%;
+    }
+}
+/* top destinasi */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    
+    
+}
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    text-align: center;
+   
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 250px;
+    text-align: center;
+}
+
+.card-info {
+    padding: 20px;
+}
+
+.card-info h2 {
+    font-size: 18px;
+    margin: 0;
+    color: #333;
+}
+
+.card-info p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #666;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+/* berpetualang */
+
+.column {
+    flex: 1;
+    padding: 20px;
+}
+
+h2, h3 {
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+    
+/* Footer */
+footer {
+    background-color: #2877f7;
+    text-align: center;
+    color: white;
+    font: 15px Arial, sans-serif;
+    padding: 10px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.footer-logo h5 {
+    text-align: start;
+    font: bold 20px "MuseoModerno", sans-serif;
+}
+
+.footbar {
+    margin-top: 20px;
+}
+
+.footbar table {
+    width: 400px;
+    height: 90px;
+}
+
+.footbar table tr td a {
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font: 15px Arial, sans-serif;
+}
+
+.footbar table tr td a:hover {
+    color: rgb(0, 217, 255);
+}
+/* Footer */
