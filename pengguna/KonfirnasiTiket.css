@@ -1,0 +1,192 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #2266d3;
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 5px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo a {
+    text-decoration: none;
+    color: white;
+    font: bold 20px "MuseoModerno", sans-serif;
+    padding-left: 10px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    padding: 5px;
+    margin: 0;
+}
+
+.navbar ul li a:hover {
+    color: #2266d3(0, 217, 255);
+}
+
+.navbar ul li a {
+    padding: 0px 20px;
+    text-decoration: none;
+    color: white;
+    font: bold 20px Arial, sans-serif;
+}
+
+.navbar ul li a img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    border: 3px solid white;
+}
+
+.confirmation-container {
+    width: 60%;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.confirmation-container h1 {
+    font: bold 30px "Concert One", sans-serif;
+    color: #2266d3;
+}
+
+.ticket-details {
+    text-align: left;
+    margin: 20px auto;
+}
+
+.ticket-details h2 {
+    font: bold 24px Arial, sans-serif;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.ticket-details p {
+    font: 16px Arial, sans-serif;
+    margin: 5px 0;
+}
+
+.gallery {
+    margin-top: 20px;
+}
+
+.gallery h2 {
+    font: bold 24px Arial, sans-serif;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.gallery ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    justify-items: center;
+}
+
+.gallery-item {
+    width: 150px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.gallery p {
+    margin-top: 5px;
+    font: 14px Arial, sans-serif;
+    color: #555;
+    text-align: center;
+}
+
+.confirmation-buttons {
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font: bold 16px Arial, sans-serif;
+}
+
+.confirm-button {
+    background-color: #2266d3;
+    color: white;
+}
+
+.confirm-button:hover {
+    background-color: #0056b3;
+}
+
+.cancel-button {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.cancel-button:hover {
+    background-color: #cc0000;
+}
+
+footer {
+    background-color: #2266d3;
+    text-align: center;
+    color: white;
+    font: 15px Arial, sans-serif;
+    padding: 10px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.footer-logo h5 {
+    text-align: start;
+    font: bold 20px "MuseoModerno", sans-serif;
+}
+
+.footbar ul, .footbar ul li a {
+    display: flex;
+    list-style: none;
+    padding: 0px 20px;
+    text-decoration: none;
+    color: white;
+}

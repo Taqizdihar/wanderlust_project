@@ -1,0 +1,1045 @@
+/* Header & Body */
+body {
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+}
+
+header {
+    background-color: #2877f7;
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 5px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo a {
+    text-decoration: none;
+    color: white;
+    font: bold 30px "MuseoModerno", sans-serif;
+    padding-left: 10px;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    padding: 5px;
+    margin: 0;
+}
+
+.navbar ul li a:hover {
+    color: rgb(0, 217, 255);
+}
+
+.navbar ul li a {
+    padding: 0px 20px;
+    text-decoration: none;
+    color: white;
+    font: 20px Arial, sans-serif;
+}
+
+.navbar ul li a img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+}
+
+#home-content {
+    width: auto;
+    height: auto;
+}
+/* Header & Body */
+
+/* 1. Home - Taqi */
+#home-banner {
+    padding: 1px;
+    background-image: url(Images/Home\ Background.png);
+    height: 250px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: white;
+    font: 30px "MuseoModerno", sans-serif;
+    text-shadow: 2px 2px 2px #696866;
+}
+
+.search-button {
+    width: 100%;
+    max-width: 500px;
+    height: 40px;
+    margin: auto;
+    margin-top: 50px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    border-radius: 60px;
+    padding: 10px 20px;
+    opacity: 75%;
+}
+
+.search-button input {
+    background-color: transparent;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 24px 20px;
+    font: 700 20px Arial, sans-serif;
+    color: #2877f7;
+}
+
+::placeholder {
+    color: white;
+}
+
+.search-button i {
+    width: 20px;
+    color: white;
+}
+
+.search-button button {
+    border: 0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background: #2877f7;
+    cursor: pointer;
+}
+
+.home-heading {
+    display: flex;
+    flex-wrap: wrap;
+    font: Bold 30px Arial, sans-serif;
+    margin: 50px 60px 10px 120px;
+    color: #2266d3;
+}
+
+.destination {
+    font: 20px Arial, sans-serif;
+    color: #2877f7;
+    padding: 8px 20px 2px;
+    text-decoration: none;
+}
+
+.destination i {
+    visibility: hidden;
+    cursor: pointer;
+    padding: 2px;
+}
+
+.destination:hover i {
+    padding-left: 6px;
+    visibility: visible;
+}
+
+.card-gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    color: #2266d3;
+}
+
+.cards-destination {
+    width: 300px;
+    height: 380px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px;
+    margin-bottom: 20px;
+    border: black 10px;
+}
+
+.cards-event {
+    width: 300px;
+    height: 420px;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px;
+    margin-bottom: 20px;
+    border: black 10px;
+}
+
+.card-images {
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 300px;
+    height: 200px;
+}
+
+.card-images h4 {
+    margin: 0;
+    padding: 15px;
+    font: bold 20px Arial, sans-serif;
+    color: white;
+    text-shadow: 2px 2px 2px #2b2b2b;
+}
+
+.destination-content {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    height: 40%;
+}
+
+.event-content {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 15px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    height: 45%;
+}
+
+.stars{
+    display: flex;
+    padding-top: 10px;
+    font-size: 12px;
+}
+
+.stars i {
+    padding-left: 2px;
+    font-size: 15px;
+}
+
+.stars p {
+    margin: 0;
+    padding-left: 5px;
+    font: bold 12px Arial, sans-serif;
+}
+
+.home-icons {
+    margin-top: auto;
+    display: flex;
+}
+
+.home-icons i {
+    font-size: 25px;
+    padding-left: 5px;
+}
+
+.home-icons p {
+    margin-top: 5px;
+    padding-left: 10px;
+    font: 700 18px Arial, sans-serif;
+}
+
+.destination-content h3, .event-content h3 {
+    font: 750 20px Arial, sans-serif;
+    margin: 0;
+}
+
+.event-description {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0px 5px;
+    margin: 0;
+    text-align: left;
+}
+
+.event-description p {
+    margin: 5px;
+}
+
+.event-description p span {
+    margin-left: 10px;
+}
+
+.card-button {
+    margin-top: auto;
+    text-align: center;
+    padding: 8px 16px;
+    background-color: #2877f7;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+}
+/* 1. Home - Taqi */
+
+/* 2. Profile - Taqi */
+.profile-content {
+    margin-top: 0;
+    background-image: url(Images/Profile\ Banner.jpg);
+    background-size: 100% 250px;
+    background-repeat: no-repeat;
+    height: 800px;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+}
+
+.profile-photo img {
+    margin: 150px 0px 0px 150px;
+    width: 300px;
+    border-radius: 50%;
+    border: 10px solid white;
+}
+
+.profile-photo i {
+    position: absolute;
+    left: 350px;
+    top: 460px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 50%;
+    border: 5px solid #2266d3;
+    font-size: 35px;
+    color: #2266d3;
+}
+
+.profile-photo i:hover {
+    background-color: #2266d3;
+    color: white;
+}
+
+.edit-banner {
+    position: absolute;
+    right: 30px;
+    top: 280px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 50%;
+    border: 3px solid #2266d3;
+    font-size: 15px;
+    color: #2266d3;
+}
+
+.edit-banner:hover {
+    background-color: #2266d3;
+    color: white;
+}
+
+.profile-info {
+    padding: 250px 0px 500px 50px;
+    height: 100px;
+}
+
+.profile-info h2 {
+    font: 700 40px Arial, sans-serif;
+    color: #2266d3;
+}
+
+.profile-data {
+    display: flex;
+    font: 25px Arial, sans-serif;
+    color: #2266d3;
+    margin-top: 25px;
+}
+
+.profile-data p {
+    margin: 0;
+    padding-left: 15px;
+}
+
+.profile-data a {
+    text-decoration: none;
+    margin-top: 10px;
+    margin-right: 20px;
+    padding: 5px 15px;
+    background-color: white;
+    border: 3px solid #2266d3;
+    color: #2266d3;
+    border-radius: 10px;
+}
+
+.profile-data a:hover {
+    background-color: #2266d3;
+    border: 3px solid #2266d3;
+    color: white;
+}
+
+.profile-gallery {
+    padding: 250px 0px 500px 180px;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-items: center;
+}
+
+.profile-gallery h3 {
+    grid-column: 1 / 3;
+    font: 700 30px Arial, sans-serif;
+    color: #2266d3;
+    margin: 30px 0px 5px 0px;
+}
+
+.profile-images {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.profile-gallery a {
+    grid-column: 1 / 3;
+    font: 20px Arial, sans-serif;
+    text-decoration: none;
+    color: #2266d3;
+    justify-self: end;
+    margin: 15px 0px 5px 0px;
+}
+/* 2. Profil - Taqi */
+
+/* 3. Agenda - Taqi */
+.agenda-menu {
+    text-align: center;
+}
+
+.agenda-menu h2 {
+    font: 700 40px Arial, sans-serif;
+    color: #2266d3;
+}
+
+.agenda-buttons {
+    height: auto;
+    text-align: left;
+    margin-left: 50px;
+    display: flex;
+    justify-items: center;
+}
+
+.agenda-buttons input {
+    width: 300px;
+    height: auto;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    outline: none;
+    color: #2266d3;
+    font: 18px Arial, sans-serif;
+}
+
+.agenda-buttons i {
+    position: relative;
+    right: 30px;
+    color: #2266d3;
+}
+
+.agenda-buttons button {
+    height: auto;
+    width: 120px;
+    justify-items: center;
+    padding: 10px;
+    margin: 20px 10px 20px;
+    border: 2px solid #2266d3;
+    background-color: #2877f7;
+    font: 20px Arial, sans-serif;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.agenda-buttons button:hover {
+    border: 2px solid #2266d3;
+    background-color: white;
+    color: #2266d3;
+}
+
+.agenda-container {
+    display: block;
+    flex-wrap: wrap;
+    margin: 10px 50px 60px;
+}
+
+.agenda {
+    display: flex;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    justify-content: space-between;
+}
+
+.agenda i {
+    margin: 20px 30px 0px 0px;
+    font-size: 25px;
+    color: #2266d3;
+    cursor: pointer;
+}
+
+.agenda-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.agenda-image {
+    width: 250px;
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.agenda-data {
+    padding: 20px 30px 10px;
+    margin: 0;
+    height: auto;
+    color: #2266d3;
+}
+
+.agenda-data h3 {
+    font: bold 25px Arial, sans-serif;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.agenda-data p {
+    font: 20px Arial, sans-serif;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+#note {
+    font: italic 15px Arial, sans-serif;
+    margin-top: 80px;
+}
+/* 3. Agenda - Taqi */
+
+/* 4. Contact Us - Taqi */
+.form-container {
+    color: #2266d3;
+    display: flex;
+    width: 100%
+}
+
+.form-banner {
+    width: 500px;
+    height: 700px;
+    background-image: url(Images/Call\ Center.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 95% 50%;
+}
+
+.the-form {
+    width: 550px;
+    margin-left: 150px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.the-form h2 {
+    font: 700 50px Arial, sans-serif;
+    margin-bottom: 0px;
+}
+
+.the-form p span {
+    font: 700 25px "MuseoModerno", sans-serif;
+    margin-bottom: 0px;
+}
+
+.the-form p {
+    font: 500 25px Arial, sans-serif;
+    margin: 15px 0px 50px;
+    text-align: justify;
+}
+
+.form-name {
+    width: 100%;
+}
+
+.form-name label {
+    display: block;
+    font: 700 15px Arial, sans-serif;
+}
+
+.form-content input {
+    border: none;
+    border-bottom: 2px solid #2266d3;
+    height: 25px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+    font-size: 15px;
+    color: #2266d3;
+    outline: none;
+}
+
+.form-content input::placeholder {
+    color: #7facf3;
+    opacity: 90%;
+}
+
+.form-contacts {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-contacts label {
+    font: 700 15px Arial, sans-serif;
+}
+
+.form-email {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.form-phone {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.form-select {
+    margin: 30px 0px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nationality {
+    width: 45%;
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    justify-items: center;
+}
+
+.nationality label, .reason label {
+    margin: auto 0px;
+    justify-items: center;
+    font: 700 15px Arial, sans-serif;
+}
+
+.nationality select {
+    float: right;
+    height: 30px;
+    width: 130px;
+    border: 2px solid #2266d3;
+    border-radius: 5px;
+    background-color: white;
+    color: #2266d3;
+    font: 15px Arial, sans-serif;
+    text-align: center;
+    outline: none;
+}
+
+.nationality select:hover {
+    background-color: #2266d3;
+    border: 2px solid #2266d3;
+    color: white;
+}
+
+.reason {
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.reason select {
+    float: right;
+    height: 30px;
+    width: 130px;
+    border: 2px solid #2266d3;
+    border-radius: 5px;
+    background-color: white;
+    color: #2266d3;
+    font: 15px Arial, sans-serif;
+    text-align: center;
+    outline: none;
+}
+
+.reason select:hover {
+    background-color: #2266d3;
+    border: 2px solid #2266d3;
+    color: white;
+}
+
+.lower-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.lower-form label {
+    font: 700 15px Arial, sans-serif;
+    margin-bottom: 10px;
+}
+
+.lower-form textarea {
+    width: auto;
+    height: 100px;
+    margin-bottom: 20px;
+    border: 1px solid #2266d3;
+    border-radius: 5px;
+    padding: 5px;
+    color: #2266d3;
+    font: 15px Arial, sans-serif;
+    text-align: justify;
+    outline: none;
+    text-decoration: none;
+    resize: none;
+}
+
+.lower-form input {
+    height: 40px;
+    border: 2px solid #2266d3;
+    background-color: white;
+    border-radius: 5px;
+    color: #2266d3;
+}
+
+.lower-form input:hover {
+    border: 2px solid #2266d3;
+    background-color: #2266d3;
+    color: white;
+}
+/* 4. Contact Us - Taqi */
+
+/* 5. Tips & Tricks - Taqi */
+.TT-heading {
+    margin: 20px 0px 40px;
+    text-align: center;
+}
+
+.TT-heading h2 {
+    font: 700 60px Arial, sans-serif;
+    color: #2266d3;
+    margin-bottom: 10px;
+}
+
+.TT-heading h3 {
+    font: 700 30px Arial, sans-serif;
+    color: #2266d3;
+}
+
+.TT-heading h3 span {
+    font: 700 30px "MuseoModerno", sans-serif;
+}
+
+.tip-cards-gallery {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.tip-card {
+    width: 300px;
+    height: auto;
+    margin: 0px 10px;
+    padding: 20px;
+    background-repeat: no-repeat;
+    background-size: 100% 270px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.tip-card:hover {
+    transform: translateY(-10px);
+}
+
+.tip-card details summary {
+    margin: 180px 0px 0px;
+    width: 250px;
+    height: 20px;
+    justify-self: center;
+    text-align: center;
+    list-style: none;
+    cursor: pointer;
+    background-color: white;
+    border: 3px solid #2266d3;
+    border-radius: 5px;
+    padding: 10px;
+    font: 700 20px Arial, sans-serif;
+    color: #2266d3
+}
+
+.tip-card details summary:hover {
+    background-color: #2266d3;
+    color: white;
+    border: 3px solid #2266d3;
+}
+
+.tip-opening {
+    font: 700 20px Arial, sans-serif;
+    margin-top: 50px;
+    margin-bottom: 0px;
+    color: #2266d3;
+}
+
+.tip-card details h5 {
+    font: 700 20px Arial, sans-serif;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    color: #2266d3;
+}
+
+.tip-card details p {
+    margin-top: 10px;
+    margin-left: 22px;
+    line-height: 1.4;
+    color: #2266d3;
+    font-family:  Arial, sans-serif;
+    font-size: 16px;
+    text-align: justify;
+}
+
+.tip-card details p span {
+    line-height: 1.4;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: "MuseoModerno", sans-serif;
+}
+
+/* 5. Tips & Tricks - Taqi */
+
+/* 6. Post - Taqi */
+.post-heading {
+    margin: 40px 0px 20px;
+    text-align: center;
+    font: 700 20px Arial, sans-serif;
+    color: #2266d3;
+}
+
+.post-heading h2 {
+    font: 700 40px Arial, sans-serif;
+}
+
+.post-heading a {
+    position: absolute;
+    top: 120px;
+    left: 80px;
+    text-decoration: none;
+    background-color: white;
+    border: 3px solid #2266d3;
+    color: #2266d3;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.post-heading a:hover {
+    background-color: #2266d3;
+    border: 3px solid #2266d3;
+    color: white;
+}
+
+.post-container {
+    height: 500px;
+    width: 90%;
+    margin: 40px 30px 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    display: flex;
+    justify-self: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.post-image {
+    height: 100%;
+    width: 35%;
+    background-image: url(Images/Post.jpg);
+    background-size: cover;
+    background-position: right;
+    background-repeat: no-repeat;
+}
+
+
+.post-content {
+    height: 100%;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.post-content h3 {
+    margin-top: 40px;
+    font: 20px Arial, sans-serif;
+    color: #2266d3;
+}
+
+
+.post-content img {
+    height: 60px;
+    width: 60px;
+    margin-top: 20px;
+    margin-right: 15px;
+    border-radius: 50%;
+}
+
+.post-theme {
+    display: flex;
+    height: 80px;
+    width: 100%;
+}
+
+.post-theme i {
+    position: absolute;
+    right: 100px;
+    top: 230px;
+    font-size: 40px;
+    color: #2266d3;
+}
+
+.post-theme h3 {
+    font: 25px Arial, sans-serif;
+}
+
+.post-text {
+    display: block;
+}
+
+.post-text h2 {
+    font: 700 30px Arial, sans-serif;
+    color: #2266d3;
+}
+
+.post-text h2 i {
+    font-size: 25px;
+    color: #2266d3;
+    margin: 0;
+    margin-left: 10px;
+}
+
+.post-text textarea::placeholder {
+    color: #2266d3;
+    opacity: 80%;
+}
+
+.post-text textarea {
+    width: 70%;
+    height: 100px;
+    margin-bottom: 10px;
+    border: 1px solid #2266d3;
+    border-radius: 5px;
+    padding: 5px;
+    color: #2266d3;
+    font: 15px Arial, sans-serif;
+    text-align: justify;
+    outline: none;
+    text-decoration: none;
+    resize: none;
+}
+
+.post-location {
+    display: flex;
+    flex-direction: column;
+    color: #2266d3;
+    font: 20px Arial, sans-serif;
+}
+
+.post-location input {
+    width: 200px;
+    height: 30px;
+    margin-top: 5px;
+    border: 1px solid #2266d3;
+    padding: 2px 5px;
+    border-radius: 3px;
+    outline: none;
+    color: #2266d3;
+}
+
+.post-location input::placeholder {
+    color: #2266d3;
+    opacity: 80%;
+}
+
+.the-tags {
+    margin-top: 10px;
+    display: flex;
+    width: 600px;
+    font: 14px Arial, sans-serif;
+    color: #2266d3;
+    overflow: scroll;
+}
+
+.the-tags::-webkit-scrollbar {
+    display: none;
+}
+
+.the-tags i {
+    margin: auto 15px auto 0px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.the-tags p {
+    margin-right: 10px;
+    border: 1px solid #2266d3;
+    border-radius: 5px;
+    padding: 5px;
+}
+/* 6. Post - Taqi */
+
+/* Footer */
+footer {
+    background-color: #2877f7;
+    text-align: center;
+    color: white;
+    font: 15px Arial, sans-serif;
+    padding: 10px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.footer-logo h5 {
+    text-align: start;
+    font: bold 20px "MuseoModerno", sans-serif;
+}
+
+.footbar {
+    margin-top: 20px;
+}
+
+.footbar table {
+    width: 400px;
+    height: 90px;
+}
+
+.footbar table tr td a {
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font: 15px Arial, sans-serif;
+}
+
+.footbar table tr td a:hover {
+    color: rgb(0, 217, 255);
+}
+/* Footer */

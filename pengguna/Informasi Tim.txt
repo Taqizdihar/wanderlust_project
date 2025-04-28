@@ -1,0 +1,28 @@
+Kelompok 3
+Anggota beserta tugas (pembagian halaman):
+
+1. Muhammad Taqi Izdihar
+- Home
+- Profil
+- Agenda
+- Posting
+- Tips & Tricks
+- Contact Us
+(CSS: Wanderlust)
+
+2. Riska Dea Bakri
+- About us
+- Pencarian Destinasi
+- City Information (Informasi Kota)
+- Login
+- Promo
+- Pemesanan Tiket
+(CSS: Wanderlust2)
+
+3. Faiz Syafiq Nabily
+- FAQs
+- Komunitas
+- Pencarian Event
+- Event Information (Informasi Event)
+- Favorit
+- Konfirmasi Tiket
