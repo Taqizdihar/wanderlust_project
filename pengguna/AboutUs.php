@@ -1,3 +1,6 @@
+<?php
+// aboutus.php
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,32 +8,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tentang Kami</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
-    <link rel="stylesheet" href="about us.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert+One">
+    <link rel="stylesheet" href="aboutus.css">
 </head>
 
 <body>
     <!-- Navbar/header -->
-    <header>
-        <div class="header-content">
-          <div class="header-logo">
-            <img src="Images/Wanderlust Logo Circle.png" height="50" width="50" alt="Wanderlust Logo">
-            <a href="Home.html">Wanderlust</a>
-          </div>
-          <nav class="navbar">
-            <ul>
-              <li><a href="Login.html">Login</a></li>
-              <li><a href="Promo.html">Promo</a></li>
-              <li><a href="PemesananTiket.html">Tiket</a></li>
-              <li><a href="Tips.html">Tips</a></li>
-              <li><a href="ContactUs.html">Kontak Kami</a></li>
-              <li><a href="Agenda.html">Agenda</a></li>
-              <li><a href="Profil.html"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      <!-- Navbar/header -->
+    <?php include 'navbar.php'; ?>
+    <!-- Navbar/header -->
+
     <div class="tour-package-section">
         <div class="content">
             <h2>Paket Wisata Domestik</h2>
@@ -40,9 +26,7 @@
             </p>
         </div>
     </div>
-    </div>
-    </div>
-    </section>
+
     <div class="services-container">
         <h1>PRODUK DAN LAYANAN KAMI</h1>
         <p>Rekomendasi pilihan produk dan layanan untuk perjalanan Anda</p>
@@ -60,35 +44,31 @@
                 <div class="service-title">Paket Wisata</div>
             </div>
             <div class="service-card">
-                <img src="Images/Concert2.webp" alt="Paket Wisata">
+                <img src="Images/Concert2.webp" alt="Event">
                 <div class="service-title">Event</div>
             </div>
             <div class="service-card">
-                <img src="Images/Destination.jpeg" alt="Cruise">
+                <img src="Images/Destination.jpeg" alt="Destinasi">
                 <div class="service-title">Destinasi</div>
             </div>
             <div class="service-card">
-                <img src="Images/Calendar.jpeg" alt="Atraksi & Hiburan">
+                <img src="Images/Calendar.jpeg" alt="Agenda">
                 <div class="service-title">Agenda</div>
             </div>
-
         </div>
 
         <!-- Section: Why Choose Us -->
         <div style="margin-top: 40px;">
             <h2 style="text-align: center; margin-bottom: 20px;">Kenapa pilih Wanderlust?</h2>
             <div class="agoda-reasons">
-                <!-- Reason 1 -->
                 <div class="reason-card">
                     <h3>300.000+ aktivitas</h3>
                     <p>Pesan tur atau atraksi apa saja dari seluruh dunia</p>
                 </div>
-                <!-- Reason 2 -->
                 <div class="reason-card">
                     <h3>Cepat dan fleksibel</h3>
                     <p>Pesan beragam tiket aktivitas online tanpa ribet, dan bisa dibatalkan gratis!</p>
                 </div>
-                <!-- Reason 3 -->
                 <div class="reason-card">
                     <h3>Pengalaman Traveling Terpadu</h3>
                     <p>Aktivitas tanpa ribet dan nikmati dukungan CS berkualitas & konsisten!</p>
@@ -97,152 +77,59 @@
         </div>
 
         <div class="container">
-            <h1 class="title">Ulasan Pelanggan Menggunakan Pelayanan Wonderlust</h1>
-            <p class="subtitle">BAGUS SEKALI ⭐⭐⭐⭐⭐<br>
+            <h1 class="title">Ulasan Pelanggan Menggunakan Pelayanan Wanderlust</h1>
+            <p class="subtitle">BAGUS SEKALI ⭐⭐⭐⭐⭐</p>
             <div class="reviews">
-                <!-- Review 1 -->
-                <div class="review">
-                    <div class="review-header">
-                        <img src="Images/Faiz.jpg" alt="User">
-                        <div>
-                            <div class="name">Faiz Syafiq Nabily</div>
-                            <div class="date">2024-04-17</div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        Jalan-jalan wisata dengan Nagan Tour memang nyaman dan menyenangkan dan memikiki banyak fitur
-                        sehingga merasa nyaman👍
-                    </div>
-                    <div class="review-stars">★★★★★</div>
-                </div>
+                <?php
+                $reviews = [
+                    ["img" => "Images/Faiz.jpg", "name" => "Faiz Syafiq Nabily", "date" => "2024-04-17", "text" => "Jalan-jalan wisata dengan Nagan Tour memang nyaman dan menyenangkan dan memiliki banyak fitur sehingga merasa nyaman👍"],
+                    ["img" => "Images/person1.jpg", "name" => "Aisyah Noviani", "date" => "2024-04-14", "text" => "Kedua kali tur Jogja pakai Wanderlust sangat puas dengan pelayanan yang baik dan ramah. Respon admin yang cepat."],
+                    ["img" => "Images/person2.jpg", "name" => "Siti Amany", "date" => "2024-04-14", "text" => "Terima kasih buat mas Nopal yang on time jemput dan semua agenda bisa berjalan dengan lancar."],
+                    ["img" => "Images/person4.jpg", "name" => "Audri Melina Muthi", "date" => "2024-04-14", "text" => "Terima kasih buat mas Ido yang on time jemput dan semua agenda berjalan lancar."],
+                    ["img" => "Images/person5.jpg", "name" => "Ratri Cahyaningsih", "date" => "2024-04-14", "text" => "Mas Aldi sangat on time dan menguasai jalur alternatif."],
+                    ["img" => "Images/person6.jpg", "name" => "Mintaka Maveen", "date" => "2024-10-26", "text" => "Mas Aldi sangat on time dan semua agenda berjalan lancar."]
+                ];
 
-                <!-- Review 2 -->
-                <div class="review">
-                    <div class="review-header">
-                        <img src="Images/person1.jpg" alt="User">
-                        <div>
-                            <div class="name">Aisyah Noviani</div>
-                            <div class="date">2024-04-14</div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        Kedua kali tur jogja pakai Wonderlust sangat puas dengan pelayanan yang baik dan ramah. Respon
-                        admin yang cepat dan sangat
-                    </div>
-                    <div class="review-stars">★★★★★</div>
-                </div>
-
-                <!-- Review 3 -->
-                <div class="review">
-                    <div class="review-header">
-                        <img src="Images/person2.jpg" alt="User">
-                        <div>
-                            <div class="name">Siti Amany</div>
-                            <div class="date">2024-04-14</div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        Terima kasih. Buat mas Nopal yang on time jemput dan semua agenda bisa berjalan dengan lancar.
-                        Dan menguasai jalur alternatif...
-                    </div>
-                    <div class="review-stars">★★★★★</div>
-                </div>
-                <!-- Review 3 -->
-                <div class="review">
-                    <div class="review-header">
-                        <img src="Images/person4.jpg" alt="User">
-                        <div>
-                            <div class="name">Audri Melina Muthi</div>
-                            <div class="date">2024-04-14</div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        Terima kasih. Buat mas Ido yang on time jemput dan semua agenda bisa berjalan dengan lancar. Dan
-                        menguasai jalur alternatif dan sangat pelayanan
-                    </div>
-                    <div class="review-stars">★★★★★</div>
-                </div>
-                <!-- Review 3 -->
-                <div class="review">
-                    <div class="review-header">
-                        <img src="Images/person5.jpg" alt="User">
-                        <div>
-                            <div class="name">Ratri Cahyaningsih</div>
-                            <div class="date">2024-04-14</div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        Terima kasih. Buat mas Aldi yang on time jemput dan semua agenda bisa berjalan dengan lancar.
-                        Dan menguasai jalur alternatif...
-                    </div>
-                    <div class="review-stars">★★★★★</div>
-                </div>
-                <!-- Review 3 -->
-                <div class="review">
-                    <div class="review-header">
-                        <img src="Images/person6.jpg" alt="User">
-                        <div>
-                            <div class="name">Mintaka Maveen</div>
-                            <div class="date">2024-10-26</div>
-                        </div>
-                    </div>
-                    <div class="review-text">
-                        Terima kasih. Buat mas Aldi yang on time jemput dan semua agenda bisa berjalan dengan lancar.
-                        Dan menguasai jalur alternatif...
-                    </div>
-                    <div class="review-stars">★★★★★</div>
-                </div>
+                foreach ($reviews as $review) {
+                    echo '<div class="review">
+                            <div class="review-header">
+                                <img src="' . $review["img"] . '" alt="User">
+                                <div>
+                                    <div class="name">' . $review["name"] . '</div>
+                                    <div class="date">' . $review["date"] . '</div>
+                                </div>
+                            </div>
+                            <div class="review-text">' . $review["text"] . '</div>
+                            <div class="review-stars">★★★★★</div>
+                        </div>';
+                }
+                ?>
             </div>
         </div>
+
         <h1 class="section-title">Kepercayaan Pelanggan</h1>
-
         <div class="logos">
+            <?php
+            $logos = [
+                "Kementerian Pariwisata.png",
+                "Mandiri.png",
+                "Danamon.jpg",
+                "Telkom Indonesia.png",
+                "Pertamina.png",
+                "Daihatsu.png",
+                "Kimia Farma.png",
+                "KAI.png"
+            ];
+            foreach ($logos as $logo) {
+                echo '<img src="Images/' . $logo . '" alt="' . pathinfo($logo, PATHINFO_FILENAME) . '">';
+            }
+            ?>
+        </div>
 
-            <img src="Images/Kementerian Pariwisata.png" alt="K">
-            <img src="Images/Mandiri.png" alt="Mandiri">
-            <img src="Images/Danamon.jpg" alt="Danamon">
-            <img src="Images/Telkom Indonesia.png" alt="Telkom">
-            <img src="Images/Pertamina.png" alt="Pertamina">
-            <img src="Images/Daihatsu.png" alt="Daihatsu">
-            <img src="Images/Kimia Farma.png" alt="Kimia Farma">
-            <img src="Images/KAI.png" alt="KAI">
-            
-        </div>
-        <!--Footer-->
-    <footer>
-        <div class="footer-container">
-          <div class="footer-logo">
-            <img src="Images/Wanderlust Logo Circle.png" height="70" width="70" alt="Wanderlust Logo">
-            <div>
-              <h5>
-                Wanderlust
-                <span style="display: block; font: 15px 'Concert One', sans-serif;">Wander for Wonders</span>
-              </h5>
-            </div>
-          </div>
-          <div class="footbar">
-            <table>
-              <tr>
-                <td><a href="AboutUs.html">Tentang Kami</a></td>
-                <td><a href="Komunitas.html">Komunitas</a></td>
-                <td><a href="Profil.html">Profil</a></td>
-              </tr>
-              <tr>
-                <td><a href="ContactUs.html">Kontak Kami</a></td>
-                <td><a href="Tips.html">Tips & Trick</a></td>
-                <td><a href="Agenda.html">Agenda</a></td>
-              </tr>
-              <tr>
-                <td><a href="FAQs.html">FAQs</a></td>
-                <td><a href="Promo.html">Promo</a></td>
-                <td><a href="Home.html">Home</a></td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <p>Copyright © 2024 Wanderlust. All rights reserved</p>
-      </footer>
-      <!--Footer-->
+        <!-- Footer -->
+        <?php include 'footer.php'; ?>
+        <!-- Footer -->
+
 </body>
 
 </html>
