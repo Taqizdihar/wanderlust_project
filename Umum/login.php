@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Log in</title>
     <link rel="stylesheet" href="Umum/cssUmum/login.css?v=1.0.4">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
@@ -26,7 +26,7 @@
             </div>
             <input type="submit" value="Log In" name="loginBtn" id="submitButton">
             <div class="login-footer">
-                <p>Don't have any account? <a href="">Sign In</a></p>
+                <p>Don't have any account? <a href="index.php?page=signIn">Sign In</a></p>
                 <br>
                 <a href="indeks.php?page=homeUmum" id="backButton">Back to the start</a>
             </div>
