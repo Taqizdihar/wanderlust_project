@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="login-container">
-        <h3>Bangsat</h3>
+        <h3>Capek</h3>
     </div>
     <div class="footer">
         <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
