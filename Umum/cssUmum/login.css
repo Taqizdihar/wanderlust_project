@@ -4,21 +4,32 @@ body {
     height: auto;
     display: grid;
     justify-content: center;
-    align-content: center;
+    text-align: center;
+}
+
+body h2 {
+    margin-top: 30px;
+    font: bold 30px "MuseoModerno";
+    color: #1a54b3;
+    text-align: center;
 }
 
 .login-container {
+    margin-top: 20px;
     height: 550px;
     width: 450px;
     display: grid;
+    justify-self: center;
     background-color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 20px;
 }
 
 .login-container h3 {
-    font: 20px "Verdana", "sans-serif";
-    color: brown;
+    margin-top: 20px;
+    font: bold 25 px "MuseoModerno", "sans-serif";
+    color: #1a54b3;
+    text-align: center;
 }
 
 .footer {

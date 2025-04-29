@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
+    <h2>We've been waiting for your comeback!</h2>
     <div class="login-container">
-        <h3>Capek</h3>
+        <h3>Log In</h3>
     </div>
     <div class="footer">
         <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
