@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Wanderlust</title>
-    <link rel="stylesheet" href="Photos-CSSumum/dashboardUmum.css">
+    <link rel="stylesheet" href="cssUmum/homeUmum.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
     <div class="main">
         <div class="logo">
-            <h2>Wander everywhere with</h2><img src="Photos-CSSumum/Wanderlust Logo Plain.png" alt="Wanderlust Logo">
+            <h2>Wander everywhere with</h2><img src="photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo">
         </div>
         <div class="buttons-container">
             <h3>Find the wonders!</h3>

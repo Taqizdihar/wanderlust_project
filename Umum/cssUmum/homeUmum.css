@@ -15,10 +15,10 @@ body {
 }
 
 @keyframes body {
-    0%   {background-image: url("1.jpg"); background-size: 1600px 800px; background-position: center;}
-    33%   {background-image: url("2.jpg"); background-size: 1600px 800px; background-position: center;}
-    66%   {background-image: url("3.jpg"); background-size: 1600px 800px; background-position: center;}
-    100%   {background-image: url("1.jpg"); background-size: 1600px 800px; background-position: center;}
+    0%   {background-image: url("photos/1.jpg"); background-size: 1600px 800px; background-position: center;}
+    33%   {background-image: url("photos/2.jpg"); background-size: 1600px 800px; background-position: center;}
+    66%   {background-image: url("photos/3.jpg"); background-size: 1600px 800px; background-position: center;}
+    100%   {background-image: url("photos/1.jpg"); background-size: 1600px 800px; background-position: center;}
 }
 
 .logo {

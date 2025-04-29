@@ -1,6 +1,5 @@
 <?php
 session_start();
-include "views/header.php";
 ?>
 <main>
 <?php
@@ -9,16 +8,12 @@ include "views/header.php";
         $allowed_pages = ['login','signin'];
         
         if (in_array($page, $allowed_pages)) {
-            include "$page.php";
+            include "Umum/$page.php";
         } else {
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
         }
     } else {
-        include "homeUmum.php";
+        include "Umum/homeUmum.php";
     }
 ?>
 </main>
-<?php
-include "Views/sidebar.php";
-include "views/footer.php";  
-?>
