@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="cssUmum/login.css">
+    <link rel="stylesheet" href="Umum/cssUmum/login.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
     <div class="login-container">
-        
+        <h3>Bangsat</h3>
     </div>
     <div class="footer">
-        <img src="Photos-CSSumum/Wanderings for Wonders side.png" alt="Wanderlust Logo">
+        <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
     </div>
 </body>
 </html>
