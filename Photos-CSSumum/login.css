@@ -1,0 +1,28 @@
+body {
+    overscroll-behavior: none;
+    margin: 0;
+    height: auto;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+
+.login-container {
+    height: 550px;
+    width: 450px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 20px;
+}
+
+.footer {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    height: 0px;
+}
+
+.footer img {
+    height: 55px;
+    width: 160px;
+}
