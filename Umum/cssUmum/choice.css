@@ -1,0 +1,9 @@
+body {
+    overscroll-behavior: none;
+    text-align: center;
+}
+
+.role-container h2 {
+    font: 40px "MuseoModerno";
+    color: #1a54b3;
+}

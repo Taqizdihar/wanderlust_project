@@ -16,7 +16,7 @@
             <h3>Find the wonders!</h3>
             <div class="buttons">
                 <a href="indeks.php?page=login" id="login">Log-In</a>
-                <a href="indeks.php?page=signin" id="signin">Sign-In</a>
+                <a href="indeks.php?page=choice" id="signin">Sign-In</a>
             </div>
         </div>
     </div>
