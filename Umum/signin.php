@@ -13,16 +13,16 @@
         <h3>Sign In</h3>
         <form action="post">
             <div class="form-item">
+                <label for="email">Your Role</label>
+                <input type="text" name="role" value="Tourist" disabled>
+            </div>
+            <div class="form-item">
                 <label for="email">Email</label>
                 <input type="text" name="email" placeholder="Email" required>
             </div>
             <div class="form-item">
                 <label for="password">Password</label>
                 <input type="password" name="password" placeholder="Password" required>
-            </div>
-            <div class="password-item">
-                <a href=""></a>
-                <a href="">Forgot password</a>
             </div>
             <input type="submit" value="Sign In" name="signinBtn" id="submitButton">
             <div class="login-footer">
