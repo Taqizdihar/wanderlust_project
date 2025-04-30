@@ -1,9 +1,27 @@
 body {
     overscroll-behavior: none;
+    margin: 0;
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
 .role-container h2 {
+    margin-top: 30px;
     font: 40px "MuseoModerno";
     color: #1a54b3;
+}
+
+.role-buttons {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+.role {
+    
+    width: 100%;
+    max-width: 200px;
+    gap: 100px;
 }
