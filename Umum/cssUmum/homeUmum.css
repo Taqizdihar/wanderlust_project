@@ -49,12 +49,13 @@ body {
 .buttons-container {
     display: flex;
     flex-direction: column;
+    height: 400px;
     text-align: center;
     background-image: linear-gradient(to bottom, rgba(255,0,0,0), black);
 }
 
 .buttons-container h3 {
-    margin-top: 15px;
+    margin-top: 250px;
     margin-bottom: 0;
     font: bold 30px "Verdana", sans-serif;
     color: white;

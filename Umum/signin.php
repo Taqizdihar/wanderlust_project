@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="Umum/cssUmum/signIn.css?v=1.0.4">
+    <link rel="stylesheet" href="Umum/cssUmum/signin.css?v=1.0.4">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
-    <h2>Welcome back, Wanderer!</h2>
+    <h2>New Face, New Smile!</h2>
     <div class="login-container">
-        <h3>Log In</h3>
+        <h3>Sign In</h3>
         <form action="post">
             <div class="form-item">
                 <label for="email">Email</label>
@@ -24,9 +24,9 @@
                 <a href=""></a>
                 <a href="">Forgot password</a>
             </div>
-            <input type="submit" value="Log In" name="loginBtn" id="submitButton">
+            <input type="submit" value="Sign In" name="signinBtn" id="submitButton">
             <div class="login-footer">
-                <p>Don't have any account? <a href="">Sign In</a></p>
+                <p>Have an account? <a href="indeks.php?page=login">Log In</a></p>
                 <br>
                 <a href="indeks.php?page=homeUmum" id="backButton">Back to the start</a>
             </div>
