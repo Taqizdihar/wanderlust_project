@@ -1,0 +1,107 @@
+body {
+    overscroll-behavior: none;
+    margin: 0;
+    height: auto;
+}
+
+
+.main {
+    display: grid;
+    height: 100%;
+    align-content: space-between;
+    animation-name: body;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes body {
+    0%   {background-image: url("../photos/1.jpg"); background-size: 1600px 800px; background-position: center;}
+    33%   {background-image: url("../photos/2.jpg"); background-size: 1600px 800px; background-position: center;}
+    66%   {background-image: url("../photos/3.jpg"); background-size: 1600px 800px; background-position: center;}
+    100%   {background-image: url("../photos/1.jpg"); background-size: 1600px 800px; background-position: center;}
+}
+
+.logo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    text-shadow: 1px 1px 3px black;
+    color: white;
+    font: 30px "MuseoModerno", "sans-serif";
+    background-image: linear-gradient(to top, rgba(255,0,0,0), black);
+}
+
+.logo h2 {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.logo img {
+    margin-top: 15px;
+    margin-left: 20px;
+    align-self: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    text-align: center;
+    background-image: linear-gradient(to bottom, rgba(255,0,0,0), black);
+}
+
+.buttons-container h3 {
+    margin-top: 250px;
+    margin-bottom: 0;
+    font: bold 30px "Verdana", sans-serif;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+}
+
+.buttons {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    width: 250px;
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+}
+
+.buttons a {
+    height: 40px;
+    width: 80px;
+    text-decoration: none;
+    font: bold 15px "Verdana", "Tahoma", "sans-serif";
+    align-content: center;
+}
+
+#login {
+    color: white;
+    padding: 8px;
+    border: 2px solid white;
+    border-radius: 20px;
+}
+
+#signin {
+    color: black;
+    padding: 8px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+#login:hover {
+    background-color: white;
+    color: #1a54b3;
+    border: 2px solid #1a54b3;
+    padding: 8px;
+}
+
+#signin:hover {
+    background-color: #1a54b3;
+    color: white;
+    padding: 8px;
+}
