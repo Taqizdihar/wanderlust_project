@@ -25,7 +25,7 @@
                 <div id="role-destinator">
                     <div class="role-icon"><i class="fa-solid fa-map-location-dot"></i></div>
                         <h2>Tourist Attraction Owner</h2>
-                        <p>Promote and show your place of tourism which you manage</p>
+                        <p>Show and promote your place of tourism which you manage</p>
                 </div>
             </a>
         </div>

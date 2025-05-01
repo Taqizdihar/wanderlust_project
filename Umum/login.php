@@ -21,7 +21,7 @@
                 <input type="password" name="password" placeholder="Password" required>
             </div>
             <div class="password-item">
-                <a href="">Forgot password</a>
+                <a href="notFound.php">Forgot password</a>
             </div>
             <input type="submit" value="Log In" name="loginBtn" id="submitButton">
             <div class="login-footer">
