@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
-    <h2>Welcome back, Wanderer!</h2>
+    <h2>Welcome back!</h2>
     <div class="login-container">
         <h3>Log In</h3>
         <form action="post">

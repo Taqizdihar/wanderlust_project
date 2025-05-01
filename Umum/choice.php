@@ -14,14 +14,14 @@
             <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
         </div>
         <div class="role-container">
-            <a href="indeks.php?page=signin">
+            <a href="indeks.php?page=signin&role=tourist">
                 <div id="role-tourist">
                     <div class="role-icon"><i class="fa-solid fa-user"></i></div>
                     <h2>Tourist</h2>
                     <p>Find all the wonders as a wandering tourist</p>
                 </div>
             </a>
-            <a href="indeks.php?page=signin">
+            <a href="indeks.php?page=signin&role=destinator">
                 <div id="role-destinator">
                     <div class="role-icon"><i class="fa-solid fa-map-location-dot"></i></div>
                         <h2>Tourism Master</h2>

@@ -1,3 +1,8 @@
+<?php
+$role = $_GET['role'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,14 +13,33 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
-    <h2>New Face, New Smile!</h2>
+    <?php
+    if ($role == 'tourist') {
+        echo "<h2>New Face, New Smile!</h2>";
+    } else if ($role == 'destinator') {
+        echo "<h2>Make your place a wonder</h2>";
+    }
+    ?>
     <div class="login-container">
         <h3>Sign In</h3>
         <form action="post">
-            <div class="form-item">
-                <label for="email">Your Role</label>
-                <input type="text" name="role" value="Tourist" disabled>
-            </div>
+            <?php
+            if ($role == 'tourist') {
+            ?>
+                <div class="form-item">
+                    <label for="email">Your role is:</label>
+                    <input type="text" name="role" value="Tourist" disabled>
+                </div>
+            <?php
+            } else if ($role == 'destinator') {
+            ?>
+                <div class="form-item tourism master">
+                    <label for="email">Your role is:</label>
+                    <input type="text" name="role" value="Tourism Master" disabled>
+                </div>
+            <?php  
+            }
+            ?>
             <div class="form-item">
                 <label for="email">Email</label>
                 <input type="text" name="email" placeholder="Email" required>
