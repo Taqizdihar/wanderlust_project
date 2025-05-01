@@ -16,7 +16,7 @@ body h2 {
 
 .login-container {
     margin-top: 20px;
-    height: 520px;
+    height: 530px;
     width: 450px;
     justify-self: center;
     background-color: white;
@@ -35,7 +35,7 @@ body h2 {
     width: 100%;
     max-width: 350px;
     justify-self: center;
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 .form-item label {
@@ -45,6 +45,18 @@ body h2 {
     font: 15px "Verdana";
     color: #1a54b3;
     height: 20px;
+}
+
+input#Tourist:disabled {
+    font: 20px "verdana";
+    color: white;
+    background-color: #113979;
+}
+
+input#TAO:disabled {
+    font: 20px "verdana";
+    color: white;
+    background-color: #bf6115;
 }
 
 .login-container form input {
@@ -60,18 +72,8 @@ body h2 {
     padding: 8px;
 }
 
-.password-item {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
-}
-
-.password-item a {
-    font: 15px "verdana";
-    color: #1a54b3;
-}
-
 #submitButton {
+    margin-top: 30px;
     background-color: #1a54b3;
     font: bold 12px "Verdana";
     color: white;

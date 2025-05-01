@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
-    <h2>Welcome back, Wanderer!</h2>
+    <h2>Welcome back!</h2>
     <div class="login-container">
         <h3>Log In</h3>
         <form action="post">
@@ -21,11 +21,11 @@
                 <input type="password" name="password" placeholder="Password" required>
             </div>
             <div class="password-item">
-                <a href="">Forgot password</a>
+                <a href="notFound.php">Forgot password</a>
             </div>
             <input type="submit" value="Log In" name="loginBtn" id="submitButton">
             <div class="login-footer">
-                <p>Don't have any account? <a href="indeks.php?page=signin">Sign In</a></p>
+                <p>Don't have any account? <a href="indeks.php?page=choice">Sign In</a></p>
                 <br>
                 <a href="indeks.php?page=homeUmum" id="backButton">Back to the start</a>
             </div>

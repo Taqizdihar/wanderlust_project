@@ -5,10 +5,13 @@ session_start();
 <?php
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
-        $allowed_pages = ['login', 'signin', 'homeUmum'];
+        $pages_umum = ['login', 'signin', 'homeUmum', 'choice'];
+        $pages_pw = ['verifikasiEntitas', 'dashboardWisata'];
         
-        if (in_array($page, $allowed_pages)) {
+        if (in_array($page, $pages_umum)) {
             include "Umum/$page.php";
+        } else if (in_array($page, $pages_pw)) {
+            include "pengelolaWisata/$page.php";
         } else {
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
         }
