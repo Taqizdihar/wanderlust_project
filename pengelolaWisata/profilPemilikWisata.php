@@ -1,3 +1,18 @@
+<?php
+include "config.php";
+
+$ID = $_SESSION['user_id'];
+$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement1);
+$profile = mysqli_fetch_assoc($query);
+
+$sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement2);
+$PWProfile = mysqli_fetch_assoc($query);
+
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,13 +26,13 @@
 </head>
 <body>
     <div class="navbar">
-        <img src="../Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
+        <img src="Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
         <h1>| Partner Dashboard</h1>
-        <a href="logout.php"><i class="fa-regular fa-circle-user"></i></a> 
+        <a href="indeks.php?page=profilPemilikWisata"><i class="fa-regular fa-circle-user"></i></a> 
     </div>
 
     <div class="sidebar">
-        <a href="dashboardWisata.php">Dashboard</a>
+        <a href="indeks.php?page=dashboardWisata">Dashboard</a>
         <a href="../notFound.php">Places</a>
         <a href="../notFound.php">Orders</a>
         <a href="../notFound.php">Help Centre</a>
@@ -35,24 +50,24 @@
         </div>
 
         <div class="profile-info">
-        <h2 class="name">Full Name</h2>
+        <h2 class="name"><?= $profile['nama']?></h2>
         <div class="status">status</div>
 
         <div class="info-grid">
             <div class="info-left">
             <p><strong>Email :</strong></p>
-            <div class="value-box">johndoe@gmail.com</div>
+            <div class="value-box"><?= $profile['email']?></div>
 
             <p><strong>Phone :</strong></p>
-            <div class="value-box">1234567890</div>
+            <div class="value-box"><?= $profile['phonenumber']?></div>
             </div>
 
             <div class="info-right">
-            <p><strong>Legal Tax Document:</strong></p>
-            <a href="document_tax.pdf" target="_blank" class="doc-btn">See Document ➚</a>
+            <p>Legal Tax Document:</p>
+            <a href="pengelolaWisata/photos/<?= $PWProfile['tax_document']?>" target="_blank" class="doc-btn">See Document ➚</a>
 
-            <p><strong>Legal Business Document :</strong></p>
-            <a href="document_business.pdf" target="_blank" class="doc-btn">See Document ➚</a>
+            <p>Legal Business Document :</p>
+            <a href="pengelolaWisata/photos/<?= $PWProfile['legal_business_document']?>" target="_blank" class="doc-btn">See Document ➚</a>
             </div>
         </div>
 

@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 
-$ID = $_GET['ID'];
+$ID = $_SESSION['user_id'];
 
 if (isset($_POST['submitBtn'])) {
     $fullName = $_POST['fullname'];

@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 
-$ID = $_GET['ID'];
+$ID = $_SESSION['user_id'];
 $sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement);
 $profile = mysqli_fetch_assoc($query);
@@ -29,7 +29,6 @@ if (isset($_POST['btnSubmit'])) {
 	}
     
     $sqlStatement = "UPDATE mahasiswa SET namalengkap='$namalengkap',jeniskelamin='$jeniskelamin',programstudi='$programstudi',alamat='$alamat',foto='$foto' WHERE nim='$nim'";
-    //echo $sqlStatement;
     
     $query = mysqli_query($conn, $sqlStatement);
     
@@ -58,7 +57,7 @@ mysqli_close($conn);
 <div class="navbar">
     <img src="Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
     <h1>| Partner Dashboard</h1>
-    <a href="profilPemilikWisata.php"><i class="fa-regular fa-circle-user"></i></a> 
+    <a href="indeks.php?page=profilPemilikWisata"><i class="fa-regular fa-circle-user"></i></a> 
 </div>
 
 <div class="sidebar">

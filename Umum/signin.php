@@ -2,6 +2,7 @@
 include "config.php";
 $role = $_GET['role'];
 
+
 if (isset($_POST['signinBtn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -11,12 +12,16 @@ if (isset($_POST['signinBtn'])) {
     $query = mysqli_query($conn, $sqlStatement);
     $getID = mysqli_insert_id($conn);
     
+    $_SESSION['user_id'] = $getID;
+    $_SESSION['email'] = $email;
+    $_SESSION['password'] = $passwordSecured;
+
     if (mysqli_affected_rows($conn) != 0) {
         if ($role == 'wisatawan') {
             header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
             exit();
         } else if ($role == 'pw') {
-            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas&ID=".$getID);
+            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas");
             exit();
         }
     } else {
