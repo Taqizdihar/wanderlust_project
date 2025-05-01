@@ -1,3 +1,52 @@
+<?php
+include "config.php";
+
+$ID = $_GET['ID'];
+
+if (isset($_POST['submitBtn'])) {
+    $fullName = $_POST['fullname'];
+    $phoneNumber = $_POST['phone'];
+    $NPWP = $_FILES['npwp'];
+    $NIB = $_FILES['nib'];
+    $legalAddress = $_POST['address'];
+
+    if (isset($NPWP)) {
+		$uploadFile = 'pengelolaWisata/photos/'.basename($NPWP['name']);
+		
+		if (move_uploaded_file($NPWP['tmp_name'], $uploadFile)) {
+			$uploadedNPWP = $NPWP['name'];
+			echo "upload file berhasil";
+		} else {
+			$uploadedNPWP = null;
+		}
+	}
+
+    if (isset($NIB)) {
+		$uploadFile = 'pengelolaWisata/photos/'.basename($NIB['name']);
+		
+		if (move_uploaded_file($NIB['tmp_name'], $uploadFile)) {
+			$uploadedNIB = $NIB['name'];
+			echo "upload file berhasil";
+		} else {
+			$uploadedNIB = null;
+		}
+	}
+    $sqlStatement1 = "UPDATE user SET nama='$fullName', phonenumber='$phoneNumber' WHERE user_id = '$ID'";
+    $query1 = mysqli_query($conn, $sqlStatement1);
+
+    $sqlStatement2 = "INSERT INTO pemilikwisata VALUES('$ID', '$legalAddress', '$NPWP', '$NIB', 'pending')";
+    $query2 = mysqli_query($conn, $sqlStatement2);
+    
+    if (mysqli_affected_rows($conn) != 0) {
+        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata");
+        exit();
+    } else {
+        echo "<p>Pendaftaran gagal!</p>";
+    }
+}
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +59,7 @@
 <body>
 
 <h1>Your Identity</h1>
-<form action="process.php" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data">
   <div class="container">
     <div class="form-row">
       <div class="form-group">

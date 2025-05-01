@@ -1,13 +1,3 @@
-<?php
-session_start();
-
-// Contoh validasi login
-if (!isset($_SESSION['admin_logged_in'])) {
-    header("Location: login.php");
-    exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
