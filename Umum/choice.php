@@ -14,18 +14,18 @@
             <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
         </div>
         <div class="role-container">
-            <a href="indeks.php?page=signin&role=tourist">
+            <a href="indeks.php?page=signin&role=wisatawan">
                 <div id="role-tourist">
                     <div class="role-icon"><i class="fa-solid fa-user"></i></div>
                     <h2>Tourist</h2>
                     <p>Find all the wonders as a wandering tourist</p>
                 </div>
             </a>
-            <a href="indeks.php?page=signin&role=destinator">
+            <a href="indeks.php?page=signin&role=pw">
                 <div id="role-destinator">
                     <div class="role-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                        <h2>Tourism Master</h2>
-                        <p>Promote and show your tourism place which you manage</p>
+                        <h2>Tourist Attraction Owner</h2>
+                        <p>Promote and show your place of tourism which you manage</p>
                 </div>
             </a>
         </div>

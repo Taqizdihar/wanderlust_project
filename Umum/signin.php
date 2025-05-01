@@ -11,11 +11,11 @@ if (isset($_POST['signinBtn'])) {
     $query = mysqli_query($conn, $sqlStatement);
     
     if (mysqli_affected_rows($conn) != 0) {
-        if ($role == 'tourist') {
-            header("location: ../indeks.php?page=homeUmum");
+        if ($role == 'wisatawan') {
+            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
             exit();
-        } else if ($role == 'destinator') {
-            header("location: ../indeks.php?page=homeUmum");
+        } else if ($role == 'pw') {
+            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas");
             exit();
         }
     } else {
@@ -36,9 +36,9 @@ if (isset($_POST['signinBtn'])) {
 
 <body>
     <?php
-    if ($role == 'tourist') {
+    if ($role == 'wisatawan') {
         echo "<h2>New Face, New Smile!</h2>";
-    } else if ($role == 'destinator') {
+    } else if ($role == 'pw') {
         echo "<h2>Make your place a wonder</h2>";
     }
     ?>
@@ -46,18 +46,18 @@ if (isset($_POST['signinBtn'])) {
         <h3>Sign In</h3>
         <form method="post" action="">
             <?php
-            if ($role == 'tourist') {
+            if ($role == 'wisatawan') {
             ?>
                 <div class="form-item">
                     <label for="email">Your role is:</label>
-                    <input type="text" name="role" value="Tourist" disabled>
+                    <input type="text" name="role" value="Tourist" id="Tourist" disabled>
                 </div>
             <?php
-            } else if ($role == 'destinator') {
+            } else if ($role == 'pw') {
             ?>
                 <div class="form-item">
                     <label for="email">Your role is:</label>
-                    <input type="text" name="role" value="Tourism Master" disabled>
+                    <input type="text" name="role" value="Tourist Attraction Owner" id="TAO" disabled>
                 </div>
             <?php  
             }
@@ -70,7 +70,7 @@ if (isset($_POST['signinBtn'])) {
                 <label for="password">Password</label>
                 <input type="password" name="password" placeholder="Password" required>
             </div>
-            <input type="submit" value="Sign In" name="signinBtn" id="submitButton">
+            <input type="submit" value="Register" name="signinBtn" id="submitButton">
             <div class="login-footer">
                 <p>Have an account? <a href="indeks.php?page=login">Log In</a></p>
                 <br>

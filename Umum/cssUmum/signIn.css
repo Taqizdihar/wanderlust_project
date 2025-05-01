@@ -47,6 +47,18 @@ body h2 {
     height: 20px;
 }
 
+input#Tourist:disabled {
+    font: 20px "verdana";
+    color: white;
+    background-color: #113979;
+}
+
+input#TAO:disabled {
+    font: 20px "verdana";
+    color: white;
+    background-color: #bf6115;
+}
+
 .login-container form input {
     display: block;
     border: none;
