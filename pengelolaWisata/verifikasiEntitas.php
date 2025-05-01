@@ -38,7 +38,7 @@ if (isset($_POST['submitBtn'])) {
     $query2 = mysqli_query($conn, $sqlStatement2);
     
     if (mysqli_affected_rows($conn) != 0) {
-        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata");
+        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata&ID=".$ID);
         exit();
     } else {
         echo "<p>Pendaftaran gagal!</p>";

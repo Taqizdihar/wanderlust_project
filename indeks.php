@@ -6,7 +6,7 @@ session_start();
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice'];
-        $pages_pw = ['verifikasiEntitas', 'dashboardWisata'];
+        $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata'];
         
         if (in_array($page, $pages_umum)) {
             include "Umum/$page.php";

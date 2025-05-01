@@ -6,6 +6,7 @@ body {
 
 .navbar {
     position: fixed;
+    display: flex;
     width: 100%;
     background-color: #bf6115;
     color: #fff;
@@ -16,47 +17,63 @@ body {
 
 .navbar h1 {
     margin: 0;
-    font-size: 20px;
+    font-size: 25px;
     display: inline-block;
     align-self: center;
 }
 
+.navbar img {
+    height: auto;
+    width: 200px;
+    margin-right: 10px;
+}
+
 .navbar a {
-    float: right;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    justify-content: flex-end;
     color: #fff;
     text-decoration: none;
     margin-right: 60px;
 }
 
 .navbar a i {
-    font-size: 40px;
+    font-size: 50px;
 }
 
 .sidebar {
     width: 200px;
     background-color: #434343;
     position: fixed;
-    top: 50px;
+    top: 0;
     bottom: 0;
     left: 0;
-    padding-top: 20px;
+    padding-top: 120px;
     color: #fff;
 }
 
 .sidebar a {
     display: block;
     color: #ccc;
-    padding: 10px 20px;
+    padding: 15px 20px;
     text-decoration: none;
+    font: 20px "verdana";
 }
 
 .sidebar a:hover {
-    background-color: #444;
+    background-color: #292929;
     color: #fff;
 }
 
+h2 {
+    margin-bottom: 30px;
+    font: 40px "verdana";
+    color: #1a54b3;
+}
+
 .main {
-    margin-top: 40px;
+    margin-top: 80px;
     margin-left: 220px;
     padding: 20px;
 }

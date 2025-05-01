@@ -1,6 +1,46 @@
 <?php
-include "../config.php";
+include "config.php";
 
+$ID = $_GET['ID'];
+$sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement);
+$profile = mysqli_fetch_assoc($query);
+
+if (isset($_POST['btnSubmit'])) {
+    $nim = $_POST['nim'];
+    $namalengkap = $_POST['namalengkap'];
+    $jeniskelamin = $_POST['jeniskelamin'];
+    $programstudi = $_POST['programstudi'];
+    $alamat = $_POST['alamat'];
+	$fotolama = $_POST['fotolama'];
+	$fileFoto = $_FILES['foto'];
+	
+	if (isset($fileFoto)) {
+		$uploadFile = 'photos/'.basename($fileFoto['name']);
+		
+		if (move_uploaded_file($fileFoto['tmp_name'], $uploadFile)) {
+			$foto = $fileFoto['name'];
+			unlink('photos/'.$fotolama);
+		} else {
+			$foto = $fotolama;
+		}
+	} else {
+		$foto = $fotolama;
+	}
+    
+    $sqlStatement = "UPDATE mahasiswa SET namalengkap='$namalengkap',jeniskelamin='$jeniskelamin',programstudi='$programstudi',alamat='$alamat',foto='$foto' WHERE nim='$nim'";
+    //echo $sqlStatement;
+    
+    $query = mysqli_query($conn, $sqlStatement);
+    
+    if (mysqli_affected_rows($conn) != 0) {
+        header("location:index.php?page=mahasiswa&succes_msg=Data mahasiswa berhasil diubah.");
+    } else {
+        echo "<p>Pengubahan data mahasiswa gagal!</p>";
+    }
+    
+}
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
@@ -17,8 +57,8 @@ include "../config.php";
 
 <div class="navbar">
     <img src="Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
-    <h1>Partner Dashboard</h1>
-    <a href="logout.php"><i class="fa-regular fa-circle-user"></i></a> 
+    <h1>| Partner Dashboard</h1>
+    <a href="profilPemilikWisata.php"><i class="fa-regular fa-circle-user"></i></a> 
 </div>
 
 <div class="sidebar">
@@ -30,7 +70,7 @@ include "../config.php";
 </div>
 
 <div class="main">
-    <h2>Welcome, </h2>
+    <h2>Welcome, <b><?= $profile['nama']?></b></h2>
 
     <div class="card">
         <h3>Total Pengguna</h3>
