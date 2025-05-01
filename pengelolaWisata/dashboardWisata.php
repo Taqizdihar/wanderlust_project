@@ -11,11 +11,12 @@ include "../config.php";
     <link rel="stylesheet" href="pengelolaWisata/cssWisata/dashboardWisata.css?v=1.0.4">
     <link rel="stylesheet" href="cssWisata/dashboardWisata.css?v=1.0.4">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
 <div class="navbar">
-    <img src="" alt="Wanderlust Logo">
+    <img src="Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
     <h1>Partner Dashboard</h1>
     <a href="logout.php"><i class="fa-regular fa-circle-user"></i></a> 
 </div>
