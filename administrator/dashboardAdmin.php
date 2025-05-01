@@ -1,39 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Dashboard Admin</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f4f4f4;
     }
 
     .sidebar {
       width: 220px;
       background-color: #2c3e50;
-      position: fixed;
-      top: 0;
-      bottom: 0;
       color: white;
+      height: 100vh;
+      position: fixed;
       padding-top: 60px;
     }
 
-    .sidebar h3 {
-      text-align: center;
-      margin-top: -40px;
-      margin-bottom: 20px;
-    }
-
-    .sidebar a {
+    .sidebar label {
       display: block;
       padding: 15px;
       color: white;
-      text-decoration: none;
+      cursor: pointer;
     }
 
-    .sidebar a:hover {
+    .sidebar label:hover {
       background-color: #34495e;
     }
 
@@ -53,61 +46,63 @@
 
     .main {
       margin-left: 220px;
-      padding: 80px 20px 20px 20px;
+      padding: 80px 20px 20px;
     }
 
-    .hidden {
+    /* Konten halaman berdasarkan input radio */
+    #tab-dashboard:checked ~ .main #dashboard,
+    #tab-mitra:checked ~ .main #mitra,
+    #tab-verifikasi:checked ~ .main #verifikasi {
+      display: block;
+    }
+
+    .main > div {
+      display: none;
+    }
+
+    /* Sembunyikan radio button */
+    input[type="radio"] {
       display: none;
     }
   </style>
 </head>
 <body>
+
+  <!-- Input radio untuk tab kontrol -->
+  <input type="radio" name="tab" id="tab-dashboard" checked>
+  <input type="radio" name="tab" id="tab-mitra">
+  <input type="radio" name="tab" id="tab-verifikasi">
+
   <!-- Sidebar -->
   <div class="sidebar">
-    <h3>ADMIN</h3>
-    <a href="#" onclick="showPage('dashboard')">Dashboard</a>
-    <a href="#" onclick="showPage('mitra')">Pendaftaran Mitra</a>
-    <a href="#" onclick="showPage('verifikasi')">Verifikasi Tempat Wisata</a>
+    <label for="tab-dashboard">🏠 Dashboard</label>
+    <label for="tab-mitra">🧾 Pendaftaran Mitra</label>
+    <label for="tab-verifikasi">📍 Verifikasi Tempat Wisata</label>
   </div>
 
   <!-- Header -->
   <div class="header">
-    <h2 id="page-title">Dashboard Admin</h2>
+    <h2>Dashboard Admin</h2>
     <div>Halo, Admin</div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Konten -->
   <div class="main">
     <div id="dashboard">
       <h3>Selamat Datang di Dashboard Admin</h3>
       <p>Gunakan menu di kiri untuk navigasi.</p>
     </div>
 
-    <div id="mitra" class="hidden">
+    <div id="mitra">
       <h3>Pendaftaran Mitra</h3>
       <p>Berikut adalah daftar mitra yang menunggu persetujuan...</p>
     </div>
 
-    <div id="verifikasi" class="hidden">
+    <div id="verifikasi">
       <h3>Verifikasi Tempat Wisata</h3>
       <p>Berikut adalah daftar tempat wisata yang menunggu verifikasi...</p>
     </div>
   </div>
 
-  <script>
-    function showPage(page) {
-      const sections = ['dashboard', 'mitra', 'verifikasi'];
-      sections.forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-      });
-      document.getElementById(page).classList.remove('hidden');
-      document.getElementById('page-title').textContent =
-        page === 'dashboard'
-          ? 'Dashboard Admin'
-          : page === 'mitra'
-          ? 'Pendaftaran Mitra'
-          : 'Verifikasi Tempat Wisata';
-    }
-  </script>
 </body>
 </html>
