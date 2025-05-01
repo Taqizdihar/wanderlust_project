@@ -1,0 +1,174 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.navbar {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    background-color: #bf6115;
+    color: #fff;
+    padding: 15px;
+    z-index: 999;
+    top: 0;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 25px;
+    display: inline-block;
+    align-self: center;
+}
+
+.navbar img {
+    height: auto;
+    width: 200px;
+    margin-right: 10px;
+}
+
+.navbar a {
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    justify-content: flex-end;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 60px;
+}
+
+.navbar a i {
+    font-size: 50px;
+}
+
+.sidebar {
+    width: 200px;
+    background-color: #434343;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding-top: 120px;
+    color: #fff;
+}
+
+.sidebar a {
+    display: block;
+    color: #ccc;
+    padding: 15px 20px;
+    text-decoration: none;
+    font: 20px "verdana";
+}
+
+.sidebar a:hover {
+    background-color: #292929;
+    color: #fff;
+}
+
+.main {
+    margin-top: 120px;
+    margin-left: 220px;
+    margin-right: 20px;
+    padding: 20px;
+}
+  
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+}
+  
+.profile-pic-section {
+    text-align: center;
+}
+  
+.avatar {
+    width: 120px;
+    height: 120px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+  
+.change-btn {
+    display: inline-block;
+    background-color: #aaa;
+    padding: 8px 20px;
+    border-radius: 5px;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+}
+  
+.file-input {
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+  
+.profile-info {
+    flex: 1;
+}
+  
+.name {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+  
+.status {
+    display: inline-block;
+    background-color: #bbb;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+  
+.info-grid {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 30px;
+}
+  
+.info-left, .info-right {
+    flex: 1;
+}
+  
+.value-box {
+    background-color: #aaa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+  
+.doc-btn {
+    display: inline-block;
+    background-color: #aaa;
+    padding: 10px 16px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.edit-btn {
+    display: block;
+    text-align: center;
+    background-color: #aaa;
+    padding: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+}
+  
