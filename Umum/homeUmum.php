@@ -10,7 +10,7 @@
 <body>
     <div class="main">
         <div class="logo">
-            <h2>Wander everywhere with ika</h2><img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo">
+            <h2>Wander everywhere with ika cam</h2><img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo">
         </div>
         <div class="buttons-container">
             <h3>Find the wonders!</h3>
