@@ -7,7 +7,7 @@ if (isset($_POST['signinBtn'])) {
     $password = $_POST['password'];
     $passwordSecured = password_hash($password, PASSWORD_DEFAULT);
 
-    $sqlStatement = "INSERT INTO user VALUES('', '$email', '$passwordSecured', '$role', '')";
+    $sqlStatement = "INSERT INTO user VALUES('', '', '$email', '', '$passwordSecured', '$role', '')";
     $query = mysqli_query($conn, $sqlStatement);
     
     if (mysqli_affected_rows($conn) != 0) {

@@ -42,6 +42,13 @@ form {
     align-items: flex-start;
 }
 
+h4 {
+    font: bold 15px "verdana";
+    color: white;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
 label {
     font: bold 15px "verdana";
     color: white;
@@ -53,11 +60,19 @@ input[type="text"], input[type="tel"], textarea {
     padding: 8px;
     border: none;
     border-radius: 5px;
-    font-style: italic;
 }
 
-input[type="file"] {
+.fileInput {
     display: none;
+}
+
+.fileButton {
+    display: inline-block;
+    background-color: #444;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .buttons {
@@ -69,7 +84,7 @@ input[type="file"] {
 #reset, #submit {
     padding: 10px 20px;
     font: bold 15px "verdana";
-    background-color: #565656;
+    background-color: #444;
     color: white;
     border: none;
     border-radius: 5px;
