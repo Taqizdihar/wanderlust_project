@@ -34,7 +34,7 @@ if (isset($_POST['submitBtn'])) {
     $sqlStatement1 = "UPDATE user SET nama='$fullName', phonenumber='$phoneNumber' WHERE user_id = '$ID'";
     $query1 = mysqli_query($conn, $sqlStatement1);
 
-    $sqlStatement2 = "INSERT INTO pemilikwisata VALUES('$ID', '$legalAddress', '$uploadedNPWP', '$uploadedNIB', 'pending')";
+    $sqlStatement2 = "INSERT INTO pemilikwisata VALUES('$ID', '$legalAddress', '$uploadedNPWP', '$uploadedNIB', 'review')";
     $query2 = mysqli_query($conn, $sqlStatement2);
     
     if (mysqli_affected_rows($conn) != 0) {

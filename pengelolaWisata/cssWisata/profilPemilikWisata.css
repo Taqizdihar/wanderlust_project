@@ -4,68 +4,6 @@ body {
     background-color: #f4f4f4;
 }
 
-.navbar {
-    position: fixed;
-    display: flex;
-    width: 100%;
-    background-color: #bf6115;
-    color: #fff;
-    padding: 15px;
-    z-index: 999;
-    top: 0;
-}
-
-.navbar h1 {
-    margin: 0;
-    font-size: 25px;
-    display: inline-block;
-    align-self: center;
-}
-
-.navbar img {
-    height: auto;
-    width: 200px;
-    margin-right: 10px;
-}
-
-.navbar a {
-    position: absolute;
-    right: 20px;
-    top: 25px;
-    justify-content: flex-end;
-    color: #fff;
-    text-decoration: none;
-    margin-right: 60px;
-}
-
-.navbar a i {
-    font-size: 50px;
-}
-
-.sidebar {
-    width: 200px;
-    background-color: #434343;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    padding-top: 120px;
-    color: #fff;
-}
-
-.sidebar a {
-    display: block;
-    color: #ccc;
-    padding: 15px 20px;
-    text-decoration: none;
-    font: 20px "verdana";
-}
-
-.sidebar a:hover {
-    background-color: #292929;
-    color: #fff;
-}
-
 .main {
     margin-top: 120px;
     margin-left: 220px;
@@ -96,7 +34,7 @@ body {
     background-color: #1a54b3;
     padding: 8px 20px;
     border-radius: 5px;
-    color: #333;
+    color: white;
     font-weight: bold;
     cursor: pointer;
     position: relative;
@@ -117,23 +55,36 @@ body {
 }
   
 .name {
-    font-size: 28px;
-    margin-bottom: 5px;
+    font: bold 28px "verdana";
+    margin-bottom: 20px;
 }
   
 .status {
     display: inline-block;
-    background-color: #bbb;
     padding: 5px 10px;
     border-radius: 5px;
     font-size: 14px;
     margin-bottom: 20px;
 }
+
+#review {
+    background-color: #bbb;
+    color: black;
+}
+
+#approved {
+    background-color: #2d9530;
+    color: black;
+}
+
+#approved {
+    background-color: #952f2d;
+    color: white;
+}
   
 .info-grid {
     display: flex;
     gap: 40px;
-    margin-bottom: 30px;
 }
   
 .info-left, .info-right {
@@ -141,8 +92,8 @@ body {
 }
   
 .value-box {
-    background-color: #aaa;
     padding: 10px;
+    border: 2px solid grey;
     border-radius: 5px;
     margin-bottom: 15px;
 }
@@ -160,15 +111,27 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+
+.address {
+    margin-bottom: 40px;
+}
+
+.address p {
+    margin-bottom: 20px;
+}
   
 .edit-btn {
     display: block;
     text-align: center;
-    background-color: #aaa;
+    background-color: #1a54b3;
     padding: 12px;
     border-radius: 5px;
     font-weight: bold;
     text-decoration: none;
     color: white;
+}
+
+.edit-btn:hover {
+    background-color: #0f2e60;
 }
   

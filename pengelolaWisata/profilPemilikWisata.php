@@ -25,19 +25,7 @@ mysqli_close($conn);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="navbar">
-        <img src="Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
-        <h1>| Partner Dashboard</h1>
-        <a href="indeks.php?page=profilPemilikWisata"><i class="fa-regular fa-circle-user"></i></a> 
-    </div>
-
-    <div class="sidebar">
-        <a href="indeks.php?page=dashboardWisata">Dashboard</a>
-        <a href="../notFound.php">Places</a>
-        <a href="../notFound.php">Orders</a>
-        <a href="../notFound.php">Help Centre</a>
-        <a href="../notFound.php">Log Out</a>
-    </div>
+    <?php include "pengelolaWisata/viewsWisata.php";?>
 
     <div class="main">
         <div class="profile-container">
@@ -51,27 +39,46 @@ mysqli_close($conn);
 
         <div class="profile-info">
         <h2 class="name"><?= $profile['nama']?></h2>
-        <div class="status">status</div>
+
+            <?php
+                if ($PWProfile['entity_approval'] == 'review') {
+            ?>
+                <div class="status" id="review">Status : <?= $PWProfile['entity_approval']?></div>
+            <?php
+                } else if ($PWProfile['entity_approval'] == 'approved') {
+            ?>
+                <div class="status" id="approved">Status : <?= $PWProfile['entity_approval']?></div>
+            <?php
+                } else if ($PWProfile['entity_approval'] == 'rejected') {
+            ?>
+                <div class="status" id="rejected">Status : <?= $PWProfile['entity_approval']?></div>
+            <?php
+                }
+            ?>
 
         <div class="info-grid">
             <div class="info-left">
-            <p><strong>Email :</strong></p>
+            <p>Email</p>
             <div class="value-box"><?= $profile['email']?></div>
 
-            <p><strong>Phone :</strong></p>
+            <p>Phone</p>
             <div class="value-box"><?= $profile['phonenumber']?></div>
             </div>
 
             <div class="info-right">
-            <p>Legal Tax Document:</p>
-            <a href="pengelolaWisata/photos/<?= $PWProfile['tax_document']?>" target="_blank" class="doc-btn">See Document ➚</a>
+            <p>Legal Tax Document</p>
+            <a href="pengelolaWisata/photos/<?= $PWProfile['tax_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 
-            <p>Legal Business Document :</p>
-            <a href="pengelolaWisata/photos/<?= $PWProfile['legal_business_document']?>" target="_blank" class="doc-btn">See Document ➚</a>
+            <p>Legal Business Document</p>
+            <a href="pengelolaWisata/photos/<?= $PWProfile['legal_business_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
         </div>
+        <div class="address">
+            <p>Address</p>
+            <div class="value-box"><?= $PWProfile['legal_document_address']?></div>
+        </div>
 
-        <a href="edit-profile.php" class="edit-btn">Edit Identity</a>
+        <a href="indeks.php?page=editProfilWisata" class="edit-btn">Edit Identity</a>
         </div>
     </div>
     </div>

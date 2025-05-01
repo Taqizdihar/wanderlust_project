@@ -54,19 +54,7 @@ mysqli_close($conn);
 </head>
 <body>
 
-<div class="navbar">
-    <img src="Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
-    <h1>| Partner Dashboard</h1>
-    <a href="indeks.php?page=profilPemilikWisata"><i class="fa-regular fa-circle-user"></i></a> 
-</div>
-
-<div class="sidebar">
-    <a href="dashboardWisata.php">Dashboard</a>
-    <a href="../notFound.php">Places</a>
-    <a href="../notFound.php">Orders</a>
-    <a href="../notFound.php">Help Centre</a>
-    <a href="../notFound.php">Log Out</a>
-</div>
+<?php include "pengelolaWisata/viewsWisata.php";?>
 
 <div class="main">
     <h2>Welcome, <b><?= $profile['nama']?></b></h2>
