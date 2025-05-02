@@ -77,7 +77,7 @@
 
     <div class="sidebar">
         <a href="indeks.php?page=dashboardWisata">Dashboard</a>
-        <a href="notFound.php">Places</a>
+        <a href="indeks.php?page=daftarWisata">Places</a>
         <a href="notFound.php">Orders</a>
         <a href="notFound.php">Help Centre</a>
         <a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a>

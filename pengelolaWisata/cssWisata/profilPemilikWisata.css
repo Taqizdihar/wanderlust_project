@@ -18,24 +18,21 @@ body {
 }
   
 .profile-pic-section {
+    display: flex;
+    flex-direction: column;
     text-align: center;
 }
   
-#avatar {
-    width: 120px;
-    height: 120px;
-    background-color: #ccc;
-    border-radius: 50%;
-    margin-bottom: 10px;
+#pp {
+    font-size: 100px;
+    color: #0f2e60;
 }
   
 .change-btn {
-    display: inline-block;
     background-color: #1a54b3;
     padding: 8px 20px;
     border-radius: 5px;
     color: white;
-    font-weight: bold;
     cursor: pointer;
     position: relative;
 }
