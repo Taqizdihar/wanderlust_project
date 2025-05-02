@@ -15,7 +15,7 @@
       position: fixed;
       width: 220px;
       height: 100vh;
-      background-color: #2c3e50;
+      background-color: #007bff;
       color: white;
       padding-top: 20px;
     }
@@ -44,13 +44,13 @@
     }
 
     .sidebar label:hover {
-      background-color: #007bff;
+      background-color: #34495e;
     }
 
     /* Header */
     .header {
       height: 60px;
-      background-color: #007bff;;
+      background-color: #34495e;
       color: white;
       padding: 15px 30px;
       margin-left: 220px;
@@ -123,7 +123,7 @@
   <div class="sidebar">
     <div class="profile">
       <img src="https://via.placeholder.com/80" alt="Admin">
-      <h2>Wanderlust</h2>
+      <h2>Wanderlust</>
     </div>
     <label for="tab-dashboard">🏠 Dashboard</label>
     <label for="tab-member">👥 Member</label>
