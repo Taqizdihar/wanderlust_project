@@ -31,7 +31,7 @@
 
 <div id="home-content">
   <div id="home-banner">
-    <h2>Wander for Wonders</h2>
+    <h2>Wanderings for Wonders</h2>
     <form action="" class="search-button">
       <input type="text" placeholder="Cari Destinasi atau Kegiatan" name="search" />
       <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>

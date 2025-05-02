@@ -102,7 +102,7 @@
             </table>
           </div>
         </div>
-        <p>Copyright © 2024 Wanderlust. All rights reserved</p>
+        <p>Copyright © 2025 Wanderlust. All rights reserved</p>
       </footer>
       <!--Footer-->
 </body>

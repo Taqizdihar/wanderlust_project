@@ -20,13 +20,13 @@
         </div>
         <nav class="navbar">
           <ul>
-            <li><a href="Login.html">Login</a></li>
-            <li><a href="Promo.html">Promo</a></li>
-            <li><a href="PemesananTiket.html">Tiket</a></li>
-            <li><a href="Tips.html">Tips</a></li>
-            <li><a href="ContactUs.html">Kontak Kami</a></li>
-            <li><a href="Agenda.html">Agenda</a></li>
-            <li><a href="Profile.html"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
+            <li><a href="Login.php">Login</a></li>
+            <li><a href="Promo.php">Promo</a></li>
+            <li><a href="pemesananTiket.php">Tiket</a></li>
+            <li><a href="Tips.php">Tips</a></li>
+            <li><a href="contactUs.php">Kontak Kami</a></li>
+            <li><a href="Agenda.php">Agenda</a></li>
+            <li><a href="Profile.php"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
           </ul>
         </nav>
       </div>
