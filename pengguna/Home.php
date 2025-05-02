@@ -19,9 +19,9 @@
       <ul>
         <li><a href="Login.php">Login</a></li>
         <li><a href="Promo.php">Promo</a></li>
-        <li><a href="PemesananTiket.php">Tiket</a></li>
+        <li><a href="pemesananTiket.php">Tiket</a></li>
         <li><a href="Tips.php">Tips</a></li>
-        <li><a href="ContactUs.php">Kontak Kami</a></li>
+        <li><a href="contactUs.php">Kontak Kami</a></li>
         <li><a href="Agenda.php">Agenda</a></li>
         <li><a href="Profil.php"><img src="../Images/PP.jpg" alt="Foto Profil" /></a></li>
       </ul>
