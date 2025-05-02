@@ -1,29 +1,33 @@
 <?php
 include "config.php";
+$warning = "";
 
-if (isset($_POST['signinBtn'])) {
+if (isset($_POST['loginBtn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $passwordSecured = password_hash($password, PASSWORD_DEFAULT);
 
-    $sqlStatement = "INSERT INTO user (email, password, role) VALUES('$email', '$passwordSecured', '$role')";
+    $sqlStatement = "SELECT * FROM user WHERE email = '$email'";
     $query = mysqli_query($conn, $sqlStatement);
-    $getID = mysqli_insert_id($conn);
-    
-    $_SESSION['user_id'] = $getID;
-    $_SESSION['email'] = $email;
-    $_SESSION['password'] = $passwordSecured;
+    $registeredUser = mysqli_fetch_ASSOC($query);
 
-    if (mysqli_affected_rows($conn) != 0) {
-        if ($role == 'wisatawan') {
-            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
-            exit();
-        } else if ($role == 'pw') {
-            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas");
-            exit();
+    if ($registeredUser) {
+        if (password_verify($password, $registeredUser['password'])) {
+            $_SESSION['user_id'] = $registeredUser['user_id'];
+            $_SESSION['email'] = $registeredUser['email'];
+            $_SESSION['role'] = $registeredUser['role'];
+
+            if ($registeredUser['role'] == 'wisatawan') {
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
+                exit();
+            } else if ($registeredUser['role'] == 'pw') {
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata");
+                exit();
+            }
+        } else {
+            $warning = "Wrong password, please try again";
         }
     } else {
-        echo "<p>Pendaftaran akun gagal!</p>";
+        $warning = "Unregistered email, choose Sign In option";
     }
 }
 mysqli_close($conn);
@@ -42,7 +46,12 @@ mysqli_close($conn);
     <h2>Welcome back!</h2>
     <div class="login-container">
         <h3>Log In</h3>
-        <form action="post">
+
+        <?php if (!empty($warning)) : ?>
+        <p id="warning"><?= $warning?></p>
+        <?php endif; ?>
+
+        <form method="post" action="">
             <div class="form-item">
                 <label for="email">Email</label>
                 <input type="text" name="email" placeholder="Email" required>
