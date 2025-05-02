@@ -191,7 +191,7 @@
             <div>
               <h5>
                 Wanderlust
-                <span style="display: block; font: 15px 'Concert One', sans-serif;">Wander for Wonders</span>
+                <span style="display: block; font: 15px 'Concert One', sans-serif;">Wanderings for Wonders</span>
               </h5>
             </div>
           </div>
