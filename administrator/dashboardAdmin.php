@@ -1,39 +1,150 @@
+<?php
+$page = $_GET['page'] ?? 'home';
+$feedback = "";
+
+if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
+  $id = $_GET['id'];
+  $aksi = $_GET['aksi'];
+  $feedback = $aksi === 'acc' ? "✅ Pengajuan Pengolah ID $id diterima." : "❌ Pengajuan Pengolah ID $id ditolak.";
+}
+
+if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
+  $id = $_GET['id'];
+  $aksi = $_GET['aksi'];
+  $feedback = $aksi === 'acc' ? "✅ Wisata ID $id diterima." : "❌ Wisata ID $id ditolak.";
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin</title>
-  <style>
-    body { margin: 0; font-family: sans-serif; background: #f4f6f9; }
-    .wrapper { display: flex; min-height: 100vh; }
-    .sidebar {
-      width: 240px; background-color: #2c3e50;
-      color: white; padding: 20px;
-    }
-    .sidebar h2 { font-size: 20px; margin-bottom: 20px; }
-    .sidebar ul { list-style: none; padding: 0; }
-    .sidebar li { margin-bottom: 15px; }
-    .sidebar a {
-      color: white; text-decoration: none;
-      padding: 10px; display: block; border-radius: 5px;
-    }
-    .sidebar a:hover { background-color: #1abc9c; }
-    .main { flex: 1; padding: 30px; }
-  </style>
+  <!-- Memanggil file CSS -->
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
   <div class="wrapper">
     <aside class="sidebar">
       <h2>Admin Panel</h2>
       <ul>
-        <li><a href="index.php">Dashboard</a></li>
-        <li><a href="acc.php">ACC Pengolah Wisata</a></li>
-        <li><a href="#">Pengaturan</a></li>
+        <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
+        <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
+        <li><a href="?page=acc_wisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
       </ul>
     </aside>
     <main class="main">
-      <h1>Selamat Datang di Dashboard</h1>
-      <p>Silakan pilih menu di samping untuk mengelola sistem wisata.</p>
+      <?php if ($feedback): ?>
+        <div class="feedback"><?= $feedback ?></div>
+      <?php endif; ?>
+
+      <?php if ($page === 'home'): ?>
+        <div class="welcome">
+          <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.
+        </div>
+
+        <div class="card profile">
+          <img src="https://via.placeholder.com/80" alt="Foto Profil">
+          <div class="profile-info">
+            <h3>Candra Eka Saputra</h3>
+            <p>📱 085755550969</p>
+            <p>📧 candraekas5@gmail.com</p>
+            <p>🕒 Bergabung Sejak: 18/04/2015 08:14:51</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Menu Utama</h3>
+          <div class="grid">
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/visible.png"/>
+              <strong>MONITOR</strong><span>Pantau Member</span>
+            </div>
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/paw.png"/>
+              <strong>JEJAK</strong><span>Lihat Jejak Member</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Pengaturan</h3>
+          <div class="grid">
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/region-code.png"/>
+              <strong>GEOFENCE</strong><span>Pengaturan Geofence</span>
+            </div>
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/user-group-man-man.png"/>
+              <strong>MEMBER</strong><span>Pengaturan Member</span>
+            </div>
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/marker.png"/>
+              <strong>POI</strong><span>Pengaturan POI</span>
+            </div>
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/database.png"/>
+              <strong>BASECAMP</strong><span>Pengaturan Basecamp</span>
+            </div>
+          </div>
+        </div>
+
+      <?php elseif ($page === 'acc'): ?>
+        <div class="card">
+          <h2>Pengajuan Pengolah Wisata</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>Nama</th><th>Email</th><th>Nama Wisata</th><th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td><td>Siti Nurhaliza</td><td>siti@mail.com</td><td>Air Terjun Nglirip</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=1" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=1" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td><td>Budi Santoso</td><td>budi@mail.com</td><td>Kampung Batik</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <?php elseif ($page === 'acc_wisata'): ?>
+        <div class="card">
+          <h2>Pengajuan Wisata</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>Nama Wisata</th><th>Lokasi</th><th>Diajukan Oleh</th><th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>101</td><td>Curug Cikaso</td><td>Sukabumi</td><td>Agus S</td>
+                <td>
+                  <a href="?page=acc_wisata&aksi=acc&id=101" class="acc-btn">ACC</a>
+                  <a href="?page=acc_wisata&aksi=tolak&id=101" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>102</td><td>Pantai Watu Karung</td><td>Pacitan</td><td>Dewi</td>
+                <td>
+                  <a href="?page=acc_wisata&aksi=acc&id=102" class="acc-btn">ACC</a>
+                  <a href="?page=acc_wisata&aksi=tolak&id=102" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <?php endif; ?>
     </main>
   </div>
 </body>
