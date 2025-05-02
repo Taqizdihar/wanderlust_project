@@ -46,10 +46,10 @@ if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
         <div class="card profile">
           <img src="https://via.placeholder.com/80" alt="Foto Profil">
           <div class="profile-info">
-            <h3>Candra Eka Saputra</h3>
-            <p>📱 085755550969</p>
-            <p>📧 candraekas5@gmail.com</p>
-            <p>🕒 Bergabung Sejak: 18/04/2015 08:14:51</p>
+            <h3>ikaaacan</h3>
+            <p>📱 082180750761</p>
+            <p>📧 riskadeabakri0108@gmail.com</p>
+            <p>🕒 Bergabung Sejak: 29-04-2025</p>
           </div>
         </div>
 
