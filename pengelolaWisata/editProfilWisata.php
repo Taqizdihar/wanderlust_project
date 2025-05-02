@@ -10,6 +10,51 @@ $sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement2);
 $PWProfile = mysqli_fetch_assoc($query);
 
+if (isset($_POST['save'])) {
+    $fullName = $_POST['fullname'];
+    $email = $_POST['email'];
+    $phoneNumber = $_POST['phone'];
+    $NPWP = $_FILES['npwp'];
+    $oldNPWP = $PWProfile['tax_document'];
+    $NIB = $_FILES['nib'];
+    $oldNIB = $PWProfile['legal_business_document'];
+    $legalAddress = $_POST['address'];
+
+    if (isset($NPWP)) {
+		$uploadFile = 'pengelolaWisata/photos/'.basename($NPWP['name']);
+		
+      if (move_uploaded_file($NPWP['tmp_name'], $uploadFile)) {
+        $uploadedNPWP = $NPWP['name'];
+        unlink('pengelolaWisata/photos/'.$oldNPWP);
+      } else {
+        $uploadedNPWP = null;
+      }
+	  }
+
+    if (isset($NIB)) {
+		$uploadFile = 'pengelolaWisata/photos/'.basename($NIB['name']);
+		
+      if (move_uploaded_file($NIB['tmp_name'], $uploadFile)) {
+        $uploadedNIB = $NIB['name'];
+        unlink('pengelolaWisata/photos/'.$oldNIB);
+      } else {
+        $uploadedNIB = null;
+      }
+	  }
+
+
+    $sqlStatement3 = "UPDATE user SET nama='$fullName', email='$email', phonenumber='$phoneNumber' WHERE user_id='$ID'";   
+    $query = mysqli_query($conn, $sqlStatement3);
+
+    $sqlStatement4 = "UPDATE pemilikwisata SET legal_document_address='$legalAddress', tax_document='$uploadedNPWP', legal_business_document='$uploadedNIB' WHERE pw_id='$ID'";   
+    $query = mysqli_query($conn, $sqlStatement4);
+    
+    if (mysqli_affected_rows($conn) != 0) {
+        header("location:indeks.php?page=profilPemilikWisata");
+    } else {
+        echo "<p>Profile Changes Failed</p>";
+    }
+}
 mysqli_close($conn);
 ?>
 
@@ -28,7 +73,47 @@ mysqli_close($conn);
     <?php include "pengelolaWisata/viewsWisata.php";?>
 
     <div class="main">
-
+        <form method="post" enctype="multipart/form-data">
+            <table border="0">
+                <tr>
+                    <td>Full Name</td>
+                    <td>:</td>
+                    <td><input name="fullname" required></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>:</td>
+                    <td><input name="email" required></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td>:</td>
+                    <td><input name="phone" required></td>
+                </tr>
+                <tr>
+                    <td valign="top">Address</td>
+                    <td valign="top">:</td>
+                    <td><textarea name="address" rows="3" cols="60" required></textarea></td>
+                </tr>
+                <tr>
+                    <td valign="top">Tax Document</td>
+                    <td valign="top">:</td>
+                    <td><input type="file" name="npwp" accept="image/*, .doc, .docx, .pdf" required></td>
+                </tr>
+                <tr>
+                    <td valign="top">Legal Business Document</td>
+                    <td valign="top">:</td>
+                    <td><input type="file" name="nib" accept="image/*, .doc, .docx, .pdf" required></td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <input type="submit" value="Save" name="save">
+                        <input type="reset" value="Reset" onclick="return confirm('Reset Form?')>
+                    </td>
+                </tr>
+            </table>
+            <br><br>
+        </form>
     </div>
 </body>
 </html>

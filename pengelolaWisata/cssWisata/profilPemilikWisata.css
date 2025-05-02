@@ -21,7 +21,7 @@ body {
     text-align: center;
 }
   
-.avatar {
+#avatar {
     width: 120px;
     height: 120px;
     background-color: #ccc;

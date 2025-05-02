@@ -10,6 +10,29 @@ $sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement2);
 $PWProfile = mysqli_fetch_assoc($query);
 
+if (isset($_FILES['profilePhoto'])) {
+    $photo = $_FILES['profilePhoto'];
+    $oldPhoto = $profile['profilepicture'];
+
+    if (isset($photo)) {
+		$uploadFile = 'pengelolaWisata/photos/'.basename($photo['name']);
+		
+      if (move_uploaded_file($photo['tmp_name'], $uploadFile)) {
+        $uploadedPhoto = $photo['name'];
+        unlink('pengelolaWisata/photos/'.$oldPhoto);
+      } else {
+        $uploadedPhoto = null;
+      }
+	}
+    
+    $sqlStatement3 = "INSERT INTO user (profilepicture) VALUES('$uploadedPhoto') WHERE pw_id='$ID'";   
+    $query = mysqli_query($conn, $sqlStatement3);
+
+    if (mysqli_affected_rows($conn) != 0) {
+        header("location:indeks.php?page=profilPemilikWisata");
+    }
+}
+
 mysqli_close($conn);
 ?>
 
@@ -30,10 +53,12 @@ mysqli_close($conn);
     <div class="main">
         <div class="profile-container">
         <div class="profile-pic-section">
-        <div class="avatar"></div>
+        <i class="fa-regular fa-circle-user" id="avatar"></i>
         <label class="change-btn">
             Change
-            <input type="file" class="file-input" accept="image/*">
+            <form action="post" enctype="multipart/form-data">
+                <input type="file" name="profilePhoto" class="file-input" accept="image/*">
+            </form>
         </label>
         </div>
 
