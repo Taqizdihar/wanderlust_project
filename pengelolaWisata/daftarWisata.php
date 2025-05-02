@@ -38,9 +38,8 @@ $PWProfile = mysqli_fetch_assoc($query);
         <?php
             } if ($PWProfile['entity_approval'] == 'approved') {
         ?>
-        <a href="indeks.php?page=addWisata">
-            You haven't uploaded any places yet!
-            Click here to add a place
+        <a href="indeks.php?page=addWisata" class="approved">
+            Click here to add a property
         </a>
         <?php
             }

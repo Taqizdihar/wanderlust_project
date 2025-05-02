@@ -71,11 +71,11 @@ body {
 }
 
 #approved {
-    background-color: #2d9530;
-    color: black;
+    background-color: #2a872d;
+    color: white;
 }
 
-#approved {
+#rejected {
     background-color: #952f2d;
     color: white;
 }

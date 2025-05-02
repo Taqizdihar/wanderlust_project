@@ -34,7 +34,7 @@ body h2 {
 #warning {
     margin: 0;
     color: red;
-    font: italic 10px "verdana";
+    font: italic 15px "verdana";
 }
 
 .login-container form {
@@ -74,7 +74,7 @@ input#TAO:disabled {
     width: 100%;
     max-width: 350px;
     height: 40px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     padding: 8px;
 }
 
@@ -100,7 +100,12 @@ input#TAO:disabled {
 .login-footer a {
     font: 14px "Verdana";
     color: #1a54b3;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.login-footer p {
+    font: 14px "Verdana";
+    margin-bottom: 10px;
 }
 
 #backButton {
