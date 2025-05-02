@@ -14,9 +14,10 @@ body h2 {
     text-align: center;
 }
 
+
 .login-container {
-    margin-top: 20px;
-    height: 520px;
+    margin-top: 0;
+    height: 560px;
     width: 450px;
     justify-self: center;
     background-color: white;
@@ -31,11 +32,17 @@ body h2 {
     text-align: center;
 }
 
+#warning {
+    margin: 0;
+    color: red;
+    font: italic 15px "verdana";
+}
+
 .login-container form {
     width: 100%;
     max-width: 350px;
     justify-self: center;
-    margin-top: 60px;
+    margin-top: 20px;
 }
 
 .form-item label {

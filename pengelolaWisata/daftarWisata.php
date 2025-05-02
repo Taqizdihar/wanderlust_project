@@ -32,7 +32,7 @@ $PWProfile = mysqli_fetch_assoc($query);
             <div class="reviewed">
                 <i class="fa-solid fa-money-check"></i>
                 <p>Your identity and business legals are in review.
-                    Please come back later. Our regards
+                    Please come back later to add your property. Our most regards.
                 </p>
             </div>
         <?php

@@ -14,8 +14,23 @@ body {
 
 .reviewed {
     position: relative;
-    top: 90px;
-    right: 60px;
+    top: 20px;
+    right: 10px;
     display: flex;
-    background-color: red;
+    background-color: grey;
+    padding: 40px;
+    border-radius: 30px;
+}
+
+.reviewed i {
+    font-size: 100px;
+    color: white;
+    margin-right: 40px;
+    align-self: center;
+}
+
+.reviewed p {
+    font: 30px "verdana";
+    color: white;
+    line-height: 1.8;
 }
