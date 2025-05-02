@@ -21,12 +21,12 @@ if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin</title>
   <!-- Memanggil file CSS -->
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="cssAdmin/contoh.css">
 </head>
 <body>
   <div class="wrapper">
     <aside class="sidebar">
-      <h2>Admin Panel</h2>
+      <h2>Halo,Admin</h2>
       <ul>
         <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
         <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>

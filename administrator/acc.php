@@ -21,7 +21,7 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
 <body>
   <div class="wrapper">
     <aside class="sidebar">
-      <h2>Admin Panel</h2>
+      <h2>Halo,Admin</h2>
       <ul>
         <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
         <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
