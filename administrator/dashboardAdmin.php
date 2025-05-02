@@ -1,175 +1,173 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Admin</title>
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f6f9;
+    }
+
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
     }
 
     /* Sidebar */
     .sidebar {
-      position: fixed;
-      width: 220px;
-      height: 100vh;
-      background-color: #007bff;
+      width: 240px;
+      background-color: #2c3e50;
       color: white;
-      padding-top: 20px;
-    }
-
-    .sidebar .profile {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .sidebar .profile img {
-      width: 80px;
-      border-radius: 50%;
-    }
-
-    .sidebar .profile p {
-      margin: 10px 0 0;
-      font-weight: bold;
-    }
-
-    .sidebar label {
-      display: block;
-      padding: 12px 20px;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .sidebar label:hover {
-      background-color: #34495e;
-    }
-
-    /* Header */
-    .header {
-      height: 60px;
-      background-color: #34495e;
-      color: white;
-      padding: 15px 30px;
-      margin-left: 220px;
+      padding: 20px 15px;
       display: flex;
-      align-items: center;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin-bottom: 15px;
+    }
+
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .sidebar a:hover {
+      background-color: #1abc9c;
     }
 
     /* Main Content */
     .main {
-      margin-left: 220px;
+      flex: 1;
       padding: 30px;
     }
 
-    .content {
-      display: none;
-      background-color: white;
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    input[type="radio"] {
-      display: none;
-    }
-
-    #tab-dashboard:checked ~ .main #content-dashboard,
-    #tab-member:checked ~ .main #content-member,
-    #tab-monitor:checked ~ .main #content-monitor,
-    #tab-jejak:checked ~ .main #content-jejak,
-    #tab-pengaturan:checked ~ .main #content-pengaturan {
-      display: block;
-    }
-
-    .section-title {
-      font-size: 24px;
-      color: #333;
+    .main h1 {
       margin-bottom: 20px;
+      font-size: 24px;
     }
 
     table {
       width: 100%;
+      background: white;
       border-collapse: collapse;
-      margin-top: 15px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
 
-    th, td {
-      padding: 10px;
+    thead {
+      background-color: #34495e;
+      color: white;
+    }
+
+    td, th {
+      padding: 15px;
       border: 1px solid #ddd;
       text-align: left;
     }
 
-    .status-aktif {
-      color: green;
-      font-weight: bold;
+    button.acc {
+      background-color: #2ecc71;
+      border: none;
+      color: white;
+      padding: 7px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-right: 5px;
+    }
+
+    button.tolak {
+      background-color: #e74c3c;
+      border: none;
+      color: white;
+      padding: 7px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .wrapper {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .sidebar ul {
+        display: flex;
+      }
+
+      .sidebar li {
+        margin-right: 15px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <h2>Halo,Admin</h2>
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Member</a></li>
+        <li><a href="#">Monitor</a></li>
+        <li><a href="#">Jejak</a></li>
+        <li><a href="#">Pengaturan</a></li>
+        <li><a href="#">ACC Pengolah Wisata</a></li>
+      </ul>
+    </aside>
 
-  <!-- Radio Buttons (Navigation Logic) -->
-  <input type="radio" name="menu" id="tab-dashboard" checked>
-  <input type="radio" name="menu" id="tab-member">
-  <input type="radio" name="menu" id="tab-monitor">
-  <input type="radio" name="menu" id="tab-jejak">
-  <input type="radio" name="menu" id="tab-pengaturan">
-
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="profile">
-      <img src="https://via.placeholder.com/80" alt="Admin">
-      <h2>Wanderlust</>
-    </div>
-    <label for="tab-dashboard">🏠 Dashboard</label>
-    <label for="tab-member">👥 Member</label>
-    <label for="tab-monitor">👁️ Monitor</label>
-    <label for="tab-jejak">🐾 Jejak</label>
-    <label for="tab-pengaturan">⚙️ Pengaturan</label>
-  </div>
-
-  <!-- Header -->
-  <div class="header">
-    Selamat Datang di Area Admin
-  </div>
-
-  <!-- Main Content -->
-  <div class="main">
-    <div id="content-dashboard" class="content">
-      <div class="section-title">Dashboard Utama</div>
-      <p>Halo Admin! Anda telah berhasil masuk. Gunakan menu di samping untuk mengelola data dan informasi sistem.</p>
-    </div>
-
-    <div id="content-member" class="content">
-      <div class="section-title">Data Member</div>
+    <main class="main">
+      <h1>Daftar Pengajuan Pengolah Wisata</h1>
       <table>
-        <tr><th>Nama</th><th>Status</th></tr>
-        <tr><td>Juan Gracia</td><td class="status-aktif">Aktif</td></tr>
-        <tr><td>Wayne</td><td class="status-aktif">Aktif</td></tr>
-        <tr><td>aaa</td><td class="status-aktif">Aktif</td></tr>
-        <tr><td>bbb</td><td class="status-aktif">Aktif</td></tr>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>Nama Wisata</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rina Kusuma</td>
+            <td>rina@mail.com</td>
+            <td>Curug Pelangi</td>
+            <td>
+              <button class="acc">ACC</button>
+              <button class="tolak">Tolak</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Andi Pratama</td>
+            <td>andi@mail.com</td>
+            <td>Pantai Biru</td>
+            <td>
+              <button class="acc">ACC</button>
+              <button class="tolak">Tolak</button>
+            </td>
+          </tr>
+        </tbody>
       </table>
-    </div>
-
-    <div id="content-monitor" class="content">
-      <div class="section-title">Monitor Aktivitas</div>
-      <p>Fitur ini digunakan untuk memantau aktivitas pengguna secara real-time.</p>
-    </div>
-
-    <div id="content-jejak" class="content">
-      <div class="section-title">Riwayat Jejak</div>
-      <p>Lihat riwayat lokasi pengguna dalam periode tertentu.</p>
-    </div>
-
-    <div id="content-pengaturan" class="content">
-      <div class="section-title">Pengaturan Sistem</div>
-      <p>Kelola pengaturan seperti Geofence, POI, dan konfigurasi basecamp.</p>
-    </div>
+    </main>
   </div>
-
 </body>
 </html>
