@@ -17,11 +17,11 @@
           </div>
           <nav class="navbar">
             <ul>
-              <li><a href="Login.html">Login</a></li>
-              <li><a href="Promo.html">Promo</a></li>
-              <li><a href="PemesananTiket.html">Tiket</a></li>
+              <li><a href="Login.php">Login</a></li>
+              <li><a href="Promo.php">Promo</a></li>
+              <li><a href="pemesananTiket.php">Tiket</a></li>
               <li><a href="Tips.html">Tips</a></li>
-              <li><a href="ContactUs.html">Kontak Kami</a></li>
+              <li><a href="contactUs.php">Kontak Kami</a></li>
               <li><a href="Agenda.html">Agenda</a></li>
               <li><a href="Profil.html"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
             </ul>
@@ -197,7 +197,7 @@
             </table>
           </div>
         </div>
-        <p>Copyright © 2024 Wanderlust. All rights reserved</p>
+        <p>Copyright © 2025 Wanderlust. All rights reserved</p>
       </footer>
       <!--Footer-->
 </body>
