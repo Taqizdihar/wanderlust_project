@@ -53,13 +53,13 @@ mysqli_close($conn);
     <div class="main">
         <div class="profile-container">
         <div class="profile-pic-section">
-        <i class="fa-regular fa-circle-user" id="avatar"></i>
-        <label class="change-btn">
-            Change
-            <form action="post" enctype="multipart/form-data">
-                <input type="file" name="profilePhoto" class="file-input" accept="image/*">
-            </form>
-        </label>
+            <i class="fa-regular fa-circle-user" id="pp"></i>
+            <label class="change-btn">
+                Change
+                <form action="post" enctype="multipart/form-data">
+                    <input type="file" name="profilePhoto" class="file-input" accept="image/*">
+                </form>
+            </label>
         </div>
 
         <div class="profile-info">
