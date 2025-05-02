@@ -1,3 +1,34 @@
+<?php
+include "config.php";
+
+if (isset($_POST['signinBtn'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $passwordSecured = password_hash($password, PASSWORD_DEFAULT);
+
+    $sqlStatement = "INSERT INTO user (email, password, role) VALUES('$email', '$passwordSecured', '$role')";
+    $query = mysqli_query($conn, $sqlStatement);
+    $getID = mysqli_insert_id($conn);
+    
+    $_SESSION['user_id'] = $getID;
+    $_SESSION['email'] = $email;
+    $_SESSION['password'] = $passwordSecured;
+
+    if (mysqli_affected_rows($conn) != 0) {
+        if ($role == 'wisatawan') {
+            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
+            exit();
+        } else if ($role == 'pw') {
+            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas");
+            exit();
+        }
+    } else {
+        echo "<p>Pendaftaran akun gagal!</p>";
+    }
+}
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

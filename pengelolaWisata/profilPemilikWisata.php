@@ -1,3 +1,41 @@
+<?php
+include "config.php";
+
+$ID = $_SESSION['user_id'];
+$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement1);
+$profile = mysqli_fetch_assoc($query);
+
+$sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement2);
+$PWProfile = mysqli_fetch_assoc($query);
+
+if (isset($_FILES['profilePhoto'])) {
+    $photo = $_FILES['profilePhoto'];
+    $oldPhoto = $profile['profilepicture'];
+
+    if (isset($photo)) {
+		$uploadFile = 'pengelolaWisata/photos/'.basename($photo['name']);
+		
+      if (move_uploaded_file($photo['tmp_name'], $uploadFile)) {
+        $uploadedPhoto = $photo['name'];
+        unlink('pengelolaWisata/photos/'.$oldPhoto);
+      } else {
+        $uploadedPhoto = null;
+      }
+	}
+    
+    $sqlStatement3 = "INSERT INTO user (profilepicture) VALUES('$uploadedPhoto') WHERE pw_id='$ID'";   
+    $query = mysqli_query($conn, $sqlStatement3);
+
+    if (mysqli_affected_rows($conn) != 0) {
+        header("location:indeks.php?page=profilPemilikWisata");
+    }
+}
+
+mysqli_close($conn);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,53 +48,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <div class="navbar">
-        <img src="../Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
-        <h1>| Partner Dashboard</h1>
-        <a href="logout.php"><i class="fa-regular fa-circle-user"></i></a> 
-    </div>
-
-    <div class="sidebar">
-        <a href="dashboardWisata.php">Dashboard</a>
-        <a href="../notFound.php">Places</a>
-        <a href="../notFound.php">Orders</a>
-        <a href="../notFound.php">Help Centre</a>
-        <a href="../notFound.php">Log Out</a>
-    </div>
+    <?php include "pengelolaWisata/viewsWisata.php";?>
 
     <div class="main">
         <div class="profile-container">
         <div class="profile-pic-section">
-        <div class="avatar"></div>
+        <i class="fa-regular fa-circle-user" id="avatar"></i>
         <label class="change-btn">
             Change
-            <input type="file" class="file-input" accept="image/*">
+            <form action="post" enctype="multipart/form-data">
+                <input type="file" name="profilePhoto" class="file-input" accept="image/*">
+            </form>
         </label>
         </div>
 
         <div class="profile-info">
-        <h2 class="name">Full Name</h2>
-        <div class="status">status</div>
+        <h2 class="name"><?= $profile['nama']?></h2>
+
+            <?php
+                if ($PWProfile['entity_approval'] == 'review') {
+            ?>
+                <div class="status" id="review">Status : <?= $PWProfile['entity_approval']?></div>
+            <?php
+                } else if ($PWProfile['entity_approval'] == 'approved') {
+            ?>
+                <div class="status" id="approved">Status : <?= $PWProfile['entity_approval']?></div>
+            <?php
+                } else if ($PWProfile['entity_approval'] == 'rejected') {
+            ?>
+                <div class="status" id="rejected">Status : <?= $PWProfile['entity_approval']?></div>
+            <?php
+                }
+            ?>
 
         <div class="info-grid">
             <div class="info-left">
-            <p><strong>Email :</strong></p>
-            <div class="value-box">johndoe@gmail.com</div>
+            <p>Email</p>
+            <div class="value-box"><?= $profile['email']?></div>
 
-            <p><strong>Phone :</strong></p>
-            <div class="value-box">1234567890</div>
+            <p>Phone</p>
+            <div class="value-box"><?= $profile['phonenumber']?></div>
             </div>
 
             <div class="info-right">
-            <p><strong>Legal Tax Document:</strong></p>
-            <a href="document_tax.pdf" target="_blank" class="doc-btn">See Document ➚</a>
+            <p>Legal Tax Document</p>
+            <a href="pengelolaWisata/photos/<?= $PWProfile['tax_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 
-            <p><strong>Legal Business Document :</strong></p>
-            <a href="document_business.pdf" target="_blank" class="doc-btn">See Document ➚</a>
+            <p>Legal Business Document</p>
+            <a href="pengelolaWisata/photos/<?= $PWProfile['legal_business_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
         </div>
+        <div class="address">
+            <p>Address</p>
+            <div class="value-box"><?= $PWProfile['legal_document_address']?></div>
+        </div>
 
-        <a href="edit-profile.php" class="edit-btn">Edit Identity</a>
+        <a href="indeks.php?page=editProfilWisata" class="edit-btn">Edit Identity</a>
         </div>
     </div>
     </div>

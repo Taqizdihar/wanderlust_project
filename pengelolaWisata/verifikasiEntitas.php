@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 
-$ID = $_GET['ID'];
+$ID = $_SESSION['user_id'];
 
 if (isset($_POST['submitBtn'])) {
     $fullName = $_POST['fullname'];
@@ -13,28 +13,28 @@ if (isset($_POST['submitBtn'])) {
     if (isset($NPWP)) {
 		$uploadFile = 'pengelolaWisata/photos/'.basename($NPWP['name']);
 		
-		if (move_uploaded_file($NPWP['tmp_name'], $uploadFile)) {
-			$uploadedNPWP = $NPWP['name'];
-			echo "upload file berhasil";
-		} else {
-			$uploadedNPWP = null;
-		}
-	}
+      if (move_uploaded_file($NPWP['tmp_name'], $uploadFile)) {
+        $uploadedNPWP = $NPWP['name'];
+        echo "upload file berhasil";
+      } else {
+        $uploadedNPWP = null;
+      }
+	  }
 
     if (isset($NIB)) {
 		$uploadFile = 'pengelolaWisata/photos/'.basename($NIB['name']);
 		
-		if (move_uploaded_file($NIB['tmp_name'], $uploadFile)) {
-			$uploadedNIB = $NIB['name'];
-			echo "upload file berhasil";
-		} else {
-			$uploadedNIB = null;
-		}
-	}
+      if (move_uploaded_file($NIB['tmp_name'], $uploadFile)) {
+        $uploadedNIB = $NIB['name'];
+        echo "upload file berhasil";
+      } else {
+        $uploadedNIB = null;
+      }
+	  }
     $sqlStatement1 = "UPDATE user SET nama='$fullName', phonenumber='$phoneNumber' WHERE user_id = '$ID'";
     $query1 = mysqli_query($conn, $sqlStatement1);
 
-    $sqlStatement2 = "INSERT INTO pemilikwisata VALUES('$ID', '$legalAddress', '$uploadedNPWP', '$uploadedNIB', 'pending')";
+    $sqlStatement2 = "INSERT INTO pemilikwisata VALUES('$ID', '$legalAddress', '$uploadedNPWP', '$uploadedNIB', 'review')";
     $query2 = mysqli_query($conn, $sqlStatement2);
     
     if (mysqli_affected_rows($conn) != 0) {
