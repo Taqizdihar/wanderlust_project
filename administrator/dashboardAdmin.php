@@ -1,175 +1,151 @@
+<?php
+$page = $_GET['page'] ?? 'home';
+$feedback = "";
+
+if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
+  $id = $_GET['id'];
+  $aksi = $_GET['aksi'];
+  $feedback = $aksi === 'acc' ? "✅ Pengajuan Pengolah ID $id diterima." : "❌ Pengajuan Pengolah ID $id ditolak.";
+}
+
+if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
+  $id = $_GET['id'];
+  $aksi = $_GET['aksi'];
+  $feedback = $aksi === 'acc' ? "✅ Wisata ID $id diterima." : "❌ Wisata ID $id ditolak.";
+}
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      width: 220px;
-      height: 100vh;
-      background-color: #007bff;
-      color: white;
-      padding-top: 20px;
-    }
-
-    .sidebar .profile {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .sidebar .profile img {
-      width: 80px;
-      border-radius: 50%;
-    }
-
-    .sidebar .profile p {
-      margin: 10px 0 0;
-      font-weight: bold;
-    }
-
-    .sidebar label {
-      display: block;
-      padding: 12px 20px;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .sidebar label:hover {
-      background-color: #34495e;
-    }
-
-    /* Header */
-    .header {
-      height: 60px;
-      background-color: #34495e;
-      color: white;
-      padding: 15px 30px;
-      margin-left: 220px;
-      display: flex;
-      align-items: center;
-    }
-
-    /* Main Content */
-    .main {
-      margin-left: 220px;
-      padding: 30px;
-    }
-
-    .content {
-      display: none;
-      background-color: white;
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    input[type="radio"] {
-      display: none;
-    }
-
-    #tab-dashboard:checked ~ .main #content-dashboard,
-    #tab-member:checked ~ .main #content-member,
-    #tab-monitor:checked ~ .main #content-monitor,
-    #tab-jejak:checked ~ .main #content-jejak,
-    #tab-pengaturan:checked ~ .main #content-pengaturan {
-      display: block;
-    }
-
-    .section-title {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 15px;
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: left;
-    }
-
-    .status-aktif {
-      color: green;
-      font-weight: bold;
-    }
-  </style>
+  <!-- Memanggil file CSS -->
+  <link rel="stylesheet" href="cssAdmin/contoh.css">
 </head>
 <body>
+  <div class="wrapper">
+    <aside class="sidebar">
+      <h2>Halo,Admin</h2>
+      <ul>
+        <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
+        <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
+        <li><a href="?page=acc_wisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
+      </ul>
+    </aside>
+    <main class="main">
+      <?php if ($feedback): ?>
+        <div class="feedback"><?= $feedback ?></div>
+      <?php endif; ?>
 
-  <!-- Radio Buttons (Navigation Logic) -->
-  <input type="radio" name="menu" id="tab-dashboard" checked>
-  <input type="radio" name="menu" id="tab-member">
-  <input type="radio" name="menu" id="tab-monitor">
-  <input type="radio" name="menu" id="tab-jejak">
-  <input type="radio" name="menu" id="tab-pengaturan">
+      <?php if ($page === 'home'): ?>
+        <div class="welcome">
+          <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.
+        </div>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="profile">
-      <img src="https://via.placeholder.com/80" alt="Admin">
-      <h2>Wanderlust</>
-    </div>
-    <label for="tab-dashboard">🏠 Dashboard</label>
-    <label for="tab-member">👥 Member</label>
-    <label for="tab-monitor">👁️ Monitor</label>
-    <label for="tab-jejak">🐾 Jejak</label>
-    <label for="tab-pengaturan">⚙️ Pengaturan</label>
+        <div class="card profile">
+          <img src="https://via.placeholder.com/80" alt="Foto Profil">
+          <div class="profile-info">
+            <h3>ikaaacan</h3>
+            <p>📱 082180750761</p>
+            <p>📧 riskadeabakri0108@gmail.com</p>
+            <p>🕒 Bergabung Sejak: 29-04-2025</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Menu Utama</h3>
+          <div class="grid">
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/visible.png"/>
+              <strong>MONITOR</strong><span>Pantau Member</span>
+            </div>
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/paw.png"/>
+              <strong>JEJAK</strong><span>Lihat Jejak Member</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Pengaturan</h3>
+          <div class="grid">
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/region-code.png"/>
+              <strong>GEOFENCE</strong><span>Pengaturan Geofence</span>
+            </div>
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/user-group-man-man.png"/>
+              <strong>MEMBER</strong><span>Pengaturan Member</span>
+            </div>
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/marker.png"/>
+              <strong>POI</strong><span>Pengaturan POI</span>
+            </div>
+            <div class="menu-box">
+              <img src="https://img.icons8.com/ios-filled/50/000000/database.png"/>
+              <strong>BASECAMP</strong><span>Pengaturan Basecamp</span>
+            </div>
+          </div>
+        </div>
+
+      <?php elseif ($page === 'acc'): ?>
+        <div class="card">
+          <h2>Pengajuan Pengolah Wisata</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>Nama</th><th>Email</th><th>Nama Wisata</th><th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td><td>Siti Nurhaliza</td><td>siti@mail.com</td><td>Air Terjun Nglirip</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=1" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=1" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td><td>Budi Santoso</td><td>budi@mail.com</td><td>Kampung Batik</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <?php elseif ($page === 'acc_wisata'): ?>
+        <div class="card">
+          <h2>Pengajuan Wisata</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>Nama Wisata</th><th>Lokasi</th><th>Diajukan Oleh</th><th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>101</td><td>Curug Cikaso</td><td>Sukabumi</td><td>Agus S</td>
+                <td>
+                  <a href="?page=acc_wisata&aksi=acc&id=101" class="acc-btn">ACC</a>
+                  <a href="?page=acc_wisata&aksi=tolak&id=101" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>102</td><td>Pantai Watu Karung</td><td>Pacitan</td><td>Dewi</td>
+                <td>
+                  <a href="?page=acc_wisata&aksi=acc&id=102" class="acc-btn">ACC</a>
+                  <a href="?page=acc_wisata&aksi=tolak&id=102" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <?php endif; ?>
+    </main>
   </div>
-
-  <!-- Header -->
-  <div class="header">
-    Selamat Datang di Area Admin
-  </div>
-
-  <!-- Main Content -->
-  <div class="main">
-    <div id="content-dashboard" class="content">
-      <div class="section-title">Dashboard Utama</div>
-      <p>Halo Admin! Anda telah berhasil masuk. Gunakan menu di samping untuk mengelola data dan informasi sistem.</p>
-    </div>
-
-    <div id="content-member" class="content">
-      <div class="section-title">Data Member</div>
-      <table>
-        <tr><th>Nama</th><th>Status</th></tr>
-        <tr><td>Juan Gracia</td><td class="status-aktif">Aktif</td></tr>
-        <tr><td>Wayne</td><td class="status-aktif">Aktif</td></tr>
-        <tr><td>aaa</td><td class="status-aktif">Aktif</td></tr>
-        <tr><td>bbb</td><td class="status-aktif">Aktif</td></tr>
-      </table>
-    </div>
-
-    <div id="content-monitor" class="content">
-      <div class="section-title">Monitor Aktivitas</div>
-      <p>Fitur ini digunakan untuk memantau aktivitas pengguna secara real-time.</p>
-    </div>
-
-    <div id="content-jejak" class="content">
-      <div class="section-title">Riwayat Jejak</div>
-      <p>Lihat riwayat lokasi pengguna dalam periode tertentu.</p>
-    </div>
-
-    <div id="content-pengaturan" class="content">
-      <div class="section-title">Pengaturan Sistem</div>
-      <p>Kelola pengaturan seperti Geofence, POI, dan konfigurasi basecamp.</p>
-    </div>
-  </div>
-
 </body>
 </html>
