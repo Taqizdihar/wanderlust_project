@@ -1,4 +1,4 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -178,7 +178,7 @@
     <div class="footer-logo">
       <img src="../Images/Wanderlust Logo Circle.png" height="70" width="70" alt="Wanderlust Logo"/>
       <div>
-        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">Wander for Wonders</span></h5>
+        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">Wanderings for Wonders</span></h5>
       </div>
     </div>
     <div class="footbar">

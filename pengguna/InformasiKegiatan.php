@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +16,7 @@
       <div class="header-content">
         <div class="header-logo">
           <img src="Images/Wanderlust Logo Circle.png" height="50" width="50" alt="Wanderlust Logo">
-          <a href="Home.html">Wanderlust</a>
+          <a href="Home.php">Wanderlust</a>
         </div>
         <nav class="navbar">
           <ul>
@@ -98,7 +100,7 @@
           </table>
         </div>
       </div>
-      <p>Copyright © 2024 Wanderlust. All rights reserved</p>
+      <p>Copyright © 2025 Wanderlust. All rights reserved</p>
     </footer>
     <!--Footer-->
   </body>

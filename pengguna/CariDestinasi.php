@@ -1,9 +1,11 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cari Kegiatan</title>
+    <title>Cari Destinasi</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
     <link rel="stylesheet" href="searchdesti.css">
 </head>
@@ -13,17 +15,17 @@
         <div class="header-content">
           <div class="header-logo">
             <img src="Images/Wanderlust Logo Circle.png" height="50" width="50" alt="Wanderlust Logo">
-            <a href="Home.html">Wanderlust</a>
+            <a href="Home.php">Wanderlust</a>
           </div>
           <nav class="navbar">
             <ul>
-              <li><a href="Login.html">Login</a></li>
-              <li><a href="Promo.html">Promo</a></li>
-              <li><a href="PemesananTiket.html">Tiket</a></li>
-              <li><a href="Tips.html">Tips</a></li>
-              <li><a href="ContactUs.html">Kontak Kami</a></li>
-              <li><a href="Agenda.html">Agenda</a></li>
-              <li><a href="Profil.html"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
+              <li><a href="Login.php">Login</a></li>
+              <li><a href="Promo.php">Promo</a></li>
+              <li><a href="pemesananTiket.php">Tiket</a></li>
+              <li><a href="Tips.php">Tips</a></li>
+              <li><a href="contactUs.php">Kontak Kami</a></li>
+              <li><a href="Agenda.php">Agenda</a></li>
+              <li><a href="Profil.php"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
             </ul>
           </nav>
         </div>
@@ -93,18 +95,7 @@
         </div>
     </div>
     <div class="container">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Travel Recommendations</title>
-        <link rel="stylesheet" href="styles.css">
-        </head>
-        <body>
-            <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Recommendations</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+        
     <div class="activities">
         <h2>Top Destinasi</h2>
         <div class="card-container">
@@ -200,7 +191,7 @@
             <div>
               <h5>
                 Wanderlust
-                <span style="display: block; font: 15px 'Concert One', sans-serif;">Wander for Wonders</span>
+                <span style="display: block; font: 15px 'Concert One', sans-serif;">Wanderings for Wonders</span>
               </h5>
             </div>
           </div>
@@ -224,7 +215,7 @@
             </table>
           </div>
         </div>
-        <p>Copyright © 2024 Wanderlust. All rights reserved</p>
+        <p>Copyright © 2025 Wanderlust. All rights reserved</p>
       </footer>
       <!--Footer-->
 </body>
