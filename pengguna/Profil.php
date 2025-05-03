@@ -30,8 +30,8 @@ $_SESSION['preferensi'] = $_SESSION['preferensi'] ?? 'Pantai, Pegunungan';
             <span class="search-icon"></span>
         </div>
         <nav class="nav-links">
-            <a href="#">Opsi 2</a>
             <a href="#">Opsi 1</a>
+            <a href="#">Opsi 2</a>
             <a href="#">Favorit</a>
             <div class="profile-icon">👤</div>
         </nav>
