@@ -27,7 +27,7 @@ $_SESSION['preferensi'] = $_SESSION['preferensi'] ?? 'Pantai, Pegunungan';
         </div>
         <div class="search-bar">
             <input type="text" placeholder="Search...">
-            <span class="search-icon">🔍</span>
+            <span class="search-icon"></span>
         </div>
         <nav class="nav-links">
             <a href="#">Opsi 2</a>
