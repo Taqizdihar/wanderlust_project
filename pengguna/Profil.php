@@ -86,8 +86,6 @@ $_SESSION['preferensi'] = $_SESSION['preferensi'] ?? 'Pantai, Pegunungan';
   </div>
   <p>Copyright © 2025 Wanderlust. All rights reserved</p>
 </footer>
-</body>
-</html>
 
 </body>
 </html>
