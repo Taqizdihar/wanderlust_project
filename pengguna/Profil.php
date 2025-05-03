@@ -30,8 +30,8 @@ $_SESSION['preferensi'] = $_SESSION['preferensi'] ?? 'Pantai, Pegunungan';
             <span class="search-icon"></span>
         </div>
         <nav class="nav-links">
-            <a href="#">Opsi 2</a>
             <a href="#">Opsi 1</a>
+            <a href="#">Opsi 2</a>
             <a href="#">Favorit</a>
             <div class="profile-icon">👤</div>
         </nav>
@@ -44,12 +44,12 @@ $_SESSION['preferensi'] = $_SESSION['preferensi'] ?? 'Pantai, Pegunungan';
         <img src="img/user.jpg" alt="Foto Profil">
         <h2><?= htmlspecialchars($_SESSION['nama']) ?></h2>
         <table class="profil-table">
-            <tr><th>Email</th><td><?= htmlspecialchars($_SESSION['email']) ?></td></tr>
-            <tr><th>Telepon</th><td><?= htmlspecialchars($_SESSION['telepon']) ?></td></tr>
-            <tr><th>Tanggal Lahir</th><td><?= htmlspecialchars($_SESSION['tanggal_lahir']) ?></td></tr>
-            <tr><th>Jenis Kelamin</th><td><?= htmlspecialchars($_SESSION['jenis_kelamin']) ?></td></tr>
-            <tr><th>Alamat</th><td><?= htmlspecialchars($_SESSION['alamat']) ?></td></tr>
-            <tr><th>Preferensi Destinasi</th><td><?= htmlspecialchars($_SESSION['preferensi']) ?></td></tr>
+            <tr><th>Email:</th><td><?= htmlspecialchars($_SESSION['email']) ?></td></tr>
+            <tr><th>Telepon:</th><td><?= htmlspecialchars($_SESSION['telepon']) ?></td></tr>
+            <tr><th>Tanggal Lahir:</th><td><?= htmlspecialchars($_SESSION['tanggal_lahir']) ?></td></tr>
+            <tr><th>Jenis Kelamin:</th><td><?= htmlspecialchars($_SESSION['jenis_kelamin']) ?></td></tr>
+            <tr><th>Alamat:</th><td><?= htmlspecialchars($_SESSION['alamat']) ?></td></tr>
+            <tr><th>Preferensi Destinasi:</th><td><?= htmlspecialchars($_SESSION['preferensi']) ?></td></tr>
         </table>
         <a href="#" class="edit-button">Edit Profil</a>
     </div>
