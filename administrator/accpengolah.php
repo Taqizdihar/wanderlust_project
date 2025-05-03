@@ -1,7 +1,7 @@
 <?php
 // acc_pengolah_wisata.php
 
-$page = $_GET['page'] ?? 'home';  // Mengambil parameter 'page' dari URL
+$page = $_GET['page'] ?? 'home';
 $feedback = "";
 
 if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
@@ -21,17 +21,16 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
 <body>
   <div class="wrapper">
     <aside class="sidebar">
-      <h2>Halo,Admin</h2>
+      <h2>Admin Panel</h2>
       <ul>
         <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
         <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
         <li><a href="?page=acc_wisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
-        <li><a href="?page=home" class="<?= $page === 'home' ? 'acc_transaksi' : '' ?>">ACC Transaksi</a></li>
       </ul>
     </aside>
 
     <main class="main">
-      <?php if ($feedback): ?> 
+      <?php if ($feedback): ?>
         <div class="feedback"><?= $feedback ?></div>
       <?php endif; ?>
 
