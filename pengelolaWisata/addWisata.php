@@ -167,8 +167,6 @@ mysqli_close($conn);
                                 <option value="Nature">Nature</option>
                                 <option value="Cultural">Cultural</option>
                                 <option value="Historical">Historical</option>
-                                <option value="Theme Park">Theme Park</option>
-                                <option value="Museum">Museum</option>
                             </select>
                         </div>
                     </div>

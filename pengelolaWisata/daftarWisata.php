@@ -95,7 +95,8 @@ while ($row = mysqli_fetch_assoc($query)) {
                 </div>
             </div>
             <div class="actions">
-                <a href="indeks.php?page=editWisata" id="edit">Edit</a>
+                <a href="indeks.php?page=seeWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="see">View</a>
+                <a href="indeks.php?page=editWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="edit">Edit</a>
                 <a href="indeks.php?page=deleteWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="delete" onclick="return confirm('Are you sure you want to delete this property? Action cannot be undone')">Delete</a>
             </div>
         </div>

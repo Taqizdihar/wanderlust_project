@@ -51,6 +51,7 @@ if (isset($_POST['save'])) {
     
     if (mysqli_affected_rows($conn) != 0) {
         header("location:indeks.php?page=profilPemilikWisata");
+        exit();
     } else {
         echo "<p>Profile Changes Failed</p>";
     }
