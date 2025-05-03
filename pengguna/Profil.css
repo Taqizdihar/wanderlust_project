@@ -139,7 +139,7 @@ body {
 
 .edit-button {
     display: inline-block;
-    margin-top: 25px;
+    margin: 20px 15px;
     padding: 12px 25px;
     background-color: #0077cc;
     color: white;

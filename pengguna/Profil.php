@@ -52,6 +52,7 @@ $_SESSION['preferensi'] = $_SESSION['preferensi'] ?? 'Pantai, Pegunungan';
             <tr><th>Preferensi Destinasi:</th><td><?= htmlspecialchars($_SESSION['preferensi']) ?></td></tr>
         </table>
         <a href="#" class="edit-button">Edit Profil</a>
+        <a href="#" class="edit-button">Log Out</a>
     </div>
 </main>
 
