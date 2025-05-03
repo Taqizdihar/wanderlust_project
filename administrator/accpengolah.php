@@ -1,6 +1,5 @@
 <?php
-// acc_pengolah_wisata.php
-
+//  accpengolahwisata.php ini untuk
 $page = $_GET['page'] ?? 'home';
 $feedback = "";
 
