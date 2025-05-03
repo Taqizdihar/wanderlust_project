@@ -56,6 +56,21 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
                 <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
               </td>
             </tr>
+            <tr>
+              <td>3</td><td>Siti Nurhaliza</td><td>siti@mail.com</td><td>Air Terjun Nglirip</td>
+              <td>
+                <a href="?page=acc&aksi=acc&id=1" class="acc-btn">ACC</a>
+                <a href="?page=acc&aksi=tolak&id=1" class="tolak-btn">Tolak</a>
+              </td>
+            </tr>
+            </tr>
+            <tr>
+              <td>4</td><td>Siti Nurhaliza</td><td>siti@mail.com</td><td>Air Terjun Nglirip</td>
+              <td>
+                <a href="?page=acc&aksi=acc&id=1" class="acc-btn">ACC</a>
+                <a href="?page=acc&aksi=tolak&id=1" class="tolak-btn">Tolak</a>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

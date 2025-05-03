@@ -1,42 +1,5 @@
 
-  
-  
-  /* Table Styling */
-  table {
-    width: 100%;
-    background: white;
-    border-collapse: collapse;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    margin-top: 20px;
-  }
-  
-  thead {
-    background: #2877f7;
-    color: white;
-  }
-  
-  td, th {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-  }
-  
-  /* Action Button */
-  .acc-btn, .tolak-btn {
-    padding: 6px 10px;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    font-size: 14px;
-    text-decoration: none;
-  }
-  
-  .acc-btn {
-    background-color:  #2877f7;
-  }
-  
-  .tolak-btn {
-    background-color: #e74c3c;
-  }
+
   
   /* Label Styling */
   .label {
