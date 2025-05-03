@@ -7,7 +7,6 @@ if ($page === 'acc' && isset($_GET['aksi'], $_GET['id'])) {
     ? " Pengajuan Pengolah ID {$_GET['id']} diterima."
     : "❌ Pengajuan Pengolah ID {$_GET['id']} ditolak.";
 }
-
 if ($page === 'acc_wisata' && isset($_GET['aksi'], $_GET['id'])) {
   $feedback = $_GET['aksi'] === 'acc'
     ? " Wisata ID {$_GET['id']} diterima."
@@ -20,7 +19,6 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
     : "❌ Transaksi ID {$_GET['id']} ditolak.";
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
