@@ -195,4 +195,97 @@
     margin: 0 5px;
   }
   
+
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+  }
+  .wrapper {
+    display: flex;
+    min-height: 100vh;
+  }
+  .sidebar {
+    width: 240px;
+    background-color: #2c3e50;
+    color: white;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+  }
+  .sidebar h2 {
+    font-size: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  .sidebar li {
+    margin-bottom: 10px;
+  }
+  .sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 12px 20px;
+    display: block;
+    border-radius: 5px;
+  }
+  .sidebar a:hover,
+  .sidebar a.active {
+    background-color: #1abc9c;
+  }
+  .main {
+    flex: 1;
+    margin-left: 240px;
+    padding: 30px;
+  }
+  .card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  .feedback {
+    background: #dff0d8;
+    color: #3c763d;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    border-left: 5px solid #3c763d;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  thead {
+    background: #34495e;
+    color: white;
+  }
+  th,
+  td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  .acc-btn,
+  .tolak-btn {
+    padding: 6px 10px;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  .acc-btn {
+    background-color: #2ecc71;
+  }
+  .tolak-btn {
+    background-color: #e74c3c;
+  }
+  
   
