@@ -44,7 +44,7 @@ if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
         </div>
 
         <div class="card profile">
-          <img src="ik" alt="">
+          <img src="" alt="">
           <div class="profile-info">
             <h3>ikaaacan</h3>
             <p>📱 082180750761</p>
@@ -52,7 +52,6 @@ if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
             <p>🕒 Bergabung Sejak: 29-04-2025</p>
           </div>
         </div>
-
         <div class="card">
           <h3>Menu Utama</h3>
           <div class="grid">
