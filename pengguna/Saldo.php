@@ -17,9 +17,9 @@
 <body>
   <div class="container">
     <div class="header">
-      <img src="https://cdn-icons-png.flaticon.com/512/854/854878.png" alt="Wanderlust Icon">
+      <img src="pengguna/Wanderlust Logo Plain.png" alt="Wanderlust Icon">
       <div>
-        <h1>WanderlustPoints</h1>
+        <h1>Wanderlust</h1>
         <div class="subtitle">Jelajahi dunia. Tukarkan pengalamanmu.</div>
       </div>
     </div>
