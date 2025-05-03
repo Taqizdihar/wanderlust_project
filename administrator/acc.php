@@ -30,7 +30,7 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
     </aside>
 
     <main class="main">
-      <?php if ($feedback): ?>
+      <?php if ($feedback): ?> 
         <div class="feedback"><?= $feedback ?></div>
       <?php endif; ?>
 
