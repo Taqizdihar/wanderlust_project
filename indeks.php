@@ -7,11 +7,14 @@ session_start();
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
         $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata'];
+        $pages_admin = ['acc', 'accwisata', 'acctransaksi', 'member' ,'dashboardAdmin'];
         
         if (in_array($page, $pages_umum)) {
             include "Umum/$page.php";
         } else if (in_array($page, $pages_pw)) {
             include "pengelolaWisata/$page.php";
+        } else if (in_array($page, $pages_admin)) {
+            include "administrator/$page.php";
         } else {
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
         }
