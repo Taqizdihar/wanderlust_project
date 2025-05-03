@@ -4,20 +4,20 @@ $feedback = "";
 
 if ($page === 'acc' && isset($_GET['aksi'], $_GET['id'])) {
   $feedback = $_GET['aksi'] === 'acc'
-    ? "✅ Pengajuan Pengolah ID {$_GET['id']} diterima."
-    : "❌ Pengajuan Pengolah ID {$_GET['id']} ditolak.";
+    ? " Pengajuan Pengolah ID {$_GET['id']} diterima."
+    : " Pengajuan Pengolah ID {$_GET['id']} ditolak.";
 }
 
 if ($page === 'acc_wisata' && isset($_GET['aksi'], $_GET['id'])) {
   $feedback = $_GET['aksi'] === 'acc'
-    ? "✅ Wisata ID {$_GET['id']} diterima."
-    : "❌ Wisata ID {$_GET['id']} ditolak.";
+    ? " Wisata ID {$_GET['id']} diterima."
+    : "❌Wisata ID {$_GET['id']} ditolak.";
 }
 
 if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
   $feedback = $_GET['aksi'] === 'acc'
-    ? "✅ Transaksi ID {$_GET['id']} disetujui."
-    : "❌ Transaksi ID {$_GET['id']} ditolak.";
+    ? " Transaksi ID {$_GET['id']} disetujui."
+    : "❌Transaksi ID {$_GET['id']} ditolak.";
 }
 ?>
 <!DOCTYPE html>
@@ -37,7 +37,7 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
       <li><a href="?page=acc_wisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
       <li><a href="?page=acc_transaksi" class="<?= $page === 'acc_transaksi' ? 'active' : '' ?>">ACC Transaksi</a></li>
       <li><a href="?page=member" class="<?= $page === 'member' ? 'active' : '' ?>">Daftar Member</a></li>
-      <li><a href="logout.php">🚪 Logout</a></li>
+      <li><a href="logout.php">Logout</a></li>
     </ul>
   </aside>
 
@@ -70,7 +70,7 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
                 <a href="?page=acc&aksi=tolak&id=1" class="tolak-btn">Tolak</a>
               </td>
             </tr>
-            <tr><td>1</td><td>Siti</td><td>siti@mail.com</td><td>Air Terjun</td>
+            <tr><td>1</td><td>Faiz Syafiq Nabily</td><td>Faiz01@gmail.com</td><td>Air Terjun</td>
               <td>
                 <a href="?page=acc&aksi=acc&id=1" class="acc-btn">ACC</a>
                 <a href="?page=acc&aksi=tolak&id=1" class="tolak-btn">Tolak</a>
