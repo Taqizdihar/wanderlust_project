@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: 'MuseoModerno', sans-serif;
+    background: #f9f9f9;
+    color: #333;
+}
+
+.header-content {
+    background-color: #008080;
+    color: white;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #ffd700;
+}
+
+.profil-container {
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.profil-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 30px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.profil-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+.edit-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #008080;
+    color: white;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.edit-button:hover {
+    background-color: #005f5f;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 40px 20px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.footbar table a {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+    display: inline-block;
+}
+
+.footbar table a:hover {
+    text-decoration: underline;
+    color: #ffd700;
+}
