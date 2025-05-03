@@ -2,30 +2,38 @@
 include "config.php";
 $role = $_GET['role'];
 
+$warning = "";
 
 if (isset($_POST['signinBtn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $passwordSecured = password_hash($password, PASSWORD_DEFAULT);
 
-    $sqlStatement = "INSERT INTO user (email, password, role) VALUES('$email', '$passwordSecured', '$role')";
-    $query = mysqli_query($conn, $sqlStatement);
-    $getID = mysqli_insert_id($conn);
-    
-    $_SESSION['user_id'] = $getID;
-    $_SESSION['email'] = $email;
-    $_SESSION['password'] = $passwordSecured;
+    $sqlCall = "SELECT * FROM user WHERE email = '$email' AND role= '$role'";
+    $registration = mysqli_query($conn, $sqlCall);
 
-    if (mysqli_affected_rows($conn) != 0) {
-        if ($role == 'wisatawan') {
-            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
-            exit();
-        } else if ($role == 'pw') {
-            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas");
-            exit();
-        }
+    if (mysqli_num_rows($registration) > 0) {
+        $warning = "Email already used as either tourist or TOA, <br> please use other email or Log In";
     } else {
-        echo "<p>Pendaftaran akun gagal!</p>";
+        $sqlStatement = "INSERT INTO user (email, password, role) VALUES('$email', '$passwordSecured', '$role')";
+        $query = mysqli_query($conn, $sqlStatement);
+        $getID = mysqli_insert_id($conn);
+
+        $_SESSION['user_id'] = $getID;
+        $_SESSION['email'] = $email;
+        $_SESSION['password'] = $passwordSecured;
+
+        if (mysqli_affected_rows($conn) != 0) {
+            if ($role == 'wisatawan') {
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
+                exit();
+            } else if ($role == 'pw') {
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas");
+                exit();
+            }
+        } else {
+            $warning = "Registration failed. Please try again";
+        }
     }
 }
 mysqli_close($conn);
@@ -51,6 +59,11 @@ mysqli_close($conn);
     ?>
     <div class="login-container">
         <h3>Sign In</h3>
+
+        <?php if (!empty($warning)) : ?>
+        <p id="warning"><?= $warning?></p>
+        <?php endif; ?>
+
         <form method="post" action="">
             <?php
             if ($role == 'wisatawan') {

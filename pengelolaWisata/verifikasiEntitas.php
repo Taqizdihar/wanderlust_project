@@ -31,6 +31,7 @@ if (isset($_POST['submitBtn'])) {
         $uploadedNIB = null;
       }
 	  }
+
     $sqlStatement1 = "UPDATE user SET nama='$fullName', phonenumber='$phoneNumber' WHERE user_id = '$ID'";
     $query1 = mysqli_query($conn, $sqlStatement1);
 
@@ -41,7 +42,7 @@ if (isset($_POST['submitBtn'])) {
         header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata&ID=".$ID);
         exit();
     } else {
-        echo "<p>Pendaftaran gagal!</p>";
+        echo "<p>Identity failed</p>";
     }
 }
 mysqli_close($conn);

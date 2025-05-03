@@ -1,10 +1,10 @@
-<!<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Beranda</title>
-  <link rel="stylesheet" href="../css/Home.css">
+  <link rel="stylesheet" href="cssPengguna/Wanderlust.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -19,9 +19,9 @@
       <ul>
         <li><a href="Login.php">Login</a></li>
         <li><a href="Promo.php">Promo</a></li>
-        <li><a href="PemesananTiket.php">Tiket</a></li>
+        <li><a href="pemesananTiket.php">Tiket</a></li>
         <li><a href="Tips.php">Tips</a></li>
-        <li><a href="ContactUs.php">Kontak Kami</a></li>
+        <li><a href="contactUs.php">Kontak Kami</a></li>
         <li><a href="Agenda.php">Agenda</a></li>
         <li><a href="Profil.php"><img src="../Images/PP.jpg" alt="Foto Profil" /></a></li>
       </ul>
