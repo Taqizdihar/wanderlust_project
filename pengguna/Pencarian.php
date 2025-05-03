@@ -42,15 +42,25 @@ $destinasi = [
 </head>
 <body>
 
-<header class="header">
-    <form class="search-bar" method="GET" action="Pencarian.php">
-        <select class="select-destinasi" name="kategori">
-            <option>Pilih destinasi</option>
-        </select>
-        <input type="text" class="search-input" name="q" placeholder="Cari destinasi...">
-        <button type="submit">Cari</button>
-    </form>
-</header>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
+            <div class="logo-text">
+                <div class="title">Wanderlust</div>
+                <div class="subtitle">WANDERINGS FOR WONDERS</div>
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <span class="search-icon"></span>
+        </div>
+        <nav class="nav-links">
+            <a href="#">Opsi 1</a>
+            <a href="#">Opsi 2</a>
+            <a href="#">Favorit</a>
+            <div class="profile-icon">👤</div>
+        </nav>
+    </header>
 
 <main class="main-content">
     <div class="section-title">
