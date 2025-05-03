@@ -37,7 +37,9 @@ body {
 }
 
 .approved {
-    margin-left: 450px;
+    display: inline-block; 
+    margin-left: 400px;
+    margin-bottom: 30px;
     width: 300px;
     background-color: white;
     border: 5px solid grey;
