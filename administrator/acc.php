@@ -26,6 +26,7 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
         <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
         <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
         <li><a href="?page=acc_wisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
+        <li><a href="?page=home" class="<?= $page === 'home' ? 'acc_transaksi' : '' ?>">ACC Transaksi</a></li>
       </ul>
     </aside>
 
