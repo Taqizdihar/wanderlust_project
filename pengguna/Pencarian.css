@@ -135,3 +135,37 @@ body {
     font-size: 0.85rem;
     color: #0288d1;
 }
+
+footer {
+    background-color: #0077cc;
+    color: white;
+    padding: 40px 20px 20px;
+    text-align: center;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .footbar table {
+    color: white;
+  }
+  
+  .footbar a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 0.9em;
+  }
+  
+  .footbar a:hover {
+    color: #fff;
+  }

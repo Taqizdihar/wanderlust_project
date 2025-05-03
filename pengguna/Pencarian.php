@@ -86,5 +86,36 @@ $destinasi = [
     </div>
 </main>
 
+<footer>
+  <div class="footer-container">
+    <div class="footer-logo">
+      <img src="../Images/Wanderlust Logo Circle.png" height="70" width="70" alt="Wanderlust Logo"/>
+      <div>
+        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
+      </div>
+    </div>
+    <div class="footbar">
+      <table>
+        <tr>
+          <td><a href="AboutUs.php">Tentang Kami</a></td>
+          <td><a href="Komunitas.php">Komunitas</a></td>
+          <td><a href="Profil.php">Profil</a></td>
+        </tr>
+        <tr>
+          <td><a href="ContactUs.php">Kontak Kami</a></td>
+          <td><a href="Tips.php">Tips & Trick</a></td>
+          <td><a href="Agenda.php">Agenda</a></td>
+        </tr>
+        <tr>
+          <td><a href="FAQs.php">FAQs</a></td>
+          <td><a href="Promo.php">Promo</a></td>
+          <td><a href="Home.php">Home</a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <p>Copyright © 2025 Wanderlust. All rights reserved</p>
+</footer>
+
 </body>
 </html>
