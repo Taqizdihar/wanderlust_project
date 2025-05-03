@@ -11,7 +11,7 @@ $_SESSION['telepon'] = $_SESSION['telepon'] ?? '081234567890';
     <meta charset="UTF-8">
     <title>Profil - Wanderlust</title>
     <link href="https://fonts.googleapis.com/css2?family=MuseoModerno&family=Concert+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Wanderlust.css">
+    <link rel="stylesheet" href="Profil.css">
 </head>
 <body>
 
