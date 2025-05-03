@@ -21,21 +21,21 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
-<head>
+<head> me
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin</title>
-  <link rel="stylesheet" href="cssAdmin/contoh.css">
+  <link rel="stylesheet" href="administrator/cssAdmin/contoh.css">
 </head>
 <body>
   <div class="wrapper">
     <aside class="sidebar">
       <h2>Halo,Admin</h2>
       <ul>
-        <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
+        <li><a href="?page=dashboardAdmin" class="<?= $page === 'dashboardAdmin' ? 'active' : '' ?>">Dashboard</a></li>
         <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
-        <li><a href="?page=acc_wisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
-        <li><a href="?page=acc_transaksi" class="<?= $page === 'acc_transaksi' ? 'active' : '' ?>">ACC Transaksi</a></li>
+        <li><a href="?page=accwisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
+        <li><a href="?page=acctransaksi" class="<?= $page === 'acc_transaksi' ? 'active' : '' ?>">ACC Transaksi</a></li>
         <li><a href="?page=member" class="<?= $page === 'member' ? 'active' : '' ?>">Daftar Member</a></li>
         <li><a href="logout.php"> Logout</a></li>
       </ul>
@@ -47,10 +47,45 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
       <?php endif; ?>
 
       <main class="main">
-    <?php if ($page === 'home'): ?>
-      <div class="welcome">
+      <?php if ($page === 'dashboardAdmin'): ?>
+      <div class="card">
         <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.
       </div>
+    <main class="main">
+      <div class="row">
+        <div class="card">
+          <h3>Jumlah Member</h3>
+          <div class="info-box">
+            <p>Total Member: 30 <strong><?= $jumlahMember ?></strong></p>
+          </div>
+        </div>
+
+        <div class="card card-center">
+          <h3>Jumlah Pengolah Wisata</h3>
+          
+            <p>Total Pengolah Wisata : 10 <strong><?= $jumlahMember ?></strong></p>
+        
+        </div>
+        <div class="card">
+          <h3>Jumlah Wisata</h3>
+          <div class="info-box">
+            <p>Total  Wisata: 100 <strong><?= $jumlahPengolahWisata ?></strong></p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Jumlah Transaksi</h3>
+        <div class="info-box">
+          <p>Total Transaksi: 20 <strong><?= $jumlahTransaksi ?></strong></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+    </main>
+  </div>
+
       <?php elseif ($page === 'acc'): ?>
         <div class="card">
           <h2>Pengajuan Pengolah Wisata</h2>
