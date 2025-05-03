@@ -1,12 +1,14 @@
 <?php
-// Include the common code to handle feedback and actions
+// Menyertakan kode umum untuk menangani feedback dan aksi
 include 'index.php';
 
-// Simulated data for Transaksi approval
+// Data simulasi untuk pengajuan Transaksi
 $transaksi = [
     ['id' => 'TX001', 'nama_pengguna' => 'Rudi', 'jumlah' => 'Rp 250.000', 'tanggal' => '2025-05-01'],
     ['id' => 'TX002', 'nama_pengguna' => 'Joni', 'jumlah' => 'Rp 500.000', 'tanggal' => '2025-05-02'],
     ['id' => 'TX003', 'nama_pengguna' => 'Budi', 'jumlah' => 'Rp 750.000', 'tanggal' => '2025-05-03'],
+    ['id' => 'TX004', 'nama_pengguna' => 'Siti', 'jumlah' => 'Rp 1.000.000', 'tanggal' => '2025-05-04'],
+    ['id' => 'TX005', 'nama_pengguna' => 'Andi', 'jumlah' => 'Rp 1.500.000', 'tanggal' => '2025-05-05'],
 ];
 
 if (isset($_GET['aksi'], $_GET['id'])) {

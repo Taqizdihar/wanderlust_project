@@ -1,12 +1,14 @@
 <?php
-// Include the common code to handle feedback and actions
+// Menyertakan kode umum untuk menangani feedback dan aksi
 include 'index.php';
 
-// Simulated data for Wisata approval
+// Data simulasi untuk pengajuan Wisata
 $wisata = [
     ['id' => 101, 'nama_wisata' => 'Curug Cikaso', 'lokasi' => 'Sukabumi', 'pengaju' => 'Agus'],
     ['id' => 102, 'nama_wisata' => 'Pantai Pangandaran', 'lokasi' => 'Pangandaran', 'pengaju' => 'Rina'],
     ['id' => 103, 'nama_wisata' => 'Gunung Gede', 'lokasi' => 'Cianjur', 'pengaju' => 'Joni'],
+    ['id' => 104, 'nama_wisata' => 'Taman Safari', 'lokasi' => 'Bogor', 'pengaju' => 'Budi'],
+    ['id' => 105, 'nama_wisata' => 'Air Terjun Tumpak Sewa', 'lokasi' => 'Sumatera', 'pengaju' => 'Siti'],
 ];
 
 if (isset($_GET['aksi'], $_GET['id'])) {
