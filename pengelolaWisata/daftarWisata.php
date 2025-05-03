@@ -24,11 +24,6 @@ $lokasi = [];
 while ($row = mysqli_fetch_assoc($query)) {
     $lokasi[] = $row;
 }
-
-
-$sqlStatement4 = "SELECT * FROM foto_lokasi WHERE urutan=1";
-$query = mysqli_query($conn, $sqlStatement4);
-$foto_lokasi = mysqli_fetch_assoc($query);
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +78,7 @@ $foto_lokasi = mysqli_fetch_assoc($query);
                 ?>
 
                 <div class="image">
-                    <img src="pengelolaWisata/photos/<?= $itemLokasi['url_photo'] ?? 'default.jpg' ?>" alt="Property Image">
+                    <img src="pengelolaWisata/photos/<?= $itemLokasi['url_photo']?>" alt="Property Image">
                 </div>
 
                 <?php
@@ -100,8 +95,8 @@ $foto_lokasi = mysqli_fetch_assoc($query);
                 </div>
             </div>
             <div class="actions">
-                <a href="#">Edit</a>
-                <a href="#">Delete</a>
+                <a href="indeks.php?page=editWisata" id="edit">Edit</a>
+                <a href="indeks.php?page=deleteWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="delete" onclick="return confirm('Are you sure you want to delete this property? Action cannot be undone')">Delete</a>
             </div>
         </div>
 
