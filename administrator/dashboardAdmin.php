@@ -44,7 +44,7 @@ if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
         </div>
 
         <div class="card profile">
-          <img src="https://via.placeholder.com/80" alt="Foto Profil">
+          <img src="" alt="Foto Profil">
           <div class="profile-info">
             <h3>ikaaacan</h3>
             <p>📱 082180750761</p>
@@ -100,19 +100,62 @@ if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
             </thead>
             <tbody>
               <tr>
-                <td>1</td><td>Siti Nurhaliza</td><td>siti@mail.com</td><td>Air Terjun Nglirip</td>
+                <td>1</td><td>Riska Dea Bakri</td><td>riska01@gmail.com</td><td>ciwidey</td>
                 <td>
                   <a href="?page=acc&aksi=acc&id=1" class="acc-btn">ACC</a>
                   <a href="?page=acc&aksi=tolak&id=1" class="tolak-btn">Tolak</a>
                 </td>
               </tr>
               <tr>
-                <td>2</td><td>Budi Santoso</td><td>budi@mail.com</td><td>Kampung Batik</td>
+                <td>2</td><td>Muhammad Taqi</td><td>taqi01@gmail.com</td><td>Kampung Batik</td>
                 <td>
                   <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
                   <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
                 </td>
               </tr>
+              <tr>
+                <td>3</td><td>Faiz Syafiq Nabiliy</td><td>budi@mail.com</td><td>Trans Studio Mall</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td><td>Aisyah Noviani</td><td>budi@mail.com</td><td>Braga</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td><td>Audri Melina Muthi</td><td>budi@mail.com</td><td>j</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>6</td><td>Siti Amany Fakhira</td><td>budi@mail.com</td><td>Ranca Upas</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>7</td><td>Noval Adiprasetya</td><td>budi@mail.com</td><td>Tebing Keraton<01/td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              <tr>
+                <td>8</td><td>Budi Santoso</td><td>budi@mail.com</td><td>Kampung Batik</td>
+                <td>
+                  <a href="?page=acc&aksi=acc&id=2" class="acc-btn">ACC</a>
+                  <a href="?page=acc&aksi=tolak&id=2" class="tolak-btn">Tolak</a>
+                </td>
+              </tr>
+              
             </tbody>
           </table>
         </div>
