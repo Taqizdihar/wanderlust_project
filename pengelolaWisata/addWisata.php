@@ -121,7 +121,7 @@ if (isset($_POST['submit'])) {
     $query9 = mysqli_query($conn, $sqlStatement9);
     
     if (mysqli_affected_rows($conn) != 0) {
-        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=addWisata");
+        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarWisata");
         exit();
     } else {
         echo "<p>Property Add Failed</p>";
