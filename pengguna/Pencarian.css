@@ -1,37 +1,51 @@
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
-    background: #f5f9fc;
+    background-color: #f4f6f8;
 }
 
 .header {
-    background-color: #ffffff;
+    background-color: #fff;
     padding: 1rem 2rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .search-bar {
     display: flex;
     gap: 1rem;
-    width: 100%;
     max-width: 800px;
+    margin: 0 auto;
 }
 
-.select-destinasi, .search-input {
+.select-destinasi,
+.search-input,
+.search-bar button {
     padding: 0.75rem;
-    border-radius: 8px;
     border: 1px solid #ccc;
+    border-radius: 8px;
     font-size: 1rem;
-    width: 100%;
+}
+
+.search-input {
+    flex: 1;
+}
+
+.search-bar button {
+    background-color: #0275d8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-bar button:hover {
+    background-color: #025aa5;
 }
 
 .main-content {
-    padding: 2rem;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 2rem auto;
+    padding: 0 2rem;
 }
 
 .section-title {
@@ -41,11 +55,16 @@ body {
     margin-bottom: 1.5rem;
 }
 
+.section-title h2 {
+    font-size: 1.2rem;
+    color: #333;
+}
+
 .filter select {
     padding: 0.5rem;
-    border-radius: 6px;
     border: 1px solid #ccc;
-    font-size: 0.9rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
 }
 
 .card-container {
@@ -55,7 +74,7 @@ body {
 }
 
 .card {
-    background-color: #fff;
+    background-color: white;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     overflow: hidden;
@@ -64,7 +83,7 @@ body {
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-4px);
 }
 
 .card img {
@@ -77,9 +96,9 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
-    background: #ff5e5e;
+    background: #f44336;
     color: white;
-    padding: 0.3rem 0.6rem;
+    padding: 4px 8px;
     font-size: 0.75rem;
     border-radius: 4px;
 }
@@ -90,28 +109,29 @@ body {
 
 .card-info .lokasi {
     font-size: 0.85rem;
-    color: #666;
+    color: #888;
+    margin-bottom: 0.3rem;
 }
 
 .card-info h3 {
-    margin: 0.5rem 0;
     font-size: 1.1rem;
+    margin: 0.3rem 0;
     color: #222;
 }
 
 .harga {
-    color: #999;
     font-size: 0.9rem;
+    color: #999;
 }
 
 .harga-diskon {
-    color: #ff5e5e;
+    color: #e53935;
     font-weight: bold;
     margin-left: 0.5rem;
 }
 
 .rating {
-    font-size: 0.85rem;
-    color: #1e88e5;
     margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #0288d1;
 }
