@@ -44,7 +44,7 @@ if ($page === 'acc_wisata' && isset($_GET['aksi']) && isset($_GET['id'])) {
         </div>
 
         <div class="card profile">
-          <img src="" alt="Foto Profil">
+          <img src="ik" alt="">
           <div class="profile-info">
             <h3>ikaaacan</h3>
             <p>📱 082180750761</p>
