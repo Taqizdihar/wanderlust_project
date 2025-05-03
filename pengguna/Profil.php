@@ -14,7 +14,7 @@ $_SESSION['preferensi'] = $_SESSION['preferensi'] ?? 'Pantai, Pegunungan';
 <head>
     <meta charset="UTF-8">
     <title>Wanderlust</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Profil.css">
 </head>
 <body>
     <header class="main-header">
