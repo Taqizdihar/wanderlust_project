@@ -1,25 +1,33 @@
-/* General Styles */
+/* General body styling */
 body {
   font-family: Arial, sans-serif;
+  background-color: #f4f7fc;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
 }
 
+/* Wrapper for main content */
 .wrapper {
   display: flex;
-  min-height: 100vh;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px;
 }
 
+/* Sidebar Styling */
 .sidebar {
-  width: 200px;
   background-color: #333;
   color: white;
+  width: 250px;
   padding: 20px;
+  height: 100vh;
 }
 
 .sidebar h2 {
-  margin-top: 0;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .sidebar ul {
@@ -28,20 +36,23 @@ body {
 }
 
 .sidebar ul li {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .sidebar ul li a {
   color: white;
   text-decoration: none;
-  display: block;
-  padding: 10px;
+  font-size: 16px;
 }
 
+.sidebar ul li a:hover,
 .sidebar ul li a.active {
   background-color: #444;
+  padding: 10px;
+  border-radius: 5px;
 }
 
+/* Main Content */
 .main {
   flex: 1;
   padding: 20px;
@@ -49,34 +60,70 @@ body {
 
 .card {
   background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
   margin-bottom: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
+h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+/* Feedback Message */
 .feedback {
-  margin-bottom: 20px;
-  font-size: 18px;
-  color: green;
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #e1f7d5;
+  color: #2c8a2c;
 }
 
+.feedback.error {
+  background-color: #fce4e4;
+  color: #e74c3c;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f2f2f2;
+}
+
+table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Action Button Styling */
 .acc-btn, .tolak-btn {
   padding: 5px 10px;
   margin-right: 5px;
-  color: white;
   text-decoration: none;
-  border-radius: 3px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
 }
 
 .acc-btn {
-  background-color: green;
+  background-color: #4CAF50;
 }
 
 .tolak-btn {
-  background-color: red;
+  background-color: #f44336;
 }
 
-
-  
-  
+.acc-btn:hover, .tolak-btn:hover {
+  opacity: 0.8;
+}
