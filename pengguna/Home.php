@@ -31,7 +31,7 @@
 
 <div id="home-content">
   <div id="home-banner">
-    <h2>Wander for Wonders</h2>
+    <h2>WANDERINGS FOR WONDERS</h2>
     <form action="" class="search-button">
       <input type="text" placeholder="Cari Destinasi atau Kegiatan" name="search" />
       <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -121,7 +121,7 @@
     Rekomendasi Destinasi
     <a href="CariDestinasi.php" class="destination">Cek semua kegiatan<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
   </h2>
-  
+
   <div class="card-gallery">
     <div class="cards-event">
       <div class="card-images" style="background-image: url('../Images/URun.png');"></div>
