@@ -11,8 +11,7 @@ body {
     justify-content: space-between;
     background-color: #0077cc;
     padding: 10px 20px;
-    color: #333;
-    font-family: 'MuseoModerno', sans-serif;
+    color: white;
 }
 
 .logo-container {
@@ -51,14 +50,6 @@ body {
     border: none;
     border-radius: 8px;
     font-size: 14px;
-}
-
-.search-icon {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    pointer-events: none;
-    color: #555;
 }
 
 .nav-links {
@@ -124,22 +115,33 @@ body {
 
 .profil-table th, .profil-table td {
     padding: 14px 16px;
-    border-bottom: 1px solid #ddd;
+    vertical-align: top;
 }
 
 .profil-table th {
     background-color: #f4f4f4;
     width: 40%;
     font-weight: bold;
+    text-align: left;
 }
 
-.profil-table tr:hover {
-    background-color: #fdfdfd;
+.profil-table input[type="text"],
+.profil-table input[type="email"],
+.profil-table input[type="date"],
+.profil-table select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fefefe;
+    box-sizing: border-box;
+    font-family: 'MuseoModerno', sans-serif;
 }
 
 .edit-button {
     display: inline-block;
-    margin: 20px 15px;
+    margin-top: 25px;
     padding: 12px 25px;
     background-color: #0077cc;
     color: white;
@@ -147,64 +149,10 @@ body {
     border-radius: 10px;
     text-decoration: none;
     transition: background-color 0.3s;
+    border: none;
+    cursor: pointer;
 }
 
 .edit-button:hover {
-    background-color: #0077cc;
+    background-color: #005fa3;
 }
-
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
-    margin: 0;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 0;
-    transition: color 0.3s, border-bottom 0.3s;
-}
-
-.navbar a:hover,
-.navbar a.active {
-    color: #ffd700;
-    border-bottom: 3px solid #ffd700;
-}
-
-footer {
-    background-color: #0077cc;
-    color: white;
-    padding: 40px 20px 20px;
-    text-align: center;
-  }
-  
-  .footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-  
-  .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .footbar table {
-    color: white;
-  }
-  
-  .footbar a {
-    text-decoration: none;
-    color: #ccc;
-    font-size: 0.9em;
-  }
-  
-  .footbar a:hover {
-    color: #fff;
-  }

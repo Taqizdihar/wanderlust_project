@@ -16,16 +16,17 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
 <head>
   <meta charset="UTF-8">
   <title>Dashboard Admin - ACC Pengolah Wisata</title>
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="administrator/cssAdmin/contoh.css">
 </head>
 <body>
   <div class="wrapper">
     <aside class="sidebar">
       <h2>Halo,Admin</h2>
       <ul>
-        <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
+        <li><a href="?page=dashboardAdmin" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
         <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
-        <li><a href="?page=acc_wisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
+        <li><a href="?page=accwisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
+        <li><a href="?page=acctransaksi" class="<?= $page === 'home' ? 'acc_transaksi' : '' ?>">ACC Transaksi</a></li>
       </ul>
     </aside>
 
