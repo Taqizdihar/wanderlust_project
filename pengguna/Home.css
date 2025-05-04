@@ -157,9 +157,8 @@ header {
   font-size: 0.9em;
 }
 
-/* Footer */
 footer {
-  background-color: #333;
+  background-color: #0077cc;
   color: white;
   padding: 40px 20px 20px;
   text-align: center;

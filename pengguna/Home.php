@@ -178,7 +178,7 @@
     <div class="footer-logo">
       <img src="../Images/Wanderlust Logo Circle.png" height="70" width="70" alt="Wanderlust Logo"/>
       <div>
-        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">Wander for Wonders</span></h5>
+        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
       </div>
     </div>
     <div class="footbar">
@@ -203,5 +203,6 @@
   </div>
   <p>Copyright © 2025 Wanderlust. All rights reserved</p>
 </footer>
+
 </body>
 </html>
