@@ -33,7 +33,7 @@
   <div id="home-banner">
     <h2>WANDERINGS FOR WONDERS</h2>
     <form action="" class="search-button">
-      <input type="text" placeholder="Cari Destinasi atau Kegiatan" name="search" />
+      <input type="text" placeholder="Cari Destinasi" name="search" />
       <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
   </div>
@@ -119,7 +119,7 @@
 
   <h2 class="home-heading">
     Rekomendasi Destinasi
-    <a href="CariDestinasi.php" class="destination">Cek semua kegiatan<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
+    <a href="CariDestinasi.php" class="destination">Cek semua Destinasi<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
   </h2>
 
   <div class="card-gallery">
