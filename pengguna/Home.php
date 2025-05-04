@@ -118,10 +118,10 @@
   </div>
 
   <h2 class="home-heading">
-    Kegiatan Mendatang
+    Rekomendasi Destinasi
     <a href="CariDestinasi.php" class="destination">Cek semua kegiatan<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
   </h2>
-
+  
   <div class="card-gallery">
     <div class="cards-event">
       <div class="card-images" style="background-image: url('../Images/URun.png');"></div>
