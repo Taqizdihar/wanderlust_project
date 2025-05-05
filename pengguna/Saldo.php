@@ -1,6 +1,6 @@
 <?php
 // Simulasi data saldo pengguna
-$saldo = 1500000;
+$saldo = 10000000;
 $riwayat = "Terakhir digunakan untuk memesan tiket ke Trans Studio Bandung pada 5 Mei 2025.";
 ?>
 
