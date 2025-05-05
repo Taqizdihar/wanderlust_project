@@ -1,5 +1,12 @@
 <?php
-$page = $_GET['page'] ?? 'home';
+include "config.php";
+
+$page = $_GET['page'];
+$ID = $_SESSION['user_id'];
+$sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement);
+$profile = mysqli_fetch_assoc($query);
+
 $feedback = "";
 
 if ($page === 'acc' && isset($_GET['aksi'], $_GET['id'])) {
@@ -21,7 +28,7 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
-<head> me
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin</title>
@@ -30,13 +37,13 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
 <body>
   <div class="wrapper">
     <aside class="sidebar">
-      <h2>Halo,Admin</h2>
+      <h2>Halo, <?= $profile['nama'];?></h2>
       <ul>
-        <li><a href="?page=dashboardAdmin" class="<?= $page === 'dashboardAdmin' ? 'active' : '' ?>">Dashboard</a></li>
-        <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
-        <li><a href="?page=accwisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
-        <li><a href="?page=acctransaksi" class="<?= $page === 'acc_transaksi' ? 'active' : '' ?>">ACC Transaksi</a></li>
-        <li><a href="?page=member" class="<?= $page === 'member' ? 'active' : '' ?>">Daftar Member</a></li>
+        <li><a href="indeks.php?page=dashboardAdmin">Dashboard</a></li>
+        <li><a href="indeks.php?page=accpengolah">ACC Pengolah Wisata</a></li>
+        <li><a href="indeks.php?page=accwisata">ACC Wisata</a></li>
+        <li><a href="indeks.php?page=acctransaksi">ACC Transaksi</a></li>
+        <li><a href="notFound.php">Daftar Member</a></li>
         <li><a href="logout.php"> Logout</a></li>
       </ul>
     </aside>

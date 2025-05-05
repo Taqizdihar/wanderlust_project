@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Views</title>
     <style>
-        .navbar {
+    .navbar {
     position: fixed;
     display: flex;
     width: 100%;

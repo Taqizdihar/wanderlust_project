@@ -214,7 +214,7 @@ mysqli_close($conn);
                     <div class="col">
                         <div class="form-group file-upload">
                             <label for="document">Document:</label>
-                            <input type="file" id="document" name="document">
+                            <input type="file" id="document" accept="image/*, .doc, .docx, .pdf" name="document">
                         </div>
                     </div>
                 </div>

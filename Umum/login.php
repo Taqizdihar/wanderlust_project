@@ -22,6 +22,9 @@ if (isset($_POST['loginBtn'])) {
             } else if ($registeredUser['role'] == 'pw') {
                 header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata");
                 exit();
+            } else if ($registeredUser['role'] == 'admin') {
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardAdmin");
+                exit();
             }
         } else {
             $warning = "Wrong password, please try again";

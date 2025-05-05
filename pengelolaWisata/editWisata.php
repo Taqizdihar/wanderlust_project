@@ -58,11 +58,11 @@ if (isset($_POST['submit'])) {
         }
     }
 
-    $sqlStatement6 = "DELETE FROM foto_lokasi WHERE id_lokasi='$id_lokasi'";
+    $sqlStatement6 = "DELETE FROM foto_lokasi WHERE id_lokasi='$lokasi_id'";
     mysqli_query($conn, $sqlStatement6);
 
     for ($i = 1; $i <= 6; $i++) {
-        $input = "foto$i";
+        $input = "photo$i";
         if (isset($_FILES[$input])) {
             $filename = $_FILES[$input]['name'];
             $tmpName = $_FILES[$input]['tmp_name'];
@@ -71,7 +71,7 @@ if (isset($_POST['submit'])) {
             move_uploaded_file($tmpName, $target);
     
             $urutan = $i;
-            mysqli_query($conn, "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES ('$id_lokasi', '$filename', '$urutan')");
+            mysqli_query($conn, "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES ('$lokasi_id', '$filename', '$urutan')");
         }
     }
     
@@ -169,7 +169,7 @@ mysqli_close($conn);
                     <div class="col">
                         <div class="form-group file-upload">
                             <label for="document">Document:</label>
-                            <input type="file" id="document" name="document">
+                            <input type="file" id="document" accept="image/*, .doc, .docx, .pdf" name="document">
                         </div>
                     </div>
                 </div>

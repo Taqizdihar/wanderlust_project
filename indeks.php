@@ -6,7 +6,7 @@ session_start();
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
-        $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata'];
+        $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata'];
         $pages_admin = ['acc', 'accwisata', 'acctransaksi', 'member' ,'dashboardAdmin'];
         
         if (in_array($page, $pages_umum)) {

@@ -30,12 +30,17 @@ body {
 }
   
 .change-btn {
+    position: absolute;
     background-color: #1a54b3;
     padding: 8px 20px;
     border-radius: 5px;
     color: white;
     cursor: pointer;
-    position: relative;
+    top: 220px;
+}
+
+.change-btn-form {
+    margin: 0;
 }
   
 .file-input {
