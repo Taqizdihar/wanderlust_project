@@ -87,59 +87,59 @@
 
   <h2 class="home-heading">
     Rekomendasi Destinasi Wisata
-    <a href="CariDestinasi.php" class="destination">Cek semua Destinasi<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
+    <a href="CariDestinasi.php" class="destination">Cek semua destinasi<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
   </h2>
 
-  <div class="card-gallery">
-    <div class="cards-event">
-      <div class="card-images" style="background-image: url('../Images/URun.png');"></div>
-      <div class="event-content">
-        <h3>U'Run</h3>
-        <div class="event-description">
-          <p><i class="fa-solid fa-location-dot"></i><span>Lanud Sulaiman</span></p>
-          <p><i class="fa-solid fa-calendar-days"></i><span>25 Januari 2025</span></p>
-        </div>
-        <a href="#" class="card-button">Cek Info Lengkap</a>
-      </div>
+    <!-- Rekomendasi Destinasi Wisata -->
+<section class="card-gallery">
+  <!-- Dusun Bambu -->
+  <div class="cards-destination">
+    <div class="card-images" style="background-image: url('img/dusunbambu.jpg');">
+      <h4>Dusun Bambu – Lembang</h4>
     </div>
-
-    <div class="cards-event">
-      <div class="card-images" style="background-image: url('../Images/Festive Fortune.jpg');"></div>
-      <div class="event-content">
-        <h3>Festive Fortune</h3>
-        <div class="event-description">
-          <p><i class="fa-solid fa-location-dot"></i><span>Festival CityLink</span></p>
-          <p><i class="fa-solid fa-calendar-days"></i><span>19 Jan - 16 Feb 2025</span></p>
-        </div>
-        <a href="#" class="card-button">Cek Info Lengkap</a>
-      </div>
-    </div>
-
-    <div class="cards-event">
-      <div class="card-images" style="background-image: url('../Images/Pameran Pernikahan Tradisional.png');"></div>
-      <div class="event-content">
-        <h3>Pameran Pernikahan Tradisional</h3>
-        <div class="event-description">
-          <p><i class="fa-solid fa-location-dot"></i><span>Pusat Dakwah Islam</span></p>
-          <p><i class="fa-solid fa-calendar-days"></i><span>17 - 19 Jan 2025</span></p>
-        </div>
-        <a href="#" class="card-button">Cek Info Lengkap</a>
-      </div>
-    </div>
-
-    <div class="cards-event">
-      <div class="card-images" style="background-image: url('../Images/Creative Market.png');"></div>
-      <div class="event-content">
-        <h3>Creative Market</h3>
-        <div class="event-description">
-          <p><i class="fa-solid fa-location-dot"></i><span>Summarecon Mall Bandung</span></p>
-          <p><i class="fa-solid fa-calendar-days"></i><span>9 - 12 Jan 2025</span></p>
-        </div>
-        <a href="#" class="card-button">Cek Info Lengkap</a>
-      </div>
+    <div class="destination-content">
+      <p>Tempat wisata keluarga dengan danau, restoran apung, dan taman alam yang asri.</p>
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <a href="#" class="card-button">Lihat Detail</a>
     </div>
   </div>
-</div>
+
+  <!-- Trans Studio Bandung -->
+  <div class="cards-destination">
+    <div class="card-images" style="background-image: url('img/transstudio.jpg');">
+      <h4>Trans Studio Bandung – Indoor Theme Park</h4>
+    </div>
+    <div class="destination-content">
+      <p>Taman bermain indoor terbesar di Indonesia dengan berbagai wahana seru untuk semua usia.</p>
+      <div class="stars">⭐⭐⭐⭐☆</div>
+      <a href="#" class="card-button">Lihat Detail</a>
+    </div>
+  </div>
+
+  <!-- Taman Hutan Raya Ir. H. Djuanda -->
+  <div class="cards-destination">
+    <div class="card-images" style="background-image: url('img/tahura.jpg');">
+      <h4>Taman Hutan Raya – Dago Pakar</h4>
+    </div>
+    <div class="destination-content">
+      <p>Area konservasi alam dengan gua bersejarah, air terjun, dan jalur hiking di tengah hutan pinus.</p>
+      <div class="stars">⭐⭐⭐⭐☆</div>
+      <a href="#" class="card-button">Lihat Detail</a>
+    </div>
+  </div>
+
+  <!-- Tebing Keraton -->
+  <div class="cards-destination">
+    <div class="card-images" style="background-image: url('img/tebingkeraton.jpg');">
+      <h4>Tebing Keraton – Dago Atas</h4>
+    </div>
+    <div class="destination-content">
+      <p>Spot foto favorit dengan pemandangan hutan dari ketinggian dan matahari terbit yang menakjubkan.</p>
+      <div class="stars">⭐⭐⭐⭐☆</div>
+      <a href="#" class="card-button">Lihat Detail</a>
+    </div>
+  </div>
+</section>
 
 <footer>
   <div class="footer-container">
