@@ -87,6 +87,9 @@
 
   <h2 class="home-heading">
     Rekomendasi Destinasi Wisata
+    <a href="CariDestinasi.php" class="destination">Cek semua destinasi<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
+  </h2>
+  
     <!-- Rekomendasi Destinasi Wisata -->
 <section class="card-gallery">
   <!-- Dusun Bambu -->
