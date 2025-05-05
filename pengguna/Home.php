@@ -9,117 +9,85 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-<header>
-  <div class="header-content">
-    <div class="header-logo">
-      <img src="../Images/Umum/photos/Wanderlust Logo Plain.png" height="50" width="50" alt="Wanderlust Logo" />
-      <a href="Home.php">Wanderlust</a>
-    </div>
-    <nav class="navbar">
-      <ul>
-        <li><a href="Login.php">Login</a></li>
-        <li><a href="Promo.php">Promo</a></li>
-        <li><a href="pemesananTiket.php">Tiket</a></li>
-        <li><a href="Tips.php">Tips</a></li>
-        <li><a href="contactUs.php">Kontak Kami</a></li>
-        <li><a href="Agenda.php">Agenda</a></li>
-        <li><a href="Profil.php"><img src="../Images/PP.jpg" alt="Foto Profil" /></a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
 
-<div id="home-content">
-  <div id="home-banner">
-    <h2>WANDERINGS FOR WONDERS</h2>
-    <form action="" class="search-button">
-      <input type="text" placeholder="Cari Destinasi atau Kegiatan" name="search" />
-      <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </form>
-  </div>
+  <header class="main-header">
+        <div class="logo-container">
+            <img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
+            <div class="logo-text">
+                <div class="title">Wanderlust</div>
+                <div class="subtitle">WANDERINGS FOR WONDERS</div>
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <span class="search-icon"></span>
+        </div>
+        <nav class="nav-links">
+            <a href="#">Opsi 1</a>
+            <a href="#">Opsi 2</a>
+            <a href="#">Favorit</a>
+            <div class="profile-icon">👤</div>
+        </nav>
+    </header>
 
   <h2 class="home-heading">
-    Destinasi Top
+    Top Destinasi Wisata
     <a href="CariDestinasi.php" class="destination">Cek semua destinasi<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
   </h2>
 
-  <div class="card-gallery">
-    <div class="cards-destination">
-      <div class="card-images" style="background-image: url('../Images/Masjid Al-Jabbar.jpeg');">
-        <h4>Bandung</h4>
-      </div>
-      <div class="destination-content">
-        <h3>Masjid Al-Jabbar</h3>
-        <div class="stars">
-          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-          <p>14K</p>
-        </div>
-        <div class="home-icons">
-          <i class="fa-solid fa-mosque"></i><i class="fa-solid fa-square-parking"></i>
-          <p>FREE</p>
-        </div>
-        <a href="#" class="card-button">Cek Info Lengkap</a>
-      </div>
+  <!-- Top Destinasi Bandung -->
+<section class="card-gallery">
+  <!-- Kawah Putih -->
+  <div class="cards-destination">
+    <div class="card-images" style="background-image: url('Umum/Images/kawahputih.jpg');">
+      <h4>Kawah Putih – Ciwidey</h4>
     </div>
-
-    <div class="cards-destination">
-      <div class="card-images" style="background-image: url('../Images/Glamping Ciwidey.jpg');">
-        <h4>Rancabali</h4>
-      </div>
-      <div class="destination-content">
-        <h3>Glamping Lakeside</h3>
-        <div class="stars">
-          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-          <p>18K</p>
-        </div>
-        <div class="home-icons">
-          <i class="fa-solid fa-bed"></i><i class="fa-solid fa-utensils"></i><i class="fa-solid fa-camera"></i>
-          <p>PAID</p>
-        </div>
-        <a href="#" class="card-button">Cek Info Lengkap</a>
-      </div>
+    <div class="destination-content">
+      <p>Danau vulkanik dengan pemandangan magis dan kabut alami yang indah, cocok untuk foto dan relaksasi.</p>
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <a href="#" class="card-button">Lihat Detail</a>
     </div>
+  </div>
 
-    <div class="cards-destination">
-      <div class="card-images" style="background-image: url('../Images/The Great Asia Afrika.jpg');">
-        <h4>Lembang</h4>
-      </div>
-      <div class="destination-content">
-        <h3>The Great Asia Africa</h3>
-        <div class="stars">
-          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-          <p>21K</p>
-        </div>
-        <div class="home-icons">
-          <i class="fa-solid fa-utensils"></i><i class="fa-solid fa-camera"></i><i class="fa-solid fa-gifts"></i>
-          <p>PAID</p>
-        </div>
-        <a href="#" class="card-button">Cek Info Lengkap</a>
-      </div>
+  <!-- Gedung Sate -->
+  <div class="cards-destination">
+    <div class="card-images" style="background-image: url('img/gedungsate.jpg');">
+      <h4>Gedung Sate – Pusat Kota</h4>
     </div>
+    <div class="destination-content">
+      <p>Bangunan ikonik dengan arsitektur kolonial dan taman kota yang luas di sekelilingnya.</p>
+      <div class="stars">⭐⭐⭐⭐☆</div>
+      <a href="#" class="card-button">Lihat Detail</a>
+    </div>
+  </div>
 
-    <div class="cards-destination">
-      <div class="card-images" style="background-image: url('../Images/D&#39;Castello.jpg');">
-        <h4>Ciater</h4>
-      </div>
-      <div class="destination-content">
-        <h3>D'Castello</h3>
-        <div class="stars">
-          <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-regular fa-star"></i>
-          <p>12K</p>
-        </div>
-        <div class="home-icons">
-          <i class="fa-solid fa-utensils"></i><i class="fa-solid fa-camera"></i><i class="fa-solid fa-gifts"></i>
-          <p>PAID</p>
-        </div>
-        <a href="#" class="card-button">Cek Info Lengkap</a>
-      </div>
+  <!-- Jalan Braga -->
+  <div class="cards-destination">
+    <div class="card-images" style="background-image: url('img/braga.jpg');">
+      <h4>Jalan Braga – Heritage Bandung</h4>
+    </div>
+    <div class="destination-content">
+      <p>Jalan legendaris dengan suasana klasik, galeri seni, dan kafe vintage khas Bandung.</p>
+      <div class="stars">⭐⭐⭐⭐☆</div>
+      <a href="#" class="card-button">Lihat Detail</a>
+    </div>
+  </div>
+
+  <!-- Orchid Forest -->
+  <div class="cards-destination">
+    <div class="card-images" style="background-image: url('img/orchidforest.jpg');">
+      <h4>Orchid Forest Cikole</h4>
+    </div>
+    <div class="destination-content">
+      <p>Taman anggrek terbesar di Indonesia dengan jembatan gantung dan udara sejuk pegunungan.</p>
+      <div class="stars">⭐⭐⭐⭐⭐</div>
+      <a href="#" class="card-button">Lihat Detail</a>
     </div>
   </div>
 
   <h2 class="home-heading">
-    Rekomendasi Destinasi
-    <a href="CariDestinasi.php" class="destination">Cek semua kegiatan<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
+    Rekomendasi Destinasi Wisata
+    <a href="CariDestinasi.php" class="destination">Cek semua Destinasi<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
   </h2>
 
   <div class="card-gallery">

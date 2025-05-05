@@ -18,7 +18,7 @@ $destinasi = [
         'harga_diskon' => 65000,
         'rating' => 4.5,
         'ulasan' => 300,
-        'label' => ''
+        'label' => 'Baru'
     ],
     [
         'nama' => 'Orchid Forest Cikole',
@@ -29,6 +29,56 @@ $destinasi = [
         'rating' => 4.7,
         'ulasan' => 185,
         'label' => 'Diskon'
+    ],
+    [
+        'nama' => 'The Great Asia Africa',
+        'lokasi' => 'Lembang, Bandung',
+        'gambar' => 'uploads/bandung6.jpg',
+        'harga_normal' => 80000,
+        'harga_diskon' => 50000,
+        'rating' => 4.6,
+        'ulasan' => 150,
+        'label' => 'Best Seller'
+    ],
+    [
+        'nama' => 'Trans Studio Bandung',
+        'lokasi' => 'Bandung Kota',
+        'gambar' => 'uploads/bandung5.jpg',
+        'harga_normal' => 200000,
+        'harga_diskon' => 180000,
+        'rating' => 4.9,
+        'ulasan' => 1000,
+        'label' => ''
+    ],
+    [
+        'nama' => 'Kawah Putih Ciwidey',
+        'lokasi' => 'Ciwidey, Bandung',
+        'gambar' => 'uploads/bandung6.jpg',
+        'harga_normal' => 30000,
+        'harga_diskon' => 25000,
+        'rating' => 4.7,
+        'ulasan' => 500,
+        'label' => ''
+    ],
+    [
+        'nama' => 'Tebing Keraton',
+        'lokasi' => 'Bandung Utara',
+        'gambar' => 'uploads/bandung6.jpg',
+        'harga_normal' => 20000,
+        'harga_diskon' => 15000,
+        'rating' => 4.5,
+        'ulasan' => 250,
+        'label' => ''
+    ],
+    [
+        'nama' => 'Curug Cimahi',
+        'lokasi' => 'Bandung Barat',
+        'gambar' => 'uploads/bandung6.jpg',
+        'harga_normal' => 25000,
+        'harga_diskon' => 20000,
+        'rating' => 4.4,
+        'ulasan' => 180,
+        'label' => ''
     ]
 ];
 ?>
