@@ -20,7 +20,7 @@
       <img src="pengguna/Wanderlust Logo Plain.png" alt="Wanderlust Icon">
       <div>
         <h1>Wanderlust</h1>
-        <div class="subtitle">Jelajahi dunia. Tukarkan pengalamanmu.</div>
+        <div class="subtitle">WANDERINGS FOR WONDERS.</div>
       </div>
     </div>
 

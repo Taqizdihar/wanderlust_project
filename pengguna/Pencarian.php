@@ -8,7 +8,7 @@ $destinasi = [
         'harga_diskon' => 90000,
         'rating' => 4.8,
         'ulasan' => 210,
-        'label' => 'Promo'
+        'label' => ''
     ],
     [
         'nama' => 'Farmhouse Susu Lembang',
@@ -18,7 +18,7 @@ $destinasi = [
         'harga_diskon' => 65000,
         'rating' => 4.5,
         'ulasan' => 300,
-        'label' => 'Baru'
+        'label' => ''
     ],
     [
         'nama' => 'Orchid Forest Cikole',
@@ -28,7 +28,7 @@ $destinasi = [
         'harga_diskon' => 75000,
         'rating' => 4.7,
         'ulasan' => 185,
-        'label' => 'Diskon'
+        'label' => ''
     ],
     [
         'nama' => 'The Great Asia Africa',
@@ -38,7 +38,7 @@ $destinasi = [
         'harga_diskon' => 50000,
         'rating' => 4.6,
         'ulasan' => 150,
-        'label' => 'Best Seller'
+        'label' => ''
     ],
     [
         'nama' => 'Trans Studio Bandung',
