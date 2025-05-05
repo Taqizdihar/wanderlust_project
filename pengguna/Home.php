@@ -89,7 +89,7 @@
     Rekomendasi Destinasi Wisata
     <a href="CariDestinasi.php" class="destination">Cek semua destinasi<i class="fa-solid fa-magnifying-glass fa-beat"></i></a>
   </h2>
-  
+
     <!-- Rekomendasi Destinasi Wisata -->
 <section class="card-gallery">
   <!-- Dusun Bambu -->
@@ -124,18 +124,6 @@
     <div class="destination-content">
       <p>Area konservasi alam dengan gua bersejarah, air terjun, dan jalur hiking di tengah hutan pinus.</p>
       <div class="stars">⭐⭐⭐⭐☆</div>
-      <a href="#" class="card-button">Lihat Detail</a>
-    </div>
-  </div>
-
-  <!-- Saung Angklung Udjo -->
-  <div class="cards-destination">
-    <div class="card-images" style="background-image: url('img/saudjo.jpg');">
-      <h4>Saung Angklung Udjo – Padasuka</h4>
-    </div>
-    <div class="destination-content">
-      <p>Pusat seni budaya Sunda dengan pertunjukan angklung interaktif dan workshop kerajinan bambu.</p>
-      <div class="stars">⭐⭐⭐⭐⭐</div>
       <a href="#" class="card-button">Lihat Detail</a>
     </div>
   </div>
