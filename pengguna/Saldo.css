@@ -108,7 +108,7 @@ body {
   border-radius: 10px;
   border: 1px solid #c5e1a5;
   font-size: 18px;
-  color: #2e7d32;
+  color: #0077cc;
 }
 
 .tabs {
@@ -122,12 +122,12 @@ body {
   padding-bottom: 8px;
   cursor: pointer;
   font-weight: 600;
-  color: #4caf50;
+  color: #0077cc;
 }
 
 .tab.active {
-  border-bottom: 3px solid #388e3c;
-  color: #1b5e20;
+  border-bottom: 3px solid #0077cc;
+  color: #0077cc;
 }
 
 .tab-content {
@@ -135,7 +135,7 @@ body {
   background-color: #e0f2f1;
   margin-top: 15px;
   border-radius: 8px;
-  color: #004d40;
+  color: #0077cc;
 }
 
 footer {
