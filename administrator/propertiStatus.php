@@ -13,5 +13,4 @@ if (mysqli_affected_rows($conn) != 0) {
 } else {
     echo "<p>Verification Failed</p>";
 }
-
 ?>

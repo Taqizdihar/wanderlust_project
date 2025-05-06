@@ -26,21 +26,6 @@ $lokasi = [];
 while ($row = mysqli_fetch_assoc($query)) {
     $lokasi[] = $row;
 }
-
-if (isset($_GET['aksi'], $_GET['id'])) {
-  $id = $_GET['id'];
-  $aksi = $_GET['aksi'];
-  $message = "";
-
-  if ($aksi === 'acc') {
-    $message = "✅ Wisata ID $id diterima.";
-  } else if ($aksi === 'tolak') {
-    $message = "❌ Wisata ID $id ditolak.";
-  }
-  $feedback = $message;
-}
-
-
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +41,7 @@ if (isset($_GET['aksi'], $_GET['id'])) {
 <body>
   <?php include "viewsAdmin.php";?>
     <div class="main">
-      <h2>Property Verification</h2>
+      <h2>Property Verification List</h2>
         <?php
             if (!empty($lokasi)) {
                 foreach ($lokasi as $itemLokasi) {
@@ -69,7 +54,6 @@ if (isset($_GET['aksi'], $_GET['id'])) {
                     $fotos[] = $rowFoto;
                     }
         ?>
-
         <div class="card">
                 <?php foreach ($fotos as $foto) {
                 ?>
