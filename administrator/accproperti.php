@@ -78,8 +78,8 @@ $profile = mysqli_fetch_assoc($query);
                 <a href="pengelolaWisata/photos/<?= $dataLokasi['surat_izin']?>" target="_blank">View Legal Document</a>
             </div>
             <div class="actions">
-                <a href="indeks.php?page=propertiStatus&idpw=<?= $allPW['user_id']?>&status=approved" class="edit-btn" id="active" onclick="return confirm('Are you sure you want to approve this property?')">Approve</a>
-                <a href="indeks.php?page=propertiStatus&idpw=<?= $allPW['user_id']?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject this property?')">Reject</a>
+                <a href="indeks.php?page=propertiStatus&idpw=<?= $dataLokasi['id_lokasi']?>&status=approved" class="edit-btn" id="active" onclick="return confirm('Are you sure you want to approve this property?')">Approve</a>
+                <a href="indeks.php?page=propertiStatus&idpw=<?= $dataLokasi['id_lokasi']?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject this property?')">Reject</a>
             </div>
         </div>
     </div>
