@@ -44,7 +44,7 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
       <div class="card">
         <h2>Pengajuan Identitas</h2>
         <div class="profile-info">
-        <h2 class="name"><?= $allPW['nama']?></h2>
+          <h2 class="name"><?= $allPW['nama']?></h2>
 
             <?php
                 if ($PWProfile['entity_approval'] == 'review') {
@@ -62,29 +62,32 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
                 }
             ?>
 
-        <div class="info-grid">
-            <div class="info-left">
-            <p>Email</p>
-            <div class="value-box"><?= $allPW['email']?></div>
+          <div class="info-grid">
+              <div class="info-left">
+              <p>Email</p>
+              <div class="value-box"><?= $allPW['email']?></div>
 
-            <p>Phone</p>
-            <div class="value-box"><?= $allPW['phonenumber']?></div>
-            </div>
+              <p>Phone</p>
+              <div class="value-box"><?= $allPW['phonenumber']?></div>
+              </div>
 
-            <div class="info-right">
-            <p>Legal Tax Document</p>
-            <a href="pengelolaWisata/photos/<?= $PWProfile['tax_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <div class="info-right">
+              <p>Legal Tax Document</p>
+              <a href="pengelolaWisata/photos/<?= $PWProfile['tax_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 
-            <p>Legal Business Document</p>
-            <a href="pengelolaWisata/photos/<?= $PWProfile['legal_business_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-            </div>
-        </div>
-        <div class="address">
-            <p>Address</p>
-            <div class="value-box"><?= $PWProfile['legal_document_address']?></div>
-        </div>
+              <p>Legal Business Document</p>
+              <a href="pengelolaWisata/photos/<?= $PWProfile['legal_business_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              </div>
+          </div>
+          <div class="address">
+              <p>Address</p>
+              <div class="value-box"><?= $PWProfile['legal_document_address']?></div>
+          </div>
 
-        <a href="indeks.php?page=editProfilWisata" class="edit-btn">Edit Identity</a>
+          <div class="buttons">
+            <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=approved" class="edit-btn" id="approve" onclick="return confirm('Are you sure you want to approve <?= $allPW['nama']?>?')">Approve</a>
+            <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject <?= $allPW['nama']?>?')">Reject</a>
+          </div>
         </div>
       </div>
     </main>

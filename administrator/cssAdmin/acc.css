@@ -202,14 +202,31 @@ body {
 .edit-btn {
     display: block;
     text-align: center;
-    background-color: #1a54b3;
     padding: 12px;
     border-radius: 5px;
     font-weight: bold;
     text-decoration: none;
     color: white;
+    width: 300px;
 }
 
-.edit-btn:hover {
-    background-color: #0f2e60;
-}  
+.buttons {
+  justify-content: space-between;
+  display: flex;
+}
+
+#approve {
+  background-color: #1a54b3;
+}
+
+#approve:hover {
+  background-color: #143f84;
+}
+
+#rejected {
+  background-color: #b31a1a;
+}
+
+#rejected:hover {
+  background-color: #661111;
+}
