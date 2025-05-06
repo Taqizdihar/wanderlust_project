@@ -21,7 +21,7 @@ if (isset($_GET['aksi'], $_GET['id'])) {
     } else if ($aksi === 'tolak') {
         $message = "❌ Pengajuan Pengolah Wisata ID $id ditolak.";
     }
-
+ 
     $feedback = $message;
 }
 ?>
