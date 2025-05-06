@@ -13,15 +13,6 @@ $allPW = mysqli_fetch_assoc($query2);
 $sqlStatement3 = "SELECT * FROM pemilikwisata WHERE pw_id='$IDPW'";
 $query3 = mysqli_query($conn, $sqlStatement3);
 $PWProfile = mysqli_fetch_assoc($query3);
-
-$feedback = "";
-
-if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
-  $id = $_GET['id'];
-  $aksi = $_GET['aksi'];
-  $feedback = $aksi === 'acc' ? "✅ Pengajuan Pengolah ID $id diterima." : "❌ Pengajuan Pengolah ID $id ditolak.";
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="id">

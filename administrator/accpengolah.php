@@ -7,23 +7,9 @@ $query1 = mysqli_query($conn, $sqlStatement1);
 $profile = mysqli_fetch_assoc($query1);
 
 $sqlStatement2 = "SELECT user.*, pemilikwisata.entity_approval FROM user 
-        JOIN pemilikwisata ON user.user_id = pemilikwisata.pw_id WHERE user.role = 'pw'";
+                  JOIN pemilikwisata ON user.user_id = pemilikwisata.pw_id WHERE user.role = 'pw'";
 $query2 = mysqli_query($conn, $sqlStatement2);
 $allPW = mysqli_fetch_all($query2, MYSQLI_ASSOC);
-
-if (isset($_GET['aksi'], $_GET['id'])) {
-    $id = $_GET['id'];
-    $aksi = $_GET['aksi'];
-    $message = "";
-
-    if ($aksi === 'acc') {
-        $message = "✅ Pengajuan Pengolah Wisata ID $id diterima.";
-    } else if ($aksi === 'tolak') {
-        $message = "❌ Pengajuan Pengolah Wisata ID $id ditolak.";
-    }
-
-    $feedback = $message;
-}
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +26,7 @@ if (isset($_GET['aksi'], $_GET['id'])) {
   <div class="wrapper">
     <?php include "viewsAdmin.php";?>
     <div class="card">
-      <h2>Verifikasi Pemilik Tempat Wisata</h2>
+      <h2>Property Owner Verification List</h2>
       <?php if (isset($feedback)): ?>
         <div class="feedback"><?= $feedback ?></div>
       <?php endif; ?>
@@ -48,11 +34,11 @@ if (isset($_GET['aksi'], $_GET['id'])) {
         <thead>
           <tr>
             <th>ID</th>
-            <th>Nama</th>
+            <th>Name</th>
             <th>Email</th>
-            <th>Telepon</th>
+            <th>Telephone</th>
             <th>Status</th>
-            <th rowspan="2">Aksi</th>
+            <th rowspan="2">Action</th>
           </tr>
         </thead>
         <tbody>
