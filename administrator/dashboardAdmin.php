@@ -7,26 +7,15 @@ $sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement);
 $profile = mysqli_fetch_assoc($query);
 
-$feedback = "";
+$sqlStatement = "SELECT user_id FROM user WHERE role='pw' OR 'wisatawan'";
+$query = mysqli_query($conn, $sqlStatement);
+$member = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-if ($page === 'acc' && isset($_GET['aksi'], $_GET['id'])) {
-  $feedback = $_GET['aksi'] === 'acc'
-    ? " Pengajuan Pengolah ID {$_GET['id']} diterima."
-    : "❌ Pengajuan Pengolah ID {$_GET['id']} ditolak.";
-}
-if ($page === 'acc_wisata' && isset($_GET['aksi'], $_GET['id'])) {
-  $feedback = $_GET['aksi'] === 'acc'
-    ? " Wisata ID {$_GET['id']} diterima."
-    : "❌ Wisata ID {$_GET['id']} ditolak.";
-}
-
-if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
-  $feedback = $_GET['aksi'] === 'acc'
-    ? " Transaksi ID {$_GET['id']} disetujui."
-    : "❌ Transaksi ID {$_GET['id']} ditolak.";
-}
-
+$sqlStatement = "SELECT id_lokasi FROM lokasi";
+$query = mysqli_query($conn, $sqlStatement);
+$lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
   <meta charset="UTF-8">
@@ -41,41 +30,35 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
     <?php include "viewsAdmin.php";?>
 
     <main class="main">
-      <?php if ($feedback): ?>
-        <div class="feedback"><?= $feedback ?></div>
-      <?php endif; ?>
-
-      <main class="main">
+      <div class="main">
         <div class="card">
           <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.
         </div>
-      </main>
-      <main class="main">
+      </div>
+      <div class="main">
         <div class="row">
           <div class="card">
-            <h3>Jumlah Member</h3>
+            <h3>Total Members</h3>
             <div class="info-box">
-              <p>Total Member: 30 <strong></strong></p>
+              <p><strong><?= count($member)?></strong></p>
             </div>
           </div>
 
           <div class="card card-center">
-            <h3>Jumlah Pengolah Wisata</h3>
-              <p>Total Pengolah Wisata : 10 <strong></strong></p>
+            <h3>Total Properties</h3>
+            <p><strong><?= count($lokasi)?></strong></p>
           </div>
+
           <div class="card">
-            <h3>Jumlah Wisata</h3>
+            <h3>Total Transactions</h3>
             <div class="info-box">
-              <p>Total  Wisata: 100 <strong></strong></p>
+              <p><strong>Currently Unavailable</strong></p>
             </div>
           </div>
-          <div class="card">
-            <h3>Jumlah Transaksi</h3>
-            <div class="info-box">
-              <p>Total Transaksi: 20 <strong></strong></p>
-            </div>
+
         </div>
-      </main>
+      </div>
+    </main>
   </div>
 </body>
 </html>

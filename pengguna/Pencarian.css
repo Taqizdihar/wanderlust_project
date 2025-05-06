@@ -1,7 +1,8 @@
 body {
     font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #e8f5e9);
     margin: 0;
-    background-color: #f4f6f8;
+    padding: 20px;
 }
 
 .main-header {
@@ -158,17 +159,6 @@ body {
     font-size: 1.1rem;
     margin: 0.3rem 0;
     color: #222;
-}
-
-.harga {
-    font-size: 0.9rem;
-    color: #999;
-}
-
-.harga-diskon {
-    color: #e53935;
-    font-weight: bold;
-    margin-left: 0.5rem;
 }
 
 .rating {

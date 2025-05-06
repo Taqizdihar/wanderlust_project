@@ -5,10 +5,10 @@
   }
   
   body {
-    font-family: 'Segoe UI', sans-serif;
-    line-height: 1.6;
-    background-color: #f3faff;
-    color: #333;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #e8f5e9);
+    margin: 0;
+    padding: 20px;
   }
   
   .main-header {

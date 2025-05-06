@@ -49,7 +49,7 @@
 </head>
 <body>
     <aside class="sidebar">
-      <h2 id="halo">Hi, </h2>
+      <h2 id="halo">Hi</h2>
       <h2><?= $profile['nama'];?></h2>
       <ul>
         <li><a href="indeks.php?page=dashboardAdmin">Dashboard</a></li>

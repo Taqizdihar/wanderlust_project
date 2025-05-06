@@ -3,20 +3,17 @@ include "config.php";
 
 $ID = $_SESSION['user_id'];
 $lokasi_id = $_GET['id_lokasi'];
-$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement1);
+
+$sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement);
 $profile = mysqli_fetch_assoc($query);
 
-$sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement2);
-$PWProfile = mysqli_fetch_assoc($query);
+$sqlStatement = "SELECT * FROM lokasi WHERE id_lokasi='$lokasi_id'";
+$query = mysqli_query($conn, $sqlStatement);
+$dataLokasi = mysqli_fetch_assoc($query);
 
-$sqlStatement3 = "SELECT * FROM lokasi WHERE id_lokasi='$lokasi_id'";
-$query3 = mysqli_query($conn, $sqlStatement3);
-$dataLokasi = mysqli_fetch_assoc($query3);
-
-$sqlStatement4 = "SELECT url_photo FROM foto_lokasi WHERE id_lokasi='$lokasi_id' ORDER BY urutan";
-$foto = mysqli_query($conn, $sqlStatement4);
+$sqlStatement = "SELECT url_photo FROM foto_lokasi WHERE id_lokasi='$lokasi_id' ORDER BY urutan";
+$foto = mysqli_query($conn, $sqlStatement);
 $fotos = [];
 
 while ($barisTabel = mysqli_fetch_assoc($foto)) {
@@ -73,10 +70,12 @@ while ($barisTabel = mysqli_fetch_assoc($foto)) {
                 <p><strong>Nomor PIC: </strong><?= $dataLokasi['nomor_pic'] ?></p>
                 <a href="pengelolaWisata/photos/<?= $dataLokasi['surat_izin']?>" target="_blank">View Legal Document</a>
             </div>
+            <?php if($dataLokasi['status'] != 'active'): ?>
             <div class="actions">
-                <a href="indeks.php?page=propertiStatus&id=<?= $dataLokasi['id_lokasi']?>&status=approved" class="edit-btn" id="active" onclick="return confirm('Are you sure you want to approve this property?')">Approve</a>
-                <a href="indeks.php?page=propertiStatus&id=<?= $dataLokasi['id_lokasi']?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject this property?')">Reject</a>
+                <a href="indeks.php?page=propertiStatus&id=<?= $lokasi_id?>&status=active" class="edit-btn" id="active" onclick="return confirm('Are you sure you want to approve this property?')">Approve</a>
+                <a href="indeks.php?page=propertiStatus&id=<?= $lokasi_id?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject this property?')">Reject</a>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </body>

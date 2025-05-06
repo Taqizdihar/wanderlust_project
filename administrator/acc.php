@@ -13,15 +13,6 @@ $allPW = mysqli_fetch_assoc($query2);
 $sqlStatement3 = "SELECT * FROM pemilikwisata WHERE pw_id='$IDPW'";
 $query3 = mysqli_query($conn, $sqlStatement3);
 $PWProfile = mysqli_fetch_assoc($query3);
-
-$feedback = "";
-
-if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
-  $id = $_GET['id'];
-  $aksi = $_GET['aksi'];
-  $feedback = $aksi === 'acc' ? "✅ Pengajuan Pengolah ID $id diterima." : "❌ Pengajuan Pengolah ID $id ditolak.";
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -37,12 +28,8 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
     <?php include "viewsAdmin.php";?>
 
     <main class="main">
-      <?php if ($feedback): ?> 
-        <div class="feedback"><?= $feedback ?></div>
-      <?php endif; ?>
-
       <div class="card">
-        <h2>Pengajuan Identitas</h2>
+        <h2>Owner Identity Verification</h2>
         <div class="profile-info">
           <h2 class="name"><?= $allPW['nama']?></h2>
 
@@ -83,11 +70,13 @@ if ($page === 'acc' && isset($_GET['aksi']) && isset($_GET['id'])) {
               <p>Address</p>
               <div class="value-box"><?= $PWProfile['legal_document_address']?></div>
           </div>
-
+          
+          <?php if ($PWProfile['entity_approval'] == 'review') : ?>
           <div class="buttons">
             <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=approved" class="edit-btn" id="approve" onclick="return confirm('Are you sure you want to approve <?= $allPW['nama']?>?')">Approve</a>
             <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject <?= $allPW['nama']?>?')">Reject</a>
           </div>
+          <?php endif; ?>
         </div>
       </div>
     </main>
