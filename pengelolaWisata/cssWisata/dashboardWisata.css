@@ -16,10 +16,6 @@ h2 {
     padding: 20px;
 }
 
-.card-container {
-    display: flex;
-}
-
 .card {
     background-color: white;
     padding: 20px;
