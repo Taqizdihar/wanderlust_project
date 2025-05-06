@@ -1,11 +1,12 @@
 <?php
 session_start();
 ?>
+
 <main>
 <?php
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
-        $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
+        $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout']; //untuk seluruh halaman Umum (Sebelum Login/Sign in)
         $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata'];
         $pages_admin = ['acc', 'accwisata', 'accpengolah', 'acctransaksi', 'member' ,'dashboardAdmin', 'pengolahStatus', 'accproperti', 'propertiStatus'];
         
