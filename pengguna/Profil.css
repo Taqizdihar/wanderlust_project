@@ -1,8 +1,8 @@
 body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #e8f5e9);
     margin: 0;
-    font-family: 'MuseoModerno', sans-serif;
-    background: #f9f9f9;
-    color: #333;
+    padding: 20px;
 }
 
 .main-header {
