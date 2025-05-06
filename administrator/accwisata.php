@@ -2,24 +2,19 @@
 include 'config.php';
 
 $ID = $_SESSION['user_id'];
-$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement1);
+$sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement);
 $profile = mysqli_fetch_assoc($query);
 
-$sqlStatement2 = "SELECT * FROM pemilikwisata";
-$query = mysqli_query($conn, $sqlStatement2);
+$sqlStatement = "SELECT * FROM pemilikwisata";
+$query = mysqli_query($conn, $sqlStatement);
 $PWProfile = mysqli_fetch_assoc($query);
 
 $sqlStatement3 = "
     SELECT lokasi.*, foto_lokasi.url_photo, user.nama AS nama_pemilik
-    FROM lokasi
-    LEFT JOIN foto_lokasi 
-        ON lokasi.id_lokasi = foto_lokasi.id_lokasi 
-        AND foto_lokasi.urutan = 1
-    LEFT JOIN pemilikwisata 
-        ON lokasi.pw_id = pemilikwisata.pw_id
-    LEFT JOIN user 
-        ON pemilikwisata.pw_id = user.user_id";
+    FROM lokasi LEFT JOIN foto_lokasi ON lokasi.id_lokasi = foto_lokasi.id_lokasi 
+    AND foto_lokasi.urutan = 1 LEFT JOIN pemilikwisata ON lokasi.pw_id = pemilikwisata.pw_id
+    LEFT JOIN user ON pemilikwisata.pw_id = user.user_id";
 $query = mysqli_query($conn, $sqlStatement3);
 
 $lokasi = [];
@@ -33,7 +28,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 
 <head>
   <meta charset="UTF-8">
-  <title>Verifikasi Tempat Wisata</title>
+  <title>Property Verification</title>
   <link rel="stylesheet" href="administrator/cssAdmin/accwisata.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
