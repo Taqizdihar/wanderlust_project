@@ -64,31 +64,25 @@ $rekomendasi = [
 </head>
 <body>
 
-  <header>
-    <div class="header-content">
-      <div class="header-logo">
-        <a href="Home.php">Wanderlust</a>
-      </div>
-      <nav class="navbar">
-        <ul>
-          <li><a href="Home.php">Home</a></li>
-          <li><a href="PemesananTiket.php">Pesan Tiket</a></li>
-          <li><a href="Promo.php">Promo</a></li>
-          <li><a href="Tips.php">Tips</a></li>
-          <li><a href="Saldo.php"><img src="img/user-icon.png" alt="Akun"></a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <section id="home-banner">
-    <h1>Selamat Datang di Wanderlust!</h1>
-    <p>Temukan destinasi impianmu dan nikmati petualangan yang luar biasa</p>
-    <div class="search-button">
-      <input type="text" placeholder="Cari destinasi impianmu...">
-      <button>Cari</button>
-    </div>
-  </section>
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
+            <div class="logo-text">
+                <div class="title">Wanderlust</div>
+                <div class="subtitle">WANDERINGS FOR WONDERS</div>
+            </div>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search...">
+            <span class="search-icon"></span>
+        </div>
+        <nav class="nav-links">
+            <a href="#">Opsi 1</a>
+            <a href="#">Opsi 2</a>
+            <a href="#">Favorit</a>
+            <div class="profile-icon">👤</div>
+        </nav>
+    </header>
 
   <h2 class="section-title">Destinasi Populer</h2>
   <div class="card-gallery">
