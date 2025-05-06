@@ -70,11 +70,13 @@ $PWProfile = mysqli_fetch_assoc($query3);
               <p>Address</p>
               <div class="value-box"><?= $PWProfile['legal_document_address']?></div>
           </div>
-
+          
+          <?php if ($PWProfile['entity_approval'] == 'review') : ?>
           <div class="buttons">
-            <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=active" class="edit-btn" id="approve" onclick="return confirm('Are you sure you want to approve <?= $allPW['nama']?>?')">Approve</a>
+            <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=approved" class="edit-btn" id="approve" onclick="return confirm('Are you sure you want to approve <?= $allPW['nama']?>?')">Approve</a>
             <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject <?= $allPW['nama']?>?')">Reject</a>
           </div>
+          <?php endif; ?>
         </div>
       </div>
     </main>

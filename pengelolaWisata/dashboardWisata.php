@@ -51,7 +51,7 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="pengelolaWisata/cssWisata/dashboardWisata.css?v=1.0.4">
+    <link rel="stylesheet" href="pengelolaWisata/cssWisata/dashboardWisata.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -62,7 +62,6 @@ mysqli_close($conn);
 <div class="main">
     <h2>Welcome, <b><?= $profile['nama']?></b></h2>
 
-    <div class="card-container">
         <div class="card">
             <h3>Properties</h3>
             <div class="stat"><?= count($lokasi)?></div>
@@ -77,7 +76,6 @@ mysqli_close($conn);
             <h3>Ticket Sold</h3>
             <div class="stat">Currently not Available</div>
         </div>
-    </div>
 </div>
 
 </body>

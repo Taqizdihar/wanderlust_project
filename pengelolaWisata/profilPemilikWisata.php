@@ -10,29 +10,6 @@ $sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement2);
 $PWProfile = mysqli_fetch_assoc($query);
 
-if (isset($_FILES['profilePhoto'])) {
-    $photo = $_FILES['profilePhoto'];
-    $oldPhoto = $profile['profilepicture'];
-
-    if (isset($photo)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($photo['name']);
-		
-      if (move_uploaded_file($photo['tmp_name'], $uploadFile)) {
-        $uploadedPhoto = $photo['name'];
-        unlink('pengelolaWisata/photos/'.$oldPhoto);
-      } else {
-        $uploadedPhoto = null;
-      }
-	}
-    
-    $sqlStatement3 = "INSERT INTO user (profilepicture) VALUES('$uploadedPhoto') WHERE pw_id='$ID'";   
-    $query = mysqli_query($conn, $sqlStatement3);
-
-    if (mysqli_affected_rows($conn) != 0) {
-        header("location:indeks.php?page=profilPemilikWisata");
-    }
-}
-
 mysqli_close($conn);
 ?>
 
@@ -42,7 +19,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Profile</title>
-    <link rel="stylesheet" href="pengelolaWisata/cssWisata/profilPemilikWisata.css?v=1.0.4">
+    <link rel="stylesheet" href="pengelolaWisata/cssWisata/profilPemilikWisata.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
