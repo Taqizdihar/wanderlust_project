@@ -74,6 +74,7 @@ mysqli_close($conn);
     <?php include "pengelolaWisata/viewsWisata.php";?>
 
     <div class="main">
+        <button class="back-button" onclick="history.back()">← Kembali</button>
         <form method="post" enctype="multipart/form-data">
             <table border="0">
                 <tr>

@@ -6,6 +6,10 @@ $sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement);
 $profile = mysqli_fetch_assoc($query);
 
+$sqlStatement = "SELECT nama_lokasi FROM lokasi WHERE pw_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement);
+$lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
+
 if (isset($_POST['btnSubmit'])) {
     $nim = $_POST['nim'];
     $namalengkap = $_POST['namalengkap'];
@@ -58,19 +62,21 @@ mysqli_close($conn);
 <div class="main">
     <h2>Welcome, <b><?= $profile['nama']?></b></h2>
 
-    <div class="card">
-        <h3>Total Pengguna</h3>
-        <div class="stat">1200</div>
-    </div>
+    <div class="card-container">
+        <div class="card">
+            <h3>Properties</h3>
+            <div class="stat"><?= count($lokasi)?></div>
+        </div>
 
-    <div class="card">
-        <h3>Laporan Hari Ini</h3>
-        <div class="stat">85</div>
-    </div>
+        <div class="card">
+            <h3>Revenue</h3>
+            <div class="stat">Currently not Available</div>
+        </div>
 
-    <div class="card">
-        <h3>Pesan Masuk</h3>
-        <div class="stat">14</div>
+        <div class="card">
+            <h3>Ticket Sold</h3>
+            <div class="stat">Currently not Available</div>
+        </div>
     </div>
 </div>
 

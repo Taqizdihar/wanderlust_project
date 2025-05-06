@@ -17,13 +17,13 @@ if (isset($_POST['loginBtn'])) {
             $_SESSION['role'] = $registeredUser['role'];
 
             if ($registeredUser['role'] == 'wisatawan') {
-                header("location: /wanderlust_project/indeks.php?page=homeUmum");
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
                 exit();
             } else if ($registeredUser['role'] == 'pw') {
-                header("location: /wanderlust_project/indeks.php?page=dashboardWisata");
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata");
                 exit();
             } else if ($registeredUser['role'] == 'admin') {
-                header("location: /wanderlust_project/indeks.php?page=dashboardAdmin");
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardAdmin");
                 exit();
             }
         } else {
