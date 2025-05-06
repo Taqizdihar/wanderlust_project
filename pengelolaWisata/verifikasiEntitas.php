@@ -54,7 +54,7 @@ mysqli_close($conn);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Verify Identity</title>
-  <link rel="stylesheet" href="pengelolaWisata/cssWisata/verifikasiEntitas.css?v=1.0.4">
+  <link rel="stylesheet" href="pengelolaWisata/cssWisata/verifikasiEntitas.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>

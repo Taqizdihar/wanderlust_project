@@ -72,7 +72,7 @@ while ($barisTabel = mysqli_fetch_assoc($foto)) {
             </div>
             <?php if($dataLokasi['status'] != 'active'): ?>
             <div class="actions">
-                <a href="indeks.php?page=propertiStatus&id=<?= $lokasi_id?>&status=approved" class="edit-btn" id="active" onclick="return confirm('Are you sure you want to approve this property?')">Approve</a>
+                <a href="indeks.php?page=propertiStatus&id=<?= $lokasi_id?>&status=active" class="edit-btn" id="active" onclick="return confirm('Are you sure you want to approve this property?')">Approve</a>
                 <a href="indeks.php?page=propertiStatus&id=<?= $lokasi_id?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject this property?')">Reject</a>
             </div>
             <?php endif; ?>
