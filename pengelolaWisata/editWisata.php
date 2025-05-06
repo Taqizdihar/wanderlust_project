@@ -2,13 +2,23 @@
 include "config.php";
 
 $ID = $_SESSION['user_id'];
+$lokasi_id = $_GET['id_lokasi'];
+
 $sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement1);
-$profile = mysqli_fetch_assoc($query);
+$query1 = mysqli_query($conn, $sqlStatement1);
+$profile = mysqli_fetch_assoc($query1);
 
 $sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement2);
-$PWProfile = mysqli_fetch_assoc($query);
+$query2 = mysqli_query($conn, $sqlStatement2);
+$PWProfile = mysqli_fetch_assoc($query2);
+
+$sqlStatement3 = "SELECT * FROM lokasi WHERE id_lokasi='$lokasi_id'";
+$query3 = mysqli_query($conn, $sqlStatement3);
+$dataLokasi = mysqli_fetch_assoc($query3);
+
+$sqlStatement4 = "SELECT * FROM foto_lokasi WHERE id_lokasi='$lokasi_id'";
+$query4 = mysqli_query($conn, $sqlStatement4);
+$dataFotoLokasi = mysqli_fetch_assoc($query4);
 
 if (isset($_POST['submit'])) {
     $propertyName = $_POST['property_name'];
@@ -20,111 +30,56 @@ if (isset($_POST['submit'])) {
     $ticketPrice = $_POST['ticket_price'];
     $ticketQuota = $_POST['ticket_quota'];
     $picPhone = $_POST['pic_phone'];
+    $oldLegalDocument = $dataLokasi['surat_izin'];
     $legalDocument = $_FILES['document'];
-    $photo1 = $_FILES['photo1'];
-    $photo2 = $_FILES['photo2'];
-    $photo3 = $_FILES['photo3'];
-    $photo4 = $_FILES['photo4'];
-    $photo5 = $_FILES['photo5'];
-    $photo6 = $_FILES['photo6'];
 
     if (isset($legalDocument)) {
 		$uploadFile = 'pengelolaWisata/photos/'.basename($legalDocument['name']);
 		
       if (move_uploaded_file($legalDocument['tmp_name'], $uploadFile)) {
         $uploadedDocument = $legalDocument['name'];
+        unlink('pengelolaWisata/photos/'.$oldLegalDocument);
       } else {
         $uploadedDocument = null;
       }
 	}
 
-    if (isset($photo1)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($photo1['name']);
-		
-      if (move_uploaded_file($photo1['tmp_name'], $uploadFile)) {
-        $uploadedPhoto1 = $photo1['name'];
-      } else {
-        $uploadedPhoto1 = null;
-      }
-	}
-
-    if (isset($photo2)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($photo2['name']);
-		
-      if (move_uploaded_file($photo2['tmp_name'], $uploadFile)) {
-        $uploadedPhoto2 = $photo2['name'];
-      } else {
-        $uploadedPhoto2 = null;
-      }
-	}
-
-    if (isset($photo3)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($photo3['name']);
-		
-      if (move_uploaded_file($photo3['tmp_name'], $uploadFile)) {
-        $uploadedPhoto3 = $photo3['name'];
-      } else {
-        $uploadedPhoto3 = null;
-      }
-	}
-
-    if (isset($photo4)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($photo2['name']);
-		
-      if (move_uploaded_file($photo4['tmp_name'], $uploadFile)) {
-        $uploadedPhoto4 = $photo4['name'];
-      } else {
-        $uploadedPhoto4 = null;
-      }
-	}
-
-    if (isset($photo5)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($photo5['name']);
-		
-      if (move_uploaded_file($photo5['tmp_name'], $uploadFile)) {
-        $uploadedPhoto5 = $photo5['name'];
-      } else {
-        $uploadedPhoto5 = null;
-      }
-	}
-
-    if (isset($photo6)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($photo6['name']);
-		
-      if (move_uploaded_file($photo6['tmp_name'], $uploadFile)) {
-        $uploadedPhoto6 = $photo6['name'];
-      } else {
-        $uploadedPhoto6 = null;
-      }
-	}
-
-    $sqlStatement3 = "INSERT INTO lokasi (pw_id, nama_lokasi, alamat_lokasi, jenis_wisata, waktu_buka, waktu_tutup, deskripsi, harga_tiket, jumlah_tiket, nomor_pic, surat_izin) VALUES('$ID', '$propertyName', '$propertyAddress', '$propertyType', '$openTime', '$closeTime', '$propertyDescription', '$ticketPrice', '$ticketQuota', '$picPhone', '$uploadedDocument')";
-    $query3 = mysqli_query($conn, $sqlStatement3);
-    $id_lokasi = mysqli_insert_id($conn);
-
-    $sqlStatement4 = "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES('$id_lokasi', '$uploadedPhoto1', 1)";
-    $query4 = mysqli_query($conn, $sqlStatement4);
-
-    $sqlStatement5 = "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES('$id_lokasi', '$uploadedPhoto2', 2)";
+    $sqlStatement5 = "UPDATE lokasi SET nama_lokasi='$propertyName', alamat_lokasi='$propertyAddress', jenis_wisata='$propertyType', waktu_buka='$openTime', waktu_tutup='$closeTime', deskripsi='$propertyDescription', harga_tiket='$ticketPrice', jumlah_tiket='$ticketQuota', nomor_pic='$picPhone', surat_izin='$uploadedDocument' WHERE id_lokasi='$lokasi_id'";
     $query5 = mysqli_query($conn, $sqlStatement5);
+    
+    $updateFotoFolder = "SELECT url_photo FROM foto_lokasi WHERE id_lokasi='$lokasi_id'";
+    $queryFolder = mysqli_query($conn, $updateFotoFolder);
+    $foto = mysqli_fetch_assoc($queryFolder);
 
-    $sqlStatement6 = "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES('$id_lokasi', '$uploadedPhoto3', 3)";
-    $query6 = mysqli_query($conn, $sqlStatement6);
+    while ($foto = mysqli_fetch_assoc($queryFolder)) {
+            $path = 'pengelolaWisata/photos/'.$foto['url_photo'];
+            if (file_exists($path)) {
+            unlink($path);
+        }
+    }
 
-    $sqlStatement7 = "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES('$id_lokasi', '$uploadedPhoto4', 4)";
-    $query7 = mysqli_query($conn, $sqlStatement7);
+    $sqlStatement6 = "DELETE FROM foto_lokasi WHERE id_lokasi='$lokasi_id'";
+    mysqli_query($conn, $sqlStatement6);
 
-    $sqlStatement8 = "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES('$id_lokasi', '$uploadedPhoto5', 5)";
-    $query8 = mysqli_query($conn, $sqlStatement8);
-
-    $sqlStatement9 = "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES('$id_lokasi', '$uploadedPhoto6', 6)";
-    $query9 = mysqli_query($conn, $sqlStatement9);
+    for ($i = 1; $i <= 6; $i++) {
+        $input = "photo$i";
+        if (isset($_FILES[$input])) {
+            $filename = $_FILES[$input]['name'];
+            $tmpName = $_FILES[$input]['tmp_name'];
+    
+            $target = "pengelolaWisata/photos/" . basename($filename);
+            move_uploaded_file($tmpName, $target);
+    
+            $urutan = $i;
+            mysqli_query($conn, "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES ('$lokasi_id', '$filename', '$urutan')");
+        }
+    }
     
     if (mysqli_affected_rows($conn) != 0) {
         header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarWisata");
         exit();
     } else {
-        echo "<p>Property Add Failed</p>";
+        echo "<p>Property Edit Failed</p>";
     }
 }
 mysqli_close($conn);
@@ -144,7 +99,7 @@ mysqli_close($conn);
     <?php include "pengelolaWisata/viewsWisata.php";?>
     <div class="main">
         <div class="container">
-            <h1 id="form-heading">Property Form</h1>
+            <h1 id="form-heading">Edit Property</h1>
             
             <form action="" method="post" enctype="multipart/form-data">
 
@@ -167,8 +122,6 @@ mysqli_close($conn);
                                 <option value="Nature">Nature</option>
                                 <option value="Cultural">Cultural</option>
                                 <option value="Historical">Historical</option>
-                                <option value="Theme Park">Theme Park</option>
-                                <option value="Museum">Museum</option>
                             </select>
                         </div>
                     </div>
@@ -216,7 +169,7 @@ mysqli_close($conn);
                     <div class="col">
                         <div class="form-group file-upload">
                             <label for="document">Document:</label>
-                            <input type="file" id="document" name="document">
+                            <input type="file" id="document" accept="image/*, .doc, .docx, .pdf" name="document">
                         </div>
                     </div>
                 </div>

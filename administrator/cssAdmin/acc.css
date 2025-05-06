@@ -1,18 +1,94 @@
 body {
-    overscroll-behavior: none;
     font-family: Arial, sans-serif;
     margin: 0;
+    padding: 0;
     background-color: #f4f4f4;
-}
-
-.main {
-    margin-top: 120px;
-    margin-left: 220px;
-    margin-right: 20px;
-    padding: 20px;
-}
+  }
   
-.profile-container {
+  .wrapper {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .main {
+    flex: 1;
+    padding: 20px;
+  }
+  .card {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .feedback {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: green;
+  }
+  
+  .acc-btn, .tolak-btn {
+    padding: 5px 10px;
+    margin-right: 5px;
+    color: white;
+    text-decoration: none;
+    border-radius: 3px;
+  }
+  
+  .acc-btn {
+    background-color: #f4f4f4;
+  }
+  
+  .tolak-btn {
+    background-color: red;
+  }
+  /* ini table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table tr:hover {
+    background-color:  #f4f4f4; 
+  }
+  
+  table td a {
+    text-decoration: none;
+    color:  #4CAF50; 
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
+  
+  .acc-btn {
+    background-color: #4CAF50; /* Green for ACC */
+  }
+  
+  .tolak-btn {
+    background-color: #f44336; /* Red for Tolak */
+  }
+  
+  .acc-btn:hover, .tolak-btn:hover {
+    opacity: 0.8;
+  }
+  
+  .profile-container {
     display: flex;
     align-items: flex-start;
     gap: 40px;
@@ -126,15 +202,31 @@ body {
 .edit-btn {
     display: block;
     text-align: center;
-    background-color: #1a54b3;
     padding: 12px;
     border-radius: 5px;
     font-weight: bold;
     text-decoration: none;
     color: white;
+    width: 300px;
 }
 
-.edit-btn:hover {
-    background-color: #0f2e60;
+.buttons {
+  justify-content: space-between;
+  display: flex;
 }
-  
+
+#approve {
+  background-color: #1a54b3;
+}
+
+#approve:hover {
+  background-color: #143f84;
+}
+
+#rejected {
+  background-color: #b31a1a;
+}
+
+#rejected:hover {
+  background-color: #661111;
+}

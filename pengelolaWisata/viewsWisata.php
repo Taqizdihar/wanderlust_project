@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Views</title>
+    <title>Views TOA</title>
     <style>
-        .navbar {
+    .navbar {
     position: fixed;
     display: flex;
     width: 100%;
@@ -78,7 +78,7 @@
     <div class="sidebar">
         <a href="indeks.php?page=dashboardWisata">Dashboard</a>
         <a href="indeks.php?page=daftarWisata">Properties</a>
-        <a href="notFound.php">Orders</a>
+        <a href="notFound.php">Tickets</a>
         <a href="notFound.php">Help Centre</a>
         <a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a>
     </div>

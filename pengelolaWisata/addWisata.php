@@ -167,8 +167,6 @@ mysqli_close($conn);
                                 <option value="Nature">Nature</option>
                                 <option value="Cultural">Cultural</option>
                                 <option value="Historical">Historical</option>
-                                <option value="Theme Park">Theme Park</option>
-                                <option value="Museum">Museum</option>
                             </select>
                         </div>
                     </div>
@@ -216,7 +214,7 @@ mysqli_close($conn);
                     <div class="col">
                         <div class="form-group file-upload">
                             <label for="document">Document:</label>
-                            <input type="file" id="document" name="document">
+                            <input type="file" id="document" accept="image/*, .doc, .docx, .pdf" name="document">
                         </div>
                     </div>
                 </div>

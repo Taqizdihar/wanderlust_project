@@ -8,7 +8,7 @@ $destinasi = [
         'harga_diskon' => 90000,
         'rating' => 4.8,
         'ulasan' => 210,
-        'label' => 'Promo'
+        'label' => ''
     ],
     [
         'nama' => 'Farmhouse Susu Lembang',
@@ -28,7 +28,57 @@ $destinasi = [
         'harga_diskon' => 75000,
         'rating' => 4.7,
         'ulasan' => 185,
-        'label' => 'Diskon'
+        'label' => ''
+    ],
+    [
+        'nama' => 'The Great Asia Africa',
+        'lokasi' => 'Lembang, Bandung',
+        'gambar' => 'uploads/bandung6.jpg',
+        'harga_normal' => 80000,
+        'harga_diskon' => 50000,
+        'rating' => 4.6,
+        'ulasan' => 150,
+        'label' => ''
+    ],
+    [
+        'nama' => 'Trans Studio Bandung',
+        'lokasi' => 'Bandung Kota',
+        'gambar' => 'uploads/bandung5.jpg',
+        'harga_normal' => 200000,
+        'harga_diskon' => 180000,
+        'rating' => 4.9,
+        'ulasan' => 1000,
+        'label' => ''
+    ],
+    [
+        'nama' => 'Kawah Putih Ciwidey',
+        'lokasi' => 'Ciwidey, Bandung',
+        'gambar' => 'uploads/bandung6.jpg',
+        'harga_normal' => 30000,
+        'harga_diskon' => 25000,
+        'rating' => 4.7,
+        'ulasan' => 500,
+        'label' => ''
+    ],
+    [
+        'nama' => 'Tebing Keraton',
+        'lokasi' => 'Bandung Utara',
+        'gambar' => 'uploads/bandung6.jpg',
+        'harga_normal' => 20000,
+        'harga_diskon' => 15000,
+        'rating' => 4.5,
+        'ulasan' => 250,
+        'label' => ''
+    ],
+    [
+        'nama' => 'Curug Cimahi',
+        'lokasi' => 'Bandung Barat',
+        'gambar' => 'uploads/bandung6.jpg',
+        'harga_normal' => 25000,
+        'harga_diskon' => 20000,
+        'rating' => 4.4,
+        'ulasan' => 180,
+        'label' => ''
     ]
 ];
 ?>

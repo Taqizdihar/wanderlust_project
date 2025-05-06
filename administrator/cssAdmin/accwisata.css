@@ -6,53 +6,12 @@ body {
 }
 
 .main {
-    margin-top: 120px;
-    margin-left: 220px;
-    margin-right: 20px;
-    padding: 20px;
+    margin-left: 300px;
+    margin-right: 50px;
 }
 
-.reviewed {
-    position: relative;
-    top: 20px;
-    right: 10px;
-    display: flex;
-    background-color: grey;
-    padding: 40px;
-    border-radius: 30px;
-    margin-bottom: 40px;
-}
-
-.reviewed i {
-    font-size: 100px;
-    color: white;
-    margin-right: 40px;
-    align-self: center;
-}
-
-.reviewed p {
-    font: 30px "verdana";
-    color: white;
-    line-height: 1.8;
-}
-
-.approved {
-    display: inline-block; 
-    margin-left: 400px;
-    margin-bottom: 30px;
-    width: 300px;
-    background-color: white;
-    border: 5px solid grey;
-    font: bold 15px "verdana";
-    padding: 20px 40px;
-    border-radius: 30px;
-    text-decoration: none;
-    color: #bf6115;
-}
-
-.approved:hover {
-    background-color: rgb(135, 135, 135);
-    color: #e1e1e1;
+h2 {
+    margin-top: 50px;
 }
 
 .card {
@@ -99,22 +58,13 @@ body {
     background-color: #888;
     color: white;
     border-radius: 10px;
-    padding: 4px 10px;
+    padding: 10px 10px;
     font-size: 12px;
     margin-left: 10px;
 }
 
 .hours {
-    margin-top: 5px;
-    margin-bottom: 25px;
-}
-
-.details {
-    margin-top: 10px;
-}
-
-.details b {
-    font-weight: bold;
+    margin-top: 30px;
 }
 
 .actions {

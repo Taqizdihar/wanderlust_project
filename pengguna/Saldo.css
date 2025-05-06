@@ -1,8 +1,17 @@
 body {
-  font-family: 'Concert One', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #e8f5e9);
   margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  padding: 30px;
 }
 
 .main-header {
@@ -84,89 +93,49 @@ body {
   font-size: 20px;
 }
 
-.destination {
-  font-size: 0.9em;
-  color: #0077cc;
-  text-decoration: none;
+.subtitle {
+  color: #666;
+  margin-top: 4px;
+  font-size: 16px;
 }
 
-.section-title {
-  text-align: center;
-  font-size: 2em;
-  margin-top: 40px;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.card-gallery {
+.balance-info {
+  margin-top: 30px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px 0;
-}
-
-.cards-destination {
-  width: 300px;
-  background-color: #fff;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background-color: #f1f8e9;
   border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  border: 1px solid #c5e1a5;
+  font-size: 18px;
+  color: #0077cc;
 }
 
-.cards-destination:hover {
-  transform: translateY(-5px);
+.tabs {
+  margin-top: 30px;
+  display: flex;
+  gap: 30px;
+  border-bottom: 2px solid #c8e6c9;
 }
 
-.card-images {
-  width: 100%;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  position: relative;
+.tab {
+  padding-bottom: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #0077cc;
 }
 
-.card-images h4 {
-  position: absolute;
-  bottom: 0;
-  margin: 0;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  padding: 8px;
-  font-size: 0.95em;
+.tab.active {
+  border-bottom: 3px solid #0077cc;
+  color: #0077cc;
 }
 
-.destination-content {
-  padding: 12px;
-}
-
-.destination-content p {
-  font-size: 0.85em; 
-  margin-bottom: 10px;
-  color: #555;
-  line-height: 1.4;
-}
-
-.stars {
-  color: #FFD700;
-  margin-bottom: 10px;
-}
-
-.card-button {
-  display: inline-block;
-  padding: 8px 12px;
-  background-color: #007BFF;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  font-size: 0.9em;
-  transition: background-color 0.3s;
-}
-
-.card-button:hover {
-  background-color: #0056b3;
+.tab-content {
+  padding: 20px;
+  background-color: #e0f2f1;
+  margin-top: 15px;
+  border-radius: 8px;
+  color: #0077cc;
 }
 
 footer {
@@ -199,9 +168,6 @@ footer {
   font-size: 0.9em;
 }
 
-.footbar a:hover {
-  color: #fff;
-}
 .footbar a:hover {
   color: #fff;
 }

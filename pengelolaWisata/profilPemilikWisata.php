@@ -54,9 +54,8 @@ mysqli_close($conn);
         <div class="profile-pic-section">
             <i class="fa-regular fa-circle-user" id="pp"></i>
             <label class="change-btn">
-                Change
-                <form action="post" enctype="multipart/form-data">
-                    <input type="file" name="profilePhoto" class="file-input" accept="image/*">
+                <form action="post" enctype="multipart/form-data" class="change-btn-form">
+                    <input type="file" name="profilePhoto" class="file-input" accept="image/*">Change
                 </form>
             </label>
         </div>

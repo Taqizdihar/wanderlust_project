@@ -1,15 +1,31 @@
 <?php
-// Menyertakan kode umum untuk menangani feedback dan aksi
-include 'index.php';
+include 'config.php';
 
-// Data simulasi untuk pengajuan Wisata
-$wisata = [
-  ['id' => 101, 'nama_wisata' => 'Curug Cikaso', 'lokasi' => 'Sukabumi', 'pengaju' => 'Agus'],
-  ['id' => 102, 'nama_wisata' => 'Pantai Pangandaran', 'lokasi' => 'Pangandaran', 'pengaju' => 'Rina'],
-  ['id' => 103, 'nama_wisata' => 'Gunung Gede', 'lokasi' => 'Cianjur', 'pengaju' => 'Joni'],
-  ['id' => 104, 'nama_wisata' => 'Taman Safari', 'lokasi' => 'Bogor', 'pengaju' => 'Budi'],
-  ['id' => 105, 'nama_wisata' => 'Air Terjun Tumpak Sewa', 'lokasi' => 'Sumatera', 'pengaju' => 'Siti'],
-];
+$ID = $_SESSION['user_id'];
+$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement1);
+$profile = mysqli_fetch_assoc($query);
+
+$sqlStatement2 = "SELECT * FROM pemilikwisata";
+$query = mysqli_query($conn, $sqlStatement2);
+$PWProfile = mysqli_fetch_assoc($query);
+
+$sqlStatement3 = "
+    SELECT lokasi.*, foto_lokasi.url_photo, user.nama AS nama_pemilik
+    FROM lokasi
+    LEFT JOIN foto_lokasi 
+        ON lokasi.id_lokasi = foto_lokasi.id_lokasi 
+        AND foto_lokasi.urutan = 1
+    LEFT JOIN pemilikwisata 
+        ON lokasi.pw_id = pemilikwisata.pw_id
+    LEFT JOIN user 
+        ON pemilikwisata.pw_id = user.user_id";
+$query = mysqli_query($conn, $sqlStatement3);
+
+$lokasi = [];
+while ($row = mysqli_fetch_assoc($query)) {
+    $lokasi[] = $row;
+}
 
 if (isset($_GET['aksi'], $_GET['id'])) {
   $id = $_GET['id'];
@@ -21,10 +37,10 @@ if (isset($_GET['aksi'], $_GET['id'])) {
   } else if ($aksi === 'tolak') {
     $message = "❌ Wisata ID $id ditolak.";
   }
-
-  // Set feedback message
   $feedback = $message;
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -32,57 +48,56 @@ if (isset($_GET['aksi'], $_GET['id'])) {
 
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard Admin - ACC Pengolah Wisata</title>
-  <link rel="stylesheet" href="administrator/cssAdmin/contoh.css">
+  <title>Verifikasi Tempat Wisata</title>
+  <link rel="stylesheet" href="administrator/cssAdmin/accwisata.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
-  <div class="wrapper">
-    <aside class="sidebar">
-      <h2>Halo,Admin</h2>
-      <ul>
-        <li><a href="?page=home" class="<?= $page === 'home' ? 'active' : '' ?>">Dashboard</a></li>
-        <li><a href="?page=acc" class="<?= $page === 'acc' ? 'active' : '' ?>">ACC Pengolah Wisata</a></li>
-        <li><a href="?page=accwisata" class="<?= $page === 'acc_wisata' ? 'active' : '' ?>">ACC Wisata</a></li>
-        <li><a href="?page=acctransaksi" class="<?= $page === 'home' ? 'acc_transaksi' : '' ?>">ACC Transaksi</a></li>
-      </ul>
-    </aside>
+  <?php include "viewsAdmin.php";?>
+    <div class="main">
+      <h2>Property Verification</h2>
+        <?php
+            if (!empty($lokasi)) {
+                foreach ($lokasi as $itemLokasi) {
+                    $lokasiID = $itemLokasi['id_lokasi'];
+                    $sqlFoto = "SELECT * FROM foto_lokasi WHERE id_lokasi='$lokasiID' AND urutan=1";
+                    $queryFoto = mysqli_query($conn, $sqlFoto);
 
-    <main class="main">
-      <div class="card">
-        <h2>Pengajuan Wisata</h2>
-        <?php if (isset($feedback)): ?>
-          <div class="feedback"><?= $feedback ?></div>
-        <?php endif; ?>
+                    $fotos = [];
+                    while ($rowFoto = mysqli_fetch_assoc($queryFoto)) {
+                    $fotos[] = $rowFoto;
+                    }
+        ?>
 
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nama Wisata</th>
-              <th>Lokasi</th>
-              <th>Pengaju</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($wisata as $data): ?>
-              <tr>
-                <td><?= $data['id'] ?></td>
-                <td><?= $data['nama_wisata'] ?></td>
-                <td><?= $data['lokasi'] ?></td>
-                <td><?= $data['pengaju'] ?></td>
-                <td>
-                  <a href="?page=acc_wisata&aksi=acc&id=<?= $data['id'] ?>" class="acc-btn">ACC</a>
-                  <a href="?page=acc_wisata&aksi=tolak&id=<?= $data['id'] ?>" class="tolak-btn">Tolak</a>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
+        <div class="card">
+                <?php foreach ($fotos as $foto) {
+                ?>
+
+                <div class="image">
+                    <img src="pengelolaWisata/photos/<?= $itemLokasi['url_photo']?>" alt="Property Image">
+                </div>
+
+                <?php
+                }
+                ?>
+            <div class="info">
+                <h2><?= $itemLokasi['nama_lokasi'];?><span class="status"><?= $itemLokasi['status'];?></span></h2>
+                <div class="hours">
+                   <p class="owner"><b>Owner:</b> <?= $itemLokasi['nama_pemilik']?></p>
+                </div>
+            </div>
+            <div class="actions">
+                <a href="indeks.php?page=accproperti&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>&PWID=" id="see">Review</a>
+            </div>
+        </div>
+
+        <?php
+                }
+            }
+        mysqli_close($conn);
+        ?>
+
+    </div>
 </body>
-
 </html>

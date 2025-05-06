@@ -43,7 +43,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 
 
         <?php
-            if ($PWProfile['entity_approval'] == 'review') { //PHP
+            if ($PWProfile['entity_approval'] == 'review') {
         ?>
 
             <div class="reviewed">
@@ -55,7 +55,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 
         <?php
             }    
-            if ($PWProfile['entity_approval'] == 'approved') { //PHP
+            if ($PWProfile['entity_approval'] == 'approved') {
         ?>
 
         <a href="indeks.php?page=addWisata" class="approved">Click here to add a property +</a>
@@ -70,7 +70,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                     $fotos = [];
                     while ($rowFoto = mysqli_fetch_assoc($queryFoto)) {
                     $fotos[] = $rowFoto;
-                    } //PHP
+                    }
         ?>
 
         <div class="card">
@@ -90,12 +90,13 @@ while ($row = mysqli_fetch_assoc($query)) {
                     <span><?= $itemLokasi['waktu_buka'];?></span> - <span><?= $itemLokasi['waktu_tutup'];?></span>
                 </div>
                 <div class="details">
-                    <div><b>Ticket Price:</b><?= $itemLokasi['harga_tiket'];?></div>
-                    <div><b>Ticket Quota:</b><?= $itemLokasi['jumlah_tiket'];?></div>
+                    <div><b>Ticket Price: </b><?= $itemLokasi['harga_tiket'];?></div>
+                    <div><b>Ticket Quota: </b><?= $itemLokasi['jumlah_tiket'];?></div>
                 </div>
             </div>
             <div class="actions">
-                <a href="indeks.php?page=editWisata" id="edit">Edit</a>
+                <a href="indeks.php?page=seeWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="see">View</a>
+                <a href="indeks.php?page=editWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="edit">Edit</a>
                 <a href="indeks.php?page=deleteWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="delete" onclick="return confirm('Are you sure you want to delete this property? Action cannot be undone')">Delete</a>
             </div>
         </div>

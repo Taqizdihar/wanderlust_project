@@ -23,7 +23,7 @@ if ($dataLokasi) {
     while ($foto) {
             $path = 'pengelolaWisata/photos/'.$foto['url_photo'];
             if (file_exists($path)) {
-            unlink($path); // Hapus file
+            unlink($path);
         }
     }
 
