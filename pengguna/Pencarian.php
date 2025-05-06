@@ -23,7 +23,7 @@ $destinasi = [
     [
         'nama' => 'Orchid Forest Cikole',
         'lokasi' => 'Cikole, Bandung',
-        'gambar' => 'uploads/bandung3.jpg',
+        'gambar' => 'Umum/Images/Kawah Putih Ciwidey.jpg',
         'harga_normal' => 120000,
         'harga_diskon' => 75000,
         'rating' => 4.7,
