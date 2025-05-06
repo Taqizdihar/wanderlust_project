@@ -53,10 +53,10 @@
       <h2><?= $profile['nama'];?></h2>
       <ul>
         <li><a href="indeks.php?page=dashboardAdmin">Dashboard</a></li>
-        <li><a href="indeks.php?page=accpengolah">ACC Pengolah Wisata</a></li>
-        <li><a href="indeks.php?page=accwisata">ACC Wisata</a></li>
-        <li><a href="indeks.php?page=acctransaksi">ACC Transaksi</a></li>
-        <li><a href="notFound.php">Daftar Member</a></li>
+        <li><a href="indeks.php?page=accpengolah">Owner Verification</a></li>
+        <li><a href="indeks.php?page=accwisata">Property Verification</a></li>
+        <li><a href="notFound.php">Transaction Verification</a></li>
+        <li><a href="notFound.php">Member List</a></li>
         <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
       </ul>
     </aside>
