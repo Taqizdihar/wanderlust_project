@@ -4,64 +4,56 @@ $destinasi = [
         'nama' => 'Dusun Bambu Lembang',
         'lokasi' => 'Bandung',
         'gambar' => 'uploads/bandung1.jpg',
-        'rating' => 4.8,
-        'ulasan' => 210,
+        'rating' => 5,
         'label' => ''
     ],
     [
         'nama' => 'Farmhouse Susu Lembang',
         'lokasi' => 'Lembang, Bandung',
         'gambar' => 'uploads/bandung2.jpg',
-        'rating' => 4.5,
-        'ulasan' => 300,
+        'rating' => 5,
         'label' => ''
     ],
     [
         'nama' => 'Orchid Forest Cikole',
         'lokasi' => 'Cikole, Bandung',
         'gambar' => 'Umum/Images/Kawah Putih Ciwidey.jpg',
-        'rating' => 4.7,
-        'ulasan' => 185,
+        'rating' => 5,
         'label' => ''
     ],
     [
         'nama' => 'The Great Asia Africa',
         'lokasi' => 'Lembang, Bandung',
         'gambar' => 'uploads/bandung6.jpg',
-        'rating' => 4.6,
-        'ulasan' => 150,
+        'rating' => 5,
         'label' => ''
     ],
     [
         'nama' => 'Trans Studio Bandung',
         'lokasi' => 'Bandung Kota',
         'gambar' => 'uploads/bandung5.jpg',
-        'rating' => 4.9,
-        'ulasan' => 1000,
+        'rating' => 5,
         'label' => ''
     ],
     [
         'nama' => 'Kawah Putih Ciwidey',
         'lokasi' => 'Ciwidey, Bandung',
         'gambar' => 'uploads/bandung6.jpg',
-        'rating' => 4.7,
-        'ulasan' => 500,
+        'rating' => 5,
         'label' => ''
     ],
     [
         'nama' => 'Tebing Keraton',
         'lokasi' => 'Bandung Utara',
         'gambar' => 'uploads/bandung6.jpg',
-        'rating' => 4.5,
-        'ulasan' => 250,
+        'rating' => 5,
         'label' => ''
     ],
     [
         'nama' => 'Curug Cimahi',
         'lokasi' => 'Bandung Barat',
         'gambar' => 'uploads/bandung6.jpg',
-        'rating' => 4.4,
-        'ulasan' => 180,
+        'rating' => 5,
         'label' => ''
     ]
 ];
@@ -118,7 +110,7 @@ $destinasi = [
                     <p class="lokasi"><?= htmlspecialchars($item['lokasi']) ?></p>
                     <h3><?= htmlspecialchars($item['nama']) ?></h3>
                     <p class="rating">
-                        ⭐ <?= htmlspecialchars($item['rating']) ?> (<?= htmlspecialchars($item['ulasan']) ?> review)
+                        ⭐⭐⭐⭐⭐ <?= htmlspecialchars($item['rating']) ?>
                     </p>
                 </div>
             </div>
