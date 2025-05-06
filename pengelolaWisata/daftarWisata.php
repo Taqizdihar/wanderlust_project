@@ -43,7 +43,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 
 
         <?php
-            if ($PWProfile['entity_approval'] == 'review') { //PHP
+            if ($PWProfile['entity_approval'] == 'review') {
         ?>
 
             <div class="reviewed">
@@ -55,7 +55,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 
         <?php
             }    
-            if ($PWProfile['entity_approval'] == 'approved') { //PHP
+            if ($PWProfile['entity_approval'] == 'approved') {
         ?>
 
         <a href="indeks.php?page=addWisata" class="approved">Click here to add a property +</a>
@@ -70,7 +70,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                     $fotos = [];
                     while ($rowFoto = mysqli_fetch_assoc($queryFoto)) {
                     $fotos[] = $rowFoto;
-                    } //PHP
+                    }
         ?>
 
         <div class="card">
@@ -90,8 +90,8 @@ while ($row = mysqli_fetch_assoc($query)) {
                     <span><?= $itemLokasi['waktu_buka'];?></span> - <span><?= $itemLokasi['waktu_tutup'];?></span>
                 </div>
                 <div class="details">
-                    <div><b>Ticket Price:</b><?= $itemLokasi['harga_tiket'];?></div>
-                    <div><b>Ticket Quota:</b><?= $itemLokasi['jumlah_tiket'];?></div>
+                    <div><b>Ticket Price: </b><?= $itemLokasi['harga_tiket'];?></div>
+                    <div><b>Ticket Quota: </b><?= $itemLokasi['jumlah_tiket'];?></div>
                 </div>
             </div>
             <div class="actions">

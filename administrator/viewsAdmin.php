@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Views Admin</title>
     <style>
-    body {
-    overscroll-behavior: none;
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f4f4f4;
-    }
-
     .sidebar {
+    position: fixed;
     width: 200px;
+    height: 100%;
     background-color: #333;
     color: white;
     padding: 20px;
+    z-index: 999;
+    top: 0;
     }
 
     #halo {
@@ -52,7 +49,7 @@
 </head>
 <body>
     <aside class="sidebar">
-      <h2 id="halo">Halo, </h2>
+      <h2 id="halo">Hi, </h2>
       <h2><?= $profile['nama'];?></h2>
       <ul>
         <li><a href="indeks.php?page=dashboardAdmin">Dashboard</a></li>
