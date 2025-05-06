@@ -158,11 +158,11 @@ body {
     text-align: center;
 }
 
-#approve {
+#active {
     background-color: #1a54b3;
 }
   
-#approve:hover {
+#active:hover {
     background-color: #143f84;
 }
   

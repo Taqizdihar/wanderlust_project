@@ -29,11 +29,6 @@ if ($page === 'acc_transaksi' && isset($_GET['aksi'], $_GET['id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="id">
-<<<<<<< HEAD
-<head> 
-=======
-<head>
->>>>>>> 393739128c84ebb940d4e86d2468d629b8a14d1e
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard Admin</title>
