@@ -13,7 +13,7 @@ if (isset($_POST['signinBtn'])) {
     $registration = mysqli_query($conn, $sqlCall);
 
     if (mysqli_num_rows($registration) > 0) {
-        $warning = "Email already used as either tourist or TOA, <br> please use other email or Log In";
+        $warning = "Email is already used as either tourist or TOA, <br> please use other email or Log In";
     } else {
         $sqlStatement = "INSERT INTO user (email, password, role) VALUES('$email', '$passwordSecured', '$role')";
         $query = mysqli_query($conn, $sqlStatement);
