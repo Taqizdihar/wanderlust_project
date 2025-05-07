@@ -10,23 +10,6 @@ $sqlStatement2 = "SELECT user.*, pemilikwisata.entity_approval FROM user
                   JOIN pemilikwisata ON user.user_id = pemilikwisata.pw_id WHERE user.role = 'pw'";
 $query2 = mysqli_query($conn, $sqlStatement2);
 $allPW = mysqli_fetch_all($query2, MYSQLI_ASSOC);
-<<<<<<< HEAD
-
-if (isset($_GET['aksi'], $_GET['id'])) {
-    $id = $_GET['id'];
-    $aksi = $_GET['aksi'];
-    $message = "";
-
-    if ($aksi === 'acc') {
-        $message = "✅ Pengajuan Pengolah Wisata ID $id diterima.";
-    } else if ($aksi === 'tolak') {
-        $message = "❌ Pengajuan Pengolah Wisata ID $id ditolak.";
-    }
- 
-    $feedback = $message;
-}
-=======
->>>>>>> 86846ce9022998fff055ce6b5d11dd351fa58bc8
 ?>
 
 <!DOCTYPE html>

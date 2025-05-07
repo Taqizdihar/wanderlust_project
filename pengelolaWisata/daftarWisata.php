@@ -85,7 +85,13 @@ while ($row = mysqli_fetch_assoc($query)) {
                 }
                 ?>
             <div class="info">
-                <h2><?= $itemLokasi['nama_lokasi'];?><span class="status"><?= $itemLokasi['status'];?></span></h2>
+                <?php if($itemLokasi['status'] == 'review'): ?>
+                <h2><?= $itemLokasi['nama_lokasi'];?><span class="status" style="background-color: #888;"><?= $itemLokasi['status'];?></span></h2>
+                <?php elseif($itemLokasi['status'] == 'active'): ?>
+                <h2><?= $itemLokasi['nama_lokasi'];?><span class="status" style="background-color: #0d8a09;"><?= $itemLokasi['status'];?></span></h2>
+                <?php elseif($itemLokasi['status'] == 'rejected'): ?>
+                <h2><?= $itemLokasi['nama_lokasi'];?><span class="status" style="background-color:rgb(138, 9, 9);"><?= $itemLokasi['status'];?></span></h2>
+                <?php endif; ?>
                 <div class="hours">
                     <span><?= $itemLokasi['waktu_buka'];?></span> - <span><?= $itemLokasi['waktu_tutup'];?></span>
                 </div>
