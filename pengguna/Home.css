@@ -1,9 +1,8 @@
-/* Font setup */
 body {
-  font-family: 'Concert One', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #e8f5e9);
   margin: 0;
-  padding: 0;
-  background-color: #f9f9f9;
+  padding: 20px;
 }
 
 .main-header {
