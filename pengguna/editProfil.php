@@ -21,7 +21,7 @@ $data = [
     <!-- Header -->
     <header class="main-header">
         <div class="logo-container">
-            <img src="logo.png" alt="Logo" class="logo">
+            <img src="../Umum/photos/Wanderlust Logo Plain.png" alt="Logo" class="logo">
             <div class="logo-text">
                 <div class="title">Wanderlust</div>
                 <div class="subtitle">WANDERINGS FOR WONDERS</div>
@@ -83,7 +83,7 @@ $data = [
     <footer>
   <div class="footer-container">
     <div class="footer-logo">
-      <img src="../Images/Wanderlust Logo Circle.png" height="70" width="70" alt="Wanderlust Logo"/>
+      <img src="../Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
       <div>
         <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS for Wonders</span></h5>
       </div>
