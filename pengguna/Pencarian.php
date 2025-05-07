@@ -4,56 +4,56 @@ $destinasi = [
         'nama' => 'Dusun Bambu Lembang',
         'lokasi' => 'Bandung',
         'gambar' => 'uploads/bandung1.jpg',
-        'rating' => 5,
+        'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'Farmhouse Susu Lembang',
         'lokasi' => 'Lembang, Bandung',
         'gambar' => 'uploads/bandung2.jpg',
-        'rating' => 5,
+        'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'Orchid Forest Cikole',
         'lokasi' => 'Cikole, Bandung',
         'gambar' => 'Umum/Images/Kawah Putih Ciwidey.jpg',
-        'rating' => 5,
+        'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'The Great Asia Africa',
         'lokasi' => 'Lembang, Bandung',
         'gambar' => 'uploads/bandung6.jpg',
-        'rating' => 5,
+        'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'Trans Studio Bandung',
         'lokasi' => 'Bandung Kota',
         'gambar' => 'uploads/bandung5.jpg',
-        'rating' => 5,
+        'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'Kawah Putih Ciwidey',
         'lokasi' => 'Ciwidey, Bandung',
         'gambar' => 'uploads/bandung6.jpg',
-        'rating' => 5,
+        'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'Tebing Keraton',
         'lokasi' => 'Bandung Utara',
         'gambar' => 'uploads/bandung6.jpg',
-        'rating' => 5,
+        'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'Curug Cimahi',
         'lokasi' => 'Bandung Barat',
         'gambar' => 'uploads/bandung6.jpg',
-        'rating' => 5,
+        'rating' => '',
         'label' => ''
     ]
 ];
