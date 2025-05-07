@@ -1,8 +1,9 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to right, #dbece8, #f0f8f5);
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #e0f7fa, #e8f5e9);
     margin: 0;
-    padding: 0;
+    padding: 20px;
+
 }
 .container {
     max-width: 480px;
@@ -12,6 +13,7 @@ body {
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
     padding: 25px;
 }
+
 .main-header {
     display: flex;
     align-items: center;

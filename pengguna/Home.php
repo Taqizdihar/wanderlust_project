@@ -10,13 +10,13 @@ $destinasi = [
     "img" => "img/farm-house.jpg",
     "title" => "Farm House Lembang",
     "desc" => "Tempat wisata bergaya Eropa dengan mini zoo dan rumah hobbit.",
-    "rating" => 4
+    "rating" => 5
   ],
   [
     "img" => "img/the-great-asia-afrika.jpg",
     "title" => "The Great Asia Afrika",
     "desc" => "Wisata budaya menampilkan miniatur negara-negara Asia dan Afrika.",
-    "rating" => 4
+    "rating" => 5
   ],
   [
     "img" => "img/gedung-sate.jpg",
@@ -37,13 +37,13 @@ $rekomendasi = [
     "img" => "img/dusun-bambu.jpg",
     "title" => "Dusun Bambu",
     "desc" => "Wisata alam dan kuliner keluarga dengan pemandangan danau dan pegunungan.",
-    "rating" => 4
+    "rating" => 5
   ],
   [
     "img" => "img/asia-afrika-street.jpg",
     "title" => "Jalan Asia Afrika",
     "desc" => "Jalan bersejarah di pusat kota Bandung, cocok untuk berfoto dan mengenal sejarah.",
-    "rating" => 4
+    "rating" => 5
   ],
   [
     "img" => "img/braga.jpg",
