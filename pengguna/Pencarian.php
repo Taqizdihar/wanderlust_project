@@ -17,14 +17,14 @@ $destinasi = [
     [
         'nama' => 'Orchid Forest Cikole',
         'lokasi' => 'Cikole, Bandung',
-        'gambar' => 'Umum/Images/Kawah Putih Ciwidey.jpg',
+        'gambar' => 'uploads/bandung3.jpg',
         'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'The Great Asia Africa',
         'lokasi' => 'Lembang, Bandung',
-        'gambar' => 'uploads/bandung6.jpg',
+        'gambar' => 'uploads/bandung4.jpg',
         'rating' => '',
         'label' => ''
     ],
@@ -45,14 +45,14 @@ $destinasi = [
     [
         'nama' => 'Tebing Keraton',
         'lokasi' => 'Bandung Utara',
-        'gambar' => 'uploads/bandung6.jpg',
+        'gambar' => 'uploads/bandung7.jpg',
         'rating' => '',
         'label' => ''
     ],
     [
         'nama' => 'Curug Cimahi',
         'lokasi' => 'Bandung Barat',
-        'gambar' => 'uploads/bandung6.jpg',
+        'gambar' => 'uploads/bandung8.jpg',
         'rating' => '',
         'label' => ''
     ]
