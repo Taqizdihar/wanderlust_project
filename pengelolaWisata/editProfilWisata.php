@@ -80,32 +80,32 @@ mysqli_close($conn);
                 <tr>
                     <td>Full Name</td>
                     <td>:</td>
-                    <td><input name="fullname" required></td>
+                    <td><input name="fullname" value="<?= $profile['nama']?>" required></td>
                 </tr>
                 <tr>
                     <td>Email</td>
                     <td>:</td>
-                    <td><input name="email" required></td>
+                    <td><input name="email" value="<?= $profile['email']?>" required></td>
                 </tr>
                 <tr>
                     <td>Phone</td>
                     <td>:</td>
-                    <td><input name="phone" required></td>
+                    <td><input name="phone" value="<?= $profile['phonenumber']?>" required></td>
                 </tr>
                 <tr>
                     <td valign="top">Address</td>
                     <td valign="top">:</td>
-                    <td><textarea name="address" rows="3" cols="60" required></textarea></td>
+                    <td><textarea name="address" rows="3" cols="60" value="<?= $PWProfile['legal_document_address']?>" required></textarea></td>
                 </tr>
                 <tr>
                     <td valign="top">Tax Document</td>
                     <td valign="top">:</td>
-                    <td><input type="file" name="npwp" accept="image/*, .pdf" required></td>
+                    <td><input type="file" name="npwp" accept="image/*, .pdf" value="<?=$PWProfile['tax_document']?>" required></td>
                 </tr>
                 <tr>
                     <td valign="top">Legal Business Document</td>
                     <td valign="top">:</td>
-                    <td><input type="file" name="nib" accept="image/*, .pdf" required></td>
+                    <td><input type="file" name="nib" accept="image/*, .pdf" value="<?=$PWProfile['legal_business_document']?>" required></td>
                 </tr>
                 <tr>
                     <td colspan="3">
