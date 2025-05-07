@@ -1,29 +1,32 @@
 <?php
 $destinasi = [
-  [
+[
     "img" => "img/kawah-putih.jpg",
     "title" => "Kawah Putih",
     "desc" => "Danau vulkanik dengan air berwarna putih kehijauan yang eksotis di Ciwidey.",
     "rating" => 5
-  ],
-  [
+],
+  
+[
     "img" => "img/farm-house.jpg",
     "title" => "Farm House Lembang",
     "desc" => "Tempat wisata bergaya Eropa dengan mini zoo dan rumah hobbit.",
     "rating" => 5
-  ],
-  [
+],
+  
+[
     "img" => "img/the-great-asia-afrika.jpg",
     "title" => "The Great Asia Afrika",
     "desc" => "Wisata budaya menampilkan miniatur negara-negara Asia dan Afrika.",
     "rating" => 5
-  ],
-  [
+],
+
+[
     "img" => "img/gedung-sate.jpg",
     "title" => "Gedung Sate",
     "desc" => "Ikon kota Bandung dengan arsitektur khas dan museum sejarah.",
     "rating" => 5
-  ]
+]
 ];
 
 $rekomendasi = [
