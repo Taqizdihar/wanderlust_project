@@ -55,6 +55,8 @@ $rekomendasi = [
     "rating" => 5
   ]
 ];
+
+include "config.php";
 ?>
 
 <!DOCTYPE html>
