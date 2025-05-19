@@ -25,7 +25,7 @@ if (isset($_POST['signinBtn'])) {
 
         if (mysqli_affected_rows($conn) != 0) {
             if ($role == 'wisatawan') {
-                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=Home");
                 exit();
             } else if ($role == 'pw') {
                 header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas");
