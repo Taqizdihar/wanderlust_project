@@ -1,7 +1,6 @@
 <?php
 include 'index.php';
 
-
 $transaksi = [
   ['id' => 'TX001', 'nama_pengguna' => 'Rudi', 'jumlah' => 'Rp 250.000', 'tanggal' => '2025-05-01'],
   ['id' => 'TX002', 'nama_pengguna' => 'Joni', 'jumlah' => 'Rp 500.000', 'tanggal' => '2025-05-02'],
