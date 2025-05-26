@@ -35,9 +35,9 @@ while ($row = mysqli_fetch_assoc($query)) {
             <span class="search-icon"></span>
         </div>
         <nav class="nav-links">
-            <a href="#">Reservasi</a>
-            <a href="#">Favorit</a>
-            <a href="#">Bantuan</a>
+            <a href="notFound.php">Reservasi</a>
+            <a href="notFound.php">Favorit</a>
+            <a href="notFound.php">Bantuan</a>
             <div class="profile-icon">👤</div>
         </nav>
     </header>
@@ -85,7 +85,7 @@ while ($row = mysqli_fetch_assoc($query)) {
     <div class="footbar">
       <table>
         <tr>
-          <td><a href="AboutUs.php">Tentang Kami</a></td>
+          <td><a href="">Tentang Kami</a></td>
           <td><a href="Komunitas.php">Komunitas</a></td>
           <td><a href="Profil.php">Profil</a></td>
         </tr>
