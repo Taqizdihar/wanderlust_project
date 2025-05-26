@@ -1,7 +1,16 @@
 <?php
 include "config.php";
 
-$sqlStatement = "
+$ID = $_SESSION['user_id'];
+$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement1);
+$profile = mysqli_fetch_assoc($query);
+
+$sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement2);
+$PWProfile = mysqli_fetch_assoc($query);
+
+$sqlStatement3 = "
     SELECT lokasi.*, foto_lokasi.url_photo
     FROM lokasi
     LEFT JOIN foto_lokasi 

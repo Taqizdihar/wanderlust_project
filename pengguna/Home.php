@@ -1,25 +1,15 @@
 <?php
 include "config.php";
 
-$ID = $_SESSION['user_id'];
-$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement1);
-$profile = mysqli_fetch_assoc($query);
-
-$sqlStatement3 = "
-    SELECT lokasi.*, foto_lokasi.url_photo
-    FROM lokasi
-    LEFT JOIN foto_lokasi 
-        ON lokasi.id_lokasi = foto_lokasi.id_lokasi 
-        AND foto_lokasi.urutan = 1
-    WHERE lokasi.pw_id = '$ID'
-";
-$query = mysqli_query($conn, $sqlStatement3);
+$sqlStatement = "
+    SELECT lokasi.*, foto_lokasi.url_photo FROM lokasi LEFT JOIN foto_lokasi ON lokasi.id_lokasi = foto_lokasi.id_lokasi AND foto_lokasi.urutan = 1";
+$query = mysqli_query($conn, $sqlStatement);
 
 $lokasi = [];
 while ($row = mysqli_fetch_assoc($query)) {
     $lokasi[] = $row;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -54,30 +44,30 @@ while ($row = mysqli_fetch_assoc($query)) {
 
   <h2 class="section-title">Destinasi Populer</h2>
   <div class="card-gallery">
-    <?php foreach ($lokasi as $itemLokasi): ?>
-      <div class="cards-destination">
-        <div class="card-images" style="background-image: url('<?= $itemLokasi[''] ?>');">
-          <h4><?= $item['title'] ?></h4>
-        </div>
-        <div class="destination-content">
-          <p><?= $item['desc'] ?></p>
-          <div class="stars"><?= str_repeat('★', $item['rating']) ?></div>
-          <a class="card-button" href="#">Lihat Selengkapnya</a>
-        </div>
+  <?php foreach ($lokasi as $itemLokasi): ?>
+    <div class="cards-destination">
+      <div class="card-images" style="background-image: url('pengelolaWisata/photos/<?= $itemLokasi['url_photo'] ?>');">
+        <h4><?= $itemLokasi['nama_lokasi'] ?></h4>
       </div>
-    <?php endforeach; ?>
-  </div>
+      <div class="destination-content">
+        <p><?= $itemLokasi['deskripsi'] ?></p>
+        <div class="stars"></div>
+        <a class="card-button" href="#">Lihat Selengkapnya</a>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>
 
   <h2 class="section-title">Rekomendasi Destinasi</h2>
 <div class="card-gallery">
-  <?php foreach ($rekomendasi as $item): ?>
+  <?php foreach ($lokasi as $itemLokasi): ?>
     <div class="cards-destination">
-      <div class="card-images" style="background-image: url('<?= $item['img'] ?>');">
-        <h4><?= $item['title'] ?></h4>
+      <div class="card-images" style="background-image: url('pengelolaWisata/photos/<?= $itemLokasi['url_photo'] ?>');">
+        <h4><?= $itemLokasi['nama_lokasi'] ?></h4>
       </div>
       <div class="destination-content">
-        <p><?= $item['desc'] ?></p>
-        <div class="stars"><?= str_repeat('★', $item['rating']) ?></div>
+        <p><?= $itemLokasi['deskripsi'] ?></p>
+        <div class="stars"></div>
         <a class="card-button" href="#">Lihat Selengkapnya</a>
       </div>
     </div>
