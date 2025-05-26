@@ -24,7 +24,7 @@ if (isset($_GET['aksi'], $_GET['id'])) {
   $feedback = $message;
 }
 ?>
-
+x
 <!DOCTYPE html>
 <html lang="id">
 
