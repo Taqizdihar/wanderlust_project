@@ -71,7 +71,7 @@ include "config.php";
 
     <header class="main-header">
         <div class="logo-container">
-            <img src="../Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
+            <img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
             <div class="logo-text">
                 <div class="title">Wanderlust</div>
                 <div class="subtitle">WANDERINGS FOR WONDERS</div>
