@@ -1,62 +1,25 @@
 <?php
-$destinasi = [
-[
-    "img" => "img/kawah-putih.jpg",
-    "title" => "Kawah Putih",
-    "desc" => "Danau vulkanik dengan air berwarna putih kehijauan yang eksotis di Ciwidey.",
-    "rating" => 5
-],
-  
-[
-    "img" => "img/farm-house.jpg",
-    "title" => "Farm House Lembang",
-    "desc" => "Tempat wisata bergaya Eropa dengan mini zoo dan rumah hobbit.",
-    "rating" => 5
-],
-  
-[
-    "img" => "img/the-great-asia-afrika.jpg",
-    "title" => "The Great Asia Afrika",
-    "desc" => "Wisata budaya menampilkan miniatur negara-negara Asia dan Afrika.",
-    "rating" => 5
-],
-
-[
-    "img" => "img/gedung-sate.jpg",
-    "title" => "Gedung Sate",
-    "desc" => "Ikon kota Bandung dengan arsitektur khas dan museum sejarah.",
-    "rating" => 5
-]
-];
-
-$rekomendasi = [
-  [
-    "img" => "img/tangkuban-perahu.jpg",
-    "title" => "Gunung Tangkuban Perahu",
-    "desc" => "Gunung aktif dengan kawah yang bisa dikunjungi langsung.",
-    "rating" => 5
-  ],
-  [
-    "img" => "img/dusun-bambu.jpg",
-    "title" => "Dusun Bambu",
-    "desc" => "Wisata alam dan kuliner keluarga dengan pemandangan danau dan pegunungan.",
-    "rating" => 5
-  ],
-  [
-    "img" => "img/asia-afrika-street.jpg",
-    "title" => "Jalan Asia Afrika",
-    "desc" => "Jalan bersejarah di pusat kota Bandung, cocok untuk berfoto dan mengenal sejarah.",
-    "rating" => 5
-  ],
-  [
-    "img" => "img/braga.jpg",
-    "title" => "Jalan Braga",
-    "desc" => "Kawasan ikonik dengan bangunan kolonial dan kafe-kafe bergaya vintage.",
-    "rating" => 5
-  ]
-];
-
 include "config.php";
+
+$ID = $_SESSION['user_id'];
+$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
+$query = mysqli_query($conn, $sqlStatement1);
+$profile = mysqli_fetch_assoc($query);
+
+$sqlStatement3 = "
+    SELECT lokasi.*, foto_lokasi.url_photo
+    FROM lokasi
+    LEFT JOIN foto_lokasi 
+        ON lokasi.id_lokasi = foto_lokasi.id_lokasi 
+        AND foto_lokasi.urutan = 1
+    WHERE lokasi.pw_id = '$ID'
+";
+$query = mysqli_query($conn, $sqlStatement3);
+
+$lokasi = [];
+while ($row = mysqli_fetch_assoc($query)) {
+    $lokasi[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +28,7 @@ include "config.php";
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wanderlust | Home</title>
-  <link rel="stylesheet" href="pengguna/Home.css">
+  <link rel="stylesheet" href="pengguna/cssPengguna/Home.css">
 </head>
 <body>
 
@@ -82,18 +45,18 @@ include "config.php";
             <span class="search-icon"></span>
         </div>
         <nav class="nav-links">
-            <a href="#">Opsi 1</a>
-            <a href="#">Opsi 2</a>
+            <a href="#">Reservasi</a>
             <a href="#">Favorit</a>
+            <a href="#">Bantuan</a>
             <div class="profile-icon">👤</div>
         </nav>
     </header>
 
   <h2 class="section-title">Destinasi Populer</h2>
   <div class="card-gallery">
-    <?php foreach ($destinasi as $item): ?>
+    <?php foreach ($lokasi as $itemLokasi): ?>
       <div class="cards-destination">
-        <div class="card-images" style="background-image: url('<?= $item['img'] ?>');">
+        <div class="card-images" style="background-image: url('<?= $itemLokasi[''] ?>');">
           <h4><?= $item['title'] ?></h4>
         </div>
         <div class="destination-content">
@@ -124,7 +87,7 @@ include "config.php";
 <footer>
   <div class="footer-container">
     <div class="footer-logo">
-      <img src="../Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
+      <img src="Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
       <div>
         <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
       </div>
