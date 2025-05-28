@@ -9,7 +9,7 @@
     position: fixed;
     width: 200px;
     height: 100%;
-    background-color: #333;
+    background-color: #1a54b3;
     color: white;
     padding: 20px;
     z-index: 999;
@@ -43,7 +43,7 @@
     }
 
     .sidebar ul li a:hover {
-    background-color: #555;
+    background-color:rgb(18, 57, 120);;
     }
     </style>
 </head>
