@@ -48,6 +48,7 @@
     </style>
 </head>
 <body>
+  
     <aside class="sidebar">
       <h2 id="halo">Hi,Admin</h2>
       <h2><?= $profile['nama'];?></h2>
