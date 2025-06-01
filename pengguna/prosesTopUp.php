@@ -28,7 +28,7 @@ if (isset($_POST['jumlah'])) {
 <head>
     <meta charset="UTF-8">
     <title>Hasil Top Up - Wanderlust</title>
-    <link rel="stylesheet" href="topUpSaldo.css">
+    <link rel="stylesheet" href="cssPengguna/topUpSaldo.css">
 </head>
 <body>
 
