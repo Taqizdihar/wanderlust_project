@@ -14,7 +14,7 @@
         <div class="header-content">
             <div class="header-logo">
                 <img src="Images/Wanderlust Logo Circle.png" height="50" width="50" alt="Wanderlust Logo">
-                <a href="cssPengguna/Home.css">Wanderlust</a>
+                <a href="cssPengguna/Favorit.css">Wanderlust</a>
             </div>
             <nav class="navbar">
                 <ul>
