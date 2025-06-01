@@ -15,7 +15,7 @@
     <div class="header-content">
         <div class="header-logo">
             <img src="Images/Wanderlust Logo Circle.png" alt="Logo" height="50" width="50">
-            <a href="Home.php">Wanderlust</a>
+            <a href="cssPengguna/pemetiket.css">Wanderlust</a>
         </div>
         <nav class="navbar">
             <ul>
