@@ -2,38 +2,47 @@
 // Data dummy disimpan dalam array PHP
 $destinations = [
   [
-    'image' => 'museum.jpg',
+    'image' => '../Umum/Images/National Museum of Indonesia.jpg',
     'title' => 'National Museum of Indonesia',
-    'ticket' => 'Rp300',
-    'quota' => 'Ticket Quota',
+    'ticket' => 'Rp. 25.000',
+    'quota' => '500',
     'rating' => '4,7',
     'reviews' => '1316 reviews'
   ],
   [
-    'image' => 'bandung-zoo.jpg',
-    'title' => 'Bandung Zoo',
-    'ticket' => 'Rp 400',
-    'quota' => 'Ticket Quota',
-    'rating' => '4,3',
-    'reviews' => '1007 reviews'
+    'image' => '../Umum/Images/Trans Studio Bandung.jpg',
+    'title' => 'Trans Studio Bandung',
+    'ticket' => 'Rp. 200.000',
+    'quota' => '350',
+    'rating' => '4,4',
+    'reviews' => '1017 reviews'
   ],
   [
-    'image' => 'castello.jpg',
-    'title' => 'D’Castello Flora Tourism',
-    'ticket' => 'Rp 300',
-    'quota' => 'Ticket Quota',
-    'rating' => '4,7',
-    'reviews' => '920 reviews'
-  ],
-  [
-    'image' => 'lava-tour.jpg',
+    'image' => '../Umum/photos/Images/Lava Tour Merapi.jpg',
     'title' => 'Lava Tour Merapi',
-    'ticket' => 'Rp 75,000',
-    'quota' => '75 tickets',
+    'ticket' => 'Rp. 350.000',
+    'quota' => '400',
+    'rating' => '4,8',
+    'reviews' => '1456 reviews'
+  ],
+  [
+    'image' => '../Umum/photos/Images/Borobudur Temple.jpg',
+    'title' => 'Borobudur Temple',
+    'ticket' => 'Rp 50,000',
+    'quota' => '300',
     'rating' => '4,6',
-    'reviews' => '834 reviews'
+    'reviews' => '1289 reviews'
+  ],
+  [
+    'image' => '../Umum/photos/Images/The Great Asia Africa.jpg',
+    'title' => 'The Great Asia Africa',
+    'ticket' => 'Rp 75,000',
+    'quota' => '400',
+    'rating' => '4,5',
+    'reviews' => '1144 reviews'
   ]
-];
+
+  ];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +83,7 @@ $destinations = [
             <h2><?= $dest['title'] ?></h2>
             <div class="card-info">
               <p>🎫 Ticket <?= $dest['ticket'] ?></p>
-              <p>📦 <?= $dest['quota'] ?></p>
+              <p>📦 Kuota <?= $dest['quota'] ?></p>
               <p>⭐ <?= $dest['rating'] ?> (<?= $dest['reviews'] ?>)</p>
             </div>
           </div>
