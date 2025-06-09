@@ -34,8 +34,8 @@ $totalPayment = 500000;
 
   <main class="profile-container">
     <aside class="sidebar">
-      <img src="../Umum/photos/Images/Michael I.jpg" class="profile-pic" alt="Profile Picture">
-      <button class="edit-btn">Edit Profil</button>
+      <img src="../Umum/photos/Images/Michael I Roma.jpg" class="profile-pic" alt="Profile Picture">
+      <button class="edit-btn">Edit Foto Profil</button>
       <ul class="menu-options">
         <li>Option 1</li>
         <li>Option 2</li>
@@ -44,7 +44,7 @@ $totalPayment = 500000;
     </aside>
 
     <section class="profile-card">
-      <h2><?php echo $name; ?></h2>
+      <h2><?php echo $fullname; ?></h2>
 
       <div class="stats">
         <div class="stat-box">
@@ -70,7 +70,7 @@ $totalPayment = 500000;
           <td><?php echo $telephone; ?></td>
         </tr>
         <tr>
-          <td>Birth date</td>
+          <td>Birth Date</td>
           <td><?php echo $birthdate; ?></td>
         </tr>
         <tr>
