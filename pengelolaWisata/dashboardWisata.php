@@ -25,6 +25,7 @@ mysqli_close($conn);
 
 <?php include "pengelolaWisata/viewsWisata.php";?>
 
+
 <div class="main">
     <h2>Welcome, <b><?= $profile['nama']?></b></h2>
 
