@@ -20,7 +20,7 @@ $wisata = $wisataList[$id] ?? null;
 <head>
   <meta charset="UTF-8">
   <title>Wanderlust - <?= $wisata ? $wisata['nama'] : 'Destinasi Tidak Ditemukan' ?></title>
-  <link rel="stylesheet" href="deskripsiWisata.css">
+  <link rel="stylesheet" href="cssPengguna/deskripsiWisata.css">
 </head>
 <body>
 

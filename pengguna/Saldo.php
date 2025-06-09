@@ -8,7 +8,7 @@ $riwayat = "Terakhir digunakan untuk memesan tiket ke Trans Studio Bandung pada 
 <head>
   <meta charset="UTF-8">
   <title>Saldo | Wanderlust</title>
-  <link rel="stylesheet" href="Saldo.css">
+  <link rel="stylesheet" href="cssPengguna/Saldo.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>

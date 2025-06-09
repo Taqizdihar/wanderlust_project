@@ -9,7 +9,7 @@
     position: fixed;
     width: 200px;
     height: 100%;
-    background-color: #333;
+    background-color: #1a54b3;
     color: white;
     padding: 20px;
     z-index: 999;
@@ -43,20 +43,21 @@
     }
 
     .sidebar ul li a:hover {
-    background-color: #555;
+    background-color:rgb(18, 57, 120);;
     }
     </style>
 </head>
 <body>
+  
     <aside class="sidebar">
-      <h2 id="halo">Hi</h2>
+      <h2 id="halo">Hi,Admin</h2>
       <h2><?= $profile['nama'];?></h2>
       <ul>
-        <li><a href="indeks.php?page=dashboardAdmin">Dashboard</a></li>
-        <li><a href="indeks.php?page=accpengolah">Owner Verification</a></li>
-        <li><a href="indeks.php?page=accwisata">Property Verification</a></li>
-        <li><a href="notFound.php">Transaction Verification</a></li>
-        <li><a href="notFound.php">Member List</a></li>
+        <li><a href="indeks.php?page=dashboardAdmin"> 🏠 Dashboard</a></li>
+        <li><a href="indeks.php?page=accpengolah"> ✅ Owner Verification</a></li>
+        <li><a href="indeks.php?page=accwisata"> 🏡 Property Verification</a></li>
+        <li><a href="notFound.php"> 💳 Transaction Verification</a></li>
+        <li><a href="notFound.php"> 👥 Member List</a></li>
         <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
       </ul>
     </aside>

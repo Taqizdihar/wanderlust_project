@@ -64,7 +64,7 @@ $destinasi = [
 <head>
     <meta charset="UTF-8">
     <title>Hasil Pencarian</title>
-    <link rel="stylesheet" href="Pencarian.css">
+    <link rel="stylesheet" href="cssPengguna/Pencarian.css">
 </head>
 <body>
 

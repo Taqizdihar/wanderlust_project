@@ -37,7 +37,7 @@
 
     <div class="header-content">
         <div class="header-logo">
-            <a href="Home.html" class="logo-text">Wanderlust</a>
+            <a href="cssPengguna/KonfirmasiTiket.css" class="logo-text">Wanderlust</a>
         </div>
     </div>
     </header>

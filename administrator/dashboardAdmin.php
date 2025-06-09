@@ -32,7 +32,7 @@ $lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
     <main class="main">
       <div class="main">
         <div class="card">
-          <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.
+          <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.<strong></strong>
         </div>
       </div>
       <div class="main">
@@ -43,6 +43,8 @@ $lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
               <p><strong><?= count($member)?></strong></p>
             </div>
           </div>
+          
+
 
           <div class="card card-center">
             <h3>Total Properties</h3>

@@ -1,104 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorit</title>
-    <link rel="stylesheet" href="Wanderlust2.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert+One">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <title>Saved Destination</title>
+  <link rel="stylesheet" href="cssPengguna/Favorit.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="header-logo">
-                <img src="Images/Wanderlust Logo Circle.png" height="50" width="50" alt="Wanderlust Logo">
-                <a href="Home.php">Wanderlust</a>
-            </div>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="Login.php">Login</a></li>
-                    <li><a href="Promo.php">Promo</a></li>
-                    <li><a href="PemesananTiket.php">Tiket</a></li>
-                    <li><a href="Tips.php">Tips</a></li>
-                    <li><a href="ContactUs.php">Kontak Kami</a></li>
-                    <li><a href="Agenda.php">Agenda</a></li>
-                    <li><a href="Profil.php"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <header class="header">
+    <div class="logo">Wanderlust</div>
+    <input type="text" placeholder="Search..." class="search-bar">
+    <nav>
+      <a href="#">Option 3</a>
+      <a href="#">Option 2</a>
+      <a href="#">Option 1</a>
+      <img src="profile.jpg" alt="Profile" class="profile-img">
+    </nav>
+  </header>
 
-    <!-- Main Content -->
-    <h2 class="home-heading">Favorit</h2>
-    <div class="card-gallery">
-        <?php
-        $destinasi = [
-            ["Bandung", "Masjid Al-Jabbar", "Images/Masjid Al-Jabbar.jpeg", "14K", "FREE", ["mosque", "square-parking"]],
-            ["Rancabali", "Glamping Lakeside", "Images/Glamping Ciwidey.jpg", "18K", "PAID", ["bed", "utensils", "camera"]],
-            ["Lembang", "The Great Asia Africa", "Images/The Great Asia Afrika.jpg", "21K", "PAID", ["utensils", "camera", "gifts"]],
-            ["Ciater", "D'Castello", "Images/D'Castello.jpg", "12K", "PAID", ["utensils", "camera", "gifts"]],
+  <main>
+    <h1 class="title">Saved Destination</h1>
+    
+    <div class="card-container">
+      <?php
+        $destinations = [
+          [
+            'image' => '../Umum/Images/National Museum of Indonesia.jpg',
+            'name' => 'National Museum of Indonesia',
+            'price' => 'Rp 25.000',
+            'quota' => '100 tickets',
+            'rating' => '4.5',
+            'reviews' => '1315'
+          ],
+          [
+            'image' => '../Umum/Images/Bandung Zoo.jpg',
+            'name' => 'Bandung Zoo',
+            'price' => 'Rp 50.000',
+            'quota' => '80 tickets',
+            'rating' => '4.7',
+            'reviews' => '1320'
+          ],
+          [
+            'image' => '../Umum/Images/Mount Bromo.jpg',
+            'name' => 'Mount Bromo',
+            'price' => 'Rp 125.000',
+            'quota' => '60 tickets',
+            'rating' => '4.9',
+            'reviews' => '1602'
+          ],
+          [
+            'image' => '../Umum/Images/Borobudur Temple.jpg',
+            'name' => 'Borobudur Temple',
+            'price' => 'Rp 50.000',
+            'quota' => '90 tickets',
+            'rating' => '4.7',
+            'reviews' => '920'
+          ],
+          [
+            'image' => '../Umum/Images/The Great Asia Africa.jpg',
+            'name' => 'The Great Asia Africa',
+            'price' => 'Rp 44.000',
+            'quota' => '75 tickets',
+            'rating' => '4.6',
+            'reviews' => '834'
+          ]
         ];
-        foreach ($destinasi as [$lokasi, $nama, $gambar, $rating, $biaya, $ikon]) {
-            echo '<div class="cards-destination">
-                    <div class="card-images" style="background-image: url('.$gambar.');">
-                        <h4>'.$lokasi.'</h4>
-                    </div>
-                    <div class="destination-content">
-                        <h3>'.$nama.'</h3>
-                        <div class="stars">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <p>'.$rating.'</p>
-                        </div>
-                        <div class="home-icons">';
-            foreach ($ikon as $icon) {
-                echo '<i class="fa-solid fa-'.$icon.'"></i>';
-            }
-            echo '<p>'.$biaya.'</p>
-                        </div>
-                        <a href="#" class="card-button">Cek Info Lengkap</a>
-                    </div>
-                </div>';
-        }
-        ?>
-    </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="Images/Wanderlust Logo Circle.png" height="70" width="70" alt="Wanderlust Logo">
-                <div>
-                    <h5>
-                        Wanderlust
-                        <span style="display: block; font: 15px 'Concert One', sans-serif;">Wander for Wonders</span>
-                    </h5>
-                </div>
+        foreach ($destinations as $dest) {
+          echo "
+          <div class='card'>
+            <img src='{$dest['image']}' alt='{$dest['name']}' class='card-img'>
+            <div class='card-content'>
+              <h2>{$dest['name']}</h2>
+              <p>🎟️ Ticket: {$dest['price']}</p>
+              <p>📦 Quota: {$dest['quota']}</p>
+              <p>⭐ {$dest['rating']} ({$dest['reviews']} reviews)</p>
+              <div class='card-buttons'>
+                <button class='remove-btn'>Remove</button>
+                <button class='book-btn'>Book Now</button>
+              </div>
             </div>
-            <div class="footbar">
-                <table>
-                    <tr>
-                        <td><a href="AboutUs.php">Tentang Kami</a></td>
-                        <td><a href="Komunitas.php">Komunitas</a></td>
-                        <td><a href="Profil.php">Profil</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="ContactUs.php">Kontak Kami</a></td>
-                        <td><a href="Tips.php">Tips & Trick</a></td>
-                        <td><a href="Agenda.php">Agenda</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="FAQs.php">FAQs</a></td>
-                        <td><a href="Promo.php">Promo</a></td>
-                        <td><a href="Home.php">Home</a></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <p>&copy; 2025 Wanderlust. All rights reserved.</p>
-    </footer>
+          </div>
+          ";
+        }
+      ?>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <div class="logo">Wanderlust</div>
+      <p>Copyright © 2025 Wanderlust. All rights reserved</p>
+    </div>
+    <div class="footer-links">
+      <a href="#">Tentang Kami</a>
+      <a href="#">Kontak Kami</a>
+      <a href="#">FAQs</a>
+      <a href="#">Komunitas</a>
+      <a href="#">Tips & Tix</a>
+      <a href="#">Promo</a>
+      <a href="#">Profil</a>
+      <a href="#">Home</a>
+    </div>
+  </footer>
 </body>
 </html>
