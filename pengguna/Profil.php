@@ -1,91 +1,101 @@
 <?php
-session_start();
-$_SESSION['nama'] = $_SESSION['nama'] ?? 'Faiz Syafiq Nabily';
-$_SESSION['email'] = $_SESSION['email'] ?? 'faizsn@gmail.com';
-$_SESSION['telepon'] = $_SESSION['telepon'] ?? '081234567890';
-$_SESSION['tanggal_lahir'] = $_SESSION['tanggal_lahir'] ?? '2005-04-04';
-$_SESSION['jenis_kelamin'] = $_SESSION['jenis_kelamin'] ?? 'Laki-laki';
-$_SESSION['alamat'] = $_SESSION['alamat'] ?? 'Ciamis, Jawa Barat';
-$_SESSION['preferensi'] = $_SESSION['preferensi'] ?? 'Pantai, Pegunungan';
+// Contoh data dinamis
+$name = "Michael Jordan";
+$email = "michaeljordan@gmail.com";
+$telephone = "08123456789";
+$birthdate = "March 14, 1999";
+$address = "Los Angeles, California, Amerika Serikat";
+$totalVisit = 15;
+$totalPayment = 500000;
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Wanderlust</title>
-    <link rel="stylesheet" href="Profil.css">
+  <meta charset="UTF-8">
+  <title>Profil - Wanderlust</title>
+  <link rel="stylesheet" href="cssPengguna/Profil.css">
 </head>
 <body>
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="../Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
-            <div class="logo-text">
-                <div class="title">Wanderlust</div>
-                <div class="subtitle">WANDERINGS FOR WONDERS</div>
-            </div>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <span class="search-icon"></span>
-        </div>
-        <nav class="nav-links">
-            <a href="#">Opsi 1</a>
-            <a href="#">Opsi 2</a>
-            <a href="#">Favorit</a>
-            <div class="profile-icon">👤</div>
-        </nav>
-    </header>
-</body>
-</html>
 
-<main class="profil-container">
-    <div class="profil-card">
-        <img src="img/user.jpg" alt="Foto Profil">
-        <h2><?= htmlspecialchars($_SESSION['nama']) ?></h2>
-        <table class="profil-table">
-            <tr><th>Email:</th><td><?= htmlspecialchars($_SESSION['email']) ?></td></tr>
-            <tr><th>Telepon:</th><td><?= htmlspecialchars($_SESSION['telepon']) ?></td></tr>
-            <tr><th>Tanggal Lahir:</th><td><?= htmlspecialchars($_SESSION['tanggal_lahir']) ?></td></tr>
-            <tr><th>Jenis Kelamin:</th><td><?= htmlspecialchars($_SESSION['jenis_kelamin']) ?></td></tr>
-            <tr><th>Alamat:</th><td><?= htmlspecialchars($_SESSION['alamat']) ?></td></tr>
-            <tr><th>Preferensi Destinasi:</th><td><?= htmlspecialchars($_SESSION['preferensi']) ?></td></tr>
-        </table>
-        <a href="#" class="edit-button">Edit Profil</a>
-        <a href="#" class="edit-button">Log Out</a>
+  <header class="header">
+    <div class="logo">W<span>anderlust</span></div>
+    <input type="text" class="search-bar" placeholder="Search...">
+    <nav class="nav-options">
+      <a href="#">Option 1</a>
+      <a href="#">Option 2</a>
+      <a href="#">Option 3</a>
+    </nav>
+    <div class="user-avatar">
+      <img src="avatar.jpg" alt="Avatar">
     </div>
-</main>
+  </header>
 
-<footer>
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="../Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
-      <div>
-        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
+  <main class="profile-container">
+    <aside class="sidebar">
+      <img src="../Umum/photos/Images/Michael I.jpg" class="profile-pic" alt="Profile Picture">
+      <button class="edit-btn">Edit Profil</button>
+      <ul class="menu-options">
+        <li>Option 1</li>
+        <li>Option 2</li>
+        <li>Option 3</li>
+      </ul>
+    </aside>
+
+    <section class="profile-card">
+      <h2><?php echo $name; ?></h2>
+
+      <div class="stats">
+        <div class="stat-box">
+          <p>Total Visit</p>
+          <strong><?php echo $totalVisit; ?></strong>
+        </div>
+        <div class="stat-box">
+          <p>Total Payment</p>
+          <strong><?php echo number_format($totalPayment, 0, ',', '.'); ?></strong>
+        </div>
       </div>
-    </div>
-    <div class="footbar">
-      <table>
+
+      <table class="user-info bordered-table">
         <tr>
-          <td><a href="AboutUs.php">Tentang Kami</a></td>
-          <td><a href="Komunitas.php">Komunitas</a></td>
-          <td><a href="Profil.php">Profil</a></td>
+          <td>Email</td>
+          <td><?php echo $email; ?></td>
         </tr>
         <tr>
-          <td><a href="ContactUs.php">Kontak Kami</a></td>
-          <td><a href="Tips.php">Tips & Trick</a></td>
-          <td><a href="Agenda.php">Agenda</a></td>
+          <td>Telephone</td>
+          <td><?php echo $telephone; ?></td>
         </tr>
         <tr>
-          <td><a href="FAQs.php">FAQs</a></td>
-          <td><a href="Promo.php">Promo</a></td>
-          <td><a href="Home.php">Home</a></td>
+          <td>Birth date</td>
+          <td><?php echo $birthdate; ?></td>
+        </tr>
+        <tr>
+          <td>Address</td>
+          <td><?php echo $address; ?></td>
         </tr>
       </table>
+
+      <div class="action-buttons">
+        <button class="btn">✏️ Edit Profil</button>
+        <button class="btn">📄 Riwayat Transaksi</button>
+        <button class="btn favorite">❤️ Favorit Saya</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-logo">WA Wanderlust</div>
+    <div class="footer-links">
+      <a href="#">Tentang Kami</a>
+      <a href="#">Kontak Kami</a>
+      <a href="#">FAQs</a>
+      <a href="#">Komunitas</a>
+      <a href="#">Tips & Trik</a>
+      <a href="#">Promo</a>
+      <a href="#">Agenda</a>
     </div>
-  </div>
-  <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-</footer>
+    <p>Copyright © 2025 Wanderlust. All rights reserved</p>
+  </footer>
 
 </body>
 </html>
