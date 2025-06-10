@@ -6,7 +6,7 @@ $sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
 $query1 = mysqli_query($conn, $sqlStatement1);
 $profile = mysqli_fetch_assoc($query1);
 
-$sqlStatement2 = "SELECT user.*, pemilikwisata.entity_approval FROM user 
+$sqlStatement2 = "SELECT user.*, pemilikwisata.status FROM user 
                   JOIN pemilikwisata ON user.user_id = pemilikwisata.pw_id WHERE user.role = 'pw'";
 $query2 = mysqli_query($conn, $sqlStatement2);
 $allPW = mysqli_fetch_all($query2, MYSQLI_ASSOC);
@@ -47,15 +47,15 @@ $allPW = mysqli_fetch_all($query2, MYSQLI_ASSOC);
               <td><?= $dataPW['user_id'] ?></td>
               <td><?= $dataPW['nama'] ?></td>
               <td><?= $dataPW['email'] ?></td>
-              <td><?= $dataPW['phonenumber'] ?></td>
-              <?php if ($dataPW['entity_approval'] == 'review'): ?>
-                <td><p id="status" style="background-color: #949494;"><?= $dataPW['entity_approval']?></p></td>
+              <td><?= $dataPW['no_telepon'] ?></td>
+              <?php if ($dataPW['status'] == 'review'): ?>
+                <td><p id="status" style="background-color: #949494;"><?= $dataPW['status']?></p></td>
 
-              <?php elseif ($dataPW['entity_approval'] == 'approved'): ?>
-                <td><p id="status" style="background-color:rgb(30, 165, 27);"><?= $dataPW['entity_approval']?></p></td>
+              <?php elseif ($dataPW['status'] == 'approved'): ?>
+                <td><p id="status" style="background-color:rgb(30, 165, 27);"><?= $dataPW['status']?></p></td>
 
-              <?php elseif ($dataPW['entity_approval'] == 'rejected'): ?>
-                <td><p id="status" style="background-color:rgb(177, 35, 35);"><?= $dataPW['entity_approval']?></p></td>
+              <?php elseif ($dataPW['status'] == 'rejected'): ?>
+                <td><p id="status" style="background-color:rgb(177, 35, 35);"><?= $dataPW['status']?></p></td>
               <?php endif; ?>
               <td>
                 <a href="indeks.php?page=acc&id=<?= $dataPW['user_id'] ?>" class="acc-btn">Review</a>
