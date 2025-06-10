@@ -7,11 +7,11 @@ $sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement);
 $profile = mysqli_fetch_assoc($query);
 
-$sqlStatement = "SELECT user_id FROM user WHERE role='pw' OR 'wisatawan'";
+$sqlStatement = "SELECT user_id FROM user WHERE role IN ('wisatawan', 'pw')";
 $query = mysqli_query($conn, $sqlStatement);
 $member = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-$sqlStatement = "SELECT id_lokasi FROM lokasi";
+$sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
 $query = mysqli_query($conn, $sqlStatement);
 $lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>

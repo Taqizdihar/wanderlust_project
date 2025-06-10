@@ -6,7 +6,7 @@ $sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement);
 $profile = mysqli_fetch_assoc($query);
 
-$sqlStatement = "SELECT nama_lokasi FROM lokasi WHERE pw_id='$ID'";
+$sqlStatement = "SELECT nama_lokasi FROM tempatwisata WHERE pw_id='$ID'";
 $query = mysqli_query($conn, $sqlStatement);
 $lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
 mysqli_close($conn);
@@ -17,13 +17,13 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="pengelolaWisata/cssWisata/dashboardWisata.css">
+    <link rel="stylesheet" href="pemilikWisata/cssWisata/dashboardWisata.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-<?php include "pengelolaWisata/viewsWisata.php";?>
+<?php include "pemilikWisata/viewsWisata.php";?>
 
 
 <div class="main">

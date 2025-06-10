@@ -11,12 +11,12 @@ $query = mysqli_query($conn, $sqlStatement2);
 $PWProfile = mysqli_fetch_assoc($query);
 
 $sqlStatement3 = "
-    SELECT lokasi.*, foto_lokasi.url_photo
-    FROM lokasi
-    LEFT JOIN foto_lokasi 
-        ON lokasi.id_lokasi = foto_lokasi.id_lokasi 
-        AND foto_lokasi.urutan = 1
-    WHERE lokasi.pw_id = '$ID'
+    SELECT tempatwisata.*, fotowisata.link_foto
+    FROM tempatwisata
+    LEFT JOIN fotowisata 
+        ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id
+        AND fotowisata.urutan = 1
+    WHERE tempatwisata.pw_id = '$ID'
 ";
 $query = mysqli_query($conn, $sqlStatement3);
 
@@ -32,18 +32,18 @@ while ($row = mysqli_fetch_assoc($query)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place List</title>
-    <link rel="stylesheet" href="pengelolaWisata/cssWisata/daftarWisata.css">
+    <link rel="stylesheet" href="pemilikWisata/cssWisata/daftarWisata.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <?php include "pengelolaWisata/viewsWisata.php";?>
+    <?php include "pemilikWisata/viewsWisata.php";?>
 
     <div class="main">
 
 
         <?php
-            if ($PWProfile['entity_approval'] == 'review') {
+            if ($PWProfile['status'] == 'review') {
         ?>
 
             <div class="reviewed">
@@ -55,7 +55,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 
         <?php
             }    
-            if ($PWProfile['entity_approval'] == 'approved') {
+            if ($PWProfile['status'] == 'approved') {
         ?>
 
         <a href="indeks.php?page=addWisata" class="approved">Click here to add a property +</a>
@@ -63,8 +63,8 @@ while ($row = mysqli_fetch_assoc($query)) {
         <?php
             if (!empty($lokasi)) {
                 foreach ($lokasi as $itemLokasi) {
-                    $lokasiID = $itemLokasi['id_lokasi'];
-                    $sqlFoto = "SELECT * FROM foto_lokasi WHERE id_lokasi='$lokasiID' AND urutan=1";
+                    $lokasiID = $itemLokasi['tempatwisata_id'];
+                    $sqlFoto = "SELECT * FROM fotowisata WHERE tempatwisata_id='$lokasiID' AND urutan=1";
                     $queryFoto = mysqli_query($conn, $sqlFoto);
 
                     $fotos = [];
@@ -78,7 +78,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                 ?>
 
                 <div class="image">
-                    <img src="pengelolaWisata/photos/<?= $itemLokasi['url_photo']?>" alt="Property Image">
+                    <img src="pemilikWisata/foto/<?= $itemLokasi['link_foto']?>" alt="Property Image">
                 </div>
 
                 <?php
@@ -95,15 +95,11 @@ while ($row = mysqli_fetch_assoc($query)) {
                 <div class="hours">
                     <span><?= $itemLokasi['waktu_buka'];?></span> - <span><?= $itemLokasi['waktu_tutup'];?></span>
                 </div>
-                <div class="details">
-                    <div><b>Ticket Price: </b><?= $itemLokasi['harga_tiket'];?></div>
-                    <div><b>Ticket Quota: </b><?= $itemLokasi['jumlah_tiket'];?></div>
-                </div>
             </div>
             <div class="actions">
-                <a href="indeks.php?page=seeWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="see">View</a>
-                <a href="indeks.php?page=editWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="edit">Edit</a>
-                <a href="indeks.php?page=deleteWisata&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>" id="delete" onclick="return confirm('Are you sure you want to delete this property? Action cannot be undone')">Delete</a>
+                <a href="indeks.php?page=seeWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="see">View</a>
+                <a href="indeks.php?page=editWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="edit">Edit</a>
+                <a href="indeks.php?page=deleteWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="delete" onclick="return confirm('Are you sure you want to delete this property? Action cannot be undone')">Delete</a>
             </div>
         </div>
 
