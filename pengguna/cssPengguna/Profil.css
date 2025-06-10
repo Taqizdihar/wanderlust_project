@@ -1,210 +1,186 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #e0f7fa, #e8f5e9);
-    margin: 0;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6fa;
 }
 
-.main-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #0077cc;
-    padding: 10px 20px;
-    color: #333;
-    font-family: 'MuseoModerno', sans-serif;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
+.header {
+  display: flex;
+  align-items: center;
+  background: #185adb;
+  padding: 10px 20px;
+  color: white;
 }
 
 .logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  margin-right: 30px;
 }
 
-.logo-text .title {
-    font-weight: bold;
-    font-size: 18px;
-    color: white;
-}
-
-.logo-text .subtitle {
-    font-size: 10px;
-    color: #fff;
+.logo span {
+  font-weight: normal;
 }
 
 .search-bar {
-    position: relative;
-    flex-grow: 1;
-    margin: 0 30px;
-    max-width: 400px;
+  flex: 1;
+  max-width: 400px;
+  padding: 8px;
+  border-radius: 5px;
+  border: none;
 }
 
-.search-bar input {
-    width: 100%;
-    padding: 10px 35px 10px 10px;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
+.nav-options a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
 }
 
-.search-icon {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    pointer-events: none;
-    color: #555;
+.user-avatar img {
+  width: 40px;
+  border-radius: 50%;
+  margin-left: 15px;
 }
 
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+.profile-container {
+  display: flex;
+  padding: 30px;
 }
 
-.nav-links a {
-    text-decoration: none;
-    color: #f9f9f9;
-    font-weight: bold;
+.sidebar {
+  width: 250px;
+  background: #eee;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.profile-icon {
-    width: 36px;
-    height: 36px;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+.profile-pic {
+  width: 100px;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+  display: block;
 }
 
-.profil-container {
-    display: flex;
-    justify-content: center;
-    padding: 60px 20px;
-    background: #e6f2f2;
+.edit-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #ccc;
+  border: none;
+  border-radius: 5px;
 }
 
-.profil-card {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    padding: 40px;
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
+.menu-options {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
 }
 
-.profil-card img {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
-    border: 4px solid #008080;
+.menu-options li {
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
 }
 
-.profil-card h2 {
-    margin: 10px 0;
-    font-size: 26px;
+.profile-card {
+  flex: 1;
+  background: #4a90e2;
+  color: white;
+  padding: 30px;
+  margin-left: 20px;
+  border-radius: 10px;
 }
 
-.profil-table {
-    width: 100%;
-    margin-top: 25px;
-    border-collapse: collapse;
-    text-align: left;
+.profile-card h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
 }
 
-.profil-table th, .profil-table td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #ddd;
+.stats {
+  display: flex;
+  margin-bottom: 20px;
 }
 
-.profil-table th {
-    background-color: #f4f4f4;
-    width: 40%;
-    font-weight: bold;
+.stat-box {
+  background: white;
+  color: #000;
+  padding: 15px;
+  border-radius: 10px;
+  margin-right: 10px;
+  flex: 1;
+  text-align: center;
 }
 
-.profil-table tr:hover {
-    background-color: #fdfdfd;
+.stat-box p {
+  margin: 0;
+  font-size: 14px;
 }
 
-.edit-button {
-    display: inline-block;
-    margin: 20px 15px;
-    padding: 12px 25px;
-    background-color: #0077cc;
-    color: white;
-    font-weight: bold;
-    border-radius: 10px;
-    text-decoration: none;
-    transition: background-color 0.3s;
+.stat-box strong {
+  font-size: 20px;
 }
 
-.edit-button:hover {
-    background-color: #0077cc;
+.bordered-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  color: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
 }
 
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
-    margin: 0;
+.bordered-table td {
+  border: 1px solid #ddd;
+  padding: 12px 16px;
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 8px 0;
-    transition: color 0.3s, border-bottom 0.3s;
+.bordered-table td:first-child {
+  font-weight: bold;
+  width: 30%;
+  background-color: #f9f9f9;
 }
 
-.navbar a:hover,
-.navbar a.active {
-    color: #ffd700;
-    border-bottom: 3px solid #ffd700;
+.action-buttons {
+  display: flex;
+  gap: 10px;
 }
 
-footer {
-    background-color: #0077cc;
-    color: white;
-    padding: 40px 20px 20px;
-    text-align: center;
-  }
-  
-  .footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-  
-  .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .footbar table {
-    color: white;
-  }
-  
-  .footbar a {
-    text-decoration: none;
-    color: #ccc;
-    font-size: 0.9em;
-  }
-  
-  .footbar a:hover {
-    color: #fff;
-  }
+.btn {
+  padding: 10px 16px;
+  background: white;
+  color: #185adb;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.favorite {
+  margin-left: auto;
+}
+
+.footer {
+  background: #185adb;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-logo {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
