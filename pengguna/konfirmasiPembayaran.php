@@ -17,7 +17,7 @@ $tanggalKunjungan = date("Y-m-d");
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Konfirmasi Pembayaran</title>
+  <title>Confirm Payment</title>
   <link rel="stylesheet" href="cssPengguna/konfirmasiPembayaran.css">
 </head>
 <body>
@@ -38,31 +38,31 @@ $tanggalKunjungan = date("Y-m-d");
     </nav>
   </header>
 
-  <h1 class="title">Konfirmasi Pembayaran</h1>
+  <h1 class="title">Confirm Payment</h1>
 
   <main class="main-grid">
     <form method="POST" action="prosesPembayaran.php" class="left-column">
       <div class="form-card">
-        <h2>Informasi Wisatawan</h2>
+        <h2>Tourist Information</h2>
         <input type="text" name="nama" value="<?= $namaLengkap ?>" required>
         <input type="email" name="email" value="<?= $email ?>" required>
         <input type="tel" name="telepon" value="<?= $telepon ?>" required>
       </div>
 
       <div class="form-card">
-        <h2>Detail Tiket</h2>
-        <p>Harga Tiket: <strong>Rp.<?= number_format($hargaTiket, 0, ',', '.') ?></strong></p>
-        <p>Jumlah Tiket: <strong><?= $jumlahTiket ?></strong></p>
+        <h2>Ticket Details</h2>
+        <p>Ticket price: <strong>Rp.<?= number_format($hargaTiket, 0, ',', '.') ?></strong></p>
+        <p>Number of Tickets: <strong><?= $jumlahTiket ?></strong></p>
         <p>Total: <strong>Rp.<?= number_format($totalBayar, 0, ',', '.') ?></strong></p>
         <input type="date" name="tanggal" value="<?= $tanggalKunjungan ?>" required>
       </div>
 
       <div class="form-card">
         <label>
-          <input type="checkbox" required> Saya setuju dengan <a href="#">syarat & ketentuan</a>
+          <input type="checkbox" required> I agree to the <a href="#">terms and conditions</a>
         </label>
         <input type="hidden" name="total_bayar" value="<?= $totalBayar ?>">
-        <button type="submit">Bayar Sekarang</button>
+        <button type="submit">Pay Now</button>
       </div>
     </form>
 
