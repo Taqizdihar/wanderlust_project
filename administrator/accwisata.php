@@ -54,7 +54,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                 ?>
 
                 <div class="image">
-                    <img src="pengelolaWisata/photos/<?= $itemLokasi['url_photo']?>" alt="Property Image">
+                    <img src="pemilikWisata/foto/<?= $itemLokasi['link_foto']?>" alt="Property Image">
                 </div>
 
                 <?php

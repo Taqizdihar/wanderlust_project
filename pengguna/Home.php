@@ -2,7 +2,7 @@
 include "config.php";
 
 $sqlStatement = "
-    SELECT lokasi.*, foto_lokasi.url_photo FROM lokasi LEFT JOIN foto_lokasi ON lokasi.id_lokasi = foto_lokasi.id_lokasi AND foto_lokasi.urutan = 1";
+    SELECT tempatwisata.*, fotowisata.link_foto FROM tempatwisata LEFT JOIN fotowisata ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id AND fotowisata.urutan = 1";
 $query = mysqli_query($conn, $sqlStatement);
 
 $lokasi = [];
@@ -24,7 +24,7 @@ while ($row = mysqli_fetch_assoc($query)) {
 
     <header class="main-header">
         <div class="logo-container">
-            <img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
+            <img src="Umum/foto/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
             <div class="logo-text">
                 <div class="title">Wanderlust</div>
                 <div class="subtitle">WANDERINGS FOR WONDERS</div>
@@ -46,11 +46,11 @@ while ($row = mysqli_fetch_assoc($query)) {
   <div class="card-gallery">
   <?php foreach ($lokasi as $itemLokasi): ?>
     <div class="cards-destination">
-      <div class="card-images" style="background-image: url('pengelolaWisata/photos/<?= $itemLokasi['url_photo'] ?>');">
+      <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $itemLokasi['link_foto'] ?>');">
         <h4><?= $itemLokasi['nama_lokasi'] ?></h4>
       </div>
       <div class="destination-content">
-        <p><?= $itemLokasi['deskripsi'] ?></p>
+        <p><?= $itemLokasi['sumir'] ?></p>
         <div class="stars"></div>
         <a class="card-button" href="#">Lihat Selengkapnya</a>
       </div>
@@ -61,23 +61,25 @@ while ($row = mysqli_fetch_assoc($query)) {
   <h2 class="section-title">Rekomendasi Destinasi</h2>
 <div class="card-gallery">
   <?php foreach ($lokasi as $itemLokasi): ?>
-    <div class="cards-destination">
-      <div class="card-images" style="background-image: url('pengelolaWisata/photos/<?= $itemLokasi['url_photo'] ?>');">
-        <h4><?= $itemLokasi['nama_lokasi'] ?></h4>
+    <a href="">
+      <div class="cards-destination">
+        <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $itemLokasi['link_foto'] ?>');">
+          <h4><?= $itemLokasi['nama_lokasi'] ?></h4>
+        </div>
+        <div class="destination-content">
+          <p><?= $itemLokasi['sumir'] ?></p>
+          <div class="stars"></div>
+          <a class="card-button" href="#">Lihat Selengkapnya</a>
+        </div>
       </div>
-      <div class="destination-content">
-        <p><?= $itemLokasi['deskripsi'] ?></p>
-        <div class="stars"></div>
-        <a class="card-button" href="#">Lihat Selengkapnya</a>
-      </div>
-    </div>
+    </a>
   <?php endforeach; ?>
 </div>
 
 <footer>
   <div class="footer-container">
     <div class="footer-logo">
-      <img src="Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
+      <img src="Umum/foto/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
       <div>
         <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
       </div>
