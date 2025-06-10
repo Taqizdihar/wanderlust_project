@@ -14,7 +14,7 @@ session_start();
         if (in_array($page, $pages_umum)) {
             include "Umum/$page.php";
         } else if (in_array($page, $pages_pw)) {
-            include "pengelolaWisata/$page.php";
+            include "pemilikWisata/$page.php";
         } else if (in_array($page, $pages_admin)) {
             include "administrator/$page.php";
         } else if (in_array($page, $pages_wisatawan)) {
