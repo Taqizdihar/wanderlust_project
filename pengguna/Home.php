@@ -1,8 +1,11 @@
 <?php
 include "config.php";
 
+$ID = $_SESSION['user_id'];
+
 $sqlStatement = "
-    SELECT tempatwisata.*, fotowisata.link_foto FROM tempatwisata LEFT JOIN fotowisata ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id AND fotowisata.urutan = 1";
+    SELECT tempatwisata.*, fotowisata.link_foto FROM tempatwisata LEFT JOIN
+    fotowisata ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id AND fotowisata.urutan = 1";
 $query = mysqli_query($conn, $sqlStatement);
 
 $lokasi = [];
@@ -46,13 +49,13 @@ while ($row = mysqli_fetch_assoc($query)) {
   <div class="card-gallery">
   <?php foreach ($lokasi as $itemLokasi): ?>
     <div class="cards-destination">
-      <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $itemLokasi['link_foto'] ?>');">
-        <h4><?= $itemLokasi['nama_lokasi'] ?></h4>
+      <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $itemLokasi['link_foto']; ?>');">
+        <h4><?= $itemLokasi['nama_lokasi']; ?></h4>
       </div>
       <div class="destination-content">
-        <p><?= $itemLokasi['sumir'] ?></p>
+        <p><?= $itemLokasi['sumir']; ?></p>
         <div class="stars"></div>
-        <a class="card-button" href="#">Lihat Selengkapnya</a>
+        <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>">Lihat Selengkapnya</a>
       </div>
     </div>
   <?php endforeach; ?>
@@ -63,13 +66,13 @@ while ($row = mysqli_fetch_assoc($query)) {
   <?php foreach ($lokasi as $itemLokasi): ?>
     <a href="">
       <div class="cards-destination">
-        <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $itemLokasi['link_foto'] ?>');">
-          <h4><?= $itemLokasi['nama_lokasi'] ?></h4>
+        <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $itemLokasi['link_foto']; ?>');">
+          <h4><?= $itemLokasi['nama_lokasi']; ?></h4>
         </div>
         <div class="destination-content">
-          <p><?= $itemLokasi['sumir'] ?></p>
+          <p><?= $itemLokasi['sumir']; ?></p>
           <div class="stars"></div>
-          <a class="card-button" href="#">Lihat Selengkapnya</a>
+          <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>">Lihat Selengkapnya</a>
         </div>
       </div>
     </a>

@@ -11,7 +11,7 @@
     <body>
         <div class="header-roles">
             <h1>Choose Your Role in</h1>
-            <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
+            <img src="Umum/foto/Wanderings for Wonders side.png" alt="Wanderlust Logo">
         </div>
         <div class="role-container">
             <a href="indeks.php?page=signin&role=wisatawan">

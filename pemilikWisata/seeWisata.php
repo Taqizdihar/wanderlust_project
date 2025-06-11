@@ -22,6 +22,8 @@ $fotos = [];
 while ($barisTabel = mysqli_fetch_assoc($foto)) {
     $fotos[] = $barisTabel['link_foto'];
 }
+
+
 ?>
 
 <!DOCTYPE html>

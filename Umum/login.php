@@ -75,7 +75,7 @@ mysqli_close($conn);
         </form>
     </div>
     <div class="logo">
-        <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
+        <img src="Umum/foto/Wanderings for Wonders side.png" alt="Wanderlust Logo">
     </div>
 </body>
 </html>
