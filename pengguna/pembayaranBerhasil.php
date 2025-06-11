@@ -11,65 +11,68 @@ $namaDestinasi = $_SESSION['destinasi'] ?? 'Tujuan Wisata';
   <title>Pembayaran Berhasil</title>
   <link rel="stylesheet" href="cssPengguna/pembayaranBerhasil.css">
 </head>
-<body>
 
-  <!-- Header -->
-  <header class="header">
+<header class="header">
     <div class="header-left">
-      <img src="logo.png" alt="Logo" class="logo-img">
-      <span class="logo-text">WisataKu</span>
+      <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
+      <div class="logo-text">Wanderlust</div>
     </div>
     <div class="header-center">
-      <input type="text" class="search-bar" placeholder="Cari destinasi...">
+      <input type="text" class="search-bar" placeholder="Search" />
     </div>
-    <div class="header-right">
-      <nav>
-        <a href="beranda.php">Beranda</a>
-        <a href="tiketSaya.php">Tiket Saya</a>
-        <a href="logout.php">Keluar</a>
-      </nav>
-      <img src="profile.jpg" alt="Profil" class="profile-img">
-    </div>
-  </header>
+    <nav class="header-right">
+      <a href="#">Option 3</a>
+      <a href="#">Option 2</a>
+      <a href="#">Option 1</a>
+      <img src="profile.jpg" alt="Profile" class="profile-img">
+    </nav>
+</header>
 
-  <!-- Konten Utama -->
-  <div class="container">
-    <h1 class="title">Payment Successfull!</h1>
+<body>
+  <div class="page-wrapper">
+    <h1 class="payment-success">Payment Successful!</h1>
 
-    <div class="success-ticket">
-      <div class="ticket-shape">
-        <h2 class="ticket-title">Tiket to <span class="destination"><?= htmlspecialchars($namaDestinasi) ?></span></h2>
-        <p class="ticket-text">telah berhasil dibayar.</p>
+    <div class="ticket-wrapper">
+      <div class="ticket-card">
+        <h2 class="ticket-message">
+          Tickets to <span class="destination"><?= htmlspecialchars($namaDestinasi) ?></span>
+        </h2>
+        <p class="ticket-subtext">have been paid</p>
+
         <div class="button-group">
           <a href="tiketSaya.php" class="btn-primary">Lihat Tiket</a>
-          <a href="beranda.php" class="btn-secondary">Kembali ke Beranda</a>
+          <a href="beranda.php" class="btn-secondary">Beranda</a>
         </div>
       </div>
     </div>
   </div>
+</body>
+</html>
 
-  <!-- Footer -->
-  <footer class="footer">
+<footer class="footer">
     <div class="footer-top">
       <div class="footer-left">
         <div class="footer-logo">
-          <img src="logo.png" alt="Logo" class="logo-img">
-          <span class="logo-text">WisataKu</span>
+          <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
+          <span class="logo-text">Wanderlust</span>
         </div>
       </div>
       <div class="footer-links">
         <a href="#">Tentang Kami</a>
-        <a href="#">Kontak</a>
-        <a href="#">Kebijakan</a>
-        <a href="#">Bantuan</a>
-        <a href="#">Syarat & Ketentuan</a>
-        <a href="#">FAQ</a>
+        <a href="#">Kontak Kami</a>
+        <a href="#">FAQs</a>
+        <a href="#">Komunitas</a>
+        <a href="#">Tips & Tik</a>
+        <a href="#">Promo</a>
+        <a href="#">Profil</a>
+        <a href="#">Agenda</a>
+        <a href="#">Home</a>
       </div>
     </div>
     <div class="footer-center">
-      &copy; <?= date("Y") ?> WisataKu. Semua hak dilindungi undang-undang.
+      Copyright © 2025 Wanderlust. All rights reserved
     </div>
-  </footer>
+</footer>
 
 </body>
 </html>
