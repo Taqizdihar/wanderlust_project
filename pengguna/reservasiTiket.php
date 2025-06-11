@@ -82,7 +82,7 @@ $total_bayar = $harga_per_tiket * $tiket;
                 <input type="date" name="tanggal" value="<?= htmlspecialchars($tanggal) ?>" required>
 
                 <div class="payment-summary">
-                    <p>Harga tiket: Rp.<?= number_format($harga_per_tiket, 0, ',', '.') ?></p>
+                    <p>Ticket price: Rp.<?= number_format($harga_per_tiket, 0, ',', '.') ?></p>
                     <p>Total: Rp.<?= number_format($harga_per_tiket * $tiket, 0, ',', '.') ?></p>
                     <h3>Total payment: Rp.<?= number_format($total_bayar, 0, ',', '.') ?></h3>
                 </div>
@@ -91,8 +91,8 @@ $total_bayar = $harga_per_tiket * $tiket;
 
         <div class="right-column">
             <div class="form-card place-info">
-                <img src="../Umum/Images/Mount Bromo.jpg" alt="Mount Bromo" class="place-img">
-                <h3>Gunung Bromo, Probolinggo</h3>
+                <img src="../Umum/Images/Borobudur Temple.jpg" alt="Borobudur Temple" class="place-img">
+                <h3>Candi Borobudur, Magelang</h3>
                 <p>Rating: 4,8 (1.257 reviews)</p>
                 <div class="icons">
                     <span title="Bus">🚌</span>
@@ -135,6 +135,6 @@ $total_bayar = $harga_per_tiket * $tiket;
       Copyright © 2025 Wanderlust. All rights reserved
     </div>
   </footer>
-  
+
 </body>
 </html>
