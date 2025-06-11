@@ -37,56 +37,11 @@ $total_reviews = $ratingData['total_reviews'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail Wisata - <?php echo htmlspecialchars($tempatwisata['nama_wisata']); ?></title>
+    <title>Detail Wisata - <?= $tempatwisata['nama_lokasi']; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .header-image {
-            height: 400px;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        .back-button {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .back-button:hover {
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-        }
-        .card-package, .card-review {
-            margin-bottom: 1.5rem;
-        }
-        .rating-overview {
-            background-color: #fff;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .owner-section img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        .photo-gallery img, .grid-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-            border-radius: 0.25rem;
-        }
-    </style>
+    <link rel="stylesheet" href="pengguna/cssPengguna/detailDestinasiWisata.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -118,7 +73,7 @@ $total_reviews = $ratingData['total_reviews'];
                     <img src="pemilikWisata/foto/fotoProfil/<?= $pemilikwisata['foto_instansi']; ?>" alt="Group Photo">
                     <div class="ms-3">
                         <h5><?= $pemilikwisata['instansi']; ?></h5>
-                        <p class="mb-0"></p>
+                        <p class="mb-0">This place is managed and/or owned by <?= $pemilikwisata['instansi']; ?></p>
                     </div>
                 </div>
             </div>
@@ -137,7 +92,7 @@ $total_reviews = $ratingData['total_reviews'];
                     for ($i=1; $i < count($fotos); $i++) { 
                     ?>
                     <div class="col-6 mb-3">
-                        <img src="pemilikWisata/foto/<?= htmlspecialchars($fotos[$i]) ?>" class="grid-image">
+                        <img src="pemilikWisata/foto/<?= $fotos[$i]; ?>" class="grid-image">
                     </div>
                     <?php 
                         } 

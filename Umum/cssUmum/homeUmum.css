@@ -1,24 +1,27 @@
 body {
     overscroll-behavior: none;
     margin: 0;
+    padding: 0;
     height: auto;
-}
-
-
-.main {
-    display: grid;
-    height: 100%;
-    align-content: space-between;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     animation-name: body;
     animation-duration: 20s;
     animation-iteration-count: infinite;
 }
 
+.main {
+    display: grid;
+    height: 100%;
+    align-content: space-between;
+}
+
 @keyframes body {
-    0%   {background-image: url("../foto/1.jpg"); background-size: 1600px 800px; background-position: center;}
-    33%   {background-image: url("../foto/2.jpg"); background-size: 1600px 800px; background-position: center;}
-    66%   {background-image: url("../foto/3.jpg"); background-size: 1600px 800px; background-position: center;}
-    100%   {background-image: url("../foto/1.jpg"); background-size: 1600px 800px; background-position: center;}
+    0%   {background-image: url("../foto/1.jpg"); background-size: cover;}
+    33%   {background-image: url("../foto/2.jpg"); background-size: cover;}
+    66%   {background-image: url("../foto/3.jpg"); background-size: cover;}
+    100%   {background-image: url("../foto/1.jpg"); background-size: cover;}
 }
 
 .logo {
