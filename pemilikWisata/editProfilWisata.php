@@ -21,32 +21,32 @@ if (isset($_POST['save'])) {
     $legalAddress = $_POST['address'];
 
     if (isset($NPWP)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($NPWP['name']);
+		$uploadFile = 'pengelolaWisata/foto/'.basename($NPWP['name']);
 		
       if (move_uploaded_file($NPWP['tmp_name'], $uploadFile)) {
         $uploadedNPWP = $NPWP['name'];
-        unlink('pengelolaWisata/photos/'.$oldNPWP);
+        unlink('pengelolaWisata/foto/'.$oldNPWP);
       } else {
         $uploadedNPWP = null;
       }
 	  }
 
     if (isset($NIB)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($NIB['name']);
+		$uploadFile = 'pengelolaWisata/foto/'.basename($NIB['name']);
 		
       if (move_uploaded_file($NIB['tmp_name'], $uploadFile)) {
         $uploadedNIB = $NIB['name'];
-        unlink('pengelolaWisata/photos/'.$oldNIB);
+        unlink('pengelolaWisata/foto/'.$oldNIB);
       } else {
         $uploadedNIB = null;
       }
 	  }
 
 
-    $sqlStatement3 = "UPDATE user SET nama='$fullName', email='$email', phonenumber='$phoneNumber' WHERE user_id='$ID'";   
+    $sqlStatement3 = "UPDATE user SET nama='$fullName', email='$email', no_telepon='$phoneNumber' WHERE user_id='$ID'";   
     $query = mysqli_query($conn, $sqlStatement3);
 
-    $sqlStatement4 = "UPDATE pemilikwisata SET legal_document_address='$legalAddress', tax_document='$uploadedNPWP', legal_business_document='$uploadedNIB' WHERE pw_id='$ID'";   
+    $sqlStatement4 = "UPDATE pemilikwisata SET alamat_bisnis='$legalAddress', npwp='$uploadedNPWP', siup='$uploadedNIB' WHERE pw_id='$ID'";   
     $query = mysqli_query($conn, $sqlStatement4);
     
     if (mysqli_affected_rows($conn) != 0) {
@@ -65,13 +65,13 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Edit</title>
-    <link rel="stylesheet" href="pengelolaWisata/cssWisata/editProfilWisata.css">
-    <link rel="stylesheet" href="cssWisata/editProfilWisata.css?v=1.0.4">
+    <link rel="stylesheet" href="pemilikWisata/cssWisata/editProfilWisata.css">
+    <link rel="stylesheet" href="cssWisata/editProfilWisata.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <?php include "pengelolaWisata/viewsWisata.php";?>
+    <?php include "pemilikWisata/viewsWisata.php";?>
 
     <div class="main">
         <button class="back-button" onclick="history.back()">← Kembali</button>
@@ -90,22 +90,22 @@ mysqli_close($conn);
                 <tr>
                     <td>Phone</td>
                     <td>:</td>
-                    <td><input name="phone" value="<?= $profile['phonenumber']?>" required></td>
+                    <td><input name="phone" value="<?= $profile['no_telepon']?>" required></td>
                 </tr>
                 <tr>
                     <td valign="top">Address</td>
                     <td valign="top">:</td>
-                    <td><textarea name="address" rows="3" cols="60" value="<?= $PWProfile['legal_document_address']?>" required></textarea></td>
+                    <td><textarea name="address" rows="3" cols="60" value="<?= $PWProfile['alamat_bisnis']?>" required></textarea></td>
                 </tr>
                 <tr>
                     <td valign="top">Tax Document</td>
                     <td valign="top">:</td>
-                    <td><input type="file" name="npwp" accept="image/*, .pdf" value="<?=$PWProfile['tax_document']?>" required></td>
+                    <td><input type="file" name="npwp" accept="image/*, .pdf" value="<?=$PWProfile['npwp']?>" required></td>
                 </tr>
                 <tr>
                     <td valign="top">Legal Business Document</td>
                     <td valign="top">:</td>
-                    <td><input type="file" name="nib" accept="image/*, .pdf" value="<?=$PWProfile['legal_business_document']?>" required></td>
+                    <td><input type="file" name="nib" accept="image/*, .pdf" value="<?=$PWProfile['siup']?>" required></td>
                 </tr>
                 <tr>
                     <td colspan="3">

@@ -70,7 +70,7 @@
 </head>
 <body>
     <div class="navbar">
-        <img src="Umum/photos/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
+        <img src="Umum/foto/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
         <h1>| Partner Dashboard</h1>
         <a href="indeks.php?page=profilPemilikWisata"><i class="fa-regular fa-circle-user"></i></a> 
     </div>

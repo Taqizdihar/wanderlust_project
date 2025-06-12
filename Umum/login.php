@@ -30,7 +30,7 @@ if (isset($_POST['loginBtn'])) {
             $warning = "Wrong password, please try again";
         }
     } else {
-        $warning = "Unregistered email, choose Sign In option";
+        $warning = "Unregistered email, choose Sign Up option";
     }
 }
 mysqli_close($conn);
@@ -42,7 +42,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
-    <link rel="stylesheet" href="Umum/cssUmum/login.css?v=1.0.4">
+    <link rel="stylesheet" href="Umum/cssUmum/login.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>

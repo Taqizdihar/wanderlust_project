@@ -1,6 +1,7 @@
 <?php
 include "config.php";
 
+$ID = $_SESSION['user_id'];
 $tempatwisata_id = $_GET['tempatwisata_id'];
 
 $sqlStatement1 = "SELECT * FROM tempatwisata WHERE tempatwisata_id = '$tempatwisata_id'";
@@ -114,7 +115,7 @@ $total_reviews = $ratingData['total_reviews'];
                             <p class="card-text"><?= $paket['deskripsi']; ?></p>
                             <h4 class="mb-3">Rp. <?php echo number_format($paket['harga'], 0, ',', '.'); ?></h4>
                             <p class="text-muted">Tax included</p>
-                            <a href="#" class="btn btn-success w-100">Choose button</a>
+                            <a href="indeks.php?page=reservasiTiket&tempatwisata_id=<?= $tempatwisata_id?>&paket_id=<?= $paket['paket_id']?>" class="btn btn-success w-100">Choose button</a>
                             <small class="text-center d-block mt-2"><?= $paket['jumlah_tiket']; ?> tickets left</small>
                         </div>
                     </div>

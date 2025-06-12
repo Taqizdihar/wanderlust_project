@@ -4,20 +4,20 @@ include "config.php";
 $ID = $_SESSION['user_id'];
 $lokasi_id = $_GET['id_lokasi'];
 
-$sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement);
-$profile = mysqli_fetch_assoc($query);
+$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
+$query1 = mysqli_query($conn, $sqlStatement1);
+$profile = mysqli_fetch_assoc($query1);
 
-$sqlStatement = "SELECT * FROM lokasi WHERE id_lokasi='$lokasi_id'";
-$query = mysqli_query($conn, $sqlStatement);
-$dataLokasi = mysqli_fetch_assoc($query);
+$sqlStatement2 = "SELECT * FROM tempatwisata WHERE tempatwisata_id='$lokasi_id'";
+$query2 = mysqli_query($conn, $sqlStatement2);
+$dataLokasi = mysqli_fetch_assoc($query2);
 
-$sqlStatement = "SELECT url_photo FROM foto_lokasi WHERE id_lokasi='$lokasi_id' ORDER BY urutan";
-$foto = mysqli_query($conn, $sqlStatement);
+$sqlStatement3 = "SELECT link_foto FROM fotowisata WHERE tempatwisata_id='$lokasi_id' ORDER BY urutan";
+$foto = mysqli_query($conn, $sqlStatement3);
 $fotos = [];
 
 while ($barisTabel = mysqli_fetch_assoc($foto)) {
-    $fotos[] = $barisTabel['url_photo'];
+    $fotos[] = $barisTabel['link_foto'];
 }
 ?>
 
@@ -39,11 +39,11 @@ while ($barisTabel = mysqli_fetch_assoc($foto)) {
         <div class="container">
             <button class="back-button" onclick="history.back()">← Kembali</button>
             
-            <img src="pengelolaWisata/photos/<?= $fotos[0]?>" alt="Foto Utama Lokasi" class="main-image">
+            <img src="pemilikWisata/foto/<?= $fotos[0]?>" alt="Foto Utama Lokasi" class="main-image">
             
             <div class="image-grid">
                 <?php for ($i=1; $i < count($fotos); $i++) { ?>
-                    <img src="pengelolaWisata/photos/<?= $fotos[$i]?>" alt="Foto 1" class="grid-image">
+                    <img src="pemilikWisata/foto/<?= $fotos[$i]?>" alt="Foto 1" class="grid-image">
                 <?php }?>
             </div>
             
@@ -54,8 +54,6 @@ while ($barisTabel = mysqli_fetch_assoc($foto)) {
                 <p class="location-hours"><?= $dataLokasi['waktu_buka'] ?> - <?= $dataLokasi['waktu_tutup'] ?></p>
                 
                 <div class="ticket-info">
-                    <p class="ticket-item"><strong>Harga Tiket: </strong><?= $dataLokasi['harga_tiket'] ?></p>
-                    <p class="ticket-item"><strong>Kuota Tiket: </strong><?= $dataLokasi['jumlah_tiket'] ?></p>
                 </div>
             </div>
             

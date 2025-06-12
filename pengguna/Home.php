@@ -38,6 +38,7 @@ while ($row = mysqli_fetch_assoc($query)) {
             <span class="search-icon"></span>
         </div>
         <nav class="nav-links">
+            <a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a>
             <a href="notFound.php">Reservasi</a>
             <a href="notFound.php">Favorit</a>
             <a href="notFound.php">Bantuan</a>
