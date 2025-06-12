@@ -1,0 +1,216 @@
+/* Impor CSS dasar jika dibutuhkan */
+@import url('konfirmasiPembayaran.css');
+
+.header {
+  background: #0f3e94;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  flex-wrap: wrap;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 32px;
+  height: 32px;
+}
+
+.logo-text {
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+}
+
+.header-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.search-bar {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  width: 250px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.profile-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.title {
+  text-align: center;
+  margin: 30px 0 20px;
+  font-size: 28px;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+}
+
+.payment-success {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.ticket-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.ticket-card {
+  background-color: #e0e0e0;
+  border-radius: 16px;
+  padding: 40px 30px;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Potongan sisi tiket kiri dan kanan */
+.ticket-card::before,
+.ticket-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 80px;
+  background-color: #f9f9f9;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.ticket-card::before {
+  left: -20px;
+}
+
+.ticket-card::after {
+  right: -20px;
+}
+
+.ticket-message {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.ticket-subtext {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-primary {
+  background-color: #004aad;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #00307a;
+}
+
+.btn-secondary {
+  background-color: #d0dfff;
+  color: #004aad;
+}
+
+.btn-secondary:hover {
+  background-color: #aac2ff;
+}
+
+.footer {
+  background-color: #0f3e94;
+  color: white;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 12px 32px;
+  text-align: left;
+  justify-content: flex-end;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-center {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
