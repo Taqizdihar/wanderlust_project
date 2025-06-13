@@ -85,7 +85,8 @@
             </div>
         </div>
         <div class="search-bar">
-            <form action="indeks.php?page=Pencarian" method="GET">
+            <form action="indeks.php" method="GET">
+                <input type="hidden" name="page" value="Pencarian">
                 <input type="text" placeholder="Search..." name="kataKunci">
             </form>
         </div>

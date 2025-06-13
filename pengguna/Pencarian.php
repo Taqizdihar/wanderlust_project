@@ -4,10 +4,16 @@ include "config.php";
 $ID = $_SESSION['user_id'];
 $kataKunci = $_GET['kataKunci'];
 
-$sqlStatement1 = "SELECT * FROM tempatwisata WHERE nama_lokasi LIKE '%$kataKunci%' OR
-deskripsi LIKE '%$kataKunci%' OR sumir LIKE '%$kataKunci%'";
+$sqlStatement1 = "SELECT tempatwisata.*, fotowisata.link_foto FROM tempatwisata JOIN fotowisata
+ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id AND fotowisata.urutan = 1
+WHERE tempatwisata.nama_lokasi LIKE '%$kataKunci%' OR
+tempatwisata.deskripsi LIKE '%$kataKunci%' OR tempatwisata.sumir LIKE '%$kataKunci%'";
 $query1 = mysqli_query($conn, $sqlStatement1);
-$hasilPencarian = mysqli_fetch_assoc($query1);
+
+$hasilPencarian = [];
+while ($row = mysqli_fetch_assoc($query1)) {
+    $hasilPencarian[] = $row;
+}
 
 ?>
 
@@ -49,7 +55,7 @@ $hasilPencarian = mysqli_fetch_assoc($query1);
     </div>
 </main>
 
-<?php include "pengguna/Footer.php";?>
+    <?php include "pengguna/Footer.php";?>
 
 </body>
 </html>
