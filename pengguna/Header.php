@@ -85,8 +85,9 @@
             </div>
         </div>
         <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <span class="search-icon"></span>
+            <form action="indeks.php?page=Pencarian" method="GET">
+                <input type="text" placeholder="Search..." name="kataKunci">
+            </form>
         </div>
         <nav class="nav-links">
             <a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a>
