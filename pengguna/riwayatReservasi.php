@@ -1,5 +1,4 @@
 <?php
-session_start();
 $reservasi = [
   [
     'destinasi' => 'Bali',
@@ -31,7 +30,7 @@ $reservasi = [
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Riwayat Reservasi</title>
-  <link rel="stylesheet" href="cssPengguna/riwayatReservasi.css">
+  <link rel="stylesheet" href="pengguna/cssPengguna/riwayatReservasi.css">
 </head>
 <body>
 
