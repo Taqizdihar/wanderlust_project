@@ -4,7 +4,13 @@ include "config.php";
 
 $ID = $_SESSION['user_id'];
 
-$sqlStatement1 = "SELECT * FROM wishlist ";
+$sqlStatement = "SELECT wishlist.*, tempatwisata.* FROM wishlist JOIN tempatwisata";
+$query = mysqli_query($conn, $sqlStatement);
+
+$bookmark = [];
+while ($row = mysqli_fetch_assoc($query)) {
+    $bookmark[] = $row;
+}
 
 ?>
 <!DOCTYPE html>
@@ -21,7 +27,13 @@ $sqlStatement1 = "SELECT * FROM wishlist ";
 
   <h1 class="page-title">Saved Destination</h1>
   <div class="card-container">
-    <?php foreach ($destinations as $dest): ?>
+    <?php if (empty($bookmark)) {?>
+      <div class="card-empty">
+        <h4>You haven't added any place yet!</h4>
+      </div>
+    <?php } else {
+      foreach ($bookmark as $list):
+    ?>
       <div class="card">
         <img src="<?= $dest['image'] ?>" class="card-img" alt="<?= $dest['title'] ?>">
         <div class="card-content">
@@ -39,7 +51,7 @@ $sqlStatement1 = "SELECT * FROM wishlist ";
           </div>
         </div>
       </div>
-    <?php endforeach; ?>
+    <?php endforeach; } ?>
   </div>
 
   <?php include "pengguna/Footer.php";?>
