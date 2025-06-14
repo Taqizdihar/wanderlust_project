@@ -102,12 +102,11 @@ $fotoProfil = mysqli_fetch_assoc($query);
         <div class="search-bar">
             <form action="indeks.php" method="GET">
                 <input type="hidden" name="page" value="Pencarian">
-                <input type="text" placeholder="Search..." name="kataKunci">
+                <input type="text" placeholder="Search wonder..." name="kataKunci">
             </form>
         </div>
 
         <nav class="nav-links">
-            <a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a>
             <a href="notFound.php">My Tickets</a>
             <a href="indeks.php?page=Favorit">Bookmark</a>
             <a href="notFound.php">Rating</a>

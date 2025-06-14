@@ -68,11 +68,12 @@ $profil['tanggal_lahir'] = $profil['tanggal_lahir'];
               <li><a href="indeks.php?page=Saldo">My Balance</a></li>
               <li><a href="notFound.php">My Tickets</a></li>
               <li><a href="indeks.php?page=Favorit">My Bookmark</a></li>
+              <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
             </ul>
         </aside>
 
         <section class="profile-card">
-            <h2>Edit Profil</h2>
+            <h2>Edit Profile</h2>
             <div class="form-grid">
                 <div class="form-group">
                     <label for="nama">Full Name</label>
