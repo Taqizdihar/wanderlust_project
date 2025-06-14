@@ -15,7 +15,6 @@ $sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
 $query = mysqli_query($conn, $sqlStatement);
 $lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
   <meta charset="UTF-8">
