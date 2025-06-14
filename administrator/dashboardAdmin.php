@@ -11,9 +11,9 @@ $sqlStatement = "SELECT user_id FROM user WHERE role IN ('wisatawan', 'pw')";
 $query = mysqli_query($conn, $sqlStatement);
 $member = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
-$sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
-$query = mysqli_query($conn, $sqlStatement);
-$lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
+// $sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
+// $query = mysqli_query($conn, $sqlStatement);
+// $lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="id">
