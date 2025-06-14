@@ -1,6 +1,7 @@
 <?php
 include "config.php";
 
+$ID = $_SESSION['user_id'];
 $tempatwisata_id = $_GET['tempatwisata_id'];
 
 $sqlStatement1 = "SELECT * FROM tempatwisata WHERE tempatwisata_id = '$tempatwisata_id'";
@@ -40,10 +41,11 @@ $total_reviews = $ratingData['total_reviews'];
     <title>Detail Wisata - <?= $tempatwisata['nama_lokasi']; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="pengguna/cssPengguna/detailDestinasiWisata.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+
+    <?php include "pengguna/Header.php";?>    
 
     <div class="header-image" style="background-image: url('pemilikWisata/foto/<?= $fotos[0]; ?>');">
         <button onclick="history.back()" class="back-button">Go back</button>
@@ -114,7 +116,7 @@ $total_reviews = $ratingData['total_reviews'];
                             <p class="card-text"><?= $paket['deskripsi']; ?></p>
                             <h4 class="mb-3">Rp. <?php echo number_format($paket['harga'], 0, ',', '.'); ?></h4>
                             <p class="text-muted">Tax included</p>
-                            <a href="#" class="btn btn-success w-100">Choose button</a>
+                            <a href="indeks.php?page=reservasiTiket&tempatwisata_id=<?= $tempatwisata_id?>&paket_id=<?= $paket['paket_id']?>" class="btn btn-success w-100">Choose button</a>
                             <small class="text-center d-block mt-2"><?= $paket['jumlah_tiket']; ?> tickets left</small>
                         </div>
                     </div>
@@ -142,6 +144,8 @@ $total_reviews = $ratingData['total_reviews'];
              <?php endwhile; ?>
         </div>
     </div>
+
+    <?php include "pengguna/Footer.php"?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

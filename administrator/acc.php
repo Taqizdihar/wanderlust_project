@@ -60,10 +60,10 @@ $PWProfile = mysqli_fetch_assoc($query3);
 
               <div class="info-right">
               <p>Legal Tax Document</p>
-              <a href="pengelolaWisata/photos/<?= $PWProfile['npwp']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a href="pemilikWisata/foto/<?= $PWProfile['npwp']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 
               <p>Legal Business Document</p>
-              <a href="pengelolaWisata/photos/<?= $PWProfile['siup']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a href="pemilikWisata/foto/<?= $PWProfile['siup']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
               </div>
           </div>
           <div class="address">

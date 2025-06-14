@@ -8,7 +8,7 @@
 <style>
     body {
         overscroll-behavior: none;
-        background-image: url("Umum/photos/not found.jpg");
+        background-image: url("Umum/foto/not found.jpg");
         background-repeat: no-repeat;
         background-size: cover;
     }

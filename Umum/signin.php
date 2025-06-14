@@ -45,7 +45,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="Umum/cssUmum/signin.css?v=1.0.4">
+    <link rel="stylesheet" href="Umum/cssUmum/signin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 

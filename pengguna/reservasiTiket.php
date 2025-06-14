@@ -1,140 +1,255 @@
 <?php
-$nama = "";
-$email = "";
-$telepon = "";
-$tiket = 0;
-$tanggal = "";
-$harga_per_tiket = 50000;
+include "config.php";
 
-$saldo = 200000;
-$total_bayar = 0;
+$ID = $_SESSION['user_id'];
+$tempatwisata_id = $_GET['tempatwisata_id'];
+$paket_id = $_GET['paket_id'];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nama = $_POST['nama'];
+$sqlStatement1 = "SELECT * FROM tempatwisata WHERE tempatwisata_id = '$tempatwisata_id'";
+$query1 = mysqli_query($conn, $sqlStatement1);
+$tempatwisata = mysqli_fetch_assoc($query1);
+
+$sqlStatement2 = "SELECT * FROM ulasan WHERE tempatwisata_id = '$tempatwisata_id'";
+$query2 = mysqli_query($conn, $sqlStatement2);
+
+$sqlStatement3 = "SELECT * FROM paketwisata WHERE tempatwisata_id = '$tempatwisata_id' AND paket_id = '$paket_id'";
+$query3 = mysqli_query($conn, $sqlStatement3);
+$paket = mysqli_fetch_assoc($query3);
+
+$sqlStatement4 = "SELECT link_foto FROM fotowisata WHERE tempatwisata_id='$tempatwisata_id' ORDER BY urutan";
+$foto_query = mysqli_query($conn, $sqlStatement4);
+$fotos = [];
+while ($barisTabel = mysqli_fetch_assoc($foto_query)) {
+    $fotos[] = $barisTabel['link_foto'];
+}
+
+$pw_id = $tempatwisata['pw_id'];
+$sqlStatement5 = "SELECT * FROM pemilikwisata WHERE pw_id = '$pw_id'";
+$query5 = mysqli_query($conn, $sqlStatement5);
+$pemilikwisata = mysqli_fetch_assoc($query5);
+
+$sqlRating = "SELECT AVG(rating) as avg_rating, COUNT(ulasan_id) as total_reviews FROM ulasan WHERE tempatwisata_id = '$tempatwisata_id'";
+$ratingQuery = mysqli_query($conn, $sqlRating);
+$ratingData = mysqli_fetch_assoc($ratingQuery);
+$avg_rating = round($ratingData['avg_rating'], 1);
+$total_reviews = $ratingData['total_reviews'];
+
+if (isset($_POST['submit'])) {
+    $namaLengkap = $_POST['full_name'];
     $email = $_POST['email'];
-    $telepon = $_POST['telepon'];
-    $tiket = (int)$_POST['jumlah_tiket'];
-    $tanggal = $_POST['tanggal'];
+    $nomorTelepon = $_POST['phone_number'];
+    $tanggalKunjungan = $_POST['visit_date'];
+    $jumlahTiket = $_POST['ticket_count'];
+    $totalHarga = $jumlahTiket * $paket['harga'];
+    $sisaTiket = $paket['jumlah_tiket'] - $jumlahTiket;
 
-    $total_bayar = $harga_per_tiket * $tiket;
-    if ($saldo >= $total_bayar) {
-        $saldo -= $total_bayar;
-        $pesan_sukses = "Tiket berhasil dipesan!";
+    $insertStatement = "INSERT INTO transaksi (wisatawan_id, tempatwisata_id, paket_id, jumlah_tiket, total_harga, status, tanggal_kunjungan, tanggal_transaksi)
+    VALUES ('$ID', '$tempatwisata_id', '$paket_id', '$jumlahTiket', '$totalHarga', 'pending', '$tanggalKunjungan', CURRENT_TIMESTAMP)";
+    $transaksiBaru = mysqli_query($conn, $insertStatement);
+
+    $updateStatement = "UPDATE paketwisata SET jumlah_tiket = '$sisaTiket' WHERE paket_id = '$paket_id'";
+    $updateTransaksi = mysqli_query($conn, $updateStatement);
+
+    if (mysqli_affected_rows($conn) != 0) {
+        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=Home");
+        exit();
     } else {
-        $pesan_error = "Saldo tidak mencukupi.";
+        echo "<p>Transaction Failed</p>";
     }
 }
 
-$nama = $nama ?: "Faiz Syafiq N";
-$email = $email ?: "faizsn@gmail.com";
-$telepon = $telepon ?: "081234567890";
-$tiket = $tiket ?: 2;
-$tanggal = $tanggal ?: date("Y-m-d");
-$total_bayar = $harga_per_tiket * $tiket;
 ?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Reservasi Tiket</title>
-    <link rel="stylesheet" href="cssPengguna/reservasiTiket.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservasi Tiket Wisata</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            display: flex;
+            gap: 2rem;
+            max-width: 1100px;
+            width: 100%;
+        }
+        .left-column, .right-column {
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .left-column {
+            flex: 1.5;
+        }
+        .right-column {
+            flex: 1;
+            height: fit-content;
+        }
+        .main-image {
+            width: 100%;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .destination-name {
+            font-size: 1.75rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        .rating {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #ffc107;
+            margin: 0.5rem 0;
+        }
+        .rating span {
+            color: #000;
+        }
+        .address {
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+        .package-box {
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+        .package-box h3 {
+            font-size: 1.2rem;
+            margin: 0 0 0.5rem 0;
+        }
+        .package-box p {
+            color: #6c757d;
+            margin: 0 0 1rem 0;
+        }
+        .price {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .price small {
+            font-size: 0.8rem;
+            font-weight: normal;
+            color: #6c757d;
+        }
+        h2.form-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin: 0 0 1.5rem 0;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #495057;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            box-sizing: border-box;
+        }
+        .operational-hours, .ticket-stock {
+            font-size: 0.85rem;
+            color: #6c757d;
+            margin-top: 0.5rem;
+        }
+        .balance-box {
+            background-color: #0d6efd;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 2rem 0 1.5rem 0;
+        }
+        .balance-box .label {
+            font-size: 1rem;
+        }
+        .balance-box .amount {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.25rem 0;
+        }
+        .balance-box a {
+            color: white;
+            text-decoration: underline;
+        }
+        .submit-button {
+            width: 100%;
+            background-color: #198754;
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-
-<header class="header">
-    <div class="header-left">
-      <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
-      <div class="logo-text">Wanderlust</div>
-    </div>
-    <div class="header-center">
-      <input type="text" class="search-bar" placeholder="Search" />
-    </div>
-    <nav class="header-right">
-      <a href="#">Option 3</a>
-      <a href="#">Option 2</a>
-      <a href="#">Option 1</a>
-      <img src="profile.jpg" alt="Profile" class="profile-img">
-    </nav>
-  </header>
-
-<main>
-    <h1 class="title">Book Ticket</h1>
-
-    <?php if (!empty($pesan_sukses)) : ?>
-        <p style="color:green; text-align:center;"><?= $pesan_sukses ?></p>
-    <?php elseif (!empty($pesan_error)) : ?>
-        <p style="color:red; text-align:center;"><?= $pesan_error ?></p>
-    <?php endif; ?>
-
-    <form action="" method="POST" class="main-grid">
+  <button onclick="history.back()" class="back-button">Go back</button>
+    <div class="container">
         <div class="left-column">
-            <div class="form-card">
-                <h2>Tourist Information</h2>
-                <input type="text" name="nama" placeholder="Full name" value="<?= htmlspecialchars($nama) ?>" required>
-                <input type="email" name="email" placeholder="Email" value="<?= htmlspecialchars($email) ?>" required>
-                <input type="tel" name="telepon" placeholder="Phone Number" value="<?= htmlspecialchars($telepon) ?>" required>
-            </div>
+            <?php if (!empty($fotos)): ?>
+                <img src="pemilikWisata/foto/<?=$fotos[0]; ?>" alt="Foto Destinasi" class="main-image">
+            <?php endif; ?>
+            
+            <h1 class="destination-name"><?= $tempatwisata['nama_lokasi']; ?></h1>
+            <p class="rating">★ 4,5<span></span></p>
+            <p class="address"><?= $tempatwisata['alamat_lokasi']; ?></p>
 
-            <div class="form-card">
-                <h2>Ticket</h2>
-                <input type="number" name="jumlah_tiket" placeholder="Ticket number" min="1" value="<?= $tiket ?>" required>
-                <input type="date" name="tanggal" value="<?= htmlspecialchars($tanggal) ?>" required>
-
-                <div class="payment-summary">
-                    <p>Ticket price: Rp.<?= number_format($harga_per_tiket, 0, ',', '.') ?></p>
-                    <p>Total: Rp.<?= number_format($harga_per_tiket * $tiket, 0, ',', '.') ?></p>
-                    <h3>Total payment: Rp.<?= number_format($total_bayar, 0, ',', '.') ?></h3>
-                </div>
+            <div class="package-box">
+                <h3><?= $paket['nama_paket']; ?></h3>
+                <p><?= $paket['deskripsi']; ?></p>
+                <div class="price">Rp. <?= number_format($paket['harga'] ?? 0, 0, ',', '.') ?> <small>Tax included</small></div>
             </div>
         </div>
 
         <div class="right-column">
-            <div class="form-card place-info">
-                <img src="../Umum/Images/Borobudur Temple.jpg" alt="Borobudur Temple" class="place-img">
-                <h3>Candi Borobudur, Magelang</h3>
-                <p>Rating: 4,8 (1.257 reviews)</p>
-                <div class="icons">
-                    <span title="Bus">🚌</span>
-                    <span title="Nature">🏞️</span>
-                    <span title="Photography Spot">📷</span>
+            <form action="" method="post">
+                <h2 class="form-title">Tourist Information</h2>
+
+                <div class="form-group">
+                    <label for="full_name">Full name</label>
+                    <input type="text" id="full_name" name="full_name" required>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="tel" id="phone_number" name="phone_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="visit_date">Date</label>
+                    <input type="date" id="visit_date" name="visit_date" required>
+                    <p class="operational-hours">Operational Hours: <?= $tempatwisata['waktu_buka'];?> - <?= $tempatwisata['waktu_tutup'];?></p>
+                </div>
+                 <div class="form-group">
+                    <label for="ticket_count">Number of ticket</label>
+                    <input type="number" id="ticket_count" name="ticket_count" value="1" min="1" max="<?= $paket['jumlah_tiket']; ?>" required>
+                    <p class="ticket-stock"><?= $paket['jumlah_tiket']; ?> tickets left</p>
+                </div>
 
-            <div class="form-card balance-card">
-                <h2>Balance</h2>
-                <p>Rp.<?= number_format($saldo, 0, ',', '.') ?></p>
-                <a href="topUpSaldo.php" class="topup-btn">Top Up</a>
-                <button type="submit" class="topup-btn">Pesan Tiket</button>
-            </div>
+                <div class="balance-box">
+                    <div class="label">Balance</div>
+                    <div class="amount">Rp. 1.000.000</div>
+                    <a href="#">Top up</a>
+                </div>
+
+                <button type="submit" name="submit" class="submit-button">Buy Now</button>
+            </form>
         </div>
-    </form>
-</main>
-
-<footer class="footer">
-    <div class="footer-top">
-      <div class="footer-left">
-        <div class="footer-logo">
-          <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
-          <span class="logo-text">Wanderlust</span>
-        </div>
-      </div>
-      <div class="footer-links">
-        <a href="#">Tentang Kami</a>
-        <a href="#">Kontak Kami</a>
-        <a href="#">FAQs</a>
-        <a href="#">Komunitas</a>
-        <a href="#">Tips & Tik</a>
-        <a href="#">Promo</a>
-        <a href="#">Profil</a>
-        <a href="#">Agenda</a>
-        <a href="#">Home</a>
-      </div>
     </div>
-    <div class="footer-center">
-      Copyright © 2025 Wanderlust. All rights reserved
-    </div>
-  </footer>
-
 </body>
 </html>

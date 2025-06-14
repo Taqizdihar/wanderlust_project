@@ -1,8 +1,7 @@
 body {
     overscroll-behavior: none;
     margin: 0;
-    height: auto;
-    display: grid;
+    height: 100%;
     justify-content: center;
     text-align: center;
     background-image: url('../foto/Latar Autentikasi.png');

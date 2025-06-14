@@ -24,26 +24,7 @@ while ($row = mysqli_fetch_assoc($query)) {
   <link rel="stylesheet" href="pengguna/cssPengguna/Home.css">
 </head>
 <body>
-
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="Umum/foto/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
-            <div class="logo-text">
-                <div class="title">Wanderlust</div>
-                <div class="subtitle">WANDERINGS FOR WONDERS</div>
-            </div>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <span class="search-icon"></span>
-        </div>
-        <nav class="nav-links">
-            <a href="notFound.php">Reservasi</a>
-            <a href="notFound.php">Favorit</a>
-            <a href="notFound.php">Bantuan</a>
-            <div class="profile-icon">👤</div>
-        </nav>
-    </header>
+  <?php include "pengguna/Header.php";?>
 
   <h2 class="section-title">Destinasi Populer</h2>
   <div class="card-gallery">
@@ -79,36 +60,7 @@ while ($row = mysqli_fetch_assoc($query)) {
   <?php endforeach; ?>
 </div>
 
-<footer>
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="Umum/foto/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
-      <div>
-        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
-      </div>
-    </div>
-    <div class="footbar">
-      <table>
-        <tr>
-          <td><a href="">Tentang Kami</a></td>
-          <td><a href="Komunitas.php">Komunitas</a></td>
-          <td><a href="Profil.php">Profil</a></td>
-        </tr>
-        <tr>
-          <td><a href="ContactUs.php">Kontak Kami</a></td>
-          <td><a href="Tips.php">Tips & Trick</a></td>
-          <td><a href="Agenda.php">Agenda</a></td>
-        </tr>
-        <tr>
-          <td><a href="FAQs.php">FAQs</a></td>
-          <td><a href="Promo.php">Promo</a></td>
-          <td><a href="Home.php">Home</a></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-</footer>
+<?php include "pengguna/Footer.php";?>
 
 </body>
 </html>

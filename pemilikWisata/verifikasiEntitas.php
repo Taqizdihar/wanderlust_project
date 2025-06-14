@@ -11,7 +11,7 @@ if (isset($_POST['submitBtn'])) {
     $legalAddress = $_POST['address'];
 
     if (isset($NPWP)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($NPWP['name']);
+		$uploadFile = 'pemilikWisata/foto/'.basename($NPWP['name']);
 		
       if (move_uploaded_file($NPWP['tmp_name'], $uploadFile)) {
         $uploadedNPWP = $NPWP['name'];
@@ -22,7 +22,7 @@ if (isset($_POST['submitBtn'])) {
 	  }
 
     if (isset($NIB)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($NIB['name']);
+		$uploadFile = 'pemilikWisata/foto/'.basename($NIB['name']);
 		
       if (move_uploaded_file($NIB['tmp_name'], $uploadFile)) {
         $uploadedNIB = $NIB['name'];
@@ -32,10 +32,10 @@ if (isset($_POST['submitBtn'])) {
       }
 	  }
 
-    $sqlStatement1 = "UPDATE user SET nama='$fullName', phonenumber='$phoneNumber' WHERE user_id = '$ID'";
+    $sqlStatement1 = "UPDATE user SET nama='$fullName', no_telepon='$phoneNumber' WHERE user_id = '$ID'";
     $query1 = mysqli_query($conn, $sqlStatement1);
 
-    $sqlStatement2 = "INSERT INTO pemilikwisata VALUES('$ID', '$legalAddress', '$uploadedNPWP', '$uploadedNIB', 'review')";
+    $sqlStatement2 = "INSERT INTO pemilikwisata (pw_id, alamat_bisnis, npwp, siup, status) VALUES ('$ID', '$legalAddress', '$uploadedNPWP', '$uploadedNIB', 'review')";
     $query2 = mysqli_query($conn, $sqlStatement2);
     
     if (mysqli_affected_rows($conn) != 0) {
@@ -54,7 +54,7 @@ mysqli_close($conn);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Verify Identity</title>
-  <link rel="stylesheet" href="pengelolaWisata/cssWisata/verifikasiEntitas.css">
+  <link rel="stylesheet" href="pemilikWisata/cssWisata/verifikasiEntitas.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
@@ -96,7 +96,7 @@ mysqli_close($conn);
   </div>
 
   <div class="logo">
-        <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
+        <img src="Umum/foto/Wanderings for Wonders side.png" alt="Wanderlust Logo">
     </div>
 </form>
 
