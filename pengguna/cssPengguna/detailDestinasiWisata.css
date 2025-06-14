@@ -52,3 +52,17 @@ body {
     object-fit: cover;
     border-radius: 0.25rem;
 }
+
+.bookmark-btn {
+    cursor: pointer;
+    color: #198754; /* Warna hijau seperti tombol 'Choose' */
+    margin-left: 15px;
+    font-size: 0.8em; /* Sedikit lebih kecil dari judul h2 */
+    vertical-align: middle;
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.bookmark-btn:hover {
+    color: #157347; /* Warna hijau lebih gelap saat disentuh */
+    transform: scale(1.1); /* Sedikit membesar saat disentuh */
+}

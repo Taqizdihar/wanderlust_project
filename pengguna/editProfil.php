@@ -90,8 +90,8 @@ $profil['tanggal_lahir'] = $profil['tanggal_lahir'];
                 <div class="form-group">
                     <label for="gender">Gender</label>
                     <select id="gender" name="gender" required>
-                        <option value="male">Laki-laki</option>
-                        <option value="female">Perempuan</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
                     </select>
                 </div>
                 <div class="form-group">
