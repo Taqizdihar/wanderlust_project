@@ -1,91 +1,66 @@
 <?php
-$saldo = 0;
-$riwayat = "Terakhir digunakan untuk memesan tiket ke Trans Studio Bandung pada 5 Mei 2025.";
+session_start();
+include 'config.php';
+include 'Header.php';
+
+if (!isset($_SESSION['user_id'])) {
+    die("Silakan login terlebih dahulu.");
+}
+
+$user_id = $_SESSION['user_id'];
+
+$query = "SELECT SUM(jumlah) AS total_saldo FROM topup WHERE user_id = ? AND status = 'disetujui'";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$data = $result->fetch_assoc();
+$total_saldo = $data['total_saldo'] ?? 0;
+
+$query_riwayat = "SELECT jumlah, metode_pembayaran, tanggal_pengajuan, status FROM topup WHERE user_id = ? ORDER BY tanggal_pengajuan DESC";
+$stmt_riwayat = $conn->prepare($query_riwayat);
+$stmt_riwayat->bind_param("i", $user_id);
+$stmt_riwayat->execute();
+$riwayat_result = $stmt_riwayat->get_result();
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Saldo | Wanderlust</title>
-  <link rel="stylesheet" href="cssPengguna/Saldo.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Saldo Saya - Wanderlust</title>
+    <link rel="stylesheet" href="pengguna/cssPengguna/Saldo.css">
 </head>
 <body>
-<header class="main-header">
-        <div class="logo-container">
-            <img src="../Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
-            <div class="logo-text">
-                <div class="title">Wanderlust</div>
-                <div class="subtitle">WANDERINGS FOR WONDERS</div>
-            </div>
+
+<main>
+    <section class="saldo-card">
+        <div class="saldo-icon">💰</div>
+        <div class="saldo-amount">Rp <?= number_format($total_saldo, 0, ',', '.') ?></div>
+        <div class="saldo-desc">Saldo Aktif Anda</div>
+        <button class="topup-btn" onclick="location.href='TopUp.php'">Top Up Sekarang</button>
+    </section>
+
+    <section class="riwayat">
+        <h2 class="riwayat-title">Riwayat Top Up</h2>
+        <div class="riwayat-list">
+            <?php if ($riwayat_result->num_rows > 0): ?>
+                <?php while ($row = $riwayat_result->fetch_assoc()): ?>
+                    <div class="riwayat-item">
+                        <span><?= date("d M Y H:i", strtotime($row['tanggal_pengajuan'])) ?></span>
+                        <span>Rp <?= number_format($row['jumlah'], 0, ',', '.') ?> - <?= ucfirst($row['metode_pembayaran']) ?> (<?= $row['status'] ?>)</span>
+                    </div>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="riwayat-item">
+                    <span>Tidak ada riwayat top up</span>
+                    <span>-</span>
+                </div>
+            <?php endif; ?>
         </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <span class="search-icon"></span>
-        </div>
-        <nav class="nav-links">
-            <a href="#">Opsi 1</a>
-            <a href="#">Opsi 2</a>
-            <a href="#">Favorit</a>
-            <div class="profile-icon">👤</div>
-        </nav>
-    </header>
+    </section>
+</main>
 
-  <div class="container">
-    <div class="header">
-      <img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Icon">
-      <div>
-        <h1>Wanderlust</h1>
-        <p class="subtitle">Cek Saldo Dompet Wisatamu!</p>
-      </div>
-    </div>
-
-    <div class="balance-info">
-      <span>Saldo Anda:</span>
-      <strong>Rp <?= number_format($saldo, 0, ',', '.') ?></strong>
-    </div>
-
-    <div class="tabs">
-      <div class="tab active">Riwayat</div>
-      <div class="tab">Top Up</div>
-      <div class="tab">Pengaturan</div>
-    </div>
-
-    <div class="tab-content">
-      <?= htmlspecialchars($riwayat) ?>
-    </div>
-  </div>
-  <footer>
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="../Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
-      <div>
-        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
-      </div>
-    </div>
-    <div class="footbar">
-      <table>
-        <tr>
-          <td><a href="AboutUs.php">Tentang Kami</a></td>
-          <td><a href="Komunitas.php">Komunitas</a></td>
-          <td><a href="Profil.php">Profil</a></td>
-        </tr>
-        <tr>
-          <td><a href="ContactUs.php">Kontak Kami</a></td>
-          <td><a href="Tips.php">Tips & Trick</a></td>
-          <td><a href="Agenda.php">Agenda</a></td>
-        </tr>
-        <tr>
-          <td><a href="FAQs.php">FAQs</a></td>
-          <td><a href="Promo.php">Promo</a></td>
-          <td><a href="Home.php">Home</a></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-</footer>
-
+<?php include 'Footer.php'; ?>
 </body>
 </html>

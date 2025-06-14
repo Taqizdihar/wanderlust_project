@@ -1,62 +1,20 @@
 <?php
-$destinasi = [
-    [
-        'nama' => 'Dusun Bambu Lembang',
-        'lokasi' => 'Bandung',
-        'gambar' => 'uploads/bandung1.jpg',
-        'rating' => '',
-        'label' => ''
-    ],
-    [
-        'nama' => 'Farmhouse Susu Lembang',
-        'lokasi' => 'Lembang, Bandung',
-        'gambar' => 'uploads/bandung2.jpg',
-        'rating' => '',
-        'label' => ''
-    ],
-    [
-        'nama' => 'Orchid Forest Cikole',
-        'lokasi' => 'Cikole, Bandung',
-        'gambar' => 'uploads/bandung3.jpg',
-        'rating' => '',
-        'label' => ''
-    ],
-    [
-        'nama' => 'The Great Asia Africa',
-        'lokasi' => 'Lembang, Bandung',
-        'gambar' => 'uploads/bandung4.jpg',
-        'rating' => '',
-        'label' => ''
-    ],
-    [
-        'nama' => 'Trans Studio Bandung',
-        'lokasi' => 'Bandung Kota',
-        'gambar' => 'uploads/bandung5.jpg',
-        'rating' => '',
-        'label' => ''
-    ],
-    [
-        'nama' => 'Kawah Putih Ciwidey',
-        'lokasi' => 'Ciwidey, Bandung',
-        'gambar' => 'uploads/bandung6.jpg',
-        'rating' => '',
-        'label' => ''
-    ],
-    [
-        'nama' => 'Tebing Keraton',
-        'lokasi' => 'Bandung Utara',
-        'gambar' => 'uploads/bandung7.jpg',
-        'rating' => '',
-        'label' => ''
-    ],
-    [
-        'nama' => 'Curug Cimahi',
-        'lokasi' => 'Bandung Barat',
-        'gambar' => 'uploads/bandung8.jpg',
-        'rating' => '',
-        'label' => ''
-    ]
-];
+include "config.php";
+
+$ID = $_SESSION['user_id'];
+$kataKunci = $_GET['kataKunci'];
+
+$sqlStatement1 = "SELECT tempatwisata.*, fotowisata.link_foto FROM tempatwisata JOIN fotowisata
+ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id AND fotowisata.urutan = 1
+WHERE tempatwisata.nama_lokasi LIKE '%$kataKunci%' OR
+tempatwisata.deskripsi LIKE '%$kataKunci%' OR tempatwisata.sumir LIKE '%$kataKunci%'";
+$query1 = mysqli_query($conn, $sqlStatement1);
+
+$hasilPencarian = [];
+while ($row = mysqli_fetch_assoc($query1)) {
+    $hasilPencarian[] = $row;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -64,90 +22,41 @@ $destinasi = [
 <head>
     <meta charset="UTF-8">
     <title>Hasil Pencarian</title>
-    <link rel="stylesheet" href="cssPengguna/Pencarian.css">
+    <link rel="stylesheet" href="pengguna/cssPengguna/Pencarian.css">
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="../Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
-            <div class="logo-text">
-                <div class="title">Wanderlust</div>
-                <div class="subtitle">WANDERINGS FOR WONDERS</div>
-            </div>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <span class="search-icon"></span>
-        </div>
-        <nav class="nav-links">
-            <a href="#">Opsi 1</a>
-            <a href="#">Opsi 2</a>
-            <a href="#">Favorit</a>
-            <div class="profile-icon">👤</div>
-        </nav>
-    </header>
+    <?php include "pengguna/Header.php";?>
 
 <main class="main-content">
     <div class="section-title">
-        <h2>Menampilkan aktivitas dengan "Bandung"</h2>
+        <h2>Result for <?= $kataKunci?></h2>
+
         <div class="filter">
-            <label>Urutkan dari:</label>
+            <label>Category</label>
             <select>
-                <option selected>Paling Relevan</option>
+                <option selected>Most Relevant</option>
             </select>
         </div>
     </div>
 
-    <div class="card-container">
-        <?php foreach ($destinasi as $item): ?>
-            <div class="card">
-                <img src="<?= $item['gambar'] ?>" alt="<?= htmlspecialchars($item['nama']) ?>">
-                <?php if (!empty($item['label'])): ?>
-                    <span class="badge sale"><?= htmlspecialchars($item['label']) ?></span>
-                <?php endif; ?>
-                <div class="card-info">
-                    <p class="lokasi"><?= htmlspecialchars($item['lokasi']) ?></p>
-                    <h3><?= htmlspecialchars($item['nama']) ?></h3>
-                    <p class="rating">
-                        ⭐⭐⭐⭐⭐ <?= htmlspecialchars($item['rating']) ?>
-                    </p>
-                </div>
+    <div class="card-gallery">
+        <?php foreach ($hasilPencarian as $hasil): ?>
+            <div class="cards-destination">
+            <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $hasil['link_foto']; ?>');">
+                <h4><?= $hasil['nama_lokasi']; ?></h4>
+            </div>
+            <div class="destination-content">
+                <p><?= $hasil['sumir']; ?></p>
+                <div class="stars"></div>
+                <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $hasil['tempatwisata_id']; ?>">Check</a>
+            </div>
             </div>
         <?php endforeach; ?>
     </div>
 </main>
 
-<footer>
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="../Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
-      <div>
-        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
-      </div>
-    </div>
-    <div class="footbar">
-      <table>
-        <tr>
-          <td><a href="AboutUs.php">Tentang Kami</a></td>
-          <td><a href="Komunitas.php">Komunitas</a></td>
-          <td><a href="Profil.php">Profil</a></td>
-        </tr>
-        <tr>
-          <td><a href="ContactUs.php">Kontak Kami</a></td>
-          <td><a href="Tips.php">Tips & Trick</a></td>
-          <td><a href="Agenda.php">Agenda</a></td>
-        </tr>
-        <tr>
-          <td><a href="FAQs.php">FAQs</a></td>
-          <td><a href="Promo.php">Promo</a></td>
-          <td><a href="Home.php">Home</a></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-</footer>
+    <?php include "pengguna/Footer.php";?>
 
 </body>
 </html>

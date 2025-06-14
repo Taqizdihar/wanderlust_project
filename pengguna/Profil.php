@@ -1,101 +1,76 @@
 <?php
-// Contoh data dinamis
-$name = "Michael Jordan";
-$email = "michaeljordan@gmail.com";
-$telephone = "08123456789";
-$birthdate = "March 14, 1999";
-$address = "Los Angeles, California, Amerika Serikat";
-$totalVisit = 15;
-$totalPayment = 500000;
+include "config.php";
+
+$ID = $_SESSION['user_id'];
+
+$sqlStatement = "SELECT * FROM user WHERE user_id = '$ID'";
+$query = mysqli_query($conn, $sqlStatement);
+$profil = mysqli_fetch_assoc($query);
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Profil - Wanderlust</title>
-  <link rel="stylesheet" href="cssPengguna/Profil.css">
+  <title>My profile</title>
+  <link rel="stylesheet" href="pengguna/cssPengguna/Profil.css">
 </head>
 <body>
 
-  <header class="header">
-    <div class="logo">W<span>anderlust</span></div>
-    <input type="text" class="search-bar" placeholder="Search...">
-    <nav class="nav-options">
-      <a href="#">Option 1</a>
-      <a href="#">Option 2</a>
-      <a href="#">Option 3</a>
-    </nav>
-    <div class="user-avatar">
-      <img src="avatar.jpg" alt="Avatar">
-    </div>
-  </header>
+  <?php include "pengguna/Header.php";?>
 
   <main class="profile-container">
     <aside class="sidebar">
-      <img src="../Umum/photos/Images/Michael I.jpg" class="profile-pic" alt="Profile Picture">
-      <button class="edit-btn">Edit Profil</button>
+      <img src="pengguna/foto/<?= $profil['foto_profil'];?>" class="profile-pic" alt="Profile Picture">
       <ul class="menu-options">
-        <li>Option 1</li>
-        <li>Option 2</li>
-        <li>Option 3</li>
+        <li><a href="indeks.php?page=Saldo">My Balance</a></li>
+        <li><a href="notFound.php">My Tickets</a></li>
+        <li><a href="indeks.php?page=Favorit">My Bookmark</a></li>
+        <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
       </ul>
     </aside>
 
     <section class="profile-card">
-      <h2><?php echo $name; ?></h2>
+      <h2><?= $profil['nama'];?></h2>
 
       <div class="stats">
         <div class="stat-box">
           <p>Total Visit</p>
-          <strong><?php echo $totalVisit; ?></strong>
+          <strong></strong>
         </div>
         <div class="stat-box">
           <p>Total Payment</p>
-          <strong><?php echo number_format($totalPayment, 0, ',', '.'); ?></strong>
+          <strong></strong>
         </div>
       </div>
 
       <table class="user-info bordered-table">
         <tr>
           <td>Email</td>
-          <td><?php echo $email; ?></td>
+          <td><?= $profil['email'];?></td>
         </tr>
         <tr>
           <td>Telephone</td>
-          <td><?php echo $telephone; ?></td>
+          <td><?= $profil['no_telepon'];?></td>
         </tr>
         <tr>
-          <td>Birth date</td>
-          <td><?php echo $birthdate; ?></td>
+          <td>Gender</td>
+          <td><?= $profil['gender'];?></td>
         </tr>
         <tr>
-          <td>Address</td>
-          <td><?php echo $address; ?></td>
+          <td>Birthdate</td>
+          <td><?= $profil['tanggal_lahir'];?></td>
         </tr>
       </table>
 
       <div class="action-buttons">
-        <button class="btn">✏️ Edit Profil</button>
-        <button class="btn">📄 Riwayat Transaksi</button>
-        <button class="btn favorite">❤️ Favorit Saya</button>
+        <button class="btn favorite"><a href="indeks.php?page=editProfil">Edit Profile</a> </button>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="footer-logo">WA Wanderlust</div>
-    <div class="footer-links">
-      <a href="#">Tentang Kami</a>
-      <a href="#">Kontak Kami</a>
-      <a href="#">FAQs</a>
-      <a href="#">Komunitas</a>
-      <a href="#">Tips & Trik</a>
-      <a href="#">Promo</a>
-      <a href="#">Agenda</a>
-    </div>
-    <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-  </footer>
+  <?php include "pengguna/Footer.php";?>
 
 </body>
 </html>

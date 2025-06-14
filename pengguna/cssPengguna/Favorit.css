@@ -2,68 +2,10 @@ body {
   font-family: sans-serif;
   margin: 0;
   background: #f9f9f9;
+  overscroll-behavior: none;
 }
 
-.header {
-  background: #0f3e94;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 24px;
-  flex-wrap: wrap;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-img {
-  width: 32px;
-  height: 32px;
-}
-
-.logo-text {
-  font-weight: bold;
-  font-size: 20px;
-  color: white;
-}
-
-.header-center {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-}
-
-.search-bar {
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-  width: 250px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.profile-img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
-
-.title {
+.page-title {
   text-align: center;
   margin: 30px 0 20px;
   font-size: 28px;
@@ -73,6 +15,16 @@ nav a {
   width: 85%;
   max-width: 1000px;
   margin: auto;
+}
+
+.card-empty {
+  padding: 30px;
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  margin-bottom: 300px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  align-items: center;
+  text-align: center;
 }
 
 .card {
@@ -139,53 +91,4 @@ nav a {
 .book-btn {
   background-color: #007bff;
   color: white;
-}
-
-.footer {
-  background-color: #0f3e94;
-  color: white;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.footer-top {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  width: 100%;
-}
-
-.footer-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-links {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  gap: 12px 32px;
-  text-align: left;
-  justify-content: flex-end;
-}
-
-.footer-links a {
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-}
-
-.footer-center {
-  width: 100%;
-  text-align: center;
-  font-size: 14px;
 }

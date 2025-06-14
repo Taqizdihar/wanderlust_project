@@ -1,110 +1,64 @@
 <?php
-session_start();
-$reservasi = [
-  [
-    'destinasi' => 'Bali',
-    'gambar' => 'bali.jpg',
-    'total_tiket' => 2,
-    'total_bayar' => 500000,
-    'tanggal' => '2025-06-10'
-  ],
-  [
-    'destinasi' => 'Lombok',
-    'gambar' => 'lombok.jpg',
-    'total_tiket' => 3,
-    'total_bayar' => 750000,
-    'tanggal' => '2025-05-28'
-  ],
-  [
-    'destinasi' => 'Yogyakarta',
-    'gambar' => 'jogja.jpg',
-    'total_tiket' => 1,
-    'total_bayar' => 200000,
-    'tanggal' => '2025-05-15'
-  ]
-];
+include "config.php";
+
+$ID = $_SESSION['user_id'];
+
+$sqlStatement = "SELECT transaksi.*, paketwisata.*, tempatwisata.*, fotowisata.link_foto FROM transaksi JOIN
+    paketwisata ON transaksi.paket_id = paketwisata.paket_id JOIN tempatwisata ON paketwisata.tempatwisata_id = tempatwisata.tempatwisata_id
+    JOIN fotowisata ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id AND fotowisata.urutan = 1";
+$query = mysqli_query($conn, $sqlStatement);
+
+$tiket = [];
+while ($row = mysqli_fetch_assoc($query)) {
+    $tiket[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Riwayat Reservasi</title>
-  <link rel="stylesheet" href="cssPengguna/riwayatReservasi.css">
+  <title>My Tickets</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="pengguna/cssPengguna/riwayatReservasi.css">
 </head>
 <body>
+<?php include "pengguna/Header.php";?>
 
-  <header class="header">
-    <div class="header-left">
-      <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
-      <div class="logo-text">Wanderlust</div>
+<h1>My Tickets</h1>
+
+<div class="container">
+  <div class="column">
+    <h2>Tickets</h2>
+    <div class="ticket-card">
+      <img src="beach.jpg" alt="Beach Image">
+      <div class="ticket-info">
+        <h3>Beach Tour</h3>
+        <p>Santolo Beach</p>
+        <div class="status-badge">active</div>
+        <p><i class="fa-solid fa-box info-icon"></i>Package: 2</p>
+        <p><i class="fa-solid fa-calendar-days info-icon"></i>28/06/2025</p>
+      </div>
+      <button class="btn btn-download">Download</button>
     </div>
-    <div class="header-center">
-      <input type="text" class="search-bar" placeholder="Search" />
-    </div>
-    <nav class="header-right">
-      <a href="#">Option 3</a>
-      <a href="#">Option 2</a>
-      <a href="#">Option 1</a>
-      <img src="profile.jpg" alt="Profile" class="profile-img">
-    </nav>
-  </header>
-
-  <h1 class="title">Reservation History</h1>
-
-  <!-- Search form -->
-  <div class="search-wrapper">
-    <input type="text" class="history-search-input" placeholder="Cari destinasi...">
-    <button class="history-search-btn">🔍</button>
   </div>
 
-  <!-- Card Container -->
-  <main class="history-container">
-    <?php foreach ($reservasi as $item): ?>
-      <div class="history-card">
-        <div class="history-left">
-          <img src="<?= $item['gambar'] ?>" alt="<?= $item['destinasi'] ?>" class="history-img">
-          <div class="history-text">
-            <strong class="destination-name"><?= htmlspecialchars($item['destinasi']) ?></strong>
-          </div>
-        </div>
-        <div class="history-center">
-          <p>Total Tickets: <strong><?= $item['total_tiket'] ?></strong></p>
-          <p>Total Payment: <strong>Rp<?= number_format($item['total_bayar'], 0, ',', '.') ?></strong></p>
-        </div>
-        <div class="history-right">
-          <p>Date:</p>
-          <strong><?= $item['tanggal'] ?></strong>
-        </div>
+  <div class="column">
+    <h2>History</h2>
+    <div class="ticket-card">
+      <img src="beach.jpg" alt="Beach Image">
+      <div class="ticket-info">
+        <h3>Beach Tour</h3>
+        <p>Rahong Beach</p>
+        <p><i class="fa-solid fa-box info-icon"></i>Package: 2</p>
+        <p><i class="fa-solid fa-calendar-days info-icon"></i>28/06/2025</p>
       </div>
-    <?php endforeach; ?>
-  </main>
+      <button class="btn btn-details">Details</button>
+    </div>
+  </div>
+</div>
 
-  <footer class="footer">
-    <div class="footer-top">
-      <div class="footer-left">
-        <div class="footer-logo">
-          <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
-          <span class="logo-text">Wanderlust</span>
-        </div>
-      </div>
-      <div class="footer-links">
-        <a href="#">Tentang Kami</a>
-        <a href="#">Kontak Kami</a>
-        <a href="#">FAQs</a>
-        <a href="#">Komunitas</a>
-        <a href="#">Tips & Tik</a>
-        <a href="#">Promo</a>
-        <a href="#">Profil</a>
-        <a href="#">Agenda</a>
-        <a href="#">Home</a>
-      </div>
-    </div>
-    <div class="footer-center">
-      Copyright © 2025 Wanderlust. All rights reserved
-    </div>
-  </footer>
+<?php include "pengguna/Footer.php";?>
 
 </body>
 </html>

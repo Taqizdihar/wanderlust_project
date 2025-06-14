@@ -1,109 +1,128 @@
 <?php
-// Contoh data dinamis
-$fullname = "Michael Santoso";
-$email = "michaelsantoso@gmail.com";
-$telephone = "08123456789";
-$birthdate = "March 14, 1999";
-$gender = "Male";
-$address = "Los Angeles, California, Amerika Serikat";
-$totalVisit = 15;
-$totalPayment = 500000;
+include "config.php";
+
+$ID = $_SESSION['user_id'];
+$sqlStatement = "SELECT * FROM user WHERE user_id = '$ID'";
+$query = mysqli_query($conn, $sqlStatement);
+$profil = mysqli_fetch_assoc($query);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = $_POST['nama'];
+    $no_telepon = $_POST['no_telepon'];
+    $gender = $_POST['gender'];
+    $tanggal_lahir = $_POST['tanggal_lahir'];
+    $fotoProfil = $_FILES['foto_profil'];
+
+    if ($_FILES['foto_profil']['name'] != '') {
+      if (isset($fotoProfil)) {
+      $uploadFile = 'pengguna/foto/'.basename($fotoProfil['name']);
+      
+        if (move_uploaded_file($fotoProfil['tmp_name'], $uploadFile)) {
+          $uploadFoto = $fotoProfil['name'];
+        } else {
+          $uploadFoto = null;
+        }
+      } else if (empty($fotoProfil)) {
+        $uploadFoto = $profil['foto_profil'];
+      }
+
+    $updateStatement = "UPDATE user SET nama='$nama', no_telepon='$no_telepon', gender='$gender', tanggal_lahir='$tanggal_lahir', foto_profil='$uploadFoto' WHERE user_id='$ID'";   
+  } else {
+    $updateStatement = "UPDATE user SET nama='$nama', no_telepon='$no_telepon', gender='$gender', tanggal_lahir='$tanggal_lahir' WHERE user_id='$ID'";
+  }
+  $queryUpdate = mysqli_query($conn, $updateStatement);
+
+  if (mysqli_affected_rows($conn) != 0) {
+      header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=Profil");
+      exit();
+  } else {
+      echo "<p>Failed Profile Change</p>";
+  }
+}
+
+$profil['gender'] = $profil['gender'];
+$profil['tanggal_lahir'] = $profil['tanggal_lahir'];
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Profil - Wanderlust</title>
-  <link rel="stylesheet" href="cssPengguna/Profil.css">
+  <title>Edit My Profile</title>
+  <link rel="stylesheet" href="pengguna/cssPengguna/editProfil.css">
 </head>
 <body>
 
-  <header class="header">
-    <div class="logo">W<span>anderlust</span></div>
-    <input type="text" class="search-bar" placeholder="Search...">
-    <nav class="nav-options">
-      <a href="#">Option 1</a>
-      <a href="#">Option 2</a>
-      <a href="#">Option 3</a>
-    </nav>
-    <div class="user-avatar">
-      <img src="avatar.jpg" alt="Avatar">
-    </div>
-  </header>
+  <?php include "pengguna/Header.php";?>
 
   <main class="profile-container">
-    <aside class="sidebar">
-      <img src="../Umum/photos/Images/Michael I Roma.jpg" class="profile-pic" alt="Profile Picture">
-      <button class="edit-btn">Edit Foto Profil</button>
-      <ul class="menu-options">
-        <li>Option 1</li>
-        <li>Option 2</li>
-        <li>Option 3</li>
-      </ul>
-    </aside>
+    
+    <form class="profile-form" method="POST" action="" enctype="multipart/form-data">
+        <aside class="sidebar">
+            <img src="pengguna/foto/<?= $profil['foto_profil'];?>" class="profile-pic" id="imagePreview" alt="Profile Picture">
+            <label for="foto_profil" class="edit-btn">Change Profile Picture</label>
+            <input type="file" id="foto_profil" name="foto_profil" accept="image/*" style="display: none;">
+            
+            <ul class="menu-options">
+              <li><a href="indeks.php?page=Saldo">My Balance</a></li>
+              <li><a href="notFound.php">My Tickets</a></li>
+              <li><a href="indeks.php?page=Favorit">My Bookmark</a></li>
+              <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
+            </ul>
+        </aside>
 
-    <section class="profile-card">
-      <h2><?php echo $fullname; ?></h2>
-
-      <div class="stats">
-        <div class="stat-box">
-          <p>Total Visit</p>
-          <strong><?php echo $totalVisit; ?></strong>
-        </div>
-        <div class="stat-box">
-          <p>Total Payment</p>
-          <strong><?php echo number_format($totalPayment, 0, ',', '.'); ?></strong>
-        </div>
-      </div>
-
-      <table class="user-info bordered-table">
-        <tr>
-          <td>Full Name</td>
-          <td><?php echo $fullname; ?></td>
-        </tr>
-          <td>Email</td>
-          <td><?php echo $email; ?></td>
-        </tr>
-        <tr>
-          <td>Telephone</td>
-          <td><?php echo $telephone; ?></td>
-        </tr>
-        <tr>
-          <td>Birth Date</td>
-          <td><?php echo $birthdate; ?></td>
-        </tr>
-        <tr>
-          <td>Gender</td>
-          <td><?php echo $gender; ?></td>
-        </tr>
-        <tr>
-          <td>Address</td>
-          <td><?php echo $address; ?></td>
-        </tr>
-      </table>
-
-      <div class="action-buttons">
-        <button class="btn">✏️ Edit Profil</button>
-        <button class="btn">📄 Riwayat Transaksi</button>
-        <button class="btn favorite">❤️ Favorit Saya</button>
-      </div>
-    </section>
+        <section class="profile-card">
+            <h2>Edit Profile</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nama">Full Name</label>
+                    <input type="text" id="nama" name="nama" value="<?= $profil['nama'];?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<?= $profil['email'];?>" disabled>
+                    <small>Email cannot be changed</small>
+                </div>
+                <div class="form-group">
+                    <label for="no_telepon">Phone Number</label>
+                    <input type="tel" id="no_telepon" name="no_telepon" value="<?= $profil['no_telepon'];?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal_lahir">Birthdate</label>
+                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="<?= htmlspecialchars($profil['tanggal_lahir']);?>" required>
+                </div>
+                <div class="form-group">
+                  <div class="action-buttons">
+                      <button type="submit" class="btn save-btn">Save Changes</button>
+                  </div>
+                </div>
+            </div>
+        </section>
+    </form>
   </main>
 
-  <footer class="footer">
-    <div class="footer-logo">WA Wanderlust</div>
-    <div class="footer-links">
-      <a href="#">Tentang Kami</a>
-      <a href="#">Kontak Kami</a>
-      <a href="#">FAQs</a>
-      <a href="#">Komunitas</a>
-      <a href="#">Tips & Trik</a>
-      <a href="#">Promo</a>
-      <a href="#">Agenda</a>
-    </div>
-    <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-  </footer>
+  <?php include "pengguna/Footer.php";?>
+
+  <script>
+    document.getElementById('foto_profil').addEventListener('change', function(event) {
+        const [file] = event.target.files;
+        if (file) {
+            const preview = document.getElementById('imagePreview');
+            preview.src = URL.createObjectURL(file);
+            preview.onload = () => {
+                URL.revokeObjectURL(preview.src);
+            }
+        }
+    });
+  </script>
 
 </body>
 </html>
