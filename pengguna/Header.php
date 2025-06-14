@@ -23,6 +23,7 @@ $fotoProfil = mysqli_fetch_assoc($query);
     padding: 10px 20px;
     color: #333;
     font-family: 'MuseoModerno', sans-serif;
+    margin: 0;
     }
     a {
         text-decoration: none;
