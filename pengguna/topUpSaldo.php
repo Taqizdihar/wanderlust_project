@@ -1,25 +1,40 @@
 <?php
+// Koneksi ke database
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "wanderlust";
 
-$koneksi = new mysqli("localhost", "root", "", "wanderlust");
-if ($koneksi->connect_error) {
-    die("Koneksi gagal: " . $koneksi->connect_error);
+$conn = new mysqli($host, $user, $password, $database);
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
 }
 
-$statusPesan = "";
+// Mulai sesi
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-$user_id = 4;
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$message = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_SESSION['user_id'];
     $jumlah = $_POST['jumlah'];
-    $metode = $_POST['metode_pembayaran'];
+    $metode = $_POST['metode'];
 
-    $query = "INSERT INTO topup (user_id, jumlah, metode_pembayaran, status)
-              VALUES ($user_id, $jumlah, '$metode', 'menunggu')";
+    $stmt = $conn->prepare("INSERT INTO topup (user_id, jumlah, metode_pembayaran) VALUES (?, ?, ?)");
+    $stmt->bind_param("ids", $user_id, $jumlah, $metode);
 
-    if ($koneksi->query($query)) {
-        $statusPesan = "Top up berhasil diajukan! Menunggu verifikasi.";
+    if ($stmt->execute()) {
+        // Setelah sukses, redirect ke halaman Saldo via indeks.php
+        header("Location: indeks.php?page=Saldo&status=sukses");
+        exit();
     } else {
-        $statusPesan = "Top up gagal. Silakan coba lagi.";
+        $message = "Gagal melakukan top up: " . $conn->error;
     }
 }
 ?>
@@ -28,73 +43,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Top Up Saldo</title>
+    <title>Top Up Saldo - Wanderlust</title>
     <link rel="stylesheet" href="pengguna/cssPengguna/topUpSaldo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <?php include 'Header.php'; ?>
+<?php include 'Header.php'; ?>
 
-    <div class="title">Top Up Saldo Anda</div>
+<div class="container" style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+    <h2 class="title">Top Up Saldo</h2>
 
-    <div style="max-width: 600px; margin: auto;">
-        <?php if ($statusPesan): ?>
-            <div style="background: #d4edda; color: #155724; padding: 10px; border-radius: 6px; margin-bottom: 20px;">
-                <?= $statusPesan ?>
-            </div>
-        <?php endif; ?>
+    <?php if ($message): ?>
+        <div class="alert" style="color: red; font-weight: bold; margin-bottom: 20px;">
+            <?= htmlspecialchars($message) ?>
+        </div>
+    <?php endif; ?>
 
-        <form method="POST" style="display: flex; flex-direction: column; gap: 20px;">
-            <div class="topup-section">
-                <label><strong>Metode Pembayaran</strong></label>
-                <div class="e-wallet-tabs">
-                    <button type="button" class="active" onclick="pilihMetode('gopay')">Gopay</button>
-                    <button type="button" onclick="pilihMetode('dana')">Dana</button>
-                    <button type="button" onclick="pilihMetode('shopeepay')">ShopeePay</button>
-                </div>
-                <input type="hidden" name="metode_pembayaran" id="metodeInput" value="gopay">
-            </div>
+    <form method="post" class="topup-section">
+        <label for="jumlah">Jumlah Top Up (Rp):</label>
+        <input type="number" name="jumlah" id="jumlah" required min="1000" step="1000" placeholder="Masukkan nominal">
 
-            <div>
-                <label><strong>Jumlah Top Up</strong></label>
-                <div class="amount-buttons">
-                    <button type="button" onclick="isiJumlah(50000)">Rp 50.000</button>
-                    <button type="button" onclick="isiJumlah(100000)">Rp 100.000</button>
-                    <button type="button" onclick="isiJumlah(200000)">Rp 200.000</button>
-                </div>
-                <input type="number" name="jumlah" id="jumlahInput" placeholder="Masukkan jumlah lainnya">
-            </div>
+        <label for="metode">Metode Pembayaran:</label>
+        <select name="metode" id="metode" required style="padding: 10px; border-radius: 6px; border: 2px solid #0077cc; margin-top: 10px;">
+            <option value="gopay">GoPay</option>
+            <option value="dana">DANA</option>
+            <option value="shopeepay">ShopeePay</option>
+            <option value="bank_transfer">Bank Transfer</option>
+            <option value="lainnya">Lainnya</option>
+        </select>
 
-            <button type="submit" class="topup-btn">Kirim Top Up</button>
-        </form>
+        <button type="submit" class="topup-btn">Kirim Permintaan Top Up</button>
+    </form>
 
-        <!-- Tombol Kembali -->
-        <button onclick="location.href='Saldo.php'" style="
-            margin-top: 20px;
-            padding: 10px 20px;
-            border: none;
-            background: #ccc;
-            color: #333;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;">
-            ← Kembali ke Saldo
-        </button>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="indeks.php?page=Saldo" style="text-decoration: none; color: #0077cc;">← Kembali ke Saldo</a>
     </div>
+</div>
 
-    <?php include 'Footer.php'; ?>
-
-    <script>
-        function pilihMetode(metode) {
-            document.getElementById('metodeInput').value = metode;
-            document.querySelectorAll('.e-wallet-tabs button').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-
-        function isiJumlah(jumlah) {
-            document.getElementById('jumlahInput').value = jumlah;
-        }
-    </script>
+<?php include 'Footer.php'; ?>
 
 </body>
 </html>
