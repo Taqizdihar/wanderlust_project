@@ -1,10 +1,18 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #e8f5e9);
+  margin: 0;
+  padding: 0;
+}
+
+/* HEADER */
 .header {
-  background: #0f3e94;
+  background: #0077cc;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
+  padding: 15px 25px;
   flex-wrap: wrap;
 }
 
@@ -15,99 +23,69 @@
 }
 
 .logo-img {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
 }
 
 .logo-text {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 22px;
   color: white;
-}
-
-.header-center {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-}
-
-.search-bar {
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-  width: 250px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 
 nav a {
   color: white;
   text-decoration: none;
   font-size: 14px;
+  font-weight: bold;
+  margin-left: 15px;
 }
 
-.profile-img {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+nav a:hover {
+  color: #ffcc00;
 }
 
+/* TITLE */
 .title {
   text-align: center;
-  margin: 30px 0 20px;
+  margin: 40px 0 30px;
   font-size: 28px;
+  color: #0077cc;
 }
 
-.transaction-card h2 {
-  font-size: 26px;
-  margin-bottom: 20px;
-}
-
+/* TOPUP SECTION */
 .topup-section {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .e-wallet-tabs {
   display: flex;
-  align-items: center;
   gap: 10px;
-  margin-top: 10px;
 }
 
 .e-wallet-tabs button {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
-  background: #ddd;
-  color: #555;
+  background: #e0e0e0;
+  color: #333;
   font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .e-wallet-tabs button.active {
-  background: #1c6eff;
+  background: #0f66d0;
   color: white;
-}
-
-.divider {
-  height: 24px;
-  width: 2px;
-  background-color: #888;
-  margin: 0 5px;
 }
 
 .amount-buttons {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-top: 10px;
 }
 
 .amount-buttons button {
@@ -117,18 +95,25 @@ nav a {
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
-.amount-buttons + input {
+.amount-buttons button:hover {
+  background: #619ef3;
+}
+
+input[type="number"] {
   padding: 10px;
-  width: 200px;
+  width: 100%;
   border-radius: 6px;
-  border: 2px solid #555;
+  border: 2px solid #0077cc;
   margin-top: 10px;
+  font-size: 16px;
 }
 
+/* SUBMIT BUTTON */
 .topup-btn {
-  background: #004aad;
+  background: linear-gradient(to right, #0f66d0, #3da9f4);
   color: white;
   font-size: 16px;
   padding: 12px 24px;
@@ -136,17 +121,23 @@ nav a {
   border-radius: 8px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 10px;
-  width: 200px;
+  width: 100%;
+  transition: background 0.3s ease;
 }
 
+.topup-btn:hover {
+  background: #1a74df;
+}
+
+/* FOOTER */
 .footer {
-  background-color: #0f3e94;
+  background-color: #0077cc;
   color: white;
-  padding: 24px;
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: 60px;
 }
 
 .footer-top {
@@ -181,6 +172,10 @@ nav a {
   color: white;
   text-decoration: none;
   font-size: 14px;
+}
+
+.footer-links a:hover {
+  color: #ffcc00;
 }
 
 .footer-center {

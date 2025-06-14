@@ -1,36 +1,75 @@
 <?php
-// Saldo.php (disertakan melalui indeks.php)
-session_start();
-include 'config.php';
 
-// Ambil user_id dari session
-if (!isset($_SESSION['user_id'])) {
-  header("Location: login.php");
-  exit;
+$koneksi = new mysqli("localhost", "root", "", "wanderlust");
+if ($koneksi->connect_error) {
+    die("Koneksi gagal: " . $koneksi->connect_error);
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = 4;
 
-// Ambil data user dari database
-$sql = "SELECT * FROM user WHERE user_id = '$user_id'";
-$query = mysqli_query($conn, $sql);
-$user = mysqli_fetch_assoc($query);
 
-// Ambil total saldo dari tabel topup dengan status disetujui
-$saldo_sql = "SELECT SUM(jumlah) AS total_saldo FROM topup WHERE user_id = '$user_id' AND status = 'disetujui'";
-$saldo_result = mysqli_query($conn, $saldo_sql);
-$saldo_data = mysqli_fetch_assoc($saldo_result);
-$total_saldo = $saldo_data['total_saldo'] ?? 0;
+$sql = "SELECT SUM(jumlah) AS total_saldo FROM topup WHERE user_id = $user_id AND status = 'disetujui'";
+$result = $koneksi->query($sql);
+$row = $result->fetch_assoc();
+$total_saldo = $row['total_saldo'] ?? 0;
 ?>
 
-<section class="saldo-container">
-  <div class="saldo-card">
-    <h2>My Balance</h2>
-    <p>Nama: <strong><?= $user['nama']; ?></strong></p>
-    <p>Email: <?= $user['email']; ?></p>
-    <p>No. Telepon: <?= $user['no_telepon']; ?></p>
-    <p>Total Saldo: <strong>Rp <?= number_format($total_saldo, 0, ',', '.'); ?></strong></p>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Saldo Anda | Wanderlust</title>
+    <link rel="stylesheet" href="pengguna/cssPengguna/Saldo.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
 
-    <a href="topUpSaldo.php" class="btn">Top Up Saldo</a>
-  </div>
-</section>
+    <?php include 'Header.php'; ?>
+
+    <main style="padding: 40px 20px;">
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <section class="saldo-card">
+                <div class="saldo-icon"><i class="ri-wallet-3-line"></i></div>
+                <div class="saldo-amount">Rp <?= number_format($total_saldo, 0, ',', '.') ?></div>
+                <div class="saldo-desc">Saldo Dompet Digital Anda</div>
+                <button class="topup-btn" onclick="location.href='topUpSaldo.php'">
+                    <i class="ri-bank-card-line" style="margin-right: 6px;"></i>Top Up Sekarang
+                </button>
+            </section>
+
+            <h2 class="riwayat-title">Riwayat Top Up Terbaru</h2>
+            <div class="riwayat-list">
+                <?php
+                $query_riwayat = "SELECT jumlah, metode_pembayaran, status, tanggal_pengajuan FROM topup 
+                                  WHERE user_id = $user_id ORDER BY tanggal_pengajuan DESC LIMIT 5";
+                $riwayat = $koneksi->query($query_riwayat);
+
+                if ($riwayat->num_rows > 0) {
+                    while ($row = $riwayat->fetch_assoc()) {
+                        $statusColor = $row['status'] === 'disetujui' ? 'green' : ($row['status'] === 'menunggu' ? 'orange' : 'red');
+                        $sign = $row['status'] === 'disetujui' ? '+' : '';
+                        echo "<div class='riwayat-item'>
+                                <div>
+                                    <strong>{$row['metode_pembayaran']}</strong><br>
+                                    <small style='color: gray;'>" . date("d M Y, H:i", strtotime($row['tanggal_pengajuan'])) . "</small>
+                                </div>
+                                <div style='text-align: right;'>
+                                    <span style='color: $statusColor; font-weight: bold;'>{$sign}Rp " . number_format($row['jumlah'], 0, ',', '.') . "</span><br>
+                                    <small>Status: {$row['status']}</small>
+                                </div>
+                              </div>";
+                    }
+                } else {
+                    echo "<p style='color: gray;'>Belum ada riwayat top up.</p>";
+                }
+
+                $koneksi->close();
+                ?>
+            </div>
+        </div>
+    </main>
+
+    <?php include 'Footer.php'; ?>
+
+</body>
+</html>
