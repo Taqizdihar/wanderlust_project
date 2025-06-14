@@ -17,26 +17,9 @@ $sqlStatement1 = "SELECT * FROM wishlist ";
 </head>
 <body>
 
-  <header class="header">
-    <div class="header-left">
-      <img src="Umum/foto/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo-img">
-      <div class="logo-text">Wanderlust</div>
-    </div>
-    <div class="header-center">
-      <input type="text" class="search-bar" placeholder="Search" />
-    </div>
-    <nav class="header-right">
-      <a href="#">Option 3</a>
-      <a href="#">Option 2</a>
-      <a href="#">Option 1</a>
-      <img src="profile.jpg" alt="Profile" class="profile-img">
-    </nav>
-  </header>
+  <?php include "pengguna/Header.php";?>
 
-  <!-- Title -->
-  <h1 class="title">Saved Destination</h1>
-
-  <!-- Destinations -->
+  <h1 class="page-title">Saved Destination</h1>
   <div class="card-container">
     <?php foreach ($destinations as $dest): ?>
       <div class="card">
@@ -59,30 +42,6 @@ $sqlStatement1 = "SELECT * FROM wishlist ";
     <?php endforeach; ?>
   </div>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-top">
-      <div class="footer-left">
-        <div class="footer-logo">
-          <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
-          <span class="logo-text">Wanderlust</span>
-        </div>
-      </div>
-      <div class="footer-links">
-        <a href="#">Tentang Kami</a>
-        <a href="#">Kontak Kami</a>
-        <a href="#">FAQs</a>
-        <a href="#">Komunitas</a>
-        <a href="#">Tips & Tik</a>
-        <a href="#">Promo</a>
-        <a href="#">Profil</a>
-        <a href="#">Agenda</a>
-        <a href="#">Home</a>
-      </div>
-    </div>
-    <div class="footer-center">
-      Copyright © 2025 Wanderlust. All rights reserved
-    </div>
-  </footer>
+  <?php include "pengguna/Footer.php";?>
 </body>
 </html>

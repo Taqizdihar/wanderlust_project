@@ -5,18 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Footer</title>
     <style>
-        footer {
+        .footer {
         background-color: #0077cc;
         color: white;
-        padding: 40px 20px 20px;
-        text-align: center;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
         }
 
-        .footer-container {
+        .footer-top {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
         flex-wrap: wrap;
+        align-items: flex-start;
+        width: 100%;
+        }
+
+        .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         }
 
         .footer-logo {
@@ -25,55 +34,57 @@
         gap: 10px;
         }
 
-        .footer-logo img {
-        border-radius: 100%;
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
         }
 
-        .footbar table {
+        .footer-links {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        gap: 12px 32px;
+        text-align: left;
+        justify-content: flex-end;
+        }
+
+        .footer-links a {
         color: white;
-        }
-
-        .footbar a {
         text-decoration: none;
-        color: #ccc;
-        font-size: 0.9em;
+        font-size: 14px;
         }
 
-        .footbar a:hover {
-        color: #fff;
+        .footer-center {
+        width: 100%;
+        text-align: center;
+        font-size: 14px;
         }
     </style>
 </head>
 <body>
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-            <img src="Umum/foto/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
-            <div>
-                <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
-            </div>
-            </div>
-            <div class="footbar">
-            <table>
-                <tr>
-                <td><a href="">Tentang Kami</a></td>
-                <td><a href="Komunitas.php">Komunitas</a></td>
-                <td><a href="Profil.php">Profil</a></td>
-                </tr>
-                <tr>
-                <td><a href="ContactUs.php">Kontak Kami</a></td>
-                <td><a href="Tips.php">Tips & Trick</a></td>
-                <td><a href="Agenda.php">Agenda</a></td>
-                </tr>
-                <tr>
-                <td><a href="FAQs.php">FAQs</a></td>
-                <td><a href="Promo.php">Promo</a></td>
-                <td><a href="Home.php">Home</a></td>
-                </tr>
-            </table>
-            </div>
+    <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-left">
+        <div class="footer-logo">
+          <img src="Umum/foto/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo-img">
+          <span class="logo-text">Wanderlust</span>
         </div>
-        <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-    </footer>
+      </div>
+      <div class="footer-links">
+        <a href="#">Tentang Kami</a>
+        <a href="#">Kontak Kami</a>
+        <a href="#">FAQs</a>
+        <a href="#">Komunitas</a>
+        <a href="#">Tips & Tik</a>
+        <a href="#">Promo</a>
+        <a href="#">Profil</a>
+        <a href="#">Agenda</a>
+        <a href="#">Home</a>
+      </div>
+    </div>
+    <div class="footer-center">
+      Copyright © 2025 Wanderlust. All rights reserved
+    </div>
+  </footer>
 </body>
 </html>

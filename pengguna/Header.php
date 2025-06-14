@@ -1,3 +1,13 @@
+<?php
+include "config.php";
+
+$ID = $_SESSION['user_id'];
+
+$sqlStatement = "SELECT * FROM user WHERE user_id = '$ID'";
+$query = mysqli_query($conn, $sqlStatement);
+$fotoProfil = mysqli_fetch_assoc($query);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +23,9 @@
     padding: 10px 20px;
     color: #333;
     font-family: 'MuseoModerno', sans-serif;
+    }
+    a {
+        text-decoration: none;
     }
     .logo-container {
     display: flex;
@@ -64,9 +77,8 @@
     font-weight: bold;
     }
     .profile-icon {
-    width: 36px;
-    height: 36px;
-    background-color: white;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -77,26 +89,33 @@
 </head>
 <body>
     <header class="main-header">
-        <div class="logo-container">
-            <img src="Umum/foto/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
-            <div class="logo-text">
-                <div class="title">Wanderlust</div>
-                <div class="subtitle">WANDERINGS FOR WONDERS</div>
+        <a href="indeks.php?page=Home">
+            <div class="logo-container">
+                <img src="Umum/foto/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
+                <div class="logo-text">
+                    <div class="title">Wanderlust</div>
+                    <div class="subtitle">WANDERINGS FOR WONDERS</div>
+                </div>
             </div>
-        </div>
+        </a>
+
         <div class="search-bar">
             <form action="indeks.php" method="GET">
                 <input type="hidden" name="page" value="Pencarian">
                 <input type="text" placeholder="Search..." name="kataKunci">
             </form>
         </div>
+
         <nav class="nav-links">
             <a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a>
             <a href="notFound.php">My Tickets</a>
             <a href="indeks.php?page=Favorit">Bookmark</a>
             <a href="notFound.php">Rating</a>
-            <div class="profile-icon">👤</div>
+            <a href="indeks.php?page=Profil">
+                <img src="pengguna/foto/<?= $fotoProfil['foto_profil']?>" alt="Profile Picture" class="profile-icon">
+            </a>
         </nav>
+
     </header>
 </body>
 </html>

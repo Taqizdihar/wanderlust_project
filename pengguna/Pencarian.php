@@ -31,10 +31,11 @@ while ($row = mysqli_fetch_assoc($query1)) {
 <main class="main-content">
     <div class="section-title">
         <h2>Result for <?= $kataKunci?></h2>
+
         <div class="filter">
-            <label>Urutkan dari:</label>
+            <label>Category</label>
             <select>
-                <option selected>Paling Relevan</option>
+                <option selected>Most Relevant</option>
             </select>
         </div>
     </div>
@@ -48,7 +49,7 @@ while ($row = mysqli_fetch_assoc($query1)) {
             <div class="destination-content">
                 <p><?= $hasil['sumir']; ?></p>
                 <div class="stars"></div>
-                <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $hasil['tempatwisata_id']; ?>">Lihat Selengkapnya</a>
+                <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $hasil['tempatwisata_id']; ?>">Check</a>
             </div>
             </div>
         <?php endforeach; ?>
