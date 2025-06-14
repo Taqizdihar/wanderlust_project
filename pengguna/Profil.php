@@ -53,6 +53,14 @@ $profil = mysqli_fetch_assoc($query);
           <td>Telephone</td>
           <td><?= $profil['no_telepon'];?></td>
         </tr>
+        <tr>
+          <td>Gender</td>
+          <td><?= $profil['gender'];?></td>
+        </tr>
+        <tr>
+          <td>Birthdate</td>
+          <td><?= $profil['tanggal_lahir'];?></td>
+        </tr>
       </table>
 
       <div class="action-buttons">
