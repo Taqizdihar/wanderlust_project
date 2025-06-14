@@ -56,7 +56,7 @@ $profil = mysqli_fetch_assoc($query);
       </table>
 
       <div class="action-buttons">
-        <button class="btn favorite">Edit Profile</button>
+        <button class="btn favorite"><a href="indeks.php?page=editProfil">Edit Profile</a> </button>
       </div>
     </section>
   </main>
