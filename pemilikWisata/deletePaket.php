@@ -5,7 +5,7 @@ $ID = $_SESSION['user_id'];
 $paket_id = $_GET['paket_id'];
 $tempatwisata_id = $_GET['tempatwisata_id'];
 
-$sqlCheck = "SELECT * FROM paket WHERE paket_id='$paket_id' AND tempatwisata_id ='$tempatwisata_id'";
+$sqlCheck = "SELECT * FROM paketwisata WHERE paket_id='$paket_id' AND tempatwisata_id ='$tempatwisata_id'";
 $queryCheck = mysqli_query($conn, $sqlCheck);
 $paketCheck = mysqli_fetch_assoc($queryCheck);
 
