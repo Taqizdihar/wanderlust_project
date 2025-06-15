@@ -63,67 +63,67 @@ if (isset($_POST['submit'])) {
 <body>
     <?php include "pemilikWisata/viewsWisata.php";?>
     <div class="container">
-        <h2>Formulir Penambahan Tempat Wisata</h2>
-        <p class="subtitle">Isi semua data yang diperlukan untuk mendaftarkan tempat wisata baru Anda.</p>
+        <h2>Add a property/tourist attraction</h2>
+        <p class="subtitle">Fill all the necessary information of your property/tourist attraction</p>
 
         <form action="" method="post" enctype="multipart/form-data">
             
             <div class="form-group">
-                <label for="nama_lokasi">Nama Lokasi Wisata</label>
+                <label for="nama_lokasi">Property Name</label>
                 <input type="text" id="nama_lokasi" name="nama_lokasi" required placeholder="Contoh: Kawah Putih">
             </div>
 
             <div class="form-group">
-                <label for="alamat_lokasi">Alamat Lengkap Lokasi</label>
+                <label for="alamat_lokasi">Property Address</label>
                 <textarea id="alamat_lokasi" name="alamat_lokasi" rows="3" required placeholder="Masukkan alamat jalan, kota, dan provinsi"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="jenis_wisata">Jenis Wisata</label>
+                <label for="jenis_wisata">Category</label>
                 <select id="jenis_wisata" name="jenis_wisata" required>
-                    <option value="" disabled selected>Pilih jenis wisata...</option>
-                    <option value="Nature">Alam (Nature)</option>
-                    <option value="Cultural">Budaya (Cultural)</option>
-                    <option value="Historical">Sejarah (Historical)</option>
-                    <option value="Religion">Religi (Religion)</option>
-                    <option value="Theme Park">Taman Hiburan (Theme Park)</option>
-                    <option value="Other">Lainnya (Other)</option>
+                    <option value="" disabled selected>Choose category...</option>
+                    <option value="Nature">Nature</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Historical">Historical</option>
+                    <option value="Religion">Religion</option>
+                    <option value="Theme Park">Theme Park</option>
+                    <option value="Other">Other</option>
                 </select>
             </div>
 
             <div class="time-group">
                 <div class="form-group">
-                    <label for="waktu_buka">Jam Buka</label>
+                    <label for="waktu_buka">Open Hour</label>
                     <input type="time" id="waktu_buka" name="waktu_buka" required>
                 </div>
                 <div class="form-group">
-                    <label for="waktu_tutup">Jam Tutup</label>
+                    <label for="waktu_tutup">Close Hour</label>
                     <input type="time" id="waktu_tutup" name="waktu_tutup" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="deskripsi">Deskripsi Lengkap</label>
+                <label for="deskripsi">Description</label>
                 <textarea id="deskripsi" name="deskripsi" required placeholder="Jelaskan secara detail tentang tempat wisata Anda"></textarea>
             </div>
 
             <div class="form-group">
-                <label for="sumir">Ringkasan Deskripsi (Sumir)</label>
+                <label for="sumir">Summary</label>
                 <textarea id="sumir" name="sumir" rows="2" required placeholder="Tulis ringkasan singkat yang menarik (maksimal 150 karakter)"></textarea>
             </div>
             
             <div class="form-group">
-                <label for="nomor_pic">Nomor Telepon PIC (Person in Charge)</label>
+                <label for="nomor_pic">Person in Charge (PIC) Phone Number</label>
                 <input type="text" id="nomor_pic" name="nomor_pic" required placeholder="Contoh: 081234567890">
             </div>
 
             <div class="form-group">
-                <label for="surat_izin">Unggah Surat Izin Usaha (Wajib)</label>
+                <label for="surat_izin">Upload Legal Business Document</label>
                 <input type="file" id="surat_izin" name="surat_izin" accept=".pdf,.doc,.docx,.jpg,.png" required>
             </div>
 
             <div class="form-group">
-                <label>Unggah 6 Foto Terbaik Tempat Wisata (Wajib)</label>
+                <label>Upload 6 images of your property</label>
                 <div class="photo-grid">
                     <?php for ($i = 1; $i <= 6; $i++): ?>
                     <div class="photo-upload-box">
@@ -138,11 +138,11 @@ if (isset($_POST['submit'])) {
                     </div>
                     <?php endfor; ?>
                 </div>
-                 <small class="form-hint">Pilih 6 gambar dengan format JPG, JPEG, atau PNG.</small>
+                 <small class="form-hint">Choose 6 images with JPG, JPEG, atau PNG extension.</small>
             </div>
 
             <div class="form-group">
-                <button type="submit" name="submit" class="submit-btn">Tambah Data Wisata</button>
+                <button type="submit" name="submit" class="submit-btn">Add property</button>
             </div>
         </form>
     </div>
