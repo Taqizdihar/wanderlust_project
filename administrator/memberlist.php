@@ -1,8 +1,7 @@
 <?php
 // Sisipkan file konfigurasi database
-require_once 'config.php';
-?>
 
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
