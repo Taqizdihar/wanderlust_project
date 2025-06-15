@@ -1,6 +1,7 @@
 <?php
 // Sisipkan file konfigurasi database
-require_once 'config.php';
+include 'index.php';
+
 ?>
 
 <!DOCTYPE html>
