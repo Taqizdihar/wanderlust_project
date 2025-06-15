@@ -10,7 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
         $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata', 'addPaket', 'daftarPaket'];
-        $pages_admin = ['acc', 'accwisata', 'accpengolah', 'acctransaksi', 'member' ,'dashboardAdmin', 'pengolahStatus', 'accproperti', 'propertiStatus', 'verifikasiTopUp'];
+        $pages_admin = ['acc', 'accwisata', 'accpengolah', 'acctransaksi', 'member' ,'dashboardAdmin', 'pengolahStatus', 'accproperti', 'propertiStatus', 'verifikasiTopUp', 'memberlist'];
         $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'riwayatReservasi'];
         
         if (in_array($page, $pages_umum)) {
@@ -23,6 +23,7 @@ if (session_status() === PHP_SESSION_NONE) {
             include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {
             include "pengguna/$page.php";
+            
         } else {
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
         }
