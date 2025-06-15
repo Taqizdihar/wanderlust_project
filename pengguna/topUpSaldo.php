@@ -1,109 +1,87 @@
 <?php
-$balance = 5000000;
+// Koneksi ke database
+$host = "localhost";
+$user = "root";
+$password = "";
+$database = "wanderlust";
+
+$conn = new mysqli($host, $user, $password, $database);
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
+}
+
+// Mulai sesi
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+$message = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_SESSION['user_id'];
+    $jumlah = $_POST['jumlah'];
+    $metode = $_POST['metode'];
+
+    $stmt = $conn->prepare("INSERT INTO topup (user_id, jumlah, metode_pembayaran) VALUES (?, ?, ?)");
+    $stmt->bind_param("ids", $user_id, $jumlah, $metode);
+
+    if ($stmt->execute()) {
+        // Setelah sukses, redirect ke halaman Saldo via indeks.php
+        header("Location: indeks.php?page=Saldo&status=sukses");
+        exit();
+    } else {
+        $message = "Gagal melakukan top up: " . $conn->error;
+    }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Top Up Saldo - Wanderlust</title>
-  <link rel="stylesheet" href="cssPengguna/riwayatTransaksi.css">
-  <link rel="stylesheet" href="cssPengguna/topUpSaldo.css">
+    <meta charset="UTF-8">
+    <title>Top Up Saldo - Wanderlust</title>
+    <link rel="stylesheet" href="pengguna/cssPengguna/topUpSaldo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<header class="header">
-    <div class="header-left">
-      <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
-      <div class="logo-text">Wanderlust</div>
-    </div>
-    <div class="header-center">
-      <input type="text" class="search-bar" placeholder="Search" />
-    </div>
-    <nav class="header-right">
-      <a href="#">Option 3</a>
-      <a href="#">Option 2</a>
-      <a href="#">Option 1</a>
-      <img src="profile.jpg" alt="Profile" class="profile-img">
-    </nav>
-  </header>
+<?php include 'Header.php'; ?>
 
-<div class="content-container">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="balance-box">
-      <div>Balance</div>
-      Rp. <?= number_format($balance, 0, ',', '.') ?>
-    </div>
-    <div class="option">Option 1</div>
-    <div class="option" style="background: none;">Option 2</div>
-  </div>
+<div class="container" style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+    <h2 class="title">Top Up Saldo</h2>
 
-  <!-- Halaman Top Up -->
-  <div class="transaction-content">
-    <div class="transaction-card">
-      <h2>Top up</h2>
-
-      <div class="topup-section">
-        <!-- E-wallet Tabs -->
-        <div>
-          <label><strong>Select E-Wallet</strong></label>
-          <div class="e-wallet-tabs">
-            <button class="active">Option 1</button>
-            <div class="divider"></div>
-            <button class="inactive">Option 2</button>
-            <div class="divider"></div>
-            <button class="inactive">Option 3</button>
-            <div class="divider"></div>
-            <button class="inactive">Option 4</button>
-          </div>
+    <?php if ($message): ?>
+        <div class="alert" style="color: red; font-weight: bold; margin-bottom: 20px;">
+            <?= htmlspecialchars($message) ?>
         </div>
+    <?php endif; ?>
 
-        <!-- Nominal Top Up -->
-        <div>
-          <label><strong>Select Top Up Amount</strong></label>
-          <div class="amount-buttons">
-            <button>Rp. 100.000</button>
-            <button>Rp. 200.000</button>
-            <button>Rp. 300.000</button>
-            <button>Rp. 400.000</button>
-            <button>Rp. 500.000</button>
-            <button>Rp. 1.000.000</button>
-          </div>
-          <input type="text" placeholder="Custom amount...">
-        </div>
+    <form method="post" class="topup-section">
+        <label for="jumlah">Jumlah Top Up (Rp):</label>
+        <input type="number" name="jumlah" id="jumlah" required min="1000" step="1000" placeholder="Masukkan nominal">
 
-        <!-- Tombol Top Up -->
-        <button class="topup-btn">Top up</button>
-      </div>
+        <label for="metode">Metode Pembayaran:</label>
+        <select name="metode" id="metode" required style="padding: 10px; border-radius: 6px; border: 2px solid #0077cc; margin-top: 10px;">
+            <option value="gopay">GoPay</option>
+            <option value="dana">DANA</option>
+            <option value="shopeepay">ShopeePay</option>
+            <option value="bank_transfer">Bank Transfer</option>
+            <option value="lainnya">Lainnya</option>
+        </select>
+
+        <button type="submit" class="topup-btn">Kirim Permintaan Top Up</button>
+    </form>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="indeks.php?page=Saldo" style="text-decoration: none; color: #0077cc;">← Kembali ke Saldo</a>
     </div>
-  </div>
 </div>
 
-<footer class="footer">
-    <div class="footer-top">
-      <div class="footer-left">
-        <div class="footer-logo">
-          <img src="logo.png" alt="Wanderlust Logo" class="logo-img">
-          <span class="logo-text">Wanderlust</span>
-        </div>
-      </div>
-      <div class="footer-links">
-        <a href="#">Tentang Kami</a>
-        <a href="#">Kontak Kami</a>
-        <a href="#">FAQs</a>
-        <a href="#">Komunitas</a>
-        <a href="#">Tips & Tik</a>
-        <a href="#">Promo</a>
-        <a href="#">Profil</a>
-        <a href="#">Agenda</a>
-        <a href="#">Home</a>
-      </div>
-    </div>
-    <div class="footer-center">
-      Copyright © 2025 Wanderlust. All rights reserved
-    </div>
-  </footer>
-  
+<?php include 'Footer.php'; ?>
+
 </body>
 </html>
