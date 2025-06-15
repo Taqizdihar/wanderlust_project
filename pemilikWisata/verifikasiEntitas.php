@@ -114,8 +114,8 @@ if (isset($_POST['submit'])) {
         <div class="input-group">
           <label for="gender">Gender</label>
           <select id="gender" name="gender" required>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
         <div class="input-group">
