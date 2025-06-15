@@ -1,6 +1,19 @@
 <?php
 include "config.php";
 
+if (isset($_POST['tambah_favorit'])) {
+    $tempatwisata_id = $_POST['tempatwisata_id'];
+    $wisatawan_id = $_SESSION['user_id'];
+
+    $cekQuery = "SELECT * FROM wishlist WHERE wisatawan_id = '$wisatawan_id' AND tempatwisata_id = '$tempatwisata_id'";
+    $cekResult = mysqli_query($conn, $cekQuery);
+
+    if (mysqli_num_rows($cekResult) == 0) {
+        $sqlInsert = "INSERT INTO wishlist (wisatawan_id, tempatwisata_id) VALUES ('$wisatawan_id', '$tempatwisata_id')";
+        mysqli_query($conn, $sqlInsert);
+    }
+}
+
 $ID = $_SESSION['user_id'];
 $tempatwisata_id = $_GET['tempatwisata_id'];
 
@@ -33,6 +46,7 @@ $avg_rating = round($ratingData['avg_rating'], 1);
 $total_reviews = $ratingData['total_reviews'];
 
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
