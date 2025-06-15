@@ -82,7 +82,7 @@ while ($row = mysqli_fetch_assoc($query)) {
             </div>
             <div class="actions">
                 <a href="indeks.php?page=editWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="see">Edit</a>
-                <a href="indeks.php?page=editWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="edit">Manage Packages</a>
+                <a href="indeks.php?page=daftarPaket&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="edit">Manage Packages</a>
                 <a href="indeks.php?page=deleteWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="delete" onclick="return confirm('Are you sure you want to delete this property? Action cannot be undone')">Delete</a>
             </div>
         </div>
