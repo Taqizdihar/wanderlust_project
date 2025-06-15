@@ -32,7 +32,7 @@ $member = mysqli_fetch_all($query, MYSQLI_ASSOC);
     <main class="main">
       <div class="main">
         <div class="card">
-          <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.<strong></strong>
+          <strong>!</strong> Selamat datang di area admin.<strong></strong>
         </div>
       </div>
       <div class="main">
