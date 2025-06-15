@@ -1,73 +1,162 @@
 <?php
-include "config.php";
-// administrator/memberlist.php
-// Halaman untuk menampilkan daftar anggota (member list)
+include 'config.php';
 
-// Tampilkan error saat pengembangan
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+$sql = "SELECT * FROM user";
+$result = mysqli_query($conn, $sql);
 
-// Pastikan koneksi database sudah tersedia dari indeks.php
-if (!isset($conn)) {
-    // Sesuaikan jalur jika koneksi.php ada di tempat lain
-    require_once '../koneksi.php';
-}
-
-// Ambil data anggota dari database
-$sql = "SELECT id, nama, email, role, status FROM users ORDER BY id DESC";
-$result = $conn->query($sql);
-
-// Jika query gagal, tampilkan pesan error
 if (!$result) {
-    echo "<p>Terjadi kesalahan dalam mengambil data: " . $conn->error . "</p>";
-    exit;
+    die("Terjadi kesalahan dalam mengambil data: " . mysqli_error($conn));
 }
 ?>
 
-<div class="page-content">
-    <h2>Daftar Anggota Sistem</h2>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Member</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <?php if ($result->num_rows > 0) : ?>
-        <table class="data-table" border="1" cellspacing="0" cellpadding="8">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama</th>
-                    <th>Email</th>
-                    <th>Peran (Role)</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $result->fetch_assoc()) : ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($row['id']); ?></td>
-                        <td><?php echo htmlspecialchars($row['nama']); ?></td>
-                        <td><?php echo htmlspecialchars($row['email']); ?></td>
-                        <td><?php echo htmlspecialchars($row['role']); ?></td>
-                        <td>
-                            <?php
-                            $status_class = '';
-                            if ($row['status'] == 'active') {
-                                $status_class = 'status-active';
-                            } elseif ($row['status'] == 'inactive') {
-                                $status_class = 'status-inactive';
-                            } elseif ($row['status'] == 'pending') {
-                                $status_class = 'status-pending';
-                            }
-                            ?>
-                            <span class="<?php echo $status_class; ?>">
-                                <?php echo htmlspecialchars(ucfirst($row['status'])); ?>
-                            </span>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    <?php else : ?>
-        <p>Tidak ada anggota yang ditemukan di database.</p>
-    <?php endif; ?>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f7fa;
+        }
 
-    <?php $conn->close(); ?>
+        .sidebar {
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #1e4db7;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-header p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .sidebar-header strong {
+            font-size: 20px;
+        }
+
+        .sidebar-menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-menu li {
+            margin: 5px 0;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: #163a8a;
+            border-left: 4px solid #fff;
+            padding-left: 16px;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f0f0f0;
+        }
+
+        table tr:hover {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ✅ Sidebar -->
+<div class="sidebar">
+    <div class="sidebar-header">
+        <p>Hi, Admin<br><strong>r</strong></p>
+    </div>
+    <ul class="sidebar-menu">
+        <li><a href="indeks.php?page=dashboardAdmin"><i class="fas fa-globe"></i> Dashboard</a></li>
+        <li><a href="indeks.php?page=accpengolah"><i class="fas fa-user-check"></i> Owner Verification</a></li>
+        <li><a href="indeks.php?page=accwisata"><i class="fas fa-home"></i> Property Verification</a></li>
+        <li><a href="indeks.php?page=verifikasiTopUp"><i class="fas fa-wallet"></i> Verifikasi Top Up</a></li>
+        <li><a href="indeks.php?page=transactionVerification"><i class="fas fa-file-invoice-dollar"></i> Transaction Verification</a></li>
+        <li><a href="indeks.php?page=memberlist"><i class="fas fa-users"></i> Member List</a></li>
+        <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
 </div>
+
+<!-- ✅ Konten -->
+<div class="main-content">
+    <h2>Daftar Member</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Email</th>
+            <th>No Telepon</th>
+            <th>Gender</th>
+            <th>Tanggal Lahir</th>
+            <th>Role</th>
+            <th>Saldo</th>
+        </tr>
+
+        <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+            <tr>
+                <td><?= htmlspecialchars($row['user_id']) ?></td>
+                <td><?= htmlspecialchars($row['name']) ?></td>
+                <td><?= htmlspecialchars($row['email']) ?></td>
+                <td><?= htmlspecialchars($row['no_telepon']) ?></td>
+                <td><?= htmlspecialchars($row['gender']) ?></td>
+                <td><?= htmlspecialchars($row['tanggal_lahir']) ?></td>
+                <td><?= htmlspecialchars($row['role']) ?></td>
+                <td><?= htmlspecialchars($row['saldo']) ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+</div>
+
+</body>
+</html>
