@@ -9,6 +9,7 @@ if (isset($_POST['submit'])) {
     $deskripsi = $_POST['deskripsi'];
     $harga = $_POST['harga'];
     $jumlah = $_POST['jumlah'];
+    $foto_paket = $_FILES['foto_paket'];
 
     if (isset($suratIzin)) {
     $uploadSIUP = 'pemilikWisata/foto/dokumen/'.basename($suratIzin['name']);
@@ -24,20 +25,6 @@ if (isset($_POST['submit'])) {
                          VALUES ('$ID', '$nama_paket', '$deskripsi', '$jenis_wisata', '$waktu_buka', '$waktu_tutup', '$deskripsi', '$sumir', '$nomor_pic', '$uploadSuratIzin', '$status')";
     $queryTempatWisata = mysqli_query($conn, $sqlTempatWisata);
 
-    $tempatwisata_id = mysqli_insert_id($conn);
-
-    if (isset($_FILES['foto_wisata']) && count($_FILES['foto_wisata']['name']) == 6) {
-        for ($i = 0; $i < 6; $i++) {
-            $uploadFoto = 'pemilikWisata/foto/'.basename($_FILES["foto_wisata"]["name"][$i]);
-            if (move_uploaded_file($_FILES['foto_wisata']['tmp_name'][$i], $uploadFoto)) {
-                $link_foto = $uploadFoto;
-                $urutan = $i + 1;
-                $sqlFotoWisata = "INSERT INTO fotowisata (tempatwisata_id, link_foto, urutan) VALUES ('$tempatwisata_id', '$link_foto', '$urutan')";
-                $queryFoto = mysqli_query($conn, $sqlFotoWisata);
-            }
-        }
-    }
-
     if (mysqli_affected_rows($conn) != 0) {
         header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarWisata");
         exit();
@@ -52,7 +39,7 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Tambah Tempat Wisata</title>
+    <title>Add new package</title>
     <link rel="stylesheet" href="pemilikWisata/cssWisata/addWisata.css">
 </head>
 <body>
@@ -62,7 +49,12 @@ if (isset($_POST['submit'])) {
         <p class="subtitle">Fill all necessary informations for the package below</p>
 
         <form action="" method="post" enctype="multipart/form-data">
-            
+            <div class="foto-upload">
+                <label for="foto_paket">Foto Paket Wisata:</label>
+                <input type="file" name="foto_paket" id="foto_paket" accept="image/*" onchange="previewFoto()">
+                <img id="preview" src="#" alt="Pratinjau Foto">
+            </div>
+ 
             <div class="form-group">
                 <label for="nama_paket">Package Name</label>
                 <input type="text" id="nama_paket" name="nama_paket" required placeholder="Example: Family Package">
@@ -88,5 +80,24 @@ if (isset($_POST['submit'])) {
             </div>
         </form>
     </div>
+
+    <script>
+    function previewFoto() {
+        const input = document.getElementById('foto_paket');
+        const preview = document.getElementById('preview');
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
+
 </body>
 </html>
