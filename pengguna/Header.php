@@ -108,7 +108,7 @@ $fotoProfil = mysqli_fetch_assoc($query);
         </div>
 
         <nav class="nav-links">
-            <a href="notFound.php">My Tickets</a>
+            <a href="indeks.php?page=riwayatReservasi">My Tickets</a>
             <a href="indeks.php?page=Favorit">Bookmark</a>
             <a href="notFound.php">Rating</a>
             <a href="indeks.php?page=Profil">

@@ -24,8 +24,8 @@ $profil = mysqli_fetch_assoc($query);
     <aside class="sidebar">
       <img src="pengguna/foto/<?= $profil['foto_profil'];?>" class="profile-pic" alt="Profile Picture">
       <ul class="menu-options">
-        <li><a href="indeks.php?page=Saldo">My Balance</a></li>
-        <li><a href="notFound.php">My Tickets</a></li>
+        <li><a href="notFound.php">My Balance</a></li>
+        <li><a href="indeks.php?page=riwayatReservasi">My Tickets</a></li>
         <li><a href="indeks.php?page=Favorit">My Bookmark</a></li>
         <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
       </ul>
