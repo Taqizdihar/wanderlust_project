@@ -1,4 +1,5 @@
 <?php
+include "config.php";
 // administrator/memberlist.php
 // Halaman untuk menampilkan daftar anggota (member list)
 
