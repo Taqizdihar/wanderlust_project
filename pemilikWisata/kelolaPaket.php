@@ -4,57 +4,38 @@ include "config.php";
 $ID = $_SESSION['user_id'];
 $paket_id = $_GET['paket_id'];
 
-$sqlGetPaket = "SELECT * FROM paketwisata WHERE paketwisata_id = '$paketwisata_id'";
+$sqlGetPaket = "SELECT * FROM paketwisata WHERE paket_id = '$paket_id'";
 $queryGetPaket = mysqli_query($conn, $sqlGetPaket);
 $data_paket = mysqli_fetch_assoc($queryGetPaket);
 
-// Mengecek jika form disubmit
 if (isset($_POST['submit'])) {
-    // Mengambil data baru dari form
     $nama_paket_baru = $_POST['nama_paket'];
     $deskripsi_baru = $_POST['deskripsi'];
     $harga_baru = $_POST['harga'];
     $jumlah_baru = $_POST['jumlah'];
     $foto_paket_baru = $_FILES['foto_paket'];
 
-    // 2. Percabangan sederhana untuk menangani input yang tidak diisi
-    // Jika input kosong, gunakan data lama. Jika diisi, gunakan data baru.
     $nama_paket = !empty($nama_paket_baru) ? $nama_paket_baru : $data_paket['nama_paket'];
     $deskripsi = !empty($deskripsi_baru) ? $deskripsi_baru : $data_paket['deskripsi'];
     $harga = !empty($harga_baru) ? $harga_baru : $data_paket['harga'];
     $jumlah = !empty($jumlah_baru) ? $jumlah_baru : $data_paket['jumlah_tiket'];
 
-    // 3. Percabangan untuk menangani upload foto baru
-    // Cek apakah ada file baru yang diunggah
     if (isset($foto_paket_baru) && $foto_paket_baru['error'] == 0) {
         $uploadFotoPaket = 'pemilikWisata/foto/paketWisata/'.basename($foto_paket_baru['name']);
         
-        // Pindahkan file yang diunggah
         if (move_uploaded_file($foto_paket_baru['tmp_name'], $uploadFotoPaket)) {
             $uploadNewPaket = $foto_paket_baru['name'];
         } else {
-            // Jika gagal upload, tetap gunakan foto lama
             $uploadNewPaket = $data_paket['foto_paket'];
         }
     } else {
-        // Jika tidak ada file baru yang diunggah, gunakan nama foto yang lama
         $uploadNewPaket = $data_paket['foto_paket'];
     }
 
-    // 4. SQL Query untuk UPDATE data
-    $sqlPaketWisata = "UPDATE paketwisata 
-                         SET foto_paket = '$uploadNewPaket', 
-                             nama_paket = '$nama_paket', 
-                             deskripsi = '$deskripsi', 
-                             harga = '$harga', 
-                             jumlah_tiket = '$jumlah' 
-                         WHERE paketwisata_id = '$paketwisata_id'";
-    
+    $sqlPaketWisata = "UPDATE paketwisata SET foto_paket = '$uploadNewPaket', nama_paket = '$nama_paket', deskripsi = '$deskripsi', harga = '$harga', jumlah_tiket = '$jumlah' WHERE paket_id = '$paket_id'";
     $queryPaket = mysqli_query($conn, $sqlPaketWisata);
 
-    // Cek apakah query berhasil dan ada baris yang terpengaruh
-    if ($queryPaket) {
-        // Redirect ke halaman daftar paket jika berhasil
+    if (mysqli_affected_rows($conn) != 0) {
         header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarPaket");
         exit();
     } else {

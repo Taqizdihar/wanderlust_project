@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "config.php";
 $warning = "";
 
@@ -8,22 +9,24 @@ if (isset($_POST['loginBtn'])) {
 
     $sqlStatement = "SELECT * FROM user WHERE email = '$email'";
     $query = mysqli_query($conn, $sqlStatement);
-    $registeredUser = mysqli_fetch_ASSOC($query);
+    $registeredUser = mysqli_fetch_assoc($query);
 
     if ($registeredUser) {
         if (password_verify($password, $registeredUser['password'])) {
+           
             $_SESSION['user_id'] = $registeredUser['user_id'];
+            $_SESSION['id'] = $registeredUser['user_id']; 
             $_SESSION['email'] = $registeredUser['email'];
             $_SESSION['role'] = $registeredUser['role'];
 
             if ($registeredUser['role'] == 'wisatawan') {
-                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=Home");
+                header("location: indeks.php?page=Home");
                 exit();
             } else if ($registeredUser['role'] == 'pw') {
-                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata");
+                header("location: indeks.php?page=dashboardWisata");
                 exit();
             } else if ($registeredUser['role'] == 'admin') {
-                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardAdmin");
+                header("location: indeks.php?page=dashboardAdmin");
                 exit();
             }
         } else {
@@ -40,10 +43,8 @@ mysqli_close($conn);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
     <link rel="stylesheet" href="Umum/cssUmum/login.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 <body>
     <h2>Welcome back!</h2>
@@ -51,7 +52,7 @@ mysqli_close($conn);
         <h3>Log In</h3>
 
         <?php if (!empty($warning)) : ?>
-        <p id="warning"><?= $warning?></p>
+        <p id="warning"><?= $warning ?></p>
         <?php endif; ?>
 
         <form method="post" action="">
@@ -69,7 +70,6 @@ mysqli_close($conn);
             <input type="submit" value="Log In" name="loginBtn" id="submitButton">
             <div class="login-footer">
                 <p>Don't have any account? <a href="indeks.php?page=choice">Sign In</a></p>
-                <br>
                 <a href="indeks.php?page=homeUmum" id="backButton">Back to the start</a>
             </div>
         </form>
