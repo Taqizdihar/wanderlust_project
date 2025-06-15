@@ -1,6 +1,6 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
-include 'config.php'; 
+include 'config.php';
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -9,14 +9,11 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 
-$stmt = $conn->prepare("SELECT SUM(jumlah) AS total_saldo FROM topup WHERE user_id = ? AND status = 'disetujui'");
-$stmt->bind_param("i", $user_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$data = $result->fetch_assoc();
-$total_saldo = $data['total_saldo'] ?? 0;
+$query = mysqli_query($conn, "SELECT saldo FROM user WHERE user_id = $user_id");
+$data = mysqli_fetch_assoc($query);
+$total_saldo = $data['saldo'] ?? 0;
 
-include 'Header.php'; 
+include 'Header.php';
 ?>
 
 <link rel="stylesheet" href="pengguna/cssPengguna/Saldo.css">
@@ -43,14 +40,15 @@ include 'Header.php';
         <h2 class="riwayat-title">Riwayat Top Up Terbaru</h2>
         <div class="riwayat-list">
             <?php
-            $stmt2 = $conn->prepare("SELECT jumlah, metode_pembayaran, status, tanggal_pengajuan 
-                                     FROM topup WHERE user_id = ? ORDER BY tanggal_pengajuan DESC LIMIT 5");
-            $stmt2->bind_param("i", $user_id);
-            $stmt2->execute();
-            $riwayat = $stmt2->get_result();
+            $riwayat = mysqli_query($conn, "
+                SELECT jumlah, metode_pembayaran, status, tanggal_pengajuan 
+                FROM topup 
+                WHERE user_id = $user_id 
+                ORDER BY tanggal_pengajuan DESC LIMIT 5
+            ");
 
-            if ($riwayat->num_rows > 0) {
-                while ($row = $riwayat->fetch_assoc()) {
+            if (mysqli_num_rows($riwayat) > 0) {
+                while ($row = mysqli_fetch_assoc($riwayat)) {
                     $statusColor = $row['status'] === 'disetujui' ? 'green' : ($row['status'] === 'menunggu' ? 'orange' : 'red');
                     $sign = $row['status'] === 'disetujui' ? '+' : '';
                     echo "<div class='riwayat-item'>
