@@ -142,7 +142,7 @@ if (isset($_POST['submit'])) {
             </div>
 
             <div class="form-group">
-                <button type="submit" class="submit-btn">Tambah Data Wisata</button>
+                <button type="submit" name="submit" class="submit-btn">Tambah Data Wisata</button>
             </div>
         </form>
     </div>
