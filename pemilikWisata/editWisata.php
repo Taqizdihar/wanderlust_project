@@ -140,8 +140,7 @@ if (isset($_POST['update'])) {
                 <label for="surat_izin">Upload New Legal Business Document (Optional)</label>
                 <p class="current-file">Current file: <?= $tempatWisata['surat_izin']; ?></p>
                 <input type="file" id="surat_izin" name="surat_izin" accept=".pdf,.doc,.docx,.jpg,.png">
-                <!-- Hidden input untuk menyimpan nama file lama -->
-                <input type="hidden" name="old_surat_izin" value="<?php echo htmlspecialchars($dataWisata['surat_izin']); ?>">
+                <input type="hidden" name="old_surat_izin" value="<?= $dataWisata['surat_izin']; ?>">
                 <small class="form-hint">Leave blank if you don't want to change the file.</small>
             </div>
 
@@ -149,7 +148,7 @@ if (isset($_POST['update'])) {
                 <label>Update images of your property (Optional)</label>
                 <div class="photo-grid">
                     <?php for ($i = 1; $i <= 6; $i++): 
-                        $foto_link = isset($fotoTempatWisata[$i]) ? 'pemilikWisata/foto/'$fotoTempatWisata[$i]['link_foto'] : '#';
+                        $foto_link = isset($fotoTempatWisata[$i]) ? 'pemilikWisata/foto/'.basename($fotoTempatWisata[$i]['link_foto']) : '#';
                         $has_foto = isset($fotoTempatWisata[$i]);
                     ?>
                     <div class="photo-upload-box">
