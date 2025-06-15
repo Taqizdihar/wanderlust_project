@@ -25,19 +25,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $foto_instansi = $_FILES['agency_logo']['name'];
     $targetDir = "uploads/";
 
-    if ($foto_profil != "") {
-        move_uploaded_file($_FILES['profile_picture']['tmp_name'], $targetDir . $foto_profil);
-        $updateFotoProfil = ", foto_profil = '$foto_profil'";
-    } else {
-        $updateFotoProfil = "";
-    }
+    if ($foto_profil != "") {
+        move_uploaded_file($_FILES['profile_picture']['tmp_name'], $targetDir . $foto_profil);
+        $updateFotoProfil = ", foto_profil = '$foto_profil'";
+    } else {
+        $updateFotoProfil = "";
+    }
 
-    if ($foto_instansi != "") {
-        move_uploaded_file($_FILES['agency_logo']['tmp_name'], $targetDir . $foto_instansi);
-        $updateFotoInstansi = ", foto_instansi = '$foto_instansi'";
-    } else {
-        $updateFotoInstansi = "";
-    }
+    if ($foto_instansi != "") {
+        move_uploaded_file($_FILES['agency_logo']['tmp_name'], $targetDir . $foto_instansi);
+        $updateFotoInstansi = ", foto_instansi = '$foto_instansi'";
+    } else {
+        $updateFotoInstansi = "";
+    }
 
     if ($npwp != "") {
         move_uploaded_file($_FILES['tax_document']['tmp_name'], $targetDir . $npwp);
@@ -47,11 +47,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         move_uploaded_file($_FILES['business_document']['tmp_name'], $targetDir . $siup);
     }
 
-    $sql_user = "UPDATE user SET nama = '$nama', no_telepon = '$no_telepon', gender = '$gender',
+    $sql_user = "UPDATE user SET nama = '$nama', no_telepon = '$no_telepon', gender = '$gender',
     tanggal_lahir = '$tanggal_lahir' $updateFotoProfil WHERE user_id = $ID";
+    $queryUserUpdate = mysqli_query($conn, $sql_user);
 
-    $sql_pw = "UPDATE pemilikwisata SET jabatan = '$jabatan', instansi = '$instansi', alamat_bisnis = '$alamat_bisnis',
+    $sql_pw = "UPDATE pemilikwisata SET jabatan = '$jabatan', instansi = '$instansi', alamat_bisnis = '$alamat_bisnis',
     npwp = '$npwp', siup = '$siup' $updateFotoInstansi WHERE pw_id = $ID";
+    $queryPWUpdate = mysqli_query($conn, $sql_pw);
     
     if (mysqli_affected_rows($conn) != 0) {
         header("location:indeks.php?page=profilPemilikWisata");
@@ -84,30 +86,30 @@ mysqli_close($conn);
         <div class="picture-placeholder">
           <img src="pemilikWisata/foto/fotoProfil/<?= $profile['foto_profil']?>" alt="Profile Picture Preview" class="profile-pic" id="profilePreview">
           <label for="profilePictureInput" class="change-pic-btn">Change Picture</label>
-          <input type="file" id="profilePictureInput" name="profile_picture" accept="image/*" required>
+          <input type="file" id="profilePictureInput" name="profile_picture" accept="image/*">
         </div>
         <div class="input-group">
           <label for="full_name">Full Name</label>
-          <input type="text" id="full_name" name="full_name" value="<?= $profile['nama']?>" required>
+          <input type="text" id="full_name" name="full_name" value="<?= $profile['nama']?>">
         </div>
         <div class="input-group">
           <label for="position">Position</label>
-          <input type="text" id="position" name="position" value="<?= $PWProfile['jabatan']?>" required>
+          <input type="text" id="position" name="position" value="<?= $PWProfile['jabatan']?>">
         </div>
         <div class="input-group">
           <label for="business_telephone">Business Telephone Number</label>
-          <input type="tel" id="business_telephone" name="business_telephone" value="<?= $profile['no_telepon']?>" required>
+          <input type="tel" id="business_telephone" name="business_telephone" value="<?= $profile['no_telepon']?>">
         </div>
         <div class="input-group">
           <label for="gender">Gender</label>
-          <select id="gender" name="gender" value="<?= $profile['gender']?>" required>
+          <select id="gender" name="gender" value="<?= $profile['gender']?>">
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </div>
         <div class="input-group">
           <label for="birthdate">Birthdate</label>
-          <input type="date" id="birthdate" name="birthdate" value="<?= $profile['tanggal_lahir']?>" required>
+          <input type="date" id="birthdate" name="birthdate" value="<?= $profile['tanggal_lahir']?>">
         </div>
       </div>
 
@@ -116,23 +118,23 @@ mysqli_close($conn);
         <div class="picture-placeholder">
           <img src="pemilikWisata/foto/fotoProfil/<?= $PWProfile['foto_instansi']?>" alt="Agency Logo Preview" class="logo-pic" id="logoPreview">
           <label for="logoInput" class="change-pic-btn">Change Picture</label>
-          <input type="file" id="logoInput" name="agency_logo" accept="image/*" required>
+          <input type="file" id="logoInput" name="agency_logo" accept="image/*">
         </div>
          <div class="input-group">
           <label for="position">Agency Name</label>
-          <input type="text" id="agency" name="agency" value="<?= $PWProfile['instansi']?>" required>
+          <input type="text" id="agency" name="agency" value="<?= $PWProfile['instansi']?>">
         </div>
         <div class="input-group">
           <label for="business_address">Business Address</label>
-          <textarea id="business_address" name="business_address" placeholder="<?= $PWProfile['alamat_bisnis']?>" required></textarea>
+          <textarea id="business_address" name="business_address" placeholder="<?= $PWProfile['alamat_bisnis']?>" value="<?= $PWProfile['alamat_bisnis']?>"></textarea>
         </div>
         <div class="input-group-doc">
           <label for="tax_document">Upload Tax Document <i class="fa-solid fa-arrow-up-from-bracket"></i></label>
-          <input type="file" id="tax_document" name="tax_document" accept=".pdf,.doc,.docx" required>
+          <input type="file" id="tax_document" name="tax_document" accept=".pdf,.doc,.docx" value="<?= $PWProfile['npwp']?>">
         </div>
         <div class="input-group-doc">
           <label for="business_document">Upload Business Document <i class="fa-solid fa-arrow-up-from-bracket"></i></label>
-          <input type="file" id="business_document" name="business_document" accept=".pdf,.doc,.docx" required>
+          <input type="file" id="business_document" name="business_document" accept=".pdf,.doc,.docx" value="<?= $PWProfile['siup']?>">
         </div>
       </div>
     </div>
