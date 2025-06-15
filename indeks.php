@@ -17,6 +17,8 @@ if (session_status() === PHP_SESSION_NONE) {
             include "Umum/$page.php";
         } else if (in_array($page, $pages_pw)) {
             include "pemilikWisata/$page.php";
+         } else if (in_array($page, $pages_pw)) {
+            include "ownerverification/$page.php";
         } else if (in_array($page, $pages_admin)) {
             include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {

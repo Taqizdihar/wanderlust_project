@@ -1,35 +1,84 @@
 <?php
+// config.php harus ada di direktori yang sama atau path yang benar
 include "config.php";
 
-if (session_status() === PHP_SESSION_NONE) session_start();
+// Memulai session jika belum ada
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
+// Mengambil parameter 'page' dari URL atau default ke string kosong
 $page = $_GET['page'] ?? '';
+
+// Mengambil user_id dari session, default ke 0 jika tidak ada
 $ID = $_SESSION['user_id'] ?? 0;
 
 $profile = [];
 if ($ID) {
+    // Menggunakan prepared statement untuk keamanan
     $stmt = mysqli_prepare($conn, "SELECT * FROM user WHERE user_id = ?");
-    mysqli_stmt_bind_param($stmt, "i", $ID);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $profile = mysqli_fetch_assoc($result);
-    mysqli_stmt_close($stmt);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $ID);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $profile = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
+    } else {
+        // Handle error jika prepared statement gagal
+        error_log("Failed to prepare statement for user profile: " . mysqli_error($conn));
+    }
+} else {
+    // Default profile data jika user belum login atau ID tidak ditemukan
+    $profile = [
+        'nama' => 'Guest',
+        'role' => 'Guest',
+        'profile_pic_url' => 'https://via.placeholder.com/45/cccccc/ffffff?text=U' // Default avatar for guest
+    ];
 }
 
+
+// Query untuk anggota baru
 $sqlStatement = "SELECT user_id, nama, email, role FROM user WHERE role IN ('wisatawan', 'pw') ORDER BY user_id DESC LIMIT 5";
 $query = mysqli_query($conn, $sqlStatement);
-$recent_members = mysqli_fetch_all($query, MYSQLI_ASSOC);
+$recent_members = [];
+if ($query) {
+    $recent_members = mysqli_fetch_all($query, MYSQLI_ASSOC);
+} else {
+    error_log("Error fetching recent members: " . mysqli_error($conn));
+}
 
+
+// Query untuk total members
 $sqlStatement = "SELECT user_id FROM user WHERE role IN ('wisatawan', 'pw')";
 $query = mysqli_query($conn, $sqlStatement);
-$total_members = mysqli_num_rows($query);
+$total_members = 0;
+if ($query) {
+    $total_members = mysqli_num_rows($query);
+} else {
+    error_log("Error fetching total members: " . mysqli_error($conn));
+}
 
+
+// Query untuk total properties
 $sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
 $query = mysqli_query($conn, $sqlStatement);
-$total_properties = mysqli_num_rows($query);
+$total_properties = 0;
+if ($query) {
+    $total_properties = mysqli_num_rows($query);
+} else {
+    error_log("Error fetching total properties: " . mysqli_error($conn));
+}
 
+
+// Query untuk pending top up
 $sqlPending = mysqli_query($conn, "SELECT COUNT(*) AS jumlah FROM topup WHERE status = 'menunggu'");
-$pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
+$pendingTopup = 0;
+if ($sqlPending) {
+    $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
+} else {
+    error_log("Error fetching pending topups: " . mysqli_error($conn));
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +88,7 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Admin</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
   <style>
@@ -53,16 +102,16 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
     :root {
       --primary-color: #1e4db7; /* Deep Blue */
       --secondary-color: #163c94; /* Darker Blue */
-      --accent-color: #4CAF50; /* Green accent for active */
+      --accent-color: #4CAF50; /* Green accent for active link */
       --background-light: #f4f6f9; /* Light Gray Background */
       --card-background: #fff; /* White Card Background */
       --text-dark: #333; /* Dark Gray Text */
       --text-medium: #666; /* Medium Gray Text */
       --text-light: #999; /* Light Gray Text */
       --border-color: #e5e5e5; /* Light Gray Border */
-      --shadow-light: 0 4px 12px rgba(0,0,0,0.08);
-      --success-color: #28a745;
-      --info-color: #007bff;
+      --shadow-light: 0 4px 12px rgba(0,0,0,0.08); /* Default shadow */
+      --success-color: #28a745; /* Bootstrap green */
+      --info-color: #007bff; /* Bootstrap blue */
       --alert-success-bg: #d4edda;
       --alert-success-text: #155724;
       --alert-success-border: #c3e6cb;
@@ -74,15 +123,15 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
       line-height: 1.6;
       color: var(--text-dark);
       min-height: 100vh;
-      display: flex;
+      display: flex; /* Use flex to ensure content fills body */
       flex-direction: column;
     }
 
     /* Dashboard Layout */
     .dashboard-container {
       display: flex;
-      flex: 1;
-      min-height: 100vh;
+      flex: 1; /* Allow container to grow and fill available space */
+      min-height: 100vh; /* Ensure it takes full viewport height */
     }
 
     /* === Sidebar Specific Styles === */
@@ -108,6 +157,7 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
             left: 0;
             height: 100%;
             transform: translateX(-100%); /* Hidden off-screen */
+            width: 260px; /* Fixed width for mobile slide-out */
         }
         .sidebar.active {
             transform: translateX(0); /* Visible */
@@ -127,7 +177,6 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
         }
     }
 
-
     .sidebar-header {
       padding: 0 2rem 2rem; /* Adjusted padding */
       border-bottom: 1px solid rgba(255,255,255,0.2); /* Slightly stronger border */
@@ -144,7 +193,7 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
     }
 
     /* This div wraps the include "viewsAdmin.php"; */
-    /* Assuming viewsAdmin.php outputs <ul><li><a>... structure directly */
+    /* Assuming viewsAdmin.php outputs <nav><ul><li><a>... structure directly */
     .sidebar-nav-container {
       flex: 1;
       overflow-y: auto; /* Enable scrolling for navigation items */
@@ -152,18 +201,18 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
       padding-bottom: 2rem; /* Add padding at the bottom */
     }
 
-    /* Target direct children of the included viewsAdmin.php if it's a <ul> */
-    .sidebar-nav-container > ul {
+    /* Target direct children of the included viewsAdmin.php if it's a <nav> */
+    .sidebar-nav-container > nav > ul { /* Adjusted selector for <nav> wrapper */
         list-style: none;
         padding: 0 1.5rem; /* Padding for menu items */
         margin: 0;
     }
 
-    .sidebar-nav-container > ul > li {
+    .sidebar-nav-container > nav > ul > li { /* Adjusted selector for <nav> wrapper */
         margin-bottom: 0.75rem; /* More space between items */
     }
 
-    .sidebar-nav-container > ul > li > a {
+    .sidebar-nav-container > nav > ul > li > a { /* Adjusted selector for <nav> wrapper */
         display: flex;
         align-items: center;
         padding: 1rem 1.25rem; /* Generous padding */
@@ -176,31 +225,31 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
         gap: 1rem; /* Space between icon and text */
     }
 
-    .sidebar-nav-container > ul > li > a i {
+    .sidebar-nav-container > nav > ul > li > a i { /* Adjusted selector for <nav> wrapper */
         font-size: 1.25rem; /* Larger icons */
         color: rgba(255,255,255,0.7); /* Slightly muted icon color */
         transition: color 0.3s ease;
     }
 
-    .sidebar-nav-container > ul > li > a:hover {
+    .sidebar-nav-container > nav > ul > li > a:hover { /* Adjusted selector for <nav> wrapper */
         background-color: rgba(255,255,255,0.1); /* Lighter hover background */
         transform: translateX(8px); /* More pronounced slide effect */
         color: #fff;
     }
 
-    .sidebar-nav-container > ul > li > a:hover i {
+    .sidebar-nav-container > nav > ul > li > a:hover i { /* Adjusted selector for <nav> wrapper */
         color: #fff; /* Icons turn white on hover */
     }
 
     /* Active link styling */
-    .sidebar-nav-container > ul > li > a.active {
+    .sidebar-nav-container > nav > ul > li > a.active { /* Adjusted selector for <nav> wrapper */
         background-color: var(--secondary-color); /* Darker blue for active */
         font-weight: 600; /* Bolder text for active */
         box-shadow: inset 5px 0 0 var(--accent-color); /* Stronger accent line */
         color: #fff;
     }
 
-    .sidebar-nav-container > ul > li > a.active i {
+    .sidebar-nav-container > nav > ul > li > a.active i { /* Adjusted selector for <nav> wrapper */
         color: var(--accent-color); /* Active icon color */
     }
     /* === End Sidebar Specific Styles === */
@@ -208,7 +257,7 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
 
     /* Main Content Area */
     .main-content {
-      flex: 1;
+      flex: 1; /* Allow main content to grow and fill remaining space */
       display: flex;
       flex-direction: column;
       background: var(--background-light);
@@ -224,8 +273,8 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       z-index: 1000;
-      flex-wrap: wrap;
-      gap: 1rem;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      gap: 1rem; /* Gap between header elements */
     }
 
     .header-left {
@@ -257,12 +306,24 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
             display: block; /* Show on mobile */
         }
         .header-left {
-            order: 2; /* Move search bar to the right */
-            flex-grow: 1; /* Allow search bar to grow */
-            justify-content: flex-end; /* Push search to the right */
+            order: 1; /* Keep menu toggle and title together */
+            flex-grow: 0;
+            justify-content: flex-start;
         }
         .header-left h1 {
-            display: none; /* Hide dashboard title on small mobile */
+            font-size: 1.4rem; /* Smaller title on mobile */
+            margin-left: 0.5rem;
+        }
+        .search-bar {
+            order: 3; /* Move search bar below */
+            width: 100%; /* Full width search bar */
+            margin-top: 0.8rem; /* Space from elements above */
+        }
+        .header-right {
+            order: 2; /* Keep profile/notif to the right */
+            width: auto; /* Adjust width */
+            justify-content: flex-end;
+            margin-left: auto; /* Push to right */
         }
     }
 
@@ -548,144 +609,6 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
       color: #fff;
     }
 
-    /* Responsive Adjustments */
-    @media (max-width: 1024px) {
-      .sidebar {
-        width: 240px;
-      }
-      .sidebar-header {
-        padding: 0 1.5rem 1.5rem;
-      }
-      .sidebar-nav-container > ul {
-        padding: 0 1rem;
-      }
-      .sidebar-nav-container > ul > li > a {
-        padding: 0.8rem 1rem;
-        font-size: 0.95rem;
-      }
-      .sidebar-nav-container > ul > li > a i {
-        font-size: 1.15rem;
-      }
-
-      .header-left {
-        gap: 1rem;
-      }
-      .search-bar {
-        width: 250px;
-        padding: 0.6rem 1rem;
-      }
-      .main-header {
-        padding: 1rem 1.5rem;
-      }
-      .main {
-        padding: 1.5rem;
-        gap: 1.5rem;
-      }
-      .row {
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 1.5rem;
-      }
-      .card {
-        padding: 1.5rem;
-      }
-      .card p {
-        font-size: 2rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .dashboard-container {
-        flex-direction: column;
-      }
-      .sidebar {
-        width: 260px; /* Fixed width for mobile slide-out */
-        height: 100%;
-        padding: 1rem 0;
-        box-shadow: 0 0 15px rgba(0,0,0,0.3);
-        flex-direction: column; /* Ensure content stacks */
-        align-items: stretch; /* Stretch items horizontally */
-      }
-      .sidebar-header {
-        padding: 0 1.5rem 1rem;
-        border-bottom: 1px solid rgba(255,255,255,0.2);
-        margin-bottom: 1rem;
-        text-align: left;
-      }
-      .sidebar-nav-container {
-        padding-right: 0; /* No scrollbar space needed for mobile */
-        padding-bottom: 1rem;
-      }
-      .sidebar-nav-container > ul {
-        padding: 0 1rem; /* Adjust padding for mobile links */
-      }
-      .sidebar-nav-container > ul > li {
-        margin-bottom: 0.5rem;
-      }
-      .sidebar-nav-container > ul > li > a {
-        padding: 0.8rem 1rem; /* Adjust padding for mobile links */
-        font-size: 0.9rem;
-      }
-      .sidebar-nav-container > ul > li > a i {
-        font-size: 1.1rem;
-      }
-
-
-      .main-header {
-        flex-direction: row; /* Keep header items in a row */
-        justify-content: space-between; /* Space out elements */
-        padding: 0.8rem 1rem;
-      }
-      .header-left {
-        width: auto;
-        gap: 1rem;
-        order: 1;
-        flex-grow: 0; /* Do not grow */
-        justify-content: flex-start;
-      }
-      .header-left h1 {
-          font-size: 1.4rem; /* Smaller title */
-          display: block; /* Show title on mobile */
-          margin-right: auto; /* Push search to right */
-      }
-      .search-bar {
-        width: 100%;
-        order: 3; /* Move search bar to new line */
-        margin-top: 0.8rem;
-      }
-      .header-right {
-        width: auto;
-        justify-content: flex-end;
-        gap: 1rem;
-        order: 2;
-      }
-      .profile-box {
-        padding: 0.3rem 0.6rem;
-      }
-      .profile-info {
-        display: none; /* Hide profile text on small screens */
-      }
-      .main {
-        padding: 1rem;
-        gap: 1.2rem;
-      }
-      .row {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-      }
-      .panel {
-        padding: 1rem;
-      }
-      table th, table td {
-        padding: 0.7rem 0.8rem;
-        font-size: 0.85rem;
-      }
-      .role-badge {
-        font-size: 0.75rem;
-        padding: 0.3rem 0.6rem;
-        min-width: 70px;
-      }
-    }
-
     /* JavaScript for Toggle */
     .no-scroll {
         overflow: hidden;
@@ -699,7 +622,11 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
         <h2>Hi, Admin<br><?= htmlspecialchars($profile['nama'] ?? 'Riska Dea Bakri') ?></h2>
       </div>
       <div class="sidebar-nav-container">
-        <?php include "viewsAdmin.php"; ?>
+        <?php
+        // Include viewsAdmin.php di sini
+        // Pastikan viewsAdmin.php hanya berisi <nav> dan <ul> nya
+        include "viewsAdmin.php";
+        ?>
       </div>
     </div>
 
@@ -805,24 +732,29 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
         const urlParams = new URLSearchParams(window.location.search);
         const currentPage = urlParams.get('page');
 
+        // Find all sidebar links within the navigation container
+        const sidebarLinks = document.querySelectorAll('.sidebar-nav-container a');
+
+        // Remove 'active' class from all links first
+        sidebarLinks.forEach(link => {
+            link.classList.remove('active');
+        });
+
         if (currentPage) {
             // Find the link with href containing the current page
+            // Using includes to match partial URLs like 'page=dashboardAdmin'
             const activeLink = document.querySelector(`.sidebar-nav-container a[href*="page=${currentPage}"]`);
             if (activeLink) {
-                // Remove active from any previously active link (if logic elsewhere sets it)
-                const currentActive = document.querySelector('.sidebar-nav-container a.active');
-                if (currentActive) {
-                    currentActive.classList.remove('active');
-                }
                 activeLink.classList.add('active');
             }
         } else {
             // If no 'page' param, default to dashboard or first link
-            const dashboardLink = document.querySelector('.sidebar-nav-container a[href="indeks.php"]');
+            // Assuming 'indeks.php?page=dashboardAdmin' is your main dashboard page
+            const dashboardLink = document.querySelector('.sidebar-nav-container a[href*="page=dashboardAdmin"]');
             if (dashboardLink) {
                 dashboardLink.classList.add('active');
             } else {
-                // Fallback: activate the first link if no specific dashboard link
+                // Fallback: activate the very first link in the sidebar if no specific dashboard link
                 const firstLink = document.querySelector('.sidebar-nav-container a');
                 if (firstLink) {
                     firstLink.classList.add('active');
