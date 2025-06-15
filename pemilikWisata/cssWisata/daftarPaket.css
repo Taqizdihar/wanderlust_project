@@ -1,163 +1,149 @@
-/* Import Font */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    color: #343a40;
+}
 
-        /* Reset dan Gaya Dasar */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f8f9fa;
-            margin: 0;
-            padding: 2rem;
-            color: #343a40;
-        }
+.main-container {
+    max-width: 1200px;
+    margin: 150px 450px;
+}
 
-        /* Kontainer Utama */
-        .main-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
 
-        /* Header Halaman */
-        .page-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #212529;
+    margin: 0;
+}
 
-        .page-header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #212529;
-            margin: 0;
-        }
+.add-package-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+}
 
-        /* Tombol Tambah Paket Baru */
-        .add-package-btn {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(90deg, #007bff, #0056b3);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-        }
-        
-        .add-package-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-        }
+.add-package-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
 
-        .add-package-btn svg {
-            margin-right: 0.5rem;
-        }
+.add-package-btn svg {
+    margin-right: 0.5rem;
+}
 
-        /* Grid untuk Kartu Paket */
-        .package-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
+.package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
 
-        /* Styling untuk setiap Kartu */
-        .card {
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-        }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
 
-        /* Gambar pada Kartu */
-        .card-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
+.card-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
 
-        /* Konten di dalam Kartu */
-        .card-content {
-            padding: 1.5rem;
-            flex-grow: 1; /* Membuat konten mengisi ruang yang tersedia */
-            display: flex;
-            flex-direction: column;
-        }
+.card-content {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
 
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-        }
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
 
-        .card-description {
-            font-size: 0.95rem;
-            color: #6c757d;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            flex-grow: 1; /* Mendorong info ke bawah */
-        }
+.card-description {
+    font-size: 0.95rem;
+    color: #6c757d;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
 
-        /* Info Harga dan Tiket */
-        .card-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            border-top: 1px solid #e9ecef;
-            padding-top: 1rem;
-        }
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid #e9ecef;
+    padding-top: 1rem;
+}
 
-        .card-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: #007bff;
-        }
+.card-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #007bff;
+}
 
-        .card-tickets {
-            font-size: 0.9rem;
-            font-weight: 500;
-            background-color: #e9f7ef;
-            color: #1d643b;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-        }
-        
-        /* Tombol Manage */
-        .manage-btn {
-            display: block;
-            width: 100%;
-            text-align: center;
-            padding: 0.75rem;
-            background-color: #f1f3f5;
-            color: #343a40;
-            text-decoration: none;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: background-color 0.3s, color 0.3s;
-        }
+.card-tickets {
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: #e9f7ef;
+    color: #1d643b;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+}
 
-        .manage-btn:hover {
-            background-color: #e9ecef;
-            color: #000;
-        }
+.manage-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    background-color: #f1f3f5;
+    color: #343a40;
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+    margin-right: 20px;
+}
 
-        /* Pesan jika tidak ada data */
-        .no-data {
-            text-align: center;
-            padding: 3rem;
-            background-color: #fff;
-            border-radius: 12px;
-            color: #6c757d;
-        }
+.manage-btn:hover {
+    background-color: #e9ecef;
+    color: #000;
+}
+
+.no-data {
+    text-align: center;
+    padding: 3rem;
+    background-color: #fff;
+    border-radius: 12px;
+    color: #6c757d;
+}
