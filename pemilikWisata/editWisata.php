@@ -2,226 +2,199 @@
 include "config.php";
 
 $ID = $_SESSION['user_id'];
-$lokasi_id = $_GET['id_lokasi'];
 
-$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
-$query1 = mysqli_query($conn, $sqlStatement1);
-$profile = mysqli_fetch_assoc($query1);
+$tempatwisata_id = $_GET['tempatwisata_id'];
 
-$sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
-$query2 = mysqli_query($conn, $sqlStatement2);
-$PWProfile = mysqli_fetch_assoc($query2);
+$getTempatWisata = "SELECT * FROM tempatwisata WHERE tempatwisata_id = '$tempatwisata_id'";
+$QueryTempatWisata = mysqli_query($conn, $getTempatWisata);
+$tempatWisata = mysqli_fetch_assoc($QueryTempatWisata);
 
-$sqlStatement3 = "SELECT * FROM lokasi WHERE id_lokasi='$lokasi_id'";
-$query3 = mysqli_query($conn, $sqlStatement3);
-$dataLokasi = mysqli_fetch_assoc($query3);
+$sqlGetFoto = "SELECT * FROM fotowisata WHERE tempatwisata_id = '$tempatwisata_id' ORDER BY urutan ASC";
+$queryGetFoto = mysqli_query($conn, $sqlGetFoto);
+$fotoTempatWisata = [];
+while ($row = mysqli_fetch_assoc($queryGetFoto)) {
+    $fotoTempatWisata[$row['urutan']] = $row;
+}
 
-$sqlStatement4 = "SELECT * FROM foto_lokasi WHERE id_lokasi='$lokasi_id'";
-$query4 = mysqli_query($conn, $sqlStatement4);
-$dataFotoLokasi = mysqli_fetch_assoc($query4);
 
-if (isset($_POST['submit'])) {
-    $propertyName = $_POST['property_name'];
-    $propertyAddress = $_POST['property_address'];
-    $propertyType = $_POST['property_type'];
-    $openTime = $_POST['open_time'];
-    $closeTime = $_POST['close_time'];
-    $propertyDescription = $_POST['property_description'];
-    $ticketPrice = $_POST['ticket_price'];
-    $ticketQuota = $_POST['ticket_quota'];
-    $picPhone = $_POST['pic_phone'];
-    $oldLegalDocument = $dataLokasi['surat_izin'];
-    $legalDocument = $_FILES['document'];
+if (isset($_POST['update'])) {
+    $nama_lokasi = $_POST['nama_lokasi'];
+    $alamat_lokasi = $_POST['alamat_lokasi'];
+    $jenis_wisata = $_POST['jenis_wisata'];
+    $waktu_buka = $_POST['waktu_buka'];
+    $waktu_tutup = $_POST['waktu_tutup'];
+    $deskripsi = $_POST['deskripsi'];
+    $sumir = $_POST['sumir'];
+    $nomor_pic = $_POST['nomor_pic'];
 
-    if (isset($legalDocument)) {
-		$uploadFile = 'pengelolaWisata/photos/'.basename($legalDocument['name']);
-		
-      if (move_uploaded_file($legalDocument['tmp_name'], $uploadFile)) {
-        $uploadedDocument = $legalDocument['name'];
-        unlink('pengelolaWisata/photos/'.$oldLegalDocument);
-      } else {
-        $uploadedDocument = null;
-      }
-	}
-
-    $sqlStatement5 = "UPDATE lokasi SET nama_lokasi='$propertyName', alamat_lokasi='$propertyAddress', jenis_wisata='$propertyType', waktu_buka='$openTime', waktu_tutup='$closeTime', deskripsi='$propertyDescription', harga_tiket='$ticketPrice', jumlah_tiket='$ticketQuota', nomor_pic='$picPhone', surat_izin='$uploadedDocument' WHERE id_lokasi='$lokasi_id'";
-    $query5 = mysqli_query($conn, $sqlStatement5);
-    
-    $updateFotoFolder = "SELECT url_photo FROM foto_lokasi WHERE id_lokasi='$lokasi_id'";
-    $queryFolder = mysqli_query($conn, $updateFotoFolder);
-    $foto = mysqli_fetch_assoc($queryFolder);
-
-    while ($foto = mysqli_fetch_assoc($queryFolder)) {
-            $path = 'pengelolaWisata/photos/'.$foto['url_photo'];
-            if (file_exists($path)) {
-            unlink($path);
+    $namaFileSuratIzin = $_POST['old_surat_izin'];
+    if (isset($_FILES['surat_izin']) && $_FILES['surat_izin']['error'] == 0 && !empty($_FILES['surat_izin']['name'])) {
+        $fileSuratIzin = $_FILES['surat_izin'];
+        $uploadPathSI = 'pemilikWisata/dokumen/' . basename($fileSuratIzin['name']);
+        
+        if (move_uploaded_file($fileSuratIzin['tmp_name'], $uploadPathSI)) {
+            $namaFileSuratIzin = $fileSuratIzin['name'];
         }
     }
 
-    $sqlStatement6 = "DELETE FROM foto_lokasi WHERE id_lokasi='$lokasi_id'";
-    mysqli_query($conn, $sqlStatement6);
+    $sqlUpdateWisata = "UPDATE tempatwisata SET nama_lokasi = '$nama_lokasi', alamat_lokasi = '$alamat_lokasi', jenis_wisata = '$jenis_wisata', waktu_buka = '$waktu_buka', 
+                        waktu_tutup = '$waktu_tutup', deskripsi = '$deskripsi', sumir = '$sumir', nomor_pic = '$nomor_pic', surat_izin = '$namaFileSuratIzin'
+                        WHERE tempatwisata_id = '$tempatwisata_id' AND pw_id = '$pw_id'";
+    
+    $queryUpdateWisata = mysqli_query($conn, $sqlUpdateWisata);
 
-    for ($i = 1; $i <= 6; $i++) {
-        $input = "photo$i";
-        if (isset($_FILES[$input])) {
-            $filename = $_FILES[$input]['name'];
-            $tmpName = $_FILES[$input]['tmp_name'];
-    
-            $target = "pengelolaWisata/photos/" . basename($filename);
-            move_uploaded_file($tmpName, $target);
-    
-            $urutan = $i;
-            mysqli_query($conn, "INSERT INTO foto_lokasi (id_lokasi, url_photo, urutan) VALUES ('$lokasi_id', '$filename', '$urutan')");
+    if (isset($_FILES['foto_wisata'])) {
+        for ($i = 0; $i < 6; $i++) {
+            if (isset($_FILES['foto_wisata']['name'][$i]) && !empty($_FILES['foto_wisata']['name'][$i]) && $_FILES['foto_wisata']['error'][$i] == 0) {
+                $uploadPathFoto = 'pemilikWisata/foto/' . basename($_FILES["foto_wisata"]["name"][$i]);
+                
+                if (move_uploaded_file($_FILES['foto_wisata']['tmp_name'][$i], $uploadPathFoto)) {
+                    $link_foto_baru = basename($_FILES["foto_wisata"]["name"][$i]);
+                    $urutan = $i + 1;
+
+                    $sqlUpdateFoto = "UPDATE fotowisata SET link_foto = '$link_foto_baru' WHERE tempatwisata_id = '$tempatwisata_id' AND urutan = '$urutan'";
+                    mysqli_query($conn, $sqlUpdateFoto);
+                }
+            }
         }
     }
-    
-    if (mysqli_affected_rows($conn) != 0) {
+
+    if ($queryUpdateWisata) {
+        mysqli_query($conn, "UPDATE tempatwisata SET status = 'review' WHERE tempatwisata_id = '$tempatwisata_id'");
         header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarWisata");
         exit();
     } else {
-        echo "<p>Property Edit Failed</p>";
+        echo "<p>Property update failed!</p>";
     }
 }
-mysqli_close($conn);
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Property Edit</title>
-    <link rel="stylesheet" href="pengelolaWisata/cssWisata/editWisata.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Form Edit Tempat Wisata</title>
+    <!-- Pastikan path CSS sudah benar -->
+    <link rel="stylesheet" href="pemilikWisata/cssWisata/addWisata.css"> 
 </head>
 <body>
-    <?php include "pengelolaWisata/viewsWisata.php";?>
-    <div class="main">
-        <div class="container">
-            <h1 id="form-heading">Edit Property</h1>
-            
-            <form action="" method="post" enctype="multipart/form-data">
+    <?php include "pemilikWisata/viewsWisata.php";?>
+    <div class="container">
+        <h2>Edit property/tourist attraction</h2>
+        <p class="subtitle">Update the necessary information of your property/tourist attraction</p>
 
+        <?php if ($tempatWisata): ?>
+        <form action="" method="post" enctype="multipart/form-data">
+            
+            <div class="form-group">
+                <label for="nama_lokasi">Property Name</label>
+                <input type="text" id="nama_lokasi" name="nama_lokasi" required value="<?= $tempatWisata['nama_lokasi']; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="alamat_lokasi">Property Address</label>
+                <textarea id="alamat_lokasi" name="alamat_lokasi" rows="3" required><?= $tempatWisata['alamat_lokasi']; ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="jenis_wisata">Category</label>
+                <select id="jenis_wisata" name="jenis_wisata" required>
+                    <option value="Nature" <?php echo ($dataWisata['jenis_wisata'] == 'Nature') ? 'selected' : ''; ?>>Nature</option>
+                    <option value="Cultural" <?php echo ($dataWisata['jenis_wisata'] == 'Cultural') ? 'selected' : ''; ?>>Cultural</option>
+                    <option value="Historical" <?php echo ($dataWisata['jenis_wisata'] == 'Historical') ? 'selected' : ''; ?>>Historical</option>
+                    <option value="Religion" <?php echo ($dataWisata['jenis_wisata'] == 'Religion') ? 'selected' : ''; ?>>Religion</option>
+                    <option value="Theme Park" <?php echo ($dataWisata['jenis_wisata'] == 'Theme Park') ? 'selected' : ''; ?>>Theme Park</option>
+                    <option value="Other" <?php echo ($dataWisata['jenis_wisata'] == 'Other') ? 'selected' : ''; ?>>Other</option>
+                </select>
+            </div>
+
+            <div class="time-group">
                 <div class="form-group">
-                    <label for="property_name" class="required">Property Name</label>
-                    <input type="text" id="property_name" name="property_name" required>
+                    <label for="waktu_buka">Open Hour</label>
+                    <input type="time" id="waktu_buka" name="waktu_buka" required value="<?= $tempatWisata['waktu_buka']; ?>">
                 </div>
-                
                 <div class="form-group">
-                    <label for="property_address" class="required">Property Address</label>
-                    <textarea id="property_address" name="property_address" required></textarea>
+                    <label for="waktu_tutup">Close Hour</label>
+                    <input type="time" id="waktu_tutup" name="waktu_tutup" required value="<?= $tempatWisata['waktu_tutup']; ?>">
                 </div>
-                
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="property_type" class="required">Type of Property</label>
-                            <select id="property_type" name="property_type" required>
-                                <option value="Other">Other</option>
-                                <option value="Nature">Nature</option>
-                                <option value="Cultural">Cultural</option>
-                                <option value="Historical">Historical</option>
-                            </select>
-                        </div>
+            </div>
+
+            <div class="form-group">
+                <label for="deskripsi">Description</label>
+                <textarea id="deskripsi" name="deskripsi" required><?= $tempatWisata['deskripsi']; ?></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="sumir">Summary</label>
+                <textarea id="sumir" name="sumir" rows="2" required><?= $tempatWisata['sumir']; ?></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="nomor_pic">Person in Charge (PIC) Phone Number</label>
+                <input type="text" id="nomor_pic" name="nomor_pic" required value="<?= $tempatWisata['nomor_pic']; ?>">
+            </div>
+
+            <div class="form-group">
+                <label for="surat_izin">Upload New Legal Business Document (Optional)</label>
+                <p class="current-file">Current file: <?= $tempatWisata['surat_izin']; ?></p>
+                <input type="file" id="surat_izin" name="surat_izin" accept=".pdf,.doc,.docx,.jpg,.png">
+                <!-- Hidden input untuk menyimpan nama file lama -->
+                <input type="hidden" name="old_surat_izin" value="<?php echo htmlspecialchars($dataWisata['surat_izin']); ?>">
+                <small class="form-hint">Leave blank if you don't want to change the file.</small>
+            </div>
+
+            <div class="form-group">
+                <label>Update images of your property (Optional)</label>
+                <div class="photo-grid">
+                    <?php for ($i = 1; $i <= 6; $i++): 
+                        $foto_link = isset($fotoTempatWisata[$i]) ? 'pemilikWisata/foto/'$fotoTempatWisata[$i]['link_foto'] : '#';
+                        $has_foto = isset($fotoTempatWisata[$i]);
+                    ?>
+                    <div class="photo-upload-box">
+                        <label for="foto_<?php echo $i; ?>" class="photo-upload-label">
+                            <img id="preview_<?php echo $i; ?>" class="photo-preview" src="<?php echo $foto_link; ?>" alt="Photo" style="<?php echo $has_foto ? 'display:block;' : 'display:none;'; ?>"/>
+                            <div id="placeholder_<?php echo $i; ?>" class="photo-placeholder" style="<?php echo !$has_foto ? 'display:flex;' : 'display:none;'; ?>">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                                <span>Ganti Foto <?php echo $i; ?></span>
+                            </div>
+                        </label>
+                        <input type="file" name="foto_wisata[]" id="foto_<?php echo $i; ?>" class="photo-input" accept="image/*" onchange="previewImage(event, <?php echo $i; ?>)">
                     </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="open_time" class="required">Open Time</label>
-                            <input type="time" id="open_time" name="open_time" required>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="close_time" class="required">Close Time</label>
-                            <input type="time" id="close_time" name="close_time" required>
-                        </div>
-                    </div>
+                    <?php endfor; ?>
                 </div>
-                
-                <div class="form-group">
-                    <label for="property_description" class="required">Property Description</label>
-                    <textarea id="property_description" name="property_description" required></textarea>
-                </div>
-                
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="ticket_price" class="required">Ticket Price</label>
-                            <input type="number" id="ticket_price" name="ticket_price" min="0" required>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="ticket_quota" class="required">Ticket Quota</label>
-                            <input type="number" id="ticket_quota" name="ticket_quota" min="0" required>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="pic_phone" class="required">PIC Phone Number</label>
-                            <input type="text" id="pic_phone" name="pic_phone" required>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group file-upload">
-                            <label for="document">Document:</label>
-                            <input type="file" id="document" accept="image/*, .doc, .docx, .pdf" name="document">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group file-upload">
-                            <label for="photo1">Photo 1:</label>
-                            <input type="file" id="photo1" name="photo1" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group file-upload">
-                            <label for="photo2">Photo 2:</label>
-                            <input type="file" id="photo2" name="photo2" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group file-upload">
-                            <label for="photo3">Photo 3:</label>
-                            <input type="file" id="photo3" name="photo3" accept="image/*">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row">
-                    <div class="col">
-                        <div class="form-group file-upload">
-                            <label for="photo4">Photo 4:</label>
-                            <input type="file" id="photo4" name="photo4" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group file-upload">
-                            <label for="photo5">Photo 5:</label>
-                            <input type="file" id="photo5" name="photo5" accept="image/*">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group file-upload">
-                            <label for="photo6">Photo 6:</label>
-                            <input type="file" id="photo6" name="photo6" accept="image/*">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="button-group">
-                    <input type="reset" value="Reset">
-                    <input type="submit" value="Submit" name="submit">
-                </div>
-            </form>
-        </div>
+                 <small class="form-hint">Choose a new image to replace an existing one. Leave blank to keep the old image.</small>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" name="update" class="submit-btn">Update Property</button>
+            </div>
+        </form>
+        <?php else: ?>
+            <p>Data yang akan diedit tidak ditemukan. Silakan kembali ke daftar wisata.</p>
+        <?php endif; ?>
     </div>
+
+    <script>
+    function previewImage(event, index) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview_' + index);
+                const placeholder = document.getElementById('placeholder_' + index);
+                
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
+
 </body>
 </html>
