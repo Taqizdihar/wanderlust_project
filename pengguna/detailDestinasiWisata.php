@@ -45,6 +45,15 @@ $ratingData = mysqli_fetch_assoc($ratingQuery);
 $avg_rating = round($ratingData['avg_rating'], 1);
 $total_reviews = $ratingData['total_reviews'];
 
+if (isset($_POST['tambah_favorit'])) {
+    $tempatwisata_id = $_POST['tempatwisata_id'];
+    $wisatawan_id = $_SESSION['user_id'];
+
+    $cek = mysqli_query($conn, "SELECT * FROM wishlist WHERE wisatawan_id = '$wisatawan_id' AND tempatwisata_id = '$tempatwisata_id'");
+    if (mysqli_num_rows($cek) == 0) {
+        mysqli_query($conn, "INSERT INTO wishlist (wisatawan_id, tempatwisata_id) VALUES ('$wisatawan_id', '$tempatwisata_id')");
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -70,6 +79,14 @@ $total_reviews = $ratingData['total_reviews'];
             <div class="col-lg-8">
                 <h2><?= $tempatwisata['nama_lokasi']; ?></h2>
                 <p class="text-muted"><?= $tempatwisata['jenis_wisata']; ?></p>
+                <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'wisatawan') : ?>
+            <form method="post" action="">
+                <input type="hidden" name="tempatwisata_id" value="<?= $tempatwisata['tempatwisata_id']; ?>">
+                <button type="submit" name="tambah_favorit" class="favorit-btn">
+                    🌟 Tambah ke Favorit
+                </button>
+            </form>
+            <?php endif; ?>
                 <p><strong><i class="fas fa-clock"></i> Operational Hours:</strong> <?= $tempatwisata['waktu_buka']; ?> - <?= $tempatwisata['waktu_tutup']; ?></p>
 
                 <hr>

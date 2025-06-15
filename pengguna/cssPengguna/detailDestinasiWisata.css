@@ -52,3 +52,19 @@ body {
     object-fit: cover;
     border-radius: 0.25rem;
 }
+
+.favorit-btn {
+    background-color: #e74c3c;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 12px;
+    transition: background-color 0.3s ease;
+}
+
+.favorit-btn:hover {
+    background-color: #c0392b;
+}
