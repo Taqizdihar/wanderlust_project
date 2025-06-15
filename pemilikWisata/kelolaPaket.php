@@ -4,13 +4,11 @@ include "config.php";
 $ID = $_SESSION['user_id'];
 $paket_id = $_GET['paket_id'];
 
-$sqlGetPaket = "SELECT * FROM paketwisata WHERE paketwisata_id = '$paketwisata_id'";
+$sqlGetPaket = "SELECT * FROM paketwisata WHERE paket_id = '$paket_id'";
 $queryGetPaket = mysqli_query($conn, $sqlGetPaket);
 $data_paket = mysqli_fetch_assoc($queryGetPaket);
 
-// Mengecek jika form disubmit
 if (isset($_POST['submit'])) {
-    // Mengambil data baru dari form
     $nama_paket_baru = $_POST['nama_paket'];
     $deskripsi_baru = $_POST['deskripsi'];
     $harga_baru = $_POST['harga'];
@@ -52,9 +50,7 @@ if (isset($_POST['submit'])) {
     
     $queryPaket = mysqli_query($conn, $sqlPaketWisata);
 
-    // Cek apakah query berhasil dan ada baris yang terpengaruh
     if ($queryPaket) {
-        // Redirect ke halaman daftar paket jika berhasil
         header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarPaket");
         exit();
     } else {
