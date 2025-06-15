@@ -2,52 +2,56 @@
 include "config.php";
 
 $ID = $_SESSION['user_id'];
-$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement1);
-$profile = mysqli_fetch_assoc($query);
+$getUserStatement = "SELECT * FROM user WHERE user_id='$ID'";
+$userGetQuery = mysqli_query($conn, $getUserStatement);
+$profile = mysqli_fetch_assoc($userGetQuery);
 
-$sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement2);
-$PWProfile = mysqli_fetch_assoc($query);
+$getPWStatement = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
+$PWGetQuery = mysqli_query($conn, $getPWStatement);
+$PWProfile = mysqli_fetch_assoc($PWGetQuery);
 
-if (isset($_POST['save'])) {
-    $fullName = $_POST['fullname'];
-    $email = $_POST['email'];
-    $phoneNumber = $_POST['phone'];
-    $NPWP = $_FILES['npwp'];
-    $oldNPWP = $PWProfile['tax_document'];
-    $NIB = $_FILES['nib'];
-    $oldNIB = $PWProfile['legal_business_document'];
-    $legalAddress = $_POST['address'];
+if (isset($_POST['submit'])) {
+    $nama = $_POST['full_name'];
+    $no_telepon = $_POST['business_telephone'];
+    $gender = $_POST['gender'];
+    $tanggal_lahir = $_POST['birthdate'];
+    $jabatan = $_POST['position'];
+    $instansi = $_POST['agency'];
+    $alamat_bisnis = $_POST['business_address'];
+    $npwp = $_FILES['tax_document']['name'];
+    $siup = $_FILES['business_document']['name'];
 
-    if (isset($NPWP)) {
-		$uploadFile = 'pengelolaWisata/foto/'.basename($NPWP['name']);
-		
-      if (move_uploaded_file($NPWP['tmp_name'], $uploadFile)) {
-        $uploadedNPWP = $NPWP['name'];
-        unlink('pengelolaWisata/foto/'.$oldNPWP);
-      } else {
-        $uploadedNPWP = null;
-      }
-	  }
+    $foto_profil = $_FILES['profile_picture']['name'];
+    $foto_instansi = $_FILES['agency_logo']['name'];
+    $targetDir = "uploads/";
 
-    if (isset($NIB)) {
-		$uploadFile = 'pengelolaWisata/foto/'.basename($NIB['name']);
-		
-      if (move_uploaded_file($NIB['tmp_name'], $uploadFile)) {
-        $uploadedNIB = $NIB['name'];
-        unlink('pengelolaWisata/foto/'.$oldNIB);
-      } else {
-        $uploadedNIB = null;
-      }
-	  }
+    if ($foto_profil != "") {
+        move_uploaded_file($_FILES['profile_picture']['tmp_name'], $targetDir . $foto_profil);
+        $updateFotoProfil = ", foto_profil = '$foto_profil'";
+    } else {
+        $updateFotoProfil = "";
+    }
 
+    if ($foto_instansi != "") {
+        move_uploaded_file($_FILES['agency_logo']['tmp_name'], $targetDir . $foto_instansi);
+        $updateFotoInstansi = ", foto_instansi = '$foto_instansi'";
+    } else {
+        $updateFotoInstansi = "";
+    }
 
-    $sqlStatement3 = "UPDATE user SET nama='$fullName', email='$email', no_telepon='$phoneNumber' WHERE user_id='$ID'";   
-    $query = mysqli_query($conn, $sqlStatement3);
+    if ($npwp != "") {
+        move_uploaded_file($_FILES['tax_document']['tmp_name'], $targetDir . $npwp);
+    }
 
-    $sqlStatement4 = "UPDATE pemilikwisata SET alamat_bisnis='$legalAddress', npwp='$uploadedNPWP', siup='$uploadedNIB' WHERE pw_id='$ID'";   
-    $query = mysqli_query($conn, $sqlStatement4);
+    if ($siup != "") {
+        move_uploaded_file($_FILES['business_document']['tmp_name'], $targetDir . $siup);
+    }
+
+    $sql_user = "UPDATE user SET nama = '$nama', no_telepon = '$no_telepon', gender = '$gender',
+    tanggal_lahir = '$tanggal_lahir' $updateFotoProfil WHERE user_id = $ID";
+
+    $sql_pw = "UPDATE pemilikwisata SET jabatan = '$jabatan', instansi = '$instansi', alamat_bisnis = '$alamat_bisnis',
+    npwp = '$npwp', siup = '$siup' $updateFotoInstansi WHERE pw_id = $ID";
     
     if (mysqli_affected_rows($conn) != 0) {
         header("location:indeks.php?page=profilPemilikWisata");
@@ -97,8 +101,8 @@ mysqli_close($conn);
         <div class="input-group">
           <label for="gender">Gender</label>
           <select id="gender" name="gender" value="<?= $profile['gender']?>" required>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
           </select>
         </div>
         <div class="input-group">
