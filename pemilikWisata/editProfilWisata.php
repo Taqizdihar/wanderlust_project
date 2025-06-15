@@ -10,7 +10,7 @@ $getPWStatement = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
 $PWGetQuery = mysqli_query($conn, $getPWStatement);
 $PWProfile = mysqli_fetch_assoc($PWGetQuery);
 
-if (isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama = $_POST['full_name'];
     $no_telepon = $_POST['business_telephone'];
     $gender = $_POST['gender'];
