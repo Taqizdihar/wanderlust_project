@@ -8,6 +8,8 @@ $sqlGetPaket = "SELECT * FROM paketwisata WHERE paket_id = '$paket_id'";
 $queryGetPaket = mysqli_query($conn, $sqlGetPaket);
 $data_paket = mysqli_fetch_assoc($queryGetPaket);
 
+$tempatwisata_id = $data_paket['tempatwisata_id'];
+
 if (isset($_POST['submit'])) {
     $nama_paket_baru = $_POST['nama_paket'];
     $deskripsi_baru = $_POST['deskripsi'];
@@ -36,7 +38,7 @@ if (isset($_POST['submit'])) {
     $queryPaket = mysqli_query($conn, $sqlPaketWisata);
 
     if (mysqli_affected_rows($conn) != 0) {
-        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarPaket");
+        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarPaket&tempatwisata_id=$tempatwisata_id");
         exit();
     } else {
         echo "<p>Updating package failed</p>";
@@ -58,7 +60,7 @@ if (isset($_POST['submit'])) {
         <h2>Edit tourism package</h2>
         <p class="subtitle">Update the necessary package information below</p>
 
-        <form action="?paketwisata_id=<?php echo $paketwisata_id; ?>" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="photo-group">
                 <label for="foto_paket">Upload new package photo (optional)</label><br>
                 <p style="font-size: 12px; color: #888;">Current photo:</p>

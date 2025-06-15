@@ -30,7 +30,7 @@ while ($row = mysqli_fetch_assoc($queryPaket)) {
     <div class="main-container">
 
         <div class="page-header">
-            <h1>Paket Wisata Anda</h1>
+            <h1>Your Packages</h1>
             <a href="indeks.php?page=addPaket" class="add-package-btn">Add new package</a>
         </div>
 
