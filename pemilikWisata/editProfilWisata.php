@@ -66,6 +66,8 @@ mysqli_close($conn);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Edit</title>
     <link rel="stylesheet" href="pemilikWisata/cssWisata/editProfilWisata.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
     <?php include "pemilikWisata/viewsWisata.php";?>
@@ -76,49 +78,49 @@ mysqli_close($conn);
       <div class="form-section personal-info">
         <h2>Personal Information</h2>
         <div class="picture-placeholder">
-          <img src="pemilikWisata/foto/fotoProfil/foto_default.png" alt="Profile Picture Preview" class="profile-pic" id="profilePreview">
+          <img src="pemilikWisata/foto/fotoProfil/<?= $profile['foto_profil']?>" alt="Profile Picture Preview" class="profile-pic" id="profilePreview">
           <label for="profilePictureInput" class="change-pic-btn">Change Picture</label>
           <input type="file" id="profilePictureInput" name="profile_picture" accept="image/*" required>
         </div>
         <div class="input-group">
           <label for="full_name">Full Name</label>
-          <input type="text" id="full_name" name="full_name" required>
+          <input type="text" id="full_name" name="full_name" value="<?= $profile['nama']?>" required>
         </div>
         <div class="input-group">
           <label for="position">Position</label>
-          <input type="text" id="position" name="position" required>
+          <input type="text" id="position" name="position" value="<?= $PWProfile['jabatan']?>" required>
         </div>
         <div class="input-group">
           <label for="business_telephone">Business Telephone Number</label>
-          <input type="tel" id="business_telephone" name="business_telephone" required>
+          <input type="tel" id="business_telephone" name="business_telephone" value="<?= $profile['no_telepon']?>" required>
         </div>
         <div class="input-group">
           <label for="gender">Gender</label>
-          <select id="gender" name="gender" required>
+          <select id="gender" name="gender" value="<?= $profile['gender']?>" required>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
         </div>
         <div class="input-group">
           <label for="birthdate">Birthdate</label>
-          <input type="date" id="birthdate" name="birthdate" required>
+          <input type="date" id="birthdate" name="birthdate" value="<?= $profile['tanggal_lahir']?>" required>
         </div>
       </div>
 
       <div class="form-section agency-info">
         <h2>Agency Information</h2>
         <div class="picture-placeholder">
-          <img src="pemilikWisata/foto/fotoProfil/foto_default.png" alt="Agency Logo Preview" class="logo-pic" id="logoPreview">
+          <img src="pemilikWisata/foto/fotoProfil/<?= $PWProfile['foto_instansi']?>" alt="Agency Logo Preview" class="logo-pic" id="logoPreview">
           <label for="logoInput" class="change-pic-btn">Change Picture</label>
           <input type="file" id="logoInput" name="agency_logo" accept="image/*" required>
         </div>
          <div class="input-group">
           <label for="position">Agency Name</label>
-          <input type="text" id="agency" name="agency" required>
+          <input type="text" id="agency" name="agency" value="<?= $PWProfile['instansi']?>" required>
         </div>
         <div class="input-group">
           <label for="business_address">Business Address</label>
-          <textarea id="business_address" name="business_address" required></textarea>
+          <textarea id="business_address" name="business_address" placeholder="<?= $PWProfile['alamat_bisnis']?>" required></textarea>
         </div>
         <div class="input-group-doc">
           <label for="tax_document">Upload Tax Document <i class="fa-solid fa-arrow-up-from-bracket"></i></label>
@@ -159,7 +161,7 @@ mysqli_close($conn);
 
   document.querySelector('form').addEventListener('reset', function() {
       setTimeout(() => {
-          document.getElementById('profilePreview').src = 'pemilikWisata/foto/fotoProfil/foto_default.png';
+          document.getElementById('profilePreview').src = 'pemilikWisata/foto/fotoProfil/<?= $profile['foto_profil']?>';
           document.getElementById('logoPreview').src = 'pemilikWisata/foto/fotoProfil/foto_default.png';
       }, 0);
   });
