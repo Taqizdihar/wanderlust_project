@@ -11,19 +11,19 @@ $PWGetQuery = mysqli_query($conn, $getPWStatement);
 $PWProfile = mysqli_fetch_assoc($PWGetQuery);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nama = $_POST['full_name'];
-    $no_telepon = $_POST['business_telephone'];
-    $gender = $_POST['gender'];
-    $tanggal_lahir = $_POST['birthdate'];
-    $jabatan = $_POST['position'];
-    $instansi = $_POST['agency'];
-    $alamat_bisnis = $_POST['business_address'];
-    $npwp = $_FILES['tax_document']['name'];
-    $siup = $_FILES['business_document']['name'];
+    $nama = $_POST['full_name'];
+    $no_telepon = $_POST['business_telephone'];
+    $gender = $_POST['gender'];
+    $tanggal_lahir = $_POST['birthdate'];
+    $jabatan = $_POST['position'];
+    $instansi = $_POST['agency'];
+    $alamat_bisnis = $_POST['business_address'];
+    $npwp = $_FILES['tax_document']['name'];
+    $siup = $_FILES['business_document']['name'];
 
-    $foto_profil = $_FILES['profile_picture']['name'];
-    $foto_instansi = $_FILES['agency_logo']['name'];
-    $targetDir = "uploads/";
+    $foto_profil = $_FILES['profile_picture']['name'];
+    $foto_instansi = $_FILES['agency_logo']['name'];
+    $targetDir = "uploads/";
 
     if ($foto_profil != "") {
         move_uploaded_file($_FILES['profile_picture']['tmp_name'], $targetDir . $foto_profil);
