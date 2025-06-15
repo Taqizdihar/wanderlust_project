@@ -1,3 +1,12 @@
+<?php
+include "config.php";
+
+$profileStatement = "SELECT * FROM user WHERE user_id='$ID'";
+$queryProfile = mysqli_query($conn, $profileStatement);
+$PTWprofile = mysqli_fetch_assoc($queryProfile);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,11 +41,18 @@
     .navbar a {
         position: absolute;
         right: 20px;
-        top: 25px;
+        top: 10px;
         justify-content: flex-end;
         color: #fff;
         text-decoration: none;
-        margin-right: 60px;
+        margin-right: 30px;
+    }
+
+    .navbar a img {
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+        border: 3px solid white;
     }
 
     .navbar a i {
@@ -72,7 +88,7 @@
     <div class="navbar">
         <img src="Umum/foto/Wanderings for Wonders side white.png" alt="Wanderlust Logo">
         <h1>| Partner Dashboard</h1>
-        <a href="indeks.php?page=profilPemilikWisata"><i class="fa-regular fa-circle-user"></i></a> 
+        <a href="indeks.php?page=profilPemilikWisata"><img src="pemilikWisata/foto/fotoProfil/<?= $PTWprofile['foto_profil']?>" alt=""></a> 
     </div>
 
     <div class="sidebar">

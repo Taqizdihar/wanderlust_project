@@ -1,97 +1,76 @@
 <?php
-// Selalu mulai sesi di bagian paling atas
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Sertakan file konfigurasi database Anda
-// Pastikan file "config.php" ada di direktori yang sama atau path-nya benar
 include "config.php";
 
-// Asumsikan user_id disimpan dalam sesi setelah login
-// Untuk pengujian, Anda bisa mengatur nilainya secara manual seperti ini:
-// $_SESSION['user_id'] = 1; 
-$ID = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+$ID = $_SESSION['user_id'];
 
-$message = ""; // Variabel untuk menyimpan pesan notifikasi
+$message = "";
 
 if (isset($_POST['submit'])) {
-    if ($ID === null) {
-        $message = "<p style='color:red;'>Error: User session tidak ditemukan. Silakan login kembali.</p>";
+    $profilePicture = $_FILES['profile_picture'];
+    $fullName = $_POST['full_name'];
+    $position = $_POST['position'];
+    $businessTelephone = $_POST['business_telephone'];
+    $gender = $_POST['gender'];
+    $birthdate = $_POST['birthdate'];
+
+    $agencyName = $_POST['agency'];
+    $agencyLogo = $_FILES['agency_logo'];
+    $businessAddress = $_POST['business_address'];
+    $taxDocument = $_FILES['tax_document'];
+    $businessDocument = $_FILES['business_document'];
+    
+    if (isset($profilePicture)) {
+    $uploadOne = 'pemilikWisata/foto/fotoProfil/'.basename($profilePicture['name']);
+    
+      if (move_uploaded_file($profilePicture['tmp_name'], $uploadOne)) {
+        $uploadFoto = $profilePicture['name'];
+      } else {
+        $uploadFoto = null;
+      }
+    }
+
+    if (isset($agencyLogo)) {
+    $uploadTwo = 'pemilikWisata/foto/fotoProfil/'.basename($agencyLogo['name']);
+    
+      if (move_uploaded_file($agencyLogo['tmp_name'], $uploadTwo)) {
+        $uploadAgency = $agencyLogo['name'];
+      } else {
+        $uploadAgency = null;
+      }
+    }
+
+    if (isset($taxDocument)) {
+    $uploadThree = 'pemilikWisata/dokumen/'.basename($taxDocument['name']);
+    
+      if (move_uploaded_file($taxDocument['tmp_name'], $uploadThree)) {
+        $uploadTax = $taxDocument['name'];
+      } else {
+        $uploadTax = null;
+      }
+    }
+
+    if (isset($businessDocument)) {
+    $uploadFour = 'pemilikWisata/dokumen/'.basename($businessDocument['name']);
+    
+      if (move_uploaded_file($businessDocument['tmp_name'], $uploadFour)) {
+        $uploadBusiness = $businessDocument['name'];
+      } else {
+        $uploadBusiness = null;
+      }
+    }
+
+  $userStatement = "UPDATE user SET nama = '$fullName', no_telepon = '$businessTelephone', gender = '$gender', tanggal_lahir = '$birthdate', foto_profil = '$uploadFoto' WHERE user_id = '$ID'";
+  $queryUser = mysqli_query($conn, $userStatement);
+  $userStatement = "INSERT INTO pemilikwisata (pw_id, jabatan, instansi, foto_instansi, alamat_bisnis, npwp, siup, status) VALUES ('$ID', '$position', '$agencyName', '$uploadAgency', '$businessAddress', '$uploadTax', '$uploadBusiness', 'review')";
+  $queryUser = mysqli_query($conn, $userStatement);
+
+  if (mysqli_affected_rows($conn) != 0) {
+        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata");
+        exit();
     } else {
-        // --- Mengambil data dari form ---
-        // Personal Information
-        $fullName = $_POST['full_name'];
-        $position = $_POST['position'];
-        $businessTelephone = $_POST['business_telephone'];
-        $gender = $_POST['gender'];
-        $birthdate = $_POST['birthdate'];
-
-        // Agency Information
-        $businessAddress = $_POST['business_address'];
-        $taxDocument = $_FILES['tax_document'];
-        $businessDocument = $_FILES['business_document'];
-
-        // --- Proses Upload File ---
-        $uploadDir = 'pemilikWisata/dokumen/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0755, true);
-        }
-
-        $uploadedTaxDocName = null;
-        $uploadedBusinessDocName = null;
-
-        // Proses Tax Document
-        if (isset($taxDocument) && $taxDocument['error'] == 0) {
-            $taxDocExtension = pathinfo($taxDocument['name'], PATHINFO_EXTENSION);
-            $safeTaxDocName = 'taxdoc_' . $ID . '_' . time() . '.' . $taxDocExtension;
-            if (move_uploaded_file($taxDocument['tmp_name'], $uploadDir . $safeTaxDocName)) {
-                $uploadedTaxDocName = $safeTaxDocName;
-            }
-        }
-
-        // Proses Business Document
-        if (isset($businessDocument) && $businessDocument['error'] == 0) {
-            $businessDocExtension = pathinfo($businessDocument['name'], PATHINFO_EXTENSION);
-            $safeBusinessDocName = 'businessdoc_' . $ID . '_' . time() . '.' . $businessDocExtension;
-            if (move_uploaded_file($businessDocument['tmp_name'], $uploadDir . $safeBusinessDocName)) {
-                $uploadedBusinessDocName = $safeBusinessDocName;
-            }
-        }
-        
-        // --- SQL Operations ---
-        $sqlStatement1 = "UPDATE user SET 
-                            nama='$fullName', 
-                            no_telepon='$businessTelephone', 
-                            jenis_kelamin='$gender', 
-                            tanggal_lahir='$birthdate' 
-                          WHERE user_id = '$ID'";
-        
-        $query1 = mysqli_query($conn, $sqlStatement1);
-
-        $sqlStatement2 = "INSERT INTO pemilikwisata (pw_id, posisi, alamat_bisnis, npwp, siup, status) 
-                          VALUES ('$ID', '$position', '$businessAddress', '$uploadedTaxDocName', '$uploadedBusinessDocName', 'review')
-                          ON DUPLICATE KEY UPDATE 
-                            posisi='$position', 
-                            alamat_bisnis='$businessAddress', 
-                            npwp=VALUES(npwp), 
-                            siup=VALUES(siup), 
-                            status='review'";
-
-        $query2 = mysqli_query($conn, $sqlStatement2);
-        
-        if ($query1 && $query2) {
-            // Ganti dengan path redirect yang sesuai dengan struktur proyek Anda
-            header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=dashboardWisata&ID=".$ID);
-            exit();
-        } else {
-            $message = "<p style='color:red;'>Terjadi kesalahan saat menyimpan data: " . mysqli_error($conn) . "</p>";
-        }
+        echo "<p>Registration Failed. Please try again later</p>";
     }
 }
-
-// Jangan tutup koneksi di sini jika halaman masih akan dirender
-// mysqli_close($conn); 
 ?>
 
 <!DOCTYPE html>
@@ -99,167 +78,26 @@ if (isset($_POST['submit'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pendaftaran Identitas Bisnis</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f2f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      margin: 20px 0;
-    }
-    .form-title {
-        font-size: 2.5em;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 20px;
-    }
-    .main-container {
-      display: flex;
-      gap: 20px;
-      width: 100%;
-      max-width: 950px;
-      padding: 0; 
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      background-color: #fff;
-      overflow: hidden; /* To keep children within rounded corners */
-    }
-    .form-section {
-      padding: 30px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .personal-info {
-      background-color: #ffffff;
-    }
-    .agency-info {
-      background-color: #D9A982;
-    }
-    .form-section h2 {
-      text-align: center;
-      margin-top: 0;
-      margin-bottom: 25px;
-      font-size: 1.5em;
-      color: #333;
-      font-weight: 600;
-    }
-    .picture-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    .picture-placeholder img {
-      width: 110px;
-      height: 110px;
-      object-fit: cover;
-      background-color: #e9ecef;
-      border: 3px solid #dee2e6;
-    }
-    .picture-placeholder .profile-pic {
-      border-radius: 50%;
-    }
-    .picture-placeholder .logo {
-      border-radius: 8px; /* Slightly rounded corners for logo */
-    }
-    .picture-placeholder button {
-      margin-top: 10px;
-      padding: 6px 15px;
-      border: 1px solid #C88E5F;
-      border-radius: 5px;
-      background-color: #C88E5F;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
-    .picture-placeholder button:hover {
-        background-color: #b37b4c;
-    }
-    .input-group {
-      margin-bottom: 15px;
-    }
-    .input-group label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-      font-size: 0.9em;
-      color: #495057;
-    }
-    .agency-info .input-group label {
-        color: #4c3e32;
-    }
-    .input-group input,
-    .input-group select,
-    .input-group textarea {
-      width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ced4da;
-      box-sizing: border-box;
-      font-size: 1em;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .input-group input:focus,
-    .input-group select:focus,
-    .input-group textarea:focus {
-        border-color: #C88E5F;
-        box-shadow: 0 0 0 2px rgba(200, 142, 95, 0.25);
-        outline: none;
-    }
-    .input-group textarea {
-        resize: vertical;
-        min-height: 100px;
-    }
-    .form-buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 15px;
-      margin-top: 25px;
-      width: 100%;
-      max-width: 950px;
-    }
-    .form-buttons input {
-      padding: 12px 30px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .form-buttons input:hover {
-        opacity: 0.9;
-    }
-    .btn-reset {
-      background-color: #B22222;
-      color: white;
-    }
-    .btn-submit {
-      background-color: #2E8B57;
-      color: white;
-    }
-  </style>
+  <title>Identity Registration</title>
+  <link rel="stylesheet" href="pemilikWisata/cssWisata/verifikasiEntitas.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
   <h1 class="form-title">Business Identity</h1>
 
-  <?php echo $message; // Tampilkan pesan notifikasi jika ada ?>
+  <?php if (!empty($message)) { echo $message; }?>
 
   <form action="" method="post" enctype="multipart/form-data">
     <div class="main-container">
       
-      <section class="form-section personal-info">
+      <div class="form-section personal-info">
         <h2>Personal Information</h2>
         <div class="picture-placeholder">
-          <img src="https://via.placeholder.com/110" alt="Profile Picture" class="profile-pic">
-          <button type="button">Change Picture</button>
+          <img src="pemilikWisata/foto/fotoProfil/foto_default.png" alt="Profile Picture Preview" class="profile-pic" id="profilePreview">
+          <label for="profilePictureInput" class="change-pic-btn">Change Picture</label>
+          <input type="file" id="profilePictureInput" name="profile_picture" accept="image/*" required>
         </div>
         <div class="input-group">
           <label for="full_name">Full Name</label>
@@ -275,7 +113,7 @@ if (isset($_POST['submit'])) {
         </div>
         <div class="input-group">
           <label for="gender">Gender</label>
-          <select id="gender" name="gender">
+          <select id="gender" name="gender" required>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
@@ -284,27 +122,32 @@ if (isset($_POST['submit'])) {
           <label for="birthdate">Birthdate</label>
           <input type="date" id="birthdate" name="birthdate" required>
         </div>
-      </section>
+      </div>
 
-      <section class="form-section agency-info">
+      <div class="form-section agency-info">
         <h2>Agency Information</h2>
         <div class="picture-placeholder">
-           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Logo_of_the_Ministry_of_Tourism_of_the_Republic_of_Indonesia.svg/2048px-Logo_of_the_Ministry_of_Tourism_of_the_Republic_of_Indonesia.svg.png" alt="Agency Logo" class="logo">
-          <button type="button">Change Picture</button>
+          <img src="pemilikWisata/foto/fotoProfil/foto_default.png" alt="Agency Logo Preview" class="logo-pic" id="logoPreview">
+          <label for="logoInput" class="change-pic-btn">Change Picture</label>
+          <input type="file" id="logoInput" name="agency_logo" accept="image/*" required>
+        </div>
+         <div class="input-group">
+          <label for="position">Agency Name</label>
+          <input type="text" id="agency" name="agency" required>
         </div>
         <div class="input-group">
           <label for="business_address">Business Address</label>
-          <textarea id="business_address" name="business_address" rows="4" required></textarea>
+          <textarea id="business_address" name="business_address" required></textarea>
         </div>
-        <div class="input-group">
-          <label for="tax_document">Tax Document</label>
+        <div class="input-group-doc">
+          <label for="tax_document">Upload Tax Document <i class="fa-solid fa-arrow-up-from-bracket"></i></label>
           <input type="file" id="tax_document" name="tax_document" accept=".pdf,.doc,.docx" required>
         </div>
-        <div class="input-group">
-          <label for="business_document">Business Document</label>
+        <div class="input-group-doc">
+          <label for="business_document">Upload Business Document <i class="fa-solid fa-arrow-up-from-bracket"></i></label>
           <input type="file" id="business_document" name="business_document" accept=".pdf,.doc,.docx" required>
         </div>
-      </section>
+      </div>
     </div>
     
     <div class="form-buttons">
@@ -312,6 +155,34 @@ if (isset($_POST['submit'])) {
       <input type="submit" value="Submit" name="submit" class="btn-submit">
     </div>
   </form>
+
+<script>
+  function setupImagePreview(inputId, previewId) {
+    const inputElement = document.getElementById(inputId);
+    const previewElement = document.getElementById(previewId);
+
+    inputElement.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewElement.src = e.target.result;
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+
+  setupImagePreview('profilePictureInput', 'profilePreview');
+  setupImagePreview('logoInput', 'logoPreview');
+
+  document.querySelector('form').addEventListener('reset', function() {
+      setTimeout(() => {
+          document.getElementById('profilePreview').src = 'pemilikWisata/foto/fotoProfil/foto_default.png';
+          document.getElementById('logoPreview').src = 'pemilikWisata/foto/fotoProfil/foto_default.png';
+      }, 0);
+  });
+</script>
 
 </body>
 </html>
