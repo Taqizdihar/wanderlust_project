@@ -50,8 +50,10 @@ while ($row = mysqli_fetch_assoc($queryPaket)) {
                         <span class="card-tickets"><?= $itemPaket['jumlah_tiket']?> Tiket</span>
                     </div>
 
-                    <a href="indeks.php?page=kelolaPaket&paket_id=<?= $itemPaket['paket_id']?>" class="manage-btn">Manage</a>
-                    <a href="indeks.php?page=deletePaket&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this package? Action cannot be undone')">Delete</a>
+                    <div class="buttons">
+                        <a href="indeks.php?page=kelolaPaket&paket_id=<?= $itemPaket['paket_id']?>" class="manage-btn">Manage</a>
+                        <a href="indeks.php?page=deletePaket&paket_id=<?= $itemPaket['paket_id']?>" class="delete-btn" onclick="return confirm('Are you sure you want to delete this package? Action cannot be undone')">Delete</a>
+                    </div>
                 </div>
             </div>
 
