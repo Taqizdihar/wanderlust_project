@@ -10,8 +10,8 @@ if (session_status() === PHP_SESSION_NONE) {
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
         $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata', 'addPaket', 'daftarPaket', 'kelolaPaket'];
-        $pages_admin = ['acc', 'accwisata', 'accpengolah', 'acctransaksi', 'member' ,'dashboardAdmin', 'pengolahStatus', 'accproperti', 'propertiStatus', 'verifikasiTopUp', 'memberlist'];
-        $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'riwayatReservasi'];
+        $pages_admin = ['acc', 'accwisata', 'accpengolah', 'acctransaksi', 'member' ,'dashboardAdmin', 'pengolahStatus', 'accproperti', 'propertiStatus', 'verifikasiTopUp', 'memberlist', 'transaksiveri'];
+        $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'transaksiverfikasi'];
         
         if (in_array($page, $pages_umum)) {
             include "Umum/$page.php";
