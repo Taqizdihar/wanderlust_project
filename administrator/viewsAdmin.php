@@ -56,6 +56,7 @@
         <li><a href="indeks.php?page=dashboardAdmin"> 🏠 Dashboard</a></li>
         <li><a href="indeks.php?page=accpengolah"> ✅ Owner Verification</a></li>
         <li><a href="indeks.php?page=accwisata"> 🏡 Property Verification</a></li>
+        <li><a href="indeks.php?page=verifikasiTopUp">💰 Verifikasi Top Up</a></li>
         <li><a href="notFound.php"> 💳 Transaction Verification</a></li>
         <li><a href="notFound.php"> 👥 Member List</a></li>
         <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>

@@ -1,14 +1,19 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) session_start();
 include 'config.php';
 
-if ($_SESSION['role'] !== 'administrator') {
-    header("Location: login.php");
+if (!isset($_SESSION['user_id'])) {
+    header("Location: indeks.php?page=login");
+    exit();
+}
+
+if ($_SESSION['role'] !== 'admin') {
+    echo "<h2>Akses ditolak: Anda bukan admin.</h2>";
     exit();
 }
 
 if (isset($_GET['id']) && isset($_GET['aksi'])) {
-    $topup_id = $_GET['id'];
+    $topup_id = intval($_GET['id']);
     $aksi = $_GET['aksi'];
 
     $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM topup WHERE topup_id = $topup_id"));
@@ -22,7 +27,7 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
         mysqli_query($conn, "UPDATE topup SET status = 'ditolak', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
     }
 
-    header("Location: verifikasiTopUp.php?msg=update");
+    header("Location: indeks.php?page=verifikasiTopUp&msg=update");
     exit();
 }
 ?>
@@ -63,8 +68,8 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
                     <td>" . ucfirst($row['metode_pembayaran']) . "</td>
                     <td>" . date('d M Y, H:i', strtotime($row['tanggal_pengajuan'])) . "</td>
                     <td>
-                        <a href='verifikasiTopUp.php?id={$row['topup_id']}&aksi=setujui' class='btn setujui'>Setujui</a>
-                        <a href='verifikasiTopUp.php?id={$row['topup_id']}&aksi=tolak' class='btn tolak'>Tolak</a>
+                        <a href='indeks.php?page=verifikasiTopUp&id={$row['topup_id']}&aksi=setujui' class='btn setujui'>Setujui</a>
+                        <a href='indeks.php?page=verifikasiTopUp&id={$row['topup_id']}&aksi=tolak' class='btn tolak'>Tolak</a>
                     </td>
                 </tr>";
             }
