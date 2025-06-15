@@ -1,126 +1,266 @@
-<?php
-include "config.php";
-
-$page = $_GET['page'];
-$ID = $_SESSION['user_id'];
-$sqlStatement = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement);
-$profile = mysqli_fetch_assoc($query);
-
-$sqlStatement = "SELECT user_id FROM user WHERE role IN ('wisatawan', 'pw')";
-$query = mysqli_query($conn, $sqlStatement);
-$member = mysqli_fetch_all($query, MYSQLI_ASSOC);
-
-// $sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
-// $query = mysqli_query($conn, $sqlStatement);
-// $lokasi = mysqli_fetch_all($query, MYSQLI_ASSOC);
-?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Admin</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert+One">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       margin: 0;
-      font-family: 'Concert One', sans-serif;
-      background-color: #f4f4f4;
-    }
-
-    .wrapper {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f6f8fc;
       display: flex;
-      min-height: 100vh;
     }
 
-    .main {
-      flex: 1;
-      padding: 2rem;
+    .sidebar {
+      width: 250px;
+      background-color: #1e4db7;
+      color: white;
+      height: 100vh;
+      padding: 20px;
     }
 
-    .card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-      margin-bottom: 2rem;
+    .sidebar-header p {
+      margin: 0;
+      font-size: 14px;
     }
 
-    .row {
+    .sidebar-header h2 {
+      margin: 5px 0 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 10px;
+      cursor: pointer;
+      font-size: 16px;
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      border-radius: 8px;
+    }
+
+    .sidebar ul li.active,
+    .sidebar ul li:hover {
+      background-color: #0e3ca2;
+    }
+
+    .main-content {
+      flex-grow: 1;
+      padding: 20px;
+    }
+
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: #f1f1f1;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+
+    .search-bar input {
+      border: none;
+      background: none;
+      outline: none;
+      padding: 5px;
+      width: 200px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
       gap: 1.5rem;
     }
 
-    .row .card {
-      flex: 1 1 calc(33.333% - 1rem);
+    .notif {
+      position: relative;
     }
 
-    .card h3 {
-      margin-bottom: 1rem;
-      color: #333;
+    .notif i {
       font-size: 1.2rem;
+      color: #555;
     }
 
-    .info-box {
-      font-size: 1.5rem;
-      color: #007bff;
+    .notif-dot {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: red;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
     }
 
-    .card-center {
-      text-align: center;
+    .profile-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    strong {
-      color: #2c3e50;
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
     }
 
-    @media (max-width: 768px) {
-      .row {
-        flex-direction: column;
-      }
+    .profile-info {
+      font-size: 14px;
+    }
 
-      .row .card {
-        flex: 1 1 100%;
-      }
+    .cards {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      flex: 1;
+    }
+
+    .user-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .user-table thead {
+      background-color: #f1f1f1;
+    }
+
+    .user-table th, .user-table td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    .role {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .role.pw {
+      background-color: #e3f5e1;
+      color: #2c7a29;
+    }
+
+    .role.wis {
+      background-color: #e1ecf5;
+      color: #1769aa;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
-    <?php include "viewsAdmin.php";?>
 
-    <main class="main">
-      <div class="main">
-        <div class="card">
-          <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.<strong></strong>
-        </div>
-      </div>
-      <div class="main">
-        <div class="row">
-          <div class="card">
-            <h3>Total Members</h3>
-            <div class="info-box">
-              <p><strong><?= count($member)?></strong></p>
-            </div>
-          </div>
-
-          <div class="card card-center">
-            <h3>Total Properties</h3>
-            <p><strong><?= isset($lokasi) ? count($lokasi) : '0' ?></strong></p>
-          </div>
-
-          <div class="card">
-            <h3>Total Transactions</h3>
-            <div class="info-box">
-              <p><strong>Currently Unavailable</strong></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <p>Hi,Admin</p>
+    <h2>Riska Dea Bakri</h2>
   </div>
+  <ul>
+    <li><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+    <li class="active"><i class="fas fa-check-double"></i> Owner Verification</li>
+    <li><i class="fas fa-home"></i> Property Verification</li>
+    <li><i class="fas fa-credit-card"></i> Transaction Verification</li>
+    <li><i class="fas fa-users"></i> Member List</li>
+    <li><i class="fas fa-sign-out-alt"></i> Log Out</li>
+  </ul>
+</div>
+
+<div class="main-content">
+  <header class="main-header">
+    <div class="header-left">
+      <h1>Dashboard</h1>
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search..." />
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="notif">
+        <i class="fas fa-bell"></i>
+        <span class="notif-dot"></span>
+      </div>
+      <div class="profile-box">
+        <img src="https://ui-avatars.com/api/?name=Riska+Dea+Bakri&background=1e4db7&color=fff" alt="Profile" class="profile-icon" />
+        <div class="profile-info">
+          <div class="profile-name">Riska Dea Bakri</div>
+          <div class="profile-role">Admin</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="cards">
+    <div class="card">
+      <p>Total Properties</p>
+      <h3>10</h3>
+    </div>
+    <div class="card">
+      <p>Total Transactions</p>
+      <h3>Unavailable</h3>
+    </div>
+  </div>
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>chris@gmail.com</td>
+        <td><span class="role pw">Pw</span></td>
+      </tr>
+      <tr>
+        <td>maveen@gmail.com</td>
+        <td><span class="role pw">Pw</span></td>
+      </tr>
+      <tr>
+        <td>alnitah@gmail.com</td>
+        <td><span class="role pw">Pw</span></td>
+      </tr>
+      <tr>
+        <td>alniam@gmail.com</td>
+        <td><span class="role pw">Pw</span></td>
+      </tr>
+      <tr>
+        <td>relysian@gmail.com</td>
+        <td><span class="role wis">Wisatawan</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>
