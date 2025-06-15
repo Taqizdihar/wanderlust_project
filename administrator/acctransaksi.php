@@ -1,8 +1,6 @@
 <?php
-// Menyertakan kode umum untuk menangani feedback dan aksi
 include 'index.php';
 
-// Data simulasi untuk pengajuan Transaksi
 $transaksi = [
   ['id' => 'TX001', 'nama_pengguna' => 'Rudi', 'jumlah' => 'Rp 250.000', 'tanggal' => '2025-05-01'],
   ['id' => 'TX002', 'nama_pengguna' => 'Joni', 'jumlah' => 'Rp 500.000', 'tanggal' => '2025-05-02'],
@@ -26,7 +24,7 @@ if (isset($_GET['aksi'], $_GET['id'])) {
   $feedback = $message;
 }
 ?>
-
+x
 <!DOCTYPE html>
 <html lang="id">
 

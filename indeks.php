@@ -1,4 +1,8 @@
 <?php
+echo "File terbuka!";
+exit;
+
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
