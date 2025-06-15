@@ -27,6 +27,9 @@ $total_members = mysqli_num_rows($query);
 $sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
 $query = mysqli_query($conn, $sqlStatement);
 $total_properties = mysqli_num_rows($query);
+
+$sqlPending = mysqli_query($conn, "SELECT COUNT(*) AS jumlah FROM topup WHERE status = 'menunggu'");
+$pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -37,29 +40,6 @@ $total_properties = mysqli_num_rows($query);
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-  <!-- Header -->
-<header class="main-header">
-  <div class="header-left">
-    <h1>Dashboard</h1>
-    <div class="search-bar">
-      <i class="fas fa-search"></i>
-      <input type="text" placeholder="Search..." />
-    </div>
-  </div>
-  <div class="header-right">
-    <div class="notif">
-      <i class="fas fa-bell"></i>
-      <span class="notif-dot"></span>
-    </div>
-    <div class="profile-box">
-      <img src="assets/img/profile-icon.png" alt="Profile" class="profile-icon"/>
-      <div class="profile-info">
-        <div class="profile-name">Riska Dea Bakri</div>
-        <div class="profile-role">Admin</div>
-      </div>
-    </div>
-  </div>
-</header>
 
   <style>
     body {
@@ -95,6 +75,14 @@ $total_properties = mysqli_num_rows($query);
       font-weight: 600;
       color: #333;
     }
+    .card a {
+      font-size: 0.9rem;
+      color: #007bff;
+      margin-top: 0.5rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
     .panel {
       margin-top: 2rem;
       background: #fff;
@@ -128,105 +116,116 @@ $total_properties = mysqli_num_rows($query);
       font-weight: 500;
       text-transform: capitalize;
     }
-    /* Header */
-.main-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  border-bottom: 1px solid #e5e5e5;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-
-.header-left h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-right: 2rem;
-}
-
-.search-bar {
-  display: flex;
-  align-items: center;
-  background-color: #f1f1f1;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-}
-
-.search-bar i {
-  color: #999;
-  margin-right: 0.5rem;
-}
-
-.search-bar input {
-  border: none;
-  background: transparent;
-  outline: none;
-  font-size: 0.9rem;
-  width: 200px;
-}
-
-/* Notification and Profile */
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.notif {
-  position: relative;
-}
-
-.notif i {
-  font-size: 1.2rem;
-  color: #555;
-}
-
-.notif-dot {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  background: red;
-  border-radius: 50%;
-  width: 8px;
-  height: 8px;
-}
-
-/* Profile */
-.profile-box {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.profile-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #007bff;
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.profile-name {
-  font-weight: 600;
-  font-size: 0.95rem;
-}
-
-.profile-role {
-  font-size: 0.8rem;
-  color: #666;
-}
 
     .role-wisatawan { background: #e3f2fd; color: #1976d2; }
     .role-pw { background: #d1e7dd; color: #0f5132; }
+
+    /* Header */
+    .main-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      border-bottom: 1px solid #e5e5e5;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .header-left h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-right: 2rem;
+    }
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background-color: #f1f1f1;
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+    }
+    .search-bar i {
+      color: #999;
+      margin-right: 0.5rem;
+    }
+    .search-bar input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.9rem;
+      width: 200px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .notif {
+      position: relative;
+    }
+    .notif i {
+      font-size: 1.2rem;
+      color: #555;
+    }
+    .notif-dot {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: red;
+      border-radius: 50%;
+      width: 8px;
+      height: 8px;
+    }
+
+    .profile-box {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #007bff;
+    }
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .profile-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .profile-role {
+      font-size: 0.8rem;
+      color: #666;
+    }
   </style>
 </head>
 <body>
+  <header class="main-header">
+    <div class="header-left">
+      <h1>Dashboard</h1>
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search..." />
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="notif">
+        <i class="fas fa-bell"></i>
+        <span class="notif-dot"></span>
+      </div>
+      <div class="profile-box">
+        <img src="assets/img/profile-icon.png" alt="Profile" class="profile-icon"/>
+        <div class="profile-info">
+          <div class="profile-name">Riska Dea Bakri</div>
+          <div class="profile-role">Admin</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <div class="wrapper">
     <?php include "viewsAdmin.php"; ?>
 
@@ -245,8 +244,9 @@ $total_properties = mysqli_num_rows($query);
           <p><?= $total_properties ?></p>
         </div>
         <div class="card">
-          <h3>Total Transactions</h3>
-          <p><span style="font-size:1rem;color:#999;">Unavailable</span></p>
+          <h3>Verifikasi Top Up</h3>
+          <p><?= $pendingTopup ?> permintaan</p>
+          <a href="indeks.php?page=verifikasiTopUp">Kelola</a>
         </div>
       </div>
 
