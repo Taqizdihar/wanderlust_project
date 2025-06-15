@@ -1,157 +1,74 @@
-<?php
-include "config.php";
-
-if (session_status() === PHP_SESSION_NONE) session_start();
-
-$page = $_GET['page'] ?? '';
-$ID = $_SESSION['user_id'] ?? 0;
-
-$profile = [];
-if ($ID) {
-    $stmt = mysqli_prepare($conn, "SELECT * FROM user WHERE user_id = ?");
-    mysqli_stmt_bind_param($stmt, "i", $ID);
-    mysqli_stmt_execute($stmt);
-    $result = mysqli_stmt_get_result($stmt);
-    $profile = mysqli_fetch_assoc($result);
-    mysqli_stmt_close($stmt);
-}
-
-$sqlStatement = "SELECT user_id, nama, email, role FROM user WHERE role IN ('wisatawan', 'pw') ORDER BY user_id DESC LIMIT 5";
-$query = mysqli_query($conn, $sqlStatement);
-$recent_members = mysqli_fetch_all($query, MYSQLI_ASSOC);
-
-$sqlStatement = "SELECT user_id FROM user WHERE role IN ('wisatawan', 'pw')";
-$query = mysqli_query($conn, $sqlStatement);
-$total_members = mysqli_num_rows($query);
-
-$sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
-$query = mysqli_query($conn, $sqlStatement);
-$total_properties = mysqli_num_rows($query);
-
-$sqlPending = mysqli_query($conn, "SELECT COUNT(*) AS jumlah FROM topup WHERE status = 'menunggu'");
-$pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
-?>
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard Admin</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
       margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f4f6f9;
-    }
-    .main {
-      padding: 2rem;
-      flex-grow: 1;
-    }
-    .row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 1.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f6f8fc;
       display: flex;
-      flex-direction: column;
-      align-items: start;
-    }
-    .card h3 {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 0.5rem;
-    }
-    .card p {
-      font-size: 1.8rem;
-      font-weight: 600;
-      color: #333;
-    }
-    .card a {
-      font-size: 0.9rem;
-      color: #007bff;
-      margin-top: 0.5rem;
-      text-decoration: none;
-      font-weight: 500;
     }
 
-    .panel {
-      margin-top: 2rem;
-      background: #fff;
-      border-radius: 12px;
-      padding: 1rem 1.5rem;
-    }
-    .panel h2 {
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
-    }
-    th, td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid #eee;
-      text-align: left;
-      font-size: 0.9rem;
-    }
-    thead th {
-      text-transform: uppercase;
-      color: #999;
-      font-size: 0.75rem;
-    }
-    .role-badge {
-      padding: 0.25em 0.75em;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: capitalize;
+    /* SIDEBAR */
+    .sidebar {
+      width: 250px;
+      background-color: #1e4db7;
+      color: white;
+      height: 100vh;
+      padding: 20px;
+      position: fixed;
     }
 
-    .role-wisatawan { background: #e3f2fd; color: #1976d2; }
-    .role-pw { background: #d1e7dd; color: #0f5132; }
+    .sidebar-header p {
+      margin: 0;
+      font-size: 14px;
+    }
 
-    /* Header */
+    .sidebar-header h2 {
+      margin: 5px 0 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      padding: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 8px;
+    }
+
+    .sidebar ul li.active,
+    .sidebar ul li:hover {
+      background-color: #0e3ca2;
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      margin-left: 250px;
+      padding: 30px;
+      width: calc(100% - 250px);
+    }
+
     .main-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 2rem;
-      background-color: #fff;
-      border-bottom: 1px solid #e5e5e5;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
     }
-    .header-left h1 {
-      font-size: 1.5rem;
+
+    .header-info h1 {
+      margin: 0;
+      font-size: 24px;
       font-weight: 600;
-      margin-right: 2rem;
-    }
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background-color: #f1f1f1;
-      border-radius: 20px;
-      padding: 0.5rem 1rem;
-    }
-    .search-bar i {
-      color: #999;
-      margin-right: 0.5rem;
-    }
-    .search-bar input {
-      border: none;
-      background: transparent;
-      outline: none;
-      font-size: 0.9rem;
-      width: 200px;
     }
 
     .header-right {
@@ -159,57 +76,135 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
       align-items: center;
       gap: 1.5rem;
     }
+
     .notif {
       position: relative;
-    }
-    .notif i {
       font-size: 1.2rem;
-      color: #555;
+      color: #333;
+      cursor: pointer;
     }
+
     .notif-dot {
       position: absolute;
-      top: -5px;
-      right: -5px;
-      background: red;
-      border-radius: 50%;
+      top: -4px;
+      right: -4px;
       width: 8px;
       height: 8px;
+      background: red;
+      border-radius: 50%;
     }
 
     .profile-box {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      gap: 10px;
     }
-    .profile-icon {
+
+    .profile-box img {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid #007bff;
     }
+
     .profile-info {
+      line-height: 1.2;
+      font-size: 14px;
+    }
+
+    /* CARDS */
+    .cards {
       display: flex;
-      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
     }
-    .profile-name {
+
+    .card {
+      background-color: white;
+      flex: 1;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 20px;
       font-weight: 600;
-      font-size: 0.95rem;
+      margin-bottom: 5px;
     }
-    .profile-role {
-      font-size: 0.8rem;
+
+    .card p {
+      margin: 0;
+      font-size: 14px;
       color: #666;
+    }
+
+    .card a {
+      margin-top: 10px;
+      display: inline-block;
+      font-size: 13px;
+      color: #1565c0;
+      text-decoration: none;
+    }
+
+    /* TABLE */
+    .user-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .user-table thead {
+      background-color: #f1f1f1;
+    }
+
+    .user-table th, .user-table td {
+      padding: 15px;
+      text-align: left;
+    }
+
+    .role {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+    }
+
+    .role.pw {
+      background-color: #e3f5e1;
+      color: #2c7a29;
+    }
+
+    .role.wis {
+      background-color: #e1ecf5;
+      color: #1769aa;
     }
   </style>
 </head>
 <body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <p>Hi,Admin</p>
+    <h2>Riska Dea Bakri</h2>
+  </div>
+  <ul>
+    <li><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+    <li class="active"><i class="fas fa-check-double"></i> Owner Verification</li>
+    <li><i class="fas fa-home"></i> Property Verification</li>
+    <li><i class="fas fa-coins"></i> Verifikasi Top Up</li>
+    <li><i class="fas fa-credit-card"></i> Transaction Verification</li>
+    <li><i class="fas fa-users"></i> Member List</li>
+    <li><i class="fas fa-sign-out-alt"></i> Log Out</li>
+  </ul>
+</div>
+
+<div class="main-content">
   <header class="main-header">
-    <div class="header-left">
-      <h1>Dashboard</h1>
-      <div class="search-bar">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Search..." />
-      </div>
+    <div class="header-info">
+      <h1>Selamat Datang, Admin</h1>
     </div>
     <div class="header-right">
       <div class="notif">
@@ -217,69 +212,58 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
         <span class="notif-dot"></span>
       </div>
       <div class="profile-box">
-        <img src="" alt="Profile" class="profile-icon"/>
+        <img src="https://ui-avatars.com/api/?name=Riska+Dea+Bakri&background=1e4db7&color=fff" alt="Profile" />
         <div class="profile-info">
-          <div class="profile-name">Riska Dea Bakri</div>
-          <div class="profile-role">Admin</div>
+          <strong>Riska Dea Bakri</strong><br>
+          <small>Admin</small>
         </div>
       </div>
     </div>
   </header>
 
-  <div class="wrapper">
-    <?php include "viewsAdmin.php"; ?>
-
-    <main class="main">
-      <div class="card">
-        <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.
-      </div>
-
-      <div class="row">
-        <div class="card">
-          <h3>Total Members</h3>
-          <p><?= $total_members ?></p>
-        </div>
-        <div class="card">
-          <h3>Total Properties</h3>
-          <p><?= $total_properties ?></p>
-        </div>
-        <div class="card">
-          <h3>Verifikasi Top Up</h3>
-          <p><?= $pendingTopup ?> permintaan</p>
-          <a href="indeks.php?page=verifikasiTopUp">Kelola</a>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h2>Anggota Baru</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Nama</th>
-              <th>Email</th>
-              <th>Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php if (!empty($recent_members)): ?>
-              <?php foreach ($recent_members as $user): ?>
-              <tr>
-                <td><?= htmlspecialchars($user['nama']) ?></td>
-                <td><?= htmlspecialchars($user['email']) ?></td>
-                <td>
-                  <span class="role-badge role-<?= htmlspecialchars($user['role']) ?>">
-                    <?= htmlspecialchars($user['role']) ?>
-                  </span>
-                </td>
-              </tr>
-              <?php endforeach; ?>
-            <?php else: ?>
-              <tr><td colspan="3" style="text-align:center;">Belum ada anggota baru.</td></tr>
-            <?php endif; ?>
-          </tbody>
-        </table>
-      </div>
-    </main>
+  <div class="cards">
+    <div class="card">
+      <p>Total Properties</p>
+      <h3>10</h3>
+    </div>
+    <div class="card">
+      <p>Verifikasi Top Up</p>
+      <h3>0 permintaan</h3>
+      <a href="#">Kelola</a>
+    </div>
   </div>
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>chris@gmail.com</td>
+        <td><span class="role pw">Pw</span></td>
+      </tr>
+      <tr>
+        <td>maveen@gmail.com</td>
+        <td><span class="role pw">Pw</span></td>
+      </tr>
+      <tr>
+        <td>alnitah@gmail.com</td>
+        <td><span class="role pw">Pw</span></td>
+      </tr>
+      <tr>
+        <td>alniam@gmail.com</td>
+        <td><span class="role pw">Pw</span></td>
+      </tr>
+      <tr>
+        <td>relysian@gmail.com</td>
+        <td><span class="role wis">Wisatawan</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
 </body>
 </html>
