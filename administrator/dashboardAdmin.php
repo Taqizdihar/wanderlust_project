@@ -1,52 +1,37 @@
 <?php
-// administrator/dashboardAdmin.php
-// File ini akan memiliki sidebar dan struktur dashboard penuh
-
 include "config.php";
 
-// Pastikan session_start() sudah dipanggil di indeks.php atau di sini jika file ini diakses langsung
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if (session_status() === PHP_SESSION_NONE) session_start();
 
+$page = $_GET['page'] ?? '';
 $ID = $_SESSION['user_id'] ?? 0;
 
 $profile = [];
 if ($ID) {
     $stmt = mysqli_prepare($conn, "SELECT * FROM user WHERE user_id = ?");
-    if ($stmt) {
-        mysqli_stmt_bind_param($stmt, "i", $ID);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $profile = mysqli_fetch_assoc($result);
-        mysqli_stmt_close($stmt);
-    } else {
-        error_log("Failed to prepare statement for user profile: " . mysqli_error($conn));
-    }
-} else {
-    $profile = [
-        'nama' => 'Guest',
-        'role' => 'Guest',
-        'profile_pic_url' => 'https://via.placeholder.com/45/cccccc/ffffff?text=U'
-    ];
+    mysqli_stmt_bind_param($stmt, "i", $ID);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    $profile = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
 }
 
-// Query data dashboard
 $sqlStatement = "SELECT user_id, nama, email, role FROM user WHERE role IN ('wisatawan', 'pw') ORDER BY user_id DESC LIMIT 5";
 $query = mysqli_query($conn, $sqlStatement);
-$recent_members = $query ? mysqli_fetch_all($query, MYSQLI_ASSOC) : [];
+$recent_members = mysqli_fetch_all($query, MYSQLI_ASSOC);
 
 $sqlStatement = "SELECT user_id FROM user WHERE role IN ('wisatawan', 'pw')";
 $query = mysqli_query($conn, $sqlStatement);
-$total_members = $query ? mysqli_num_rows($query) : 0;
+$total_members = mysqli_num_rows($query);
 
 $sqlStatement = "SELECT tempatwisata_id FROM tempatwisata";
 $query = mysqli_query($conn, $sqlStatement);
-$total_properties = $query ? mysqli_num_rows($query) : 0;
+$total_properties = mysqli_num_rows($query);
 
 $sqlPending = mysqli_query($conn, "SELECT COUNT(*) AS jumlah FROM topup WHERE status = 'menunggu'");
-$pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
+$pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -54,7 +39,7 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard Admin</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
   <style>
@@ -66,15 +51,15 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
     }
 
     :root {
-      --primary-color: #1e4db7;
-      --secondary-color: #163c94;
-      --accent-color: #4CAF50;
-      --background-light: #f4f6f9;
-      --card-background: #fff;
-      --text-dark: #333;
-      --text-medium: #666;
-      --text-light: #999;
-      --border-color: #e5e5e5;
+      --primary-color: #1e4db7; /* Deep Blue */
+      --secondary-color: #163c94; /* Darker Blue */
+      --accent-color: #4CAF50; /* Green accent for active */
+      --background-light: #f4f6f9; /* Light Gray Background */
+      --card-background: #fff; /* White Card Background */
+      --text-dark: #333; /* Dark Gray Text */
+      --text-medium: #666; /* Medium Gray Text */
+      --text-light: #999; /* Light Gray Text */
+      --border-color: #e5e5e5; /* Light Gray Border */
       --shadow-light: 0 4px 12px rgba(0,0,0,0.08);
       --success-color: #28a745;
       --info-color: #007bff;
@@ -100,31 +85,32 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
       min-height: 100vh;
     }
 
-    /* Sidebar Specific Styles */
+    /* === Sidebar Specific Styles === */
     .sidebar {
-      width: 280px;
+      width: 280px; /* Slightly wider for better spacing */
       background: var(--primary-color);
       color: #fff;
       padding: 2rem 0;
       flex-shrink: 0;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+      box-shadow: 2px 0 10px rgba(0,0,0,0.2); /* More pronounced shadow */
       display: flex;
       flex-direction: column;
-      position: relative;
-      z-index: 1050;
-      transition: transform 0.3s ease-in-out;
+      position: relative; /* For overlay in mobile */
+      z-index: 1050; /* Ensure it's above main content on mobile */
+      transition: transform 0.3s ease-in-out; /* For mobile slide in/out */
     }
+
+    /* Hide sidebar by default on small screens, show when toggled */
     @media (max-width: 768px) {
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
             height: 100%;
-            transform: translateX(-100%);
-            width: 260px;
+            transform: translateX(-100%); /* Hidden off-screen */
         }
         .sidebar.active {
-            transform: translateX(0);
+            transform: translateX(0); /* Visible */
         }
         .sidebar-overlay {
             position: fixed;
@@ -134,75 +120,91 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
             height: 100%;
             background: rgba(0,0,0,0.5);
             z-index: 1040;
-            display: none;
+            display: none; /* Hidden by default */
         }
         .sidebar.active + .sidebar-overlay {
-            display: block;
+            display: block; /* Show when sidebar is active */
         }
     }
 
+
     .sidebar-header {
-      padding: 0 2rem 2rem;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+      padding: 0 2rem 2rem; /* Adjusted padding */
+      border-bottom: 1px solid rgba(255,255,255,0.2); /* Slightly stronger border */
       margin-bottom: 1.5rem;
       color: rgba(255,255,255,0.95);
       text-align: left;
     }
+
     .sidebar-header h2 {
-      font-size: 1.35rem;
+      font-size: 1.35rem; /* Larger font */
       font-weight: 700;
       margin: 0;
       line-height: 1.3;
     }
+
+    /* This div wraps the include "viewsAdmin.php"; */
+    /* Assuming viewsAdmin.php outputs <ul><li><a>... structure directly */
     .sidebar-nav-container {
       flex: 1;
-      overflow-y: auto;
-      padding-right: 15px;
-      padding-bottom: 2rem;
+      overflow-y: auto; /* Enable scrolling for navigation items */
+      padding-right: 15px; /* Space for scrollbar on Windows */
+      padding-bottom: 2rem; /* Add padding at the bottom */
     }
-    .sidebar-nav-container > nav > ul {
+
+    /* Target direct children of the included viewsAdmin.php if it's a <ul> */
+    .sidebar-nav-container > ul {
         list-style: none;
-        padding: 0 1.5rem;
+        padding: 0 1.5rem; /* Padding for menu items */
         margin: 0;
     }
-    .sidebar-nav-container > nav > ul > li {
-        margin-bottom: 0.75rem;
+
+    .sidebar-nav-container > ul > li {
+        margin-bottom: 0.75rem; /* More space between items */
     }
-    .sidebar-nav-container > nav > ul > li > a {
+
+    .sidebar-nav-container > ul > li > a {
         display: flex;
         align-items: center;
-        padding: 1rem 1.25rem;
+        padding: 1rem 1.25rem; /* Generous padding */
         color: rgba(255,255,255,0.9);
         text-decoration: none;
-        border-radius: 10px;
+        border-radius: 10px; /* More rounded corners */
         transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
-        font-weight: 500;
+        font-weight: 500; /* Medium weight for general links */
         font-size: 1rem;
-        gap: 1rem;
-        white-space: nowrap;
+        gap: 1rem; /* Space between icon and text */
     }
-    .sidebar-nav-container > nav > ul > li > a i {
-        font-size: 1.25rem;
-        color: rgba(255,255,255,0.7);
+
+    .sidebar-nav-container > ul > li > a i {
+        font-size: 1.25rem; /* Larger icons */
+        color: rgba(255,255,255,0.7); /* Slightly muted icon color */
         transition: color 0.3s ease;
     }
-    .sidebar-nav-container > nav > ul > li > a:hover {
-        background-color: rgba(255,255,255,0.1);
-        transform: translateX(8px);
+
+    .sidebar-nav-container > ul > li > a:hover {
+        background-color: rgba(255,255,255,0.1); /* Lighter hover background */
+        transform: translateX(8px); /* More pronounced slide effect */
         color: #fff;
     }
-    .sidebar-nav-container > nav > ul > li > a:hover i {
+
+    .sidebar-nav-container > ul > li > a:hover i {
+        color: #fff; /* Icons turn white on hover */
+    }
+
+    /* Active link styling */
+    .sidebar-nav-container > ul > li > a.active {
+        background-color: var(--secondary-color); /* Darker blue for active */
+        font-weight: 600; /* Bolder text for active */
+        box-shadow: inset 5px 0 0 var(--accent-color); /* Stronger accent line */
         color: #fff;
     }
-    .sidebar-nav-container > nav > ul > li > a.active {
-        background-color: var(--secondary-color);
-        font-weight: 600;
-        box-shadow: inset 5px 0 0 var(--accent-color);
-        color: #fff;
+
+    .sidebar-nav-container > ul > li > a.active i {
+        color: var(--accent-color); /* Active icon color */
     }
-    .sidebar-nav-container > nav > ul > li > a.active i {
-        color: var(--accent-color);
-    }
+    /* === End Sidebar Specific Styles === */
+
 
     /* Main Content Area */
     .main-content {
@@ -225,20 +227,24 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
       flex-wrap: wrap;
       gap: 1rem;
     }
+
     .header-left {
       display: flex;
       align-items: center;
       gap: 2rem;
       flex-wrap: wrap;
     }
+
     .header-left h1 {
       font-size: 1.6rem;
       font-weight: 700;
       color: var(--text-dark);
       margin: 0;
     }
+
+    /* Hamburger icon for mobile sidebar toggle */
     .menu-toggle {
-        display: none;
+        display: none; /* Hidden by default on desktop */
         background: none;
         border: none;
         font-size: 1.6rem;
@@ -247,12 +253,20 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
         margin-right: 1rem;
     }
     @media (max-width: 768px) {
-        .menu-toggle { display: block; }
-        .header-left { order: 1; flex-grow: 0; justify-content: flex-start; }
-        .header-left h1 { font-size: 1.4rem; margin-left: 0.5rem; }
-        .search-bar { order: 3; width: 100%; margin-top: 0.8rem; }
-        .header-right { order: 2; width: auto; justify-content: flex-end; margin-left: auto; }
+        .menu-toggle {
+            display: block; /* Show on mobile */
+        }
+        .header-left {
+            order: 2; /* Move search bar to the right */
+            flex-grow: 1; /* Allow search bar to grow */
+            justify-content: flex-end; /* Push search to the right */
+        }
+        .header-left h1 {
+            display: none; /* Hide dashboard title on small mobile */
+        }
     }
+
+
     .search-bar {
       display: flex;
       align-items: center;
@@ -263,11 +277,13 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
       max-width: 100%;
       box-shadow: inset 0 1px 4px rgba(0,0,0,0.08);
     }
+
     .search-bar i {
       color: var(--text-light);
       margin-right: 0.75rem;
       font-size: 1rem;
     }
+
     .search-bar input {
       border: none;
       background: transparent;
@@ -276,11 +292,13 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
       flex-grow: 1;
       color: var(--text-dark);
     }
+
     .header-right {
       display: flex;
       align-items: center;
       gap: 1.8rem;
     }
+
     .icon-button {
       background: none;
       border: none;
@@ -290,26 +308,62 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
       position: relative;
       transition: color 0.3s ease;
     }
-    .icon-button:hover { color: var(--primary-color); }
+
+    .icon-button:hover {
+      color: var(--primary-color);
+    }
+
     .notif-dot {
-      position: absolute; top: -3px; right: -3px;
-      background: #e74c3c; border-radius: 50%;
-      width: 10px; height: 10px; border: 2px solid var(--card-background);
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      background: #e74c3c;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      border: 2px solid var(--card-background);
     }
+
     .profile-box {
-      display: flex; align-items: center; gap: 0.8rem;
-      cursor: pointer; padding: 0.5rem 1rem; border-radius: 25px;
-      background: #f0f2f5; transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      background: #f0f2f5;
+      transition: background 0.3s ease;
     }
-    .profile-box:hover { background: #e0e2e5; }
+
+    .profile-box:hover {
+      background: #e0e2e5;
+    }
+
     .profile-icon {
-      width: 45px; height: 45px; border-radius: 50%;
-      object-fit: cover; border: 3px solid var(--primary-color);
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--primary-color);
       box-shadow: 0 0 0 3px rgba(30, 77, 183, 0.2);
     }
-    .profile-info { display: flex; flex-direction: column; line-height: 1.2; }
-    .profile-name { font-weight: 600; font-size: 1rem; color: var(--text-dark); }
-    .profile-role { font-size: 0.85rem; color: var(--text-medium); }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.2;
+    }
+
+    .profile-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--text-dark);
+    }
+
+    .profile-role {
+      font-size: 0.85rem;
+      color: var(--text-medium);
+    }
 
     /* Main Dashboard Content */
     .main {
@@ -319,89 +373,323 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
       flex-direction: column;
       gap: 2rem;
     }
+
     .alert-card {
-      background: var(--alert-success-bg); color: var(--alert-success-text);
-      border: 1px solid var(--alert-success-border); border-radius: 10px;
-      padding: 1rem 1.5rem; font-weight: 500; display: flex;
-      align-items: center; gap: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      background: var(--alert-success-bg);
+      color: var(--alert-success-text);
+      border: 1px solid var(--alert-success-border);
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
-    .alert-card i { font-size: 1.3rem; color: var(--alert-success-text); }
+
+    .alert-card i {
+      font-size: 1.3rem;
+      color: var(--alert-success-text);
+    }
+
     .row {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2rem;
     }
+
     .card {
-      background: var(--card-background); border-radius: 15px;
-      padding: 2rem; box-shadow: var(--shadow-light); display: flex;
-      flex-direction: column; align-items: flex-start;
+      background: var(--card-background);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: var(--shadow-light);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative; overflow: hidden;
+      position: relative;
+      overflow: hidden;
     }
+
     .card::before {
-      content: ''; position: absolute; top: 0; left: 0;
-      width: 100%; height: 6px; background: var(--primary-color);
-      transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease-out;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--primary-color);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease-out;
     }
-    .card:hover::before { transform: scaleX(1); }
-    .card:hover { transform: translateY(-7px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-    .card h3 { font-size: 1.15rem; color: var(--text-medium); margin-bottom: 0.5rem; font-weight: 500; }
-    .card p { font-size: 2.4rem; font-weight: 700; color: var(--text-dark); margin: 0.5rem 0 1.2rem; }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      color: var(--text-medium);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .card p {
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0.5rem 0 1.2rem;
+    }
+
     .card a {
-      font-size: 1rem; color: var(--primary-color); text-decoration: none;
-      font-weight: 600; display: flex; align-items: center; gap: 0.5rem;
+      font-size: 1rem;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
       transition: color 0.3s ease, transform 0.2s ease;
     }
-    .card a:hover { color: var(--secondary-color); transform: translateX(3px); }
-    .card a i { font-size: 0.9em; }
+
+    .card a:hover {
+      color: var(--secondary-color);
+      transform: translateX(3px);
+    }
+    .card a i {
+        font-size: 0.9em;
+    }
 
     /* Panel for Tables */
     .panel {
-      background: var(--card-background); border-radius: 15px;
-      padding: 1.5rem 2rem; box-shadow: var(--shadow-light);
+      background: var(--card-background);
+      border-radius: 15px;
+      padding: 1.5rem 2rem;
+      box-shadow: var(--shadow-light);
     }
+
     .panel h2 {
-      font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--text-dark);
-      font-weight: 600; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-dark);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 1rem;
     }
-    table { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
-    th, td { padding: 1rem 1.2rem; text-align: left; font-size: 0.95rem; vertical-align: middle; }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+    }
+
+    th, td {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      font-size: 0.95rem;
+      vertical-align: middle;
+    }
+
     thead th {
-      text-transform: uppercase; color: var(--text-light); font-size: 0.8rem;
-      font-weight: 600; background-color: #f8f9fa; border-bottom: 2px solid var(--border-color);
+      text-transform: uppercase;
+      color: var(--text-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      background-color: #f8f9fa;
+      border-bottom: 2px solid var(--border-color);
       border-top: 2px solid var(--border-color);
     }
+
     tbody tr {
       background-color: var(--card-background);
       transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.03); border-radius: 8px; overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+      border-radius: 8px;
+      overflow: hidden;
     }
-    tbody tr:hover { background-color: #f0f2f5; box-shadow: 0 4px 8px rgba(0,0,0,0.06); }
-    tbody tr:first-child { margin-top: 0; }
-    tbody tr:last-child { border-bottom: none; }
+
+    tbody tr:hover {
+      background-color: #f0f2f5;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    tbody tr:first-child {
+        margin-top: 0;
+    }
+    tbody tr:last-child {
+      border-bottom: none;
+    }
+
     .role-badge {
-      padding: 0.45rem 0.9rem; border-radius: 25px; font-size: 0.85rem;
-      font-weight: 600; display: inline-block; text-transform: capitalize;
-      min-width: 90px; text-align: center; letter-spacing: 0.5px;
+      padding: 0.45rem 0.9rem;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-block;
+      text-transform: capitalize;
+      min-width: 90px;
+      text-align: center;
+      letter-spacing: 0.5px;
     }
-    .role-wisatawan { background-color: var(--info-color); color: #fff; }
-    .role-pw { background-color: var(--success-color); color: #fff; }
-    .status-badge {
-        padding: 0.45rem 0.9rem; border-radius: 25px; font-size: 0.85rem;
-        font-weight: 600; display: inline-block; text-transform: capitalize;
-        min-width: 90px; text-align: center; letter-spacing: 0.5px; color: white;
+
+    .role-wisatawan {
+      background-color: var(--info-color);
+      color: #fff;
     }
-    .status-review { background-color: #ffc107; color: #333; }
-    .status-approved { background-color: rgb(30, 165, 27); }
-    .status-rejected { background-color: rgb(177, 35, 35); }
-    .status-unknown { background-color: #6c757d; }
-    .button-review {
-        background-color: var(--primary-color); color: white;
-        padding: 8px 12px; border-radius: 5px; text-decoration: none;
-        font-size: 0.9em; transition: background-color 0.3s ease;
+
+    .role-pw {
+      background-color: var(--success-color);
+      color: #fff;
     }
-    .button-review:hover { background-color: var(--secondary-color); }
-    .feedback-message { margin-bottom: 20px; }
-    .no-scroll { overflow: hidden; }
+
+    /* Responsive Adjustments */
+    @media (max-width: 1024px) {
+      .sidebar {
+        width: 240px;
+      }
+      .sidebar-header {
+        padding: 0 1.5rem 1.5rem;
+      }
+      .sidebar-nav-container > ul {
+        padding: 0 1rem;
+      }
+      .sidebar-nav-container > ul > li > a {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+      }
+      .sidebar-nav-container > ul > li > a i {
+        font-size: 1.15rem;
+      }
+
+      .header-left {
+        gap: 1rem;
+      }
+      .search-bar {
+        width: 250px;
+        padding: 0.6rem 1rem;
+      }
+      .main-header {
+        padding: 1rem 1.5rem;
+      }
+      .main {
+        padding: 1.5rem;
+        gap: 1.5rem;
+      }
+      .row {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+      }
+      .card {
+        padding: 1.5rem;
+      }
+      .card p {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 260px; /* Fixed width for mobile slide-out */
+        height: 100%;
+        padding: 1rem 0;
+        box-shadow: 0 0 15px rgba(0,0,0,0.3);
+        flex-direction: column; /* Ensure content stacks */
+        align-items: stretch; /* Stretch items horizontally */
+      }
+      .sidebar-header {
+        padding: 0 1.5rem 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        margin-bottom: 1rem;
+        text-align: left;
+      }
+      .sidebar-nav-container {
+        padding-right: 0; /* No scrollbar space needed for mobile */
+        padding-bottom: 1rem;
+      }
+      .sidebar-nav-container > ul {
+        padding: 0 1rem; /* Adjust padding for mobile links */
+      }
+      .sidebar-nav-container > ul > li {
+        margin-bottom: 0.5rem;
+      }
+      .sidebar-nav-container > ul > li > a {
+        padding: 0.8rem 1rem; /* Adjust padding for mobile links */
+        font-size: 0.9rem;
+      }
+      .sidebar-nav-container > ul > li > a i {
+        font-size: 1.1rem;
+      }
+
+
+      .main-header {
+        flex-direction: row; /* Keep header items in a row */
+        justify-content: space-between; /* Space out elements */
+        padding: 0.8rem 1rem;
+      }
+      .header-left {
+        width: auto;
+        gap: 1rem;
+        order: 1;
+        flex-grow: 0; /* Do not grow */
+        justify-content: flex-start;
+      }
+      .header-left h1 {
+          font-size: 1.4rem; /* Smaller title */
+          display: block; /* Show title on mobile */
+          margin-right: auto; /* Push search to right */
+      }
+      .search-bar {
+        width: 100%;
+        order: 3; /* Move search bar to new line */
+        margin-top: 0.8rem;
+      }
+      .header-right {
+        width: auto;
+        justify-content: flex-end;
+        gap: 1rem;
+        order: 2;
+      }
+      .profile-box {
+        padding: 0.3rem 0.6rem;
+      }
+      .profile-info {
+        display: none; /* Hide profile text on small screens */
+      }
+      .main {
+        padding: 1rem;
+        gap: 1.2rem;
+      }
+      .row {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+      }
+      .panel {
+        padding: 1rem;
+      }
+      table th, table td {
+        padding: 0.7rem 0.8rem;
+        font-size: 0.85rem;
+      }
+      .role-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+        min-width: 70px;
+      }
+    }
+
+    /* JavaScript for Toggle */
+    .no-scroll {
+        overflow: hidden;
+    }
   </style>
 </head>
 <body>
@@ -509,57 +797,39 @@ $pendingTopup = $sqlPending ? mysqli_fetch_assoc($sqlPending)['jumlah'] : 0;
 
       sidebar.classList.toggle('active');
       overlay.classList.toggle('active');
-      body.classList.toggle('no-scroll');
+      body.classList.toggle('no-scroll'); // Prevent scrolling when sidebar is open
     }
 
+    // Set active link in sidebar based on current page
     document.addEventListener('DOMContentLoaded', function() {
         const urlParams = new URLSearchParams(window.location.search);
         const currentPage = urlParams.get('page');
-        const headerTitle = document.querySelector('.main-header h1');
-
-        const pageTitles = {
-            'dashboardAdmin': 'Dashboard',
-            'accpengolah': 'Owner Verification',
-            'accwisata': 'Property Verification',
-            'verifikasiTopUp': 'Verifikasi Top Up',
-            'transactionVerification': 'Transaction Verification',
-            'memberList': 'Member List',
-        };
-
-        const sidebarLinks = document.querySelectorAll('.sidebar-nav-container a');
-        sidebarLinks.forEach(link => {
-            link.classList.remove('active');
-        });
 
         if (currentPage) {
+            // Find the link with href containing the current page
             const activeLink = document.querySelector(`.sidebar-nav-container a[href*="page=${currentPage}"]`);
             if (activeLink) {
+                // Remove active from any previously active link (if logic elsewhere sets it)
+                const currentActive = document.querySelector('.sidebar-nav-container a.active');
+                if (currentActive) {
+                    currentActive.classList.remove('active');
+                }
                 activeLink.classList.add('active');
             }
-            if (pageTitles[currentPage]) {
-                headerTitle.textContent = pageTitles[currentPage];
-            } else {
-                headerTitle.textContent = currentPage.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
-            }
         } else {
-            const dashboardLink = document.querySelector('.sidebar-nav-container a[href*="page=dashboardAdmin"]');
+            // If no 'page' param, default to dashboard or first link
+            const dashboardLink = document.querySelector('.sidebar-nav-container a[href="indeks.php"]');
             if (dashboardLink) {
                 dashboardLink.classList.add('active');
-                headerTitle.textContent = 'Dashboard';
             } else {
+                // Fallback: activate the first link if no specific dashboard link
                 const firstLink = document.querySelector('.sidebar-nav-container a');
                 if (firstLink) {
                     firstLink.classList.add('active');
-                    headerTitle.textContent = 'Dashboard';
                 }
             }
         }
     });
-  </script>
-</body>
-</html>
-
-
   </script>
 </body>
 </html>
