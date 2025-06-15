@@ -146,7 +146,7 @@ if (!$result) {
         <?php while ($row = mysqli_fetch_assoc($result)) : ?>
             <tr>
                 <td><?= htmlspecialchars($row['user_id']) ?></td>
-                <td><?= htmlspecialchars($row['name']) ?></td>
+                <td><?= htmlspecialchars($row['nama']) ?></td>
                 <td><?= htmlspecialchars($row['email']) ?></td>
                 <td><?= htmlspecialchars($row['no_telepon']) ?></td>
                 <td><?= htmlspecialchars($row['gender']) ?></td>
