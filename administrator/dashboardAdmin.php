@@ -1,6 +1,10 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // config.php harus ada di direktori yang sama atau path yang benar
 include "config.php";
+
 
 // Memulai session jika belum ada
 if (session_status() === PHP_SESSION_NONE) {
