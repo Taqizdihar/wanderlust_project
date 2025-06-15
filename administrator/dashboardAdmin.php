@@ -32,17 +32,10 @@ $member = mysqli_fetch_all($query, MYSQLI_ASSOC);
     <main class="main">
       <div class="main">
         <div class="card">
-          <strong>!</strong> Selamat datang di area admin.<strong></strong>
+          <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.<strong></strong>
         </div>
       </div>
-      <div class="main">
-        <div class="row">
-          <div class="card">
-            <h3>Total Members</h3>
-            <div class="info-box">
-              <p><strong><?= count($member)?></strong></p>
-            </div>
-          </div>
+      
     
           <div class="card card-center">
             <h3>Total Properties</h3>
