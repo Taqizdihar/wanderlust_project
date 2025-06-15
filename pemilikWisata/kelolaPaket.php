@@ -36,7 +36,7 @@ if (isset($_POST['submit'])) {
     $queryPaket = mysqli_query($conn, $sqlPaketWisata);
 
     if (mysqli_affected_rows($conn) != 0) {
-        header("location:/Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarPaket");
+        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarPaket");
         exit();
     } else {
         echo "<p>Updating package failed</p>";
