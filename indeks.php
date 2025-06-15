@@ -1,10 +1,6 @@
 <?php
-echo "File terbuka!";
-exit;
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-?>
+
+
 
 <main>
 <?php
@@ -24,8 +20,7 @@ if (session_status() === PHP_SESSION_NONE) {
         } else if (in_array($page, $pages_admin)) {
             include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {
-            include "pengguna/$page.php";
-            
+            include "pengguna/$page.php"; 
         } else {
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
         }
