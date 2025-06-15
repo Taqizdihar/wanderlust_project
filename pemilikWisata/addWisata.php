@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
     $suratIzin = $_FILES['surat_izin'];
 
     if (isset($suratIzin)) {
-    $uploadSIUP = 'pemilikWisata/foto/dokumen/'.basename($suratIzin['name']);
+    $uploadSIUP = 'pemilikWisata/dokumen/'.basename($suratIzin['name']);
     
       if (move_uploaded_file($suratIzin['tmp_name'], $uploadSIUP)) {
         $uploadNewSIUP = $suratIzin['name'];
@@ -148,11 +148,6 @@ if (isset($_POST['submit'])) {
     </div>
 
     <script>
-    /**
-     * Fungsi untuk menampilkan pratinjau gambar setelah dipilih.
-     * @param {Event} event - Event yang terjadi pada input file.
-     * @param {number} index - Nomor urut dari input file.
-     */
     function previewImage(event, index) {
         const input = event.target;
         if (input.files && input.files[0]) {
@@ -162,13 +157,11 @@ if (isset($_POST['submit'])) {
                 const preview = document.getElementById('preview_' + index);
                 const placeholder = document.getElementById('placeholder_' + index);
                 
-                // Menampilkan gambar pratinjau dan menyembunyikan placeholder
                 preview.src = e.target.result;
                 preview.style.display = 'block';
                 placeholder.style.display = 'none';
             }
             
-            // Membaca file gambar sebagai URL data
             reader.readAsDataURL(input.files[0]);
         }
     }
