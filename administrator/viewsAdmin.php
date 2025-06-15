@@ -62,5 +62,6 @@
         <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
       </ul>
     </aside>
+    
 </body>
 </html>

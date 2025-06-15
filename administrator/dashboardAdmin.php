@@ -40,78 +40,8 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-<body>
 
-  <!-- SIDEBAR TIDAK DIUBAH -->
-  <?php include('sidebar.php'); ?>
-
-  <!-- KONTEN UTAMA -->
-  <div class="main-content">
-    <div class="header">
-      <h2>Selamat datang di halaman admin.</h2>
-      <div class="profile-section">
-        <div class="notif-icon">🔔</div>
-        <div class="profile-avatar"></div>
-        <div>
-          <strong>Riska Dea Bakri</strong><br>
-          <small>Admin</small>
-        </div>
-      </div>
-    </div>
-    <div class="dashboard-cards">
-      <div class="card">
-        <h4>Total Properties</h4>
-        <div class="value">10</div>
-      </div>
-      <div class="card">
-        <h4>Verifikasi Top Up</h4>
-        <div class="value">0 permintaan</div>
-        <a href="#">Kelola</a>
-      </div>
-      <div class="card">
-        <h4>Total Transactions</h4>
-        <div class="value">Unavailable</div>
-      </div>
-    </div>
-
-    <div class="table-container">
-      <table>
-        <thead>
-          <tr>
-            <th>Email</th>
-            <th>Role</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>chris@gmail.com</td>
-            <td><span class="badge pw">Pw</span></td>
-          </tr>
-          <tr>
-            <td>maveen@gmail.com</td>
-            <td><span class="badge pw">Pw</span></td>
-          </tr>
-          <tr>
-            <td>alnitah@gmail.com</td>
-            <td><span class="badge pw">Pw</span></td>
-          </tr>
-          <tr>
-            <td>alniam@gmail.com</td>
-            <td><span class="badge pw">Pw</span></td>
-          </tr>
-          <tr>
-            <td>relysian@gmail.com</td>
-            <td><span class="badge wisatawan">Wisatawan</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-</body>
-</html>
   <style>
-    
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
@@ -166,10 +96,10 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 1rem;
+      margin-top: 0rem;
     }
     th, td {
-      padding: 0.75rem 1rem;
+      padding: 0.60rem 1rem;
       border-bottom: 1px solid #eee;
       text-align: left;
       font-size: 0.9rem;
@@ -179,13 +109,7 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
       color: #999;
       font-size: 0.75rem;
     }
-    .role-badge {
-      padding: 0.25em 0.75em;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      text-transform: capitalize;
-    }
+    
 
     .role-wisatawan { background: #e3f2fd; color: #1976d2; }
     .role-pw { background: #d1e7dd; color: #0f5132; }
@@ -246,128 +170,87 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
       height: 8px;
     }
 
-    .main-content {
-      margin-left: 250px; /* agar tidak menimpa sidebar */
-      padding: 30px;
-    }
-
-    /* Header kanan */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    .profile-section {
+    .profile-box {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 0.8rem;
     }
-
-    .profile-avatar {
+    .profile-icon {
       width: 40px;
       height: 40px;
-      background: #ddd;
       border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #007bff;
     }
-
-    .notif-icon {
-      font-size: 20px;
-      position: relative;
-    }
-
-    .notif-icon::after {
-      content: '';
-      position: absolute;
-      top: -5px;
-      right: -5px;
-      width: 8px;
-      height: 8px;
-      background: red;
-      border-radius: 50%;
-    }
-
-    /* Cards */
-    .dashboard-cards {
+    .profile-info {
       display: flex;
-      gap: 20px;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
+      flex-direction: column;
     }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-      flex: 1;
-      min-width: 250px;
+    .profile-name {
+      font-weight: 600;
+      font-size: 0.95rem;
     }
-
-    .card h4 {
-      margin: 0 0 10px;
-      color: #333;
-      font-size: 16px;
-    }
-
-    .card .value {
-      font-size: 26px;
-      font-weight: bold;
-      color: #222;
-    }
-
-    .card a {
-      margin-top: 10px;
-      display: inline-block;
-      color: #1a73e8;
-      font-size: 13px;
-      text-decoration: none;
-    }
-
-    /* Table */
-    .table-container {
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-      overflow: hidden;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 15px;
-      text-align: left;
-      font-size: 14px;
-    }
-
-    th {
-      background: #f1f3f6;
-      color: #444;
-    }
-
-    .badge {
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 12px;
-      color: white;
-    }
-
-    .pw {
-      background-color: #4caf50;
-    }
-
-    .wisatawan {
-      background-color: #2196f3;
-    }
+    
   </style>
 </head>
-  </style>
+<body>
+  <header class="main-header">
+    <div class="header-left">
+      <h1>Dashboard</h1>
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search..." />
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="notif">
+        <i class="fas fa-bell"></i>
+        <span class="notif-dot"></span>
+      </div>
+      <div class="profile-box">
+        <img src="" alt="Profile" class="profile-icon"/>
+        <div class="profile-info">
+          <div class="profile-name">Riska Dea Bakri</div>
+          <div class="profile-role">Admin</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <div class="wrapper">
     <?php include "viewsAdmin.php"; ?>
+
+    <main class="main">
+      <div class="card">
+        <strong>Autentikasi Berhasil!</strong> Selamat datang di area admin.
+      </div>
+
+      <div class="row">
+        <div class="card">
+          <h3>Total Members</h3>
+          <p><?= $total_members ?></p>
+        </div>
+        <div class="card">
+          <h3>Total Properties</h3>
+          <p><?= $total_properties ?></p>
+        </div>
+        <div class="card">
+          <h3>Verifikasi Top Up</h3>
+          <p><?= $pendingTopup ?> permintaan</p>
+          <a href="indeks.php?page=verifikasiTopUp">Kelola</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Anggota Baru</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
           <tbody>
             <?php if (!empty($recent_members)): ?>
               <?php foreach ($recent_members as $user): ?>
@@ -382,7 +265,7 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
               </tr>
               <?php endforeach; ?>
             <?php else: ?>
-             
+              <tr><td colspan="3" style="text-align:center;">Belum ada anggota baru.</td></tr>
             <?php endif; ?>
           </tbody>
         </table>
