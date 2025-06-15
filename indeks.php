@@ -9,7 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
-        $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata', 'addPaket', 'daftarPaket'];
+        $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata', 'addPaket', 'daftarPaket', 'kelolaPaket'];
         $pages_admin = ['acc', 'accwisata', 'accpengolah', 'acctransaksi', 'member' ,'dashboardAdmin', 'pengolahStatus', 'accproperti', 'propertiStatus', 'verifikasiTopUp', 'memberlist'];
         $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'riwayatReservasi'];
         
@@ -22,7 +22,7 @@ if (session_status() === PHP_SESSION_NONE) {
         } else if (in_array($page, $pages_admin)) {
             include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {
-            include "/$page.php";
+            include "pengguna/$page.php";
             
         } else {
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
