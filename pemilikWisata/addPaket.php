@@ -45,6 +45,7 @@ if (isset($_POST['submit'])) {
 <body>
     <?php include "pemilikWisata/viewsWisata.php";?>
     <div class="container">
+        <button class="back-button" onclick="history.back()">← Kembali</button>
         <h2>Add new tourism package</h2>
         <p class="subtitle">Fill all necessary informations for the package below</p>
 

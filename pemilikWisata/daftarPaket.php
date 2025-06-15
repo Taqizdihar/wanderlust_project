@@ -50,7 +50,7 @@ while ($row = mysqli_fetch_assoc($queryPaket)) {
                         <span class="card-tickets"><?= $itemPaket['jumlah_tiket']?> Tiket</span>
                     </div>
 
-                    <a href="manage_paket.php?id=" class="manage-btn">Manage</a>
+                    <a href="indeks.php?page=kelolaPaket?paket_id=<?= $itemPaket['paket_id']?>" class="manage-btn">Manage</a>
                 </div>
             </div>
 
