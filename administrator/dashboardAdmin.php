@@ -27,20 +27,7 @@ $member = mysqli_fetch_all($query, MYSQLI_ASSOC);
 <body>
   <div class="wrapper">
     <?php include "viewsAdmin.php";?>
-    <!-- Topbar -->
-<div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 25px; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-  <!-- Search -->
-  <div style="position: relative;">
-    <input type="text" placeholder="Search..." style="padding: 8px 12px 8px 35px; border: 1px solid #ccc; border-radius: 8px; width: 250px;">
-    <i class="fas fa-search" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #888;"></i>
-  </div>
-
-  <!-- Profile Icon -->
-  <div>
-    <i class="fas fa-user-circle" style="font-size: 26px; color: #007bff; cursor: pointer;"></i>
-  </div>
-</div>
-
+    
 
     <main class="main">
       <div class="main">
