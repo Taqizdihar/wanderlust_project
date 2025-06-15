@@ -2,12 +2,7 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 include 'config.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: indeks.php?page=login");
-    exit();
-}
-
-if ($_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo "<h2>Akses ditolak: Anda bukan admin.</h2>";
     exit();
 }
@@ -16,15 +11,19 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
     $topup_id = intval($_GET['id']);
     $aksi = $_GET['aksi'];
 
-    $data = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM topup WHERE topup_id = $topup_id"));
-    $user_id = $data['user_id'];
-    $jumlah = $data['jumlah'];
+    $query = mysqli_query($conn, "SELECT * FROM topup WHERE topup_id = $topup_id");
+    $data = mysqli_fetch_assoc($query);
 
-    if ($aksi === 'setujui') {
-        mysqli_query($conn, "UPDATE topup SET status = 'disetujui', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
-        mysqli_query($conn, "UPDATE user SET saldo = saldo + $jumlah WHERE user_id = $user_id");
-    } elseif ($aksi === 'tolak') {
-        mysqli_query($conn, "UPDATE topup SET status = 'ditolak', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
+    if ($data) {
+        $user_id = $data['user_id'];
+        $jumlah = floatval($data['jumlah']);
+
+        if ($aksi === 'setujui') {
+            mysqli_query($conn, "UPDATE topup SET status = 'disetujui', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
+            mysqli_query($conn, "UPDATE user SET saldo = saldo + $jumlah WHERE user_id = $user_id");
+        } elseif ($aksi === 'tolak') {
+            mysqli_query($conn, "UPDATE topup SET status = 'ditolak', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
+        }
     }
 
     header("Location: indeks.php?page=verifikasiTopUp&msg=update");

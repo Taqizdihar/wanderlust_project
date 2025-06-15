@@ -3,15 +3,19 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 include 'config.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: indeks.php?page=login");
     exit();
 }
 
-$user_id = $_SESSION['user_id'];
+$user_id = intval($_SESSION['user_id']);
 
-$query = mysqli_query($conn, "SELECT saldo FROM user WHERE user_id = $user_id");
-$data = mysqli_fetch_assoc($query);
+$stmt = $conn->prepare("SELECT saldo FROM user WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$data = $result->fetch_assoc();
 $total_saldo = $data['saldo'] ?? 0;
+$stmt->close();
 
 include 'Header.php';
 ?>
@@ -49,16 +53,18 @@ include 'Header.php';
 
             if (mysqli_num_rows($riwayat) > 0) {
                 while ($row = mysqli_fetch_assoc($riwayat)) {
-                    $statusColor = $row['status'] === 'disetujui' ? 'green' : ($row['status'] === 'menunggu' ? 'orange' : 'red');
-                    $sign = $row['status'] === 'disetujui' ? '+' : '';
+                    $status = htmlspecialchars($row['status']);
+                    $metode = htmlspecialchars(ucfirst($row['metode_pembayaran']));
+                    $statusColor = $status === 'disetujui' ? 'green' : ($status === 'menunggu' ? 'orange' : 'red');
+                    $sign = $status === 'disetujui' ? '+' : '';
                     echo "<div class='riwayat-item'>
                             <div>
-                                <strong>" . ucfirst($row['metode_pembayaran']) . "</strong><br>
+                                <strong>{$metode}</strong><br>
                                 <small style='color: gray;'>" . date("d M Y, H:i", strtotime($row['tanggal_pengajuan'])) . "</small>
                             </div>
                             <div style='text-align: right;'>
-                                <span style='color: $statusColor; font-weight: bold;'>{$sign}Rp " . number_format($row['jumlah'], 0, ',', '.') . "</span><br>
-                                <small>Status: {$row['status']}</small>
+                                <span style='color: {$statusColor}; font-weight: bold;'>{$sign}Rp " . number_format($row['jumlah'], 0, ',', '.') . "</span><br>
+                                <small>Status: {$status}</small>
                             </div>
                           </div>";
                 }
