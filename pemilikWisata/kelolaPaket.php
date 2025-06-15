@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
     $sqlPaketWisata = "UPDATE paketwisata SET foto_paket = '$uploadNewPaket', nama_paket = '$nama_paket', deskripsi = '$deskripsi', harga = '$harga', jumlah_tiket = '$jumlah' WHERE paket_id = '$paket_id'";
     $queryPaket = mysqli_query($conn, $sqlPaketWisata);
 
-    if ($queryPaket) {
+    if (mysqli_affected_rows($conn) != 0) {
         header("location:/Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarPaket");
         exit();
     } else {
