@@ -16,7 +16,7 @@ if (!isset($profile) || !is_array($profile)) {
         <li><a href="indeks.php?page=accwisata"> <i class="fas fa-home"></i> Property Verification</a></li>
         <li><a href="indeks.php?page=verifikasiTopUp"> <i class="fas fa-wallet"></i> Verifikasi Top Up</a></li>
         <li><a href="indeks.php?page=transactionVerification"> <i class="fas fa-credit-card"></i> Transaction Verification</a></li>
-        <li><a href="indeks.php?page=memberList"> <i class="fas fa-users"></i> Member List</a></li>
+        <li><a href="indeks.php?page=memberlist"> <i class="fas fa-users"></i> Member List</a></li>
         <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')"> <i class="fas fa-sign-out-alt"></i> Log Out</a></li>
     </ul>
 </nav>
