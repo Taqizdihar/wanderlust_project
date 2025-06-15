@@ -57,8 +57,8 @@ body {
 
 .card {
     display: flex;
-    background-color: #bebebe;
-    border: 2px outset rgb(220, 0, 0);
+    background-color: #ffffff;
+    border: 2px outset rgb(70, 70, 70);
     border-radius: 15px;
     padding: 20px;
     margin-top: 20px;
