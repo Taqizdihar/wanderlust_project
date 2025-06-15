@@ -1,50 +1,84 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) session_start();
-include_once "config.php"; 
+include "config.php";
 
-if (!isset($_SESSION['user_id'])) {
-    echo "<p>Anda harus login terlebih dahulu.</p>";
-    exit;
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'wisatawan') {
+    header("Location: login.php");
+    exit();
 }
 
-$id_pengguna = $_SESSION['user_id'];
+$wisatawan_id = $_SESSION['user_id'];
 
-$query = "SELECT t.nama_lokasi, t.alamat_lokasi, t.jenis_wisata
-          FROM wishlist w
-          JOIN tempatwisata t ON w.tempatwisata_id = t.tempatwisata_id
-          WHERE w.wisatawan_id = '$id_pengguna'";
+if (isset($_POST['hapus_favorit'])) {
+    $hapus_id = $_POST['tempatwisata_id'];
+    mysqli_query($conn, "DELETE FROM wishlist WHERE wisatawan_id = '$wisatawan_id' AND tempatwisata_id = '$hapus_id'");
+    header("Location: Favorit.php");
+    exit();
+}
 
+$query = "
+    SELECT tw.* 
+    FROM wishlist w 
+    JOIN tempatwisata tw ON w.tempatwisata_id = tw.tempatwisata_id 
+    WHERE w.wisatawan_id = '$wisatawan_id'
+";
 $result = mysqli_query($conn, $query);
-if (!$result) {
-    echo "Query gagal: " . mysqli_error($conn);
-    exit;
-}
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Tempat Wisata Favorit</title>
+    <title>Favorit Saya</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="pengguna/cssPengguna/Favorit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Tempat Wisata Favorit</h1>
-        <?php if (mysqli_num_rows($result) > 0): ?>
-            <div class="favorit-grid">
-                <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                    <div class="favorit-card">
-                        <h3><?= $row['nama_lokasi']; ?></h3>
-                        <p><?= $row['alamat_lokasi']; ?></p>
-                        <p><?= $row['jenis_wisata']; ?></p>
-                    </div>
-                <?php endwhile; ?>
+
+<?php include "pengguna/Header.php"; ?>
+
+<div class="container my-5">
+    <h2 class="mb-4">Destinasi Favorit Saya</h2>
+
+    <?php if (mysqli_num_rows($result) > 0): ?>
+    <div class="row">
+        <?php while ($row = mysqli_fetch_assoc($result)): 
+            $tempatwisata_id = $row['tempatwisata_id'];
+
+            $foto_query = mysqli_query($conn, "SELECT link_foto FROM fotowisata WHERE tempatwisata_id = '$tempatwisata_id' ORDER BY urutan ASC LIMIT 1");
+            $foto_data = mysqli_fetch_assoc($foto_query);
+            $foto = $foto_data ? $foto_data['link_foto'] : 'default.jpg';
+        ?>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow favorit-card">
+                <img src="pemilikWisata/foto/<?= $foto ?>" class="card-img-top" alt="<?= $row['nama_lokasi'] ?>" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><?= $row['nama_lokasi']; ?></h5>
+                    <p class="card-text"><?= $row['jenis_wisata']; ?></p>
+
+                    <a href="detailDestinasiWisata.php?tempatwisata_id=<?= $tempatwisata_id ?>" class="btn btn-primary w-100 mb-2">
+                        <i class="fas fa-eye"></i> Lihat Detail
+                    </a>
+
+                    <form method="post">
+                        <input type="hidden" name="tempatwisata_id" value="<?= $tempatwisata_id ?>">
+                        <button type="submit" name="hapus_favorit" class="btn btn-danger w-100">
+                            <i class="fas fa-trash-alt"></i> Hapus dari Favorit
+                        </button>
+                    </form>
+                </div>
             </div>
-        <?php else: ?>
-            <div class="empty-message">
-                <p>Belum ada tempat favorit disimpan.</p>
-            </div>
-        <?php endif; ?>
+        </div>
+        <?php endwhile; ?>
     </div>
+    <?php else: ?>
+    <div class="alert alert-info">Anda belum menambahkan destinasi favorit.</div>
+    <?php endif; ?>
+</div>
+
+<?php include "pengguna/Footer.php"; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
