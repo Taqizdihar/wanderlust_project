@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 
 <main>
@@ -16,7 +18,7 @@ session_start();
         } else if (in_array($page, $pages_pw)) {
             include "pemilikWisata/$page.php";
         } else if (in_array($page, $pages_admin)) {
-            include "administrator/$page.php"; // <--- INI PENTING
+            include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {
             include "pengguna/$page.php";
         } else {
