@@ -61,26 +61,13 @@ while ($row = mysqli_fetch_assoc($query)) {
         <?php
             if (!empty($lokasi)) {
                 foreach ($lokasi as $itemLokasi) {
-                    $lokasiID = $itemLokasi['tempatwisata_id'];
-                    $sqlFoto = "SELECT * FROM fotowisata WHERE tempatwisata_id='$lokasiID' AND urutan=1";
-                    $queryFoto = mysqli_query($conn, $sqlFoto);
-
-                    $fotos = [];
-                    while ($rowFoto = mysqli_fetch_assoc($queryFoto)) {
-                    $fotos[] = $rowFoto;
-                    }
         ?>
         <div class="card">
-                <?php foreach ($fotos as $foto) {
-                ?>
 
                 <div class="image">
                     <img src="pemilikWisata/foto/<?= $itemLokasi['link_foto']?>" alt="Property Image">
                 </div>
 
-                <?php
-                }
-                ?>
             <div class="info">
                 <?php if($itemLokasi['status'] == 'review'): ?>
                 <h2><?= $itemLokasi['nama_lokasi'];?><span class="status" style="background-color: #888;"><?= $itemLokasi['status'];?></span></h2>
@@ -95,8 +82,7 @@ while ($row = mysqli_fetch_assoc($query)) {
             </div>
             <div class="actions">
                 <a href="indeks.php?page=editWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="see">Edit</a>
-                <a href="indeks.php?page=addPaket&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="edit">Add Package</a>
-                <a href="indeks.php?page=editWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="edit">Manage Packages</a>
+                <a href="indeks.php?page=daftarPaket&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="edit">Manage Packages</a>
                 <a href="indeks.php?page=deleteWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>" id="delete" onclick="return confirm('Are you sure you want to delete this property? Action cannot be undone')">Delete</a>
             </div>
         </div>

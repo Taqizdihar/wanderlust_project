@@ -90,34 +90,6 @@ textarea {
     color: #777;
 }
 
-.foto-upload {
-  margin-bottom: 20px;
-}
-
-.foto-upload label {
-  font-weight: bold;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.foto-upload input[type="file"] {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #f9f9f9;
-  cursor: pointer;
-}
-
-.foto-upload img#preview {
-  display: none;
-  margin-top: 12px;
-  max-width: 100%;
-  max-height: 200px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
 .submit-btn {
     width: 100%;
     padding: 1rem;

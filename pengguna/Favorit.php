@@ -1,59 +1,50 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+include_once "config.php"; // pastikan path menuju config.php benar
 
-include "config.php";
-
-$ID = $_SESSION['user_id'];
-
-$sqlStatement = "SELECT wishlist.*, tempatwisata.* FROM wishlist JOIN tempatwisata";
-$query = mysqli_query($conn, $sqlStatement);
-
-$bookmark = [];
-while ($row = mysqli_fetch_assoc($query)) {
-    $bookmark[] = $row;
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['id'])) {
+    echo "<p>Anda harus login terlebih dahulu.</p>";
+    exit;
 }
 
+$id_pengguna = $_SESSION['id'];
+
+// Query untuk mengambil data tempat favorit dari pengguna
+$query = "SELECT tempat.nama_tempat, tempat.lokasi, tempat.gambar 
+          FROM favorit 
+          JOIN tempat ON favorit.tempat_id = tempat.id 
+          WHERE favorit.pengguna_id = '$id_pengguna'";
+
+$result = mysqli_query($conn, $query);
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Saved Destinations</title>
-  <link rel="stylesheet" href="pengguna/cssPengguna/Favorit.css">
+    <meta charset="UTF-8">
+    <title>Tempat Wisata Favorit</title>
+    <link rel="stylesheet" href="pengguna/cssPengguna/Favorit.css">
 </head>
 <body>
+    <div class="container">
+        <h1>Tempat Wisata Favorit</h1>
 
-  <?php include "pengguna/Header.php";?>
-
-  <h1 class="page-title">Saved Destination</h1>
-  <div class="card-container">
-    <?php if (empty($bookmark)) {?>
-      <div class="card-empty">
-        <h4>You haven't added any place yet!</h4>
-      </div>
-    <?php } else {
-      foreach ($bookmark as $list):
-    ?>
-      <div class="card">
-        <img src="<?= $dest['image'] ?>" class="card-img" alt="<?= $dest['title'] ?>">
-        <div class="card-content">
-          <div>
-            <h2><?= $dest['title'] ?></h2>
-            <div class="card-info">
-              <p>🎫 Ticket <?= $dest['ticket'] ?></p>
-              <p>📦 Kuota <?= $dest['quota'] ?></p>
-              <p>⭐ <?= $dest['rating'] ?> (<?= $dest['reviews'] ?>)</p>
+        <?php if (mysqli_num_rows($result) > 0): ?>
+            <div class="favorit-grid">
+                <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                    <div class="favorit-card">
+                        <img src="../../assets/gambar/<?= $row['gambar']; ?>" alt="<?= $row['nama_tempat']; ?>">
+                        <h3><?= $row['nama_tempat']; ?></h3>
+                        <p><?= $row['lokasi']; ?></p>
+                    </div>
+                <?php endwhile; ?>
             </div>
-          </div>
-          <div class="card-buttons">
-            <button class="remove-btn">Remove</button>
-            <button class="book-btn">Book Now</button>
-          </div>
-        </div>
-      </div>
-    <?php endforeach; } ?>
-  </div>
-
-  <?php include "pengguna/Footer.php";?>
+        <?php else: ?>
+            <div class="empty-message">
+                <p>Belum ada tempat favorit disimpan.</p>
+            </div>
+        <?php endif; ?>
+    </div>
 </body>
 </html>
