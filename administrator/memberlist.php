@@ -1,33 +1,29 @@
 <?php
+// member_list.php
 include "config.php";
-
-$id = $_GET['id'] ?? null;
-$nama = '';
-$email = '';
-
-if ($id) {
-    $query = mysqli_query($conn, "SELECT * FROM member WHERE id='$id'");
-    if ($data = mysqli_fetch_assoc($query)) {
-        $nama = $data['nama'];
-        $email = $data['email'];
-    } else {
-        echo "Data tidak ditemukan!";
-        exit;
-    }
-}
+$members = mysqli_query($conn, "SELECT * FROM member");
 ?>
 
-<h2><?= $id ? "Edit" : "Tambah" ?> Member</h2>
-<form action="proses.php" method="POST">
-    <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
-    <label>Nama:</label><br>
-    <input type="text" name="nama" value="<?= htmlspecialchars($nama) ?>" required><br><br>
-    
-    <label>Email:</label><br>
-    <input type="email" name="email" value="<?= htmlspecialchars($email) ?>" required><br><br>
-
-    <button type="submit" name="<?= $id ? 'update' : 'tambah' ?>">
-        <?= $id ? 'Update' : 'Tambah' ?>
-    </button>
-</form>
-<a href="index.php">← Kembali</a>
+<h2>Daftar Member</h2>
+<a href="form.php">+ Tambah Member</a>
+<br><br>
+<table border="1" cellpadding="8">
+    <tr>
+        <th>No</th><th>Nama</th><th>Email</th><th>Aksi</th>
+    </tr>
+    <?php
+    $no = 1;
+    while ($row = mysqli_fetch_assoc($members)) {
+        echo "<tr>
+            <td>$no</td>
+            <td>{$row['nama']}</td>
+            <td>{$row['email']}</td>
+            <td>
+                <a href='form.php?id={$row['id']}'>Edit</a> |
+                <a href='proses.php?hapus={$row['id']}' onclick=\"return confirm('Yakin hapus?')\">Hapus</a>
+            </td>
+        </tr>";
+        $no++;
+    }
+    ?>
+</table>
