@@ -44,7 +44,6 @@ $member = mysqli_fetch_all($query, MYSQLI_ASSOC);
             </div>
           </div>
     
-
           <div class="card card-center">
             <h3>Total Properties</h3>
             <p><strong><?= count($lokasi)?></strong></p>
