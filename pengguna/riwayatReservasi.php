@@ -2,63 +2,109 @@
 include "config.php";
 
 $ID = $_SESSION['user_id'];
+function getTickets($conn, $ID, $statuses)
+{
+    // Mengubah array status menjadi string untuk klausa IN di SQL
+    $status_list = "'" . implode("','", $statuses) . "'";
 
-$sqlStatement = "SELECT transaksi.*, paketwisata.*, tempatwisata.*, fotowisata.link_foto FROM transaksi JOIN
-    paketwisata ON transaksi.paket_id = paketwisata.paket_id JOIN tempatwisata ON paketwisata.tempatwisata_id = tempatwisata.tempatwisata_id
-    JOIN fotowisata ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id AND fotowisata.urutan = 1";
-$query = mysqli_query($conn, $sqlStatement);
+    $sql = "SELECT
+                tw.nama_lokasi,
+                pw.nama_paket,
+                fw.link_foto,
+                t.tanggal_kunjungan,
+                t.jumlah_tiket,
+                t.status
+            FROM transaksi t
+            JOIN tempatwisata tw ON t.tempatwisata_id = tw.tempatwisata_id
+            JOIN paketwisata pw ON t.paket_id = pw.paket_id
+            LEFT JOIN fotowisata fw ON t.tempatwisata_id = fw.tempatwisata_id AND fw.urutan = 1
+            WHERE t.wisatawan_id = ? AND t.status IN ($status_list)
+            ORDER BY t.tanggal_kunjungan DESC";
 
-$tiket = [];
-while ($row = mysqli_fetch_assoc($query)) {
-    $tiket[] = $row;
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        die("Error preparing statement: " . $conn->error);
+    }
+
+    $stmt->bind_param("i", $ID);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    $tickets = [];
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $tickets[] = $row;
+        }
+    }
+    $stmt->close();
+    return $tickets;
 }
+
+$active_tickets = getTickets($conn, $ID, ['pending', 'dipakai']);
+
+$history_tickets = getTickets($conn, $ID, ['dibayarkan']);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>My Tickets</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="pengguna/cssPengguna/riwayatReservasi.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Tickets</title>
+    <link rel="stylesheet" href="pemilikWisata/cssWisata/riwayatReservasi.css">
 </head>
 <body>
-<?php include "pengguna/Header.php";?>
 
-<h1>My Tickets</h1>
+    <div class="main-container">
+        <h1>Tiket Wisata Saya</h1>
 
-<div class="container">
-  <div class="column">
-    <h2>Tickets</h2>
-    <div class="ticket-card">
-      <img src="beach.jpg" alt="Beach Image">
-      <div class="ticket-info">
-        <h3>Beach Tour</h3>
-        <p>Santolo Beach</p>
-        <div class="status-badge">active</div>
-        <p><i class="fa-solid fa-box info-icon"></i>Package: 2</p>
-        <p><i class="fa-solid fa-calendar-days info-icon"></i>28/06/2025</p>
-      </div>
-      <button class="btn btn-download">Download</button>
+        <!-- Bagian Tiket Aktif -->
+        <section id="active-tickets">
+            <h2>Tiket Anda</h2>
+            <div class="tickets-list">
+                <?php if (count($active_tickets) > 0) : ?>
+                    <?php foreach ($active_tickets as $ticket) : ?>
+                        <div class="ticket-card">
+                            <img src="<?= htmlspecialchars($ticket['link_foto'] ?: 'https://placehold.co/180x150/007bff/FFFFFF?text=Wisata') ?>" alt="Foto Wisata" class="ticket-image" onerror="this.onerror=null;this.src='https://placehold.co/180x150/cccccc/FFFFFF?text=Error';">
+                            <div class="ticket-content">
+                                <h3><?= htmlspecialchars($ticket['nama_lokasi']) ?></h3>
+                                <p><?= htmlspecialchars($ticket['nama_paket']) ?></p>
+                                <p>Tanggal Kunjungan: <span class="ticket-info"><?= date('d F Y', strtotime($ticket['tanggal_kunjungan'])) ?></span></p>
+                                <p>Jumlah: <span class="ticket-info"><?= htmlspecialchars($ticket['jumlah_tiket']) ?> tiket</span></p>
+                                <span class="ticket-status status-<?= htmlspecialchars($ticket['status']) ?>"><?= htmlspecialchars($ticket['status']) ?></span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p class="no-tickets">Anda tidak memiliki tiket yang sedang aktif atau menunggu pembayaran.</p>
+                <?php endif; ?>
+            </div>
+        </section>
+
+        <!-- Bagian Riwayat Tiket -->
+        <section id="history-tickets">
+            <h2>Riwayat Tiket</h2>
+            <div class="tickets-list">
+                <?php if (count($history_tickets) > 0) : ?>
+                    <?php foreach ($history_tickets as $ticket) : ?>
+                         <div class="ticket-card">
+                            <img src="<?= htmlspecialchars($ticket['link_foto'] ?: 'https://placehold.co/180x150/6c757d/FFFFFF?text=Wisata') ?>" alt="Foto Wisata" class="ticket-image" onerror="this.onerror=null;this.src='https://placehold.co/180x150/cccccc/FFFFFF?text=Error';">
+                            <div class="ticket-content">
+                                <h3><?= htmlspecialchars($ticket['nama_lokasi']) ?></h3>
+                                <p><?= htmlspecialchars($ticket['nama_paket']) ?></p>
+                                <p>Tanggal Kunjungan: <span class="ticket-info"><?= date('d F Y', strtotime($ticket['tanggal_kunjungan'])) ?></span></p>
+                                <p>Jumlah: <span class="ticket-info"><?= htmlspecialchars($ticket['jumlah_tiket']) ?> tiket</span></p>
+                                <span class="ticket-status status-<?= htmlspecialchars($ticket['status']) ?>"><?= htmlspecialchars($ticket['status']) ?></span>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else : ?>
+                    <p class="no-tickets">Tidak ada riwayat tiket yang ditemukan.</p>
+                <?php endif; ?>
+            </div>
+        </section>
+
     </div>
-  </div>
-
-  <div class="column">
-    <h2>History</h2>
-    <div class="ticket-card">
-      <img src="beach.jpg" alt="Beach Image">
-      <div class="ticket-info">
-        <h3>Beach Tour</h3>
-        <p>Rahong Beach</p>
-        <p><i class="fa-solid fa-box info-icon"></i>Package: 2</p>
-        <p><i class="fa-solid fa-calendar-days info-icon"></i>28/06/2025</p>
-      </div>
-      <button class="btn btn-details">Details</button>
-    </div>
-  </div>
-</div>
-
-<?php include "pengguna/Footer.php";?>
 
 </body>
 </html>
