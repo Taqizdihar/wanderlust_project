@@ -1,6 +1,5 @@
 <?php
 // Sisipkan file konfigurasi database
-include 'index.php';
 
 ?>
 <!DOCTYPE html>
