@@ -1,15 +1,9 @@
 <?php
-include "config.php";
+include "config.php"; 
 
 $ID = $_SESSION['user_id'];
-$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement1);
-$profile = mysqli_fetch_assoc($query);
 
-$pesan = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
+if (isset($_POST['submit'])) {
     $nama_lokasi = $_POST['nama_lokasi'];
     $alamat_lokasi = $_POST['alamat_lokasi'];
     $jenis_wisata = $_POST['jenis_wisata'];
@@ -18,22 +12,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $deskripsi = $_POST['deskripsi'];
     $sumir = $_POST['sumir'];
     $nomor_pic = $_POST['nomor_pic'];
-
     $status = "review";
-    $surat_izin_path = "";
+    $suratIzin - $_FILES['surat_izin'];
 
-    $sql = "INSERT INTO tempatwisata (pw_id, nama_lokasi, alamat_lokasi, jenis_wisata, waktu_buka, waktu_tutup, deskripsi, sumir, nomor_pic, surat_izin, status) 
-                VALUES ('$pw_id', '$nama_lokasi', '$alamat_lokasi', '$jenis_wisata', '$waktu_buka', '$waktu_tutup', '$deskripsi', '$sumir', '$nomor_pic', '$surat_izin_path', '$status')";
-
-    // Eksekusi query
-    if (mysqli_query($conn, $sql)) {
-        $pesan = "Data tempat wisata baru berhasil ditambahkan dan sedang dalam status review.";
-    } else {
-        // Jika query gagal, tampilkan pesan error
-        $pesan = "Error: " . $sql . "<br>" . mysqli_error($conn);
-    }
+    if (isset($suratIzin)) {
+    $uploadSIUP = 'pemilikWisata/foto/dokumen/'.basename($suratIzin['name']);
     
-    mysqli_close($conn);
+      if (move_uploaded_file($suratIzin['tmp_name'], $uploadSIUP)) {
+        $uploadNewSIUP = $suratIzin['name'];
+      } else {
+        $uploadNewSIUP = null;
+      }
+    }
+
+    $sqlTempatWisata = "INSERT INTO tempatwisata (pw_id, nama_lokasi, alamat_lokasi, jenis_wisata, waktu_buka, waktu_tutup, deskripsi, sumir, nomor_pic, surat_izin, status) 
+                         VALUES ('$ID', '$nama_lokasi', '$alamat_lokasi', '$jenis_wisata', '$waktu_buka', '$waktu_tutup', '$deskripsi', '$sumir', '$nomor_pic', '$uploadSuratIzin', '$status')";
+    $queryTempatWisata = mysqli_query($conn, $sqlTempatWisata);
+
+    $tempatwisata_id = mysqli_insert_id($conn);
+
+    if (isset($_FILES['foto_wisata']) && count($_FILES['foto_wisata']['name']) == 6) {
+        for ($i = 0; $i < 6; $i++) {
+            $uploadFoto = 'pemilikWisata/foto/'.basename($_FILES["foto_wisata"]["name"][$i]);
+            if (move_uploaded_file($_FILES['foto_wisata']['tmp_name'][$i], $uploadFoto)) {
+                $link_foto = $uploadFoto;
+                $urutan = $i + 1;
+                $sqlFotoWisata = "INSERT INTO fotowisata (tempatwisata_id, link_foto, urutan) VALUES ('$tempatwisata_id', '$link_foto', '$urutan')";
+                $queryFoto = mysqli_query($conn, $sqlFotoWisata);
+            }
+        }
+    }
+
+    if (mysqli_affected_rows($conn) != 0) {
+        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=daftarWisata");
+        exit();
+    } else {
+        echo "<p>Adding property failed</p>";
+    }
 }
 ?>
 
@@ -49,30 +64,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php include "pemilikWisata/viewsWisata.php";?>
     <div class="container">
         <h2>Formulir Penambahan Tempat Wisata</h2>
+        <p class="subtitle">Isi semua data yang diperlukan untuk mendaftarkan tempat wisata baru Anda.</p>
 
-        <?php if (!empty($pesan)): ?>
-            <div class="pesan"><?php echo htmlspecialchars($pesan); ?></div>
-        <?php endif; ?>
         <form action="" method="post" enctype="multipart/form-data">
             
             <div class="form-group">
-                <label for="pw_id">ID Pengguna Wisata (pw_id)</label>
-                <input type="number" id="pw_id" name="pw_id" required>
-            </div>
-
-            <div class="form-group">
                 <label for="nama_lokasi">Nama Lokasi Wisata</label>
-                <input type="text" id="nama_lokasi" name="nama_lokasi" required>
+                <input type="text" id="nama_lokasi" name="nama_lokasi" required placeholder="Contoh: Kawah Putih">
             </div>
 
             <div class="form-group">
                 <label for="alamat_lokasi">Alamat Lengkap Lokasi</label>
-                <textarea id="alamat_lokasi" name="alamat_lokasi" rows="3" required></textarea>
+                <textarea id="alamat_lokasi" name="alamat_lokasi" rows="3" required placeholder="Masukkan alamat jalan, kota, dan provinsi"></textarea>
             </div>
 
             <div class="form-group">
                 <label for="jenis_wisata">Jenis Wisata</label>
                 <select id="jenis_wisata" name="jenis_wisata" required>
+                    <option value="" disabled selected>Pilih jenis wisata...</option>
                     <option value="Nature">Alam (Nature)</option>
                     <option value="Cultural">Budaya (Cultural)</option>
                     <option value="Historical">Sejarah (Historical)</option>
@@ -95,22 +104,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label for="deskripsi">Deskripsi Lengkap</label>
-                <textarea id="deskripsi" name="deskripsi" required></textarea>
+                <textarea id="deskripsi" name="deskripsi" required placeholder="Jelaskan secara detail tentang tempat wisata Anda"></textarea>
             </div>
 
             <div class="form-group">
                 <label for="sumir">Ringkasan Deskripsi (Sumir)</label>
-                <textarea id="sumir" name="sumir" rows="2" required></textarea>
+                <textarea id="sumir" name="sumir" rows="2" required placeholder="Tulis ringkasan singkat yang menarik (maksimal 150 karakter)"></textarea>
             </div>
             
             <div class="form-group">
-                <label for="nomor_pic">Nomor Telepon PIC</label>
-                <input type="text" id="nomor_pic" name="nomor_pic" required>
+                <label for="nomor_pic">Nomor Telepon PIC (Person in Charge)</label>
+                <input type="text" id="nomor_pic" name="nomor_pic" required placeholder="Contoh: 081234567890">
             </div>
 
             <div class="form-group">
-                <label for="surat_izin">Unggah Surat Izin (PDF/DOC/DOCX)</label>
-                <input type="file" id="surat_izin" name="surat_izin" accept=".pdf,.doc,.docx" required>
+                <label for="surat_izin">Unggah Surat Izin Usaha (Wajib)</label>
+                <input type="file" id="surat_izin" name="surat_izin" accept=".pdf,.doc,.docx,.jpg,.png" required>
+            </div>
+
+            <div class="form-group">
+                <label>Unggah 6 Foto Terbaik Tempat Wisata (Wajib)</label>
+                <div class="photo-grid">
+                    <?php for ($i = 1; $i <= 6; $i++): ?>
+                    <div class="photo-upload-box">
+                        <label for="foto_<?php echo $i; ?>" class="photo-upload-label">
+                            <img id="preview_<?php echo $i; ?>" class="photo-preview" src="#" alt="Pratinjau Foto <?php echo $i; ?>"/>
+                            <div id="placeholder_<?php echo $i; ?>" class="photo-placeholder">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                                <span>Foto <?php echo $i; ?></span>
+                            </div>
+                        </label>
+                        <input type="file" name="foto_wisata[]" id="foto_<?php echo $i; ?>" class="photo-input" accept="image/*" required onchange="previewImage(event, <?php echo $i; ?>)">
+                    </div>
+                    <?php endfor; ?>
+                </div>
+                 <small class="form-hint">Pilih 6 gambar dengan format JPG, JPEG, atau PNG.</small>
             </div>
 
             <div class="form-group">
@@ -118,6 +146,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </form>
     </div>
+
+    <script>
+    /**
+     * Fungsi untuk menampilkan pratinjau gambar setelah dipilih.
+     * @param {Event} event - Event yang terjadi pada input file.
+     * @param {number} index - Nomor urut dari input file.
+     */
+    function previewImage(event, index) {
+        const input = event.target;
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const preview = document.getElementById('preview_' + index);
+                const placeholder = document.getElementById('placeholder_' + index);
+                
+                // Menampilkan gambar pratinjau dan menyembunyikan placeholder
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+            }
+            
+            // Membaca file gambar sebagai URL data
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
 
 </body>
 </html>
