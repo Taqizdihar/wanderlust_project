@@ -20,7 +20,7 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
 
         if ($aksi === 'setujui') {
             mysqli_query($conn, "UPDATE topup SET status = 'disetujui', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
-            mysqli_query($conn, "UPDATE user SET saldo = saldo + $jumlah WHERE user_id = $user_id");
+            mysqli_query($conn, "UPDATE user SET saldo = IFNULL(saldo, 0) + $jumlah WHERE user_id = $user_id");
         } elseif ($aksi === 'tolak') {
             mysqli_query($conn, "UPDATE topup SET status = 'ditolak', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
         }
