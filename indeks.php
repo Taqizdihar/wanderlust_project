@@ -10,6 +10,7 @@ if (session_status() === PHP_SESSION_NONE) {
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
         $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata', 'addPaket', 'daftarPaket'];
+        // HANYA BAGIAN INI YANG DITAMBAH: 'memberlist' ditambahkan ke array pages_admin
         $pages_admin = ['acc', 'accwisata', 'accpengolah', 'acctransaksi', 'member' ,'dashboardAdmin', 'pengolahStatus', 'accproperti', 'propertiStatus', 'verifikasiTopUp', 'memberlist'];
         $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'riwayatReservasi'];
         
@@ -17,12 +18,12 @@ if (session_status() === PHP_SESSION_NONE) {
             include "Umum/$page.php";
         } else if (in_array($page, $pages_pw)) {
             include "pemilikWisata/$page.php";
-         } else if (in_array($page, $pages_pw)) {
-            include "ownerverification/$page.php";
+        } else if (in_array($page, $pages_pw)) { // PERHATIAN: Ada duplikasi kondisi di sini.
+            include "ownerverification/$page.php"; // Blok ini mungkin tidak pernah tercapai
         } else if (in_array($page, $pages_admin)) {
             include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {
-            include "/$page.php";
+            include "/$page.php"; // PERHATIAN: Jalur ini relatif ke root web server, bukan root proyek
             
         } else {
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
