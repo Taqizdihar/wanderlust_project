@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
     $sumir = $_POST['sumir'];
     $nomor_pic = $_POST['nomor_pic'];
     $status = "review";
-    $suratIzin - $_FILES['surat_izin'];
+    $suratIzin = $_FILES['surat_izin'];
 
     if (isset($suratIzin)) {
     $uploadSIUP = 'pemilikWisata/foto/dokumen/'.basename($suratIzin['name']);
@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
         for ($i = 0; $i < 6; $i++) {
             $uploadFoto = 'pemilikWisata/foto/'.basename($_FILES["foto_wisata"]["name"][$i]);
             if (move_uploaded_file($_FILES['foto_wisata']['tmp_name'][$i], $uploadFoto)) {
-                $link_foto = $uploadFoto;
+                $link_foto = basename($_FILES["foto_wisata"]["name"][$i]);
                 $urutan = $i + 1;
                 $sqlFotoWisata = "INSERT INTO fotowisata (tempatwisata_id, link_foto, urutan) VALUES ('$tempatwisata_id', '$link_foto', '$urutan')";
                 $queryFoto = mysqli_query($conn, $sqlFotoWisata);
