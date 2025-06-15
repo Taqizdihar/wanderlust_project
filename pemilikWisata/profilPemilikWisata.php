@@ -72,7 +72,7 @@ mysqli_close($conn);
                 </div>
                 <div class="form-group">
                     <label for="businessDocument">Business Document</label>
-                    <a href="pemilikWisata/dokumen/<?= $PWProfile['npwp']?>" target="_blank">See File</a>
+                    <a href="pemilikWisata/dokumen/<?= $PWProfile['siup']?>" target="_blank">See File</a>
                 </div>
             </form>
             <div class="button-group">
