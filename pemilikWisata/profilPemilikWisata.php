@@ -2,13 +2,13 @@
 include "config.php";
 
 $ID = $_SESSION['user_id'];
-$sqlStatement1 = "SELECT * FROM user WHERE user_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement1);
-$profile = mysqli_fetch_assoc($query);
+$userStatement = "SELECT * FROM user WHERE user_id='$ID'";
+$userQuery = mysqli_query($conn, $userStatement);
+$profile = mysqli_fetch_assoc($userQuery);
 
-$sqlStatement2 = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
-$query = mysqli_query($conn, $sqlStatement2);
-$PWProfile = mysqli_fetch_assoc($query);
+$pwStatement = "SELECT * FROM pemilikwisata WHERE pw_id='$ID'";
+$pwQuery = mysqli_query($conn, $pwStatement);
+$PWProfile = mysqli_fetch_assoc($pwQuery);
 
 mysqli_close($conn);
 ?>
@@ -30,32 +30,28 @@ mysqli_close($conn);
         <div class="profile-card">
             <h2>Personal Information</h2>
             <div class="profile-pic-container">
-                <img src="pemilikWisata/foto/fotoProfil/<?= htmlspecialchars($profile['foto_profil'] ?? 'default.jpg') ?>" alt="Profile Picture">
+                <img src="pemilikWisata/foto/fotoProfil/<?= $profile['foto_profil'] ?>" alt="Profile Picture">
             </div>
             <form>
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" value="<?= htmlspecialchars($profile['nama_lengkap'] ?? '') ?>">
+                    <input type="text" id="fullName" name="fullName" value="<?= $profile['nama'] ?>" disabled>
                 </div>
                 <div class="form-group">
                     <label for="position">Position</label>
-                    <input type="text" id="position" name="position" value="<?= htmlspecialchars($profile['jabatan'] ?? '') ?>">
+                    <input type="text" id="position" name="position" value="<?= $PWProfile['jabatan'] ?>" disabled>
                 </div>
                 <div class="form-group">
                     <label for="businessPhoneNumber">Business Telephone Number</label>
-                    <input type="tel" id="businessPhoneNumber" name="businessPhoneNumber" value="<?= htmlspecialchars($PWProfile['no_telp_bisnis'] ?? '') ?>">
+                    <input type="tel" id="businessPhoneNumber" name="businessPhoneNumber" value="<?= $profile['no_telepon']; ?>" disabled>
                 </div>
                 <div class="form-group">
                     <label for="gender">Gender</label>
-                    <select id="gender" name="gender">
-                        <option value="Male" <?= (isset($profile['gender']) && $profile['gender'] == 'Male') ? 'selected' : '' ?>>Male</option>
-                        <option value="Female" <?= (isset($profile['gender']) && $profile['gender'] == 'Female') ? 'selected' : '' ?>>Female</option>
-                        <option value="Other" <?= (isset($profile['gender']) && $profile['gender'] == 'Other') ? 'selected' : '' ?>>Other</option>
-                    </select>
+                    <input type="text" id="gender" name="gender" value="<?= $profile['gender']; ?>" disabled>
                 </div>
                 <div class="form-group">
                     <label for="birthdate">Birthdate</label>
-                    <input type="date" id="birthdate" name="birthdate" value="<?= htmlspecialchars($profile['tanggal_lahir'] ?? '') ?>">
+                    <input type="date" id="birthdate" name="birthdate" value="<?= $profile['tanggal_lahir']; ?>" disabled>
                 </div>
             </form>
         </div>
@@ -63,25 +59,24 @@ mysqli_close($conn);
         <div class="agency-card">
             <h2>Agency Information</h2>
             <div class="agency-logo-container">
-                <img src="Umum/foto/Kementerian Pariwisata logo.png" alt="Agency Logo">
+                <img src="pemilikWisata/foto/fotoProfil/<?= $PWProfile['foto_instansi']?>" alt="Agency Logo">
             </div>
             <form>
                 <div class="form-group">
                     <label for="businessAddress">Business Address</label>
-                    <textarea id="businessAddress" name="businessAddress"><?= htmlspecialchars($PWProfile['alamat_bisnis'] ?? '') ?></textarea>
+                    <p><?= $PWProfile['alamat_bisnis'] ?></p>
                 </div>
                 <div class="form-group">
                     <label for="taxDocument">Tax Document</label>
-                    <input type="file" id="taxDocument" name="taxDocument">
+                    <a href="pemilikWisata/dokumen/<?= $PWProfile['npwp']?>" target="_blank">See File</a>
                 </div>
                 <div class="form-group">
                     <label for="businessDocument">Business Document</label>
-                    <input type="file" id="businessDocument" name="businessDocument">
+                    <a href="pemilikWisata/dokumen/<?= $PWProfile['npwp']?>" target="_blank">See File</a>
                 </div>
             </form>
             <div class="button-group">
-                <button type="button" class="reset">Reset</button>
-                <button type="submit" class="submit">Submit</button>
+                <a href="indeks.php?page=editProfilWisata"><button class="submit">Edit</button></a>
             </div>
         </div>
     </div>

@@ -7,10 +7,8 @@ body {
 
 .main-content {
     margin-left: 220px;
-    /* Adjust based on sidebar width + some margin */
     padding: 20px;
-    padding-top: 100px;
-    /* Adjust based on navbar height + some margin */
+    padding-top: 150px;
     display: flex;
     justify-content: center;
     gap: 40px;
@@ -82,7 +80,6 @@ body {
     height: 120px;
     object-fit: contain;
     background-color: #fff;
-    /* To make the logo visible if it has transparency */
     padding: 5px;
     border-radius: 50%;
 }
@@ -112,12 +109,21 @@ body {
     margin-bottom: 8px;
     font-weight: bold;
     color: #333;
-    /* For personal information card */
+}
+
+.agency-card .form-group a {
+    text-decoration: none;
+    background-color: white;
+    border-radius: 10px;
+    color: black;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
 }
 
 .agency-card .form-group label {
     color: #fff;
-    /* For agency information card */
+    margin-bottom: 20px;
 }
 
 .form-group input[type="text"],
@@ -133,7 +139,6 @@ body {
     font-size: 16px;
     box-sizing: border-box;
     background-color: #fff;
-    /* Ensure input fields are white */
     color: #333;
 }
 
@@ -166,7 +171,6 @@ body {
 
 .button-group button.reset {
     background-color: #d9534f;
-    /* Red */
     color: #fff;
 }
 
@@ -176,7 +180,6 @@ body {
 
 .button-group button.submit {
     background-color: #5cb85c;
-    /* Green */
     color: #fff;
 }
 
