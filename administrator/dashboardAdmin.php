@@ -217,7 +217,7 @@ $pendingTopup = mysqli_fetch_assoc($sqlPending)['jumlah'];
         <span class="notif-dot"></span>
       </div>
       <div class="profile-box">
-        <img src="assets/img/profile-icon.png" alt="Profile" class="profile-icon"/>
+        <img src="" alt="Profile" class="profile-icon"/>
         <div class="profile-info">
           <div class="profile-name">Riska Dea Bakri</div>
           <div class="profile-role">Admin</div>
