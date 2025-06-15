@@ -1,25 +1,35 @@
 <?php
+include "config.php";
 // administrator/memberlist.php
 // Halaman untuk menampilkan daftar anggota (member list)
 
+// Tampilkan error saat pengembangan
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Pastikan koneksi database sudah tersedia dari indeks.php
-// Jika tidak, Anda bisa require_once di sini, tapi idealnya sudah di indeks.php
 if (!isset($conn)) {
-    // Jalur ini mengasumsikan koneksi.php ada di satu level di atas folder administrator/
-    require_once '../koneksi.php'; // Sesuaikan jalur jika koneksi.php ada di tempat lain
+    // Sesuaikan jalur jika koneksi.php ada di tempat lain
+    require_once '../koneksi.php';
 }
 
 // Ambil data anggota dari database
 $sql = "SELECT id, nama, email, role, status FROM users ORDER BY id DESC";
 $result = $conn->query($sql);
 
+// Jika query gagal, tampilkan pesan error
+if (!$result) {
+    echo "<p>Terjadi kesalahan dalam mengambil data: " . $conn->error . "</p>";
+    exit;
+}
 ?>
 
 <div class="page-content">
     <h2>Daftar Anggota Sistem</h2>
 
     <?php if ($result->num_rows > 0) : ?>
-        <table class="data-table">
+        <table class="data-table" border="1" cellspacing="0" cellpadding="8">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -30,7 +40,7 @@ $result = $conn->query($sql);
                 </tr>
             </thead>
             <tbody>
-                <?php while($row = $result->fetch_assoc()) : ?>
+                <?php while ($row = $result->fetch_assoc()) : ?>
                     <tr>
                         <td><?php echo htmlspecialchars($row['id']); ?></td>
                         <td><?php echo htmlspecialchars($row['nama']); ?></td>
@@ -59,9 +69,5 @@ $result = $conn->query($sql);
         <p>Tidak ada anggota yang ditemukan di database.</p>
     <?php endif; ?>
 
-    <?php
-    // Tutup koneksi database setelah selesai digunakan
-    // Ini penting jika Anda tidak ingin koneksi tetap terbuka di seluruh skrip
-    $conn->close();
-    ?>
+    <?php $conn->close(); ?>
 </div>
