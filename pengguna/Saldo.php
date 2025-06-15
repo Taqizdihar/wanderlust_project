@@ -1,91 +1,79 @@
 <?php
-$saldo = 0;
-$riwayat = "Terakhir digunakan untuk memesan tiket ke Trans Studio Bandung pada 5 Mei 2025.";
+if (session_status() === PHP_SESSION_NONE) session_start();
+include 'config.php';
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: indeks.php?page=login");
+    exit();
+}
+
+$user_id = intval($_SESSION['user_id']);
+
+$stmt = $conn->prepare("SELECT saldo FROM user WHERE user_id = ?");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$data = $result->fetch_assoc();
+$total_saldo = $data['saldo'] ?? 0;
+$stmt->close();
+
+include 'Header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Saldo | Wanderlust</title>
-  <link rel="stylesheet" href="Saldo.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-<header class="main-header">
-        <div class="logo-container">
-            <img src="../Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Logo" class="logo">
-            <div class="logo-text">
-                <div class="title">Wanderlust</div>
-                <div class="subtitle">WANDERINGS FOR WONDERS</div>
+<link rel="stylesheet" href="pengguna/cssPengguna/Saldo.css">
+
+<main style="padding: 40px 20px;">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+
+        <?php if (isset($_GET['status']) && $_GET['status'] === 'sukses'): ?>
+            <div style="color: green; font-weight: bold; margin-bottom: 20px;">
+                Top up berhasil dikirim. Menunggu verifikasi.
             </div>
+        <?php endif; ?>
+
+        <section class="saldo-card">
+            <div class="saldo-icon"><i class="ri-wallet-3-line"></i></div>
+            <div class="saldo-amount">Rp <?= number_format($total_saldo, 0, ',', '.') ?></div>
+            <div class="saldo-desc">Saldo Dompet Digital Anda</div>
+
+            <button class="topup-btn" onclick="location.href='indeks.php?page=topUpSaldo'">
+                <i class="ri-bank-card-line" style="margin-right: 6px;"></i>Top Up Sekarang
+            </button>
+        </section>
+
+        <h2 class="riwayat-title">Riwayat Top Up Terbaru</h2>
+        <div class="riwayat-list">
+            <?php
+            $riwayat = mysqli_query($conn, "
+                SELECT jumlah, metode_pembayaran, status, tanggal_pengajuan 
+                FROM topup 
+                WHERE user_id = $user_id 
+                ORDER BY tanggal_pengajuan DESC LIMIT 5
+            ");
+
+            if (mysqli_num_rows($riwayat) > 0) {
+                while ($row = mysqli_fetch_assoc($riwayat)) {
+                    $status = htmlspecialchars($row['status']);
+                    $metode = htmlspecialchars(ucfirst($row['metode_pembayaran']));
+                    $statusColor = $status === 'disetujui' ? 'green' : ($status === 'menunggu' ? 'orange' : 'red');
+                    $sign = $status === 'disetujui' ? '+' : '';
+                    echo "<div class='riwayat-item'>
+                            <div>
+                                <strong>{$metode}</strong><br>
+                                <small style='color: gray;'>" . date("d M Y, H:i", strtotime($row['tanggal_pengajuan'])) . "</small>
+                            </div>
+                            <div style='text-align: right;'>
+                                <span style='color: {$statusColor}; font-weight: bold;'>{$sign}Rp " . number_format($row['jumlah'], 0, ',', '.') . "</span><br>
+                                <small>Status: {$status}</small>
+                            </div>
+                          </div>";
+                }
+            } else {
+                echo "<p style='color: gray;'>Belum ada riwayat top up.</p>";
+            }
+            ?>
         </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-            <span class="search-icon"></span>
-        </div>
-        <nav class="nav-links">
-            <a href="#">Opsi 1</a>
-            <a href="#">Opsi 2</a>
-            <a href="#">Favorit</a>
-            <div class="profile-icon">👤</div>
-        </nav>
-    </header>
+    </div>
+</main>
 
-  <div class="container">
-    <div class="header">
-      <img src="Umum/photos/Wanderlust Logo Plain.png" alt="Wanderlust Icon">
-      <div>
-        <h1>Wanderlust</h1>
-        <p class="subtitle">Cek Saldo Dompet Wisatamu!</p>
-      </div>
-    </div>
-
-    <div class="balance-info">
-      <span>Saldo Anda:</span>
-      <strong>Rp <?= number_format($saldo, 0, ',', '.') ?></strong>
-    </div>
-
-    <div class="tabs">
-      <div class="tab active">Riwayat</div>
-      <div class="tab">Top Up</div>
-      <div class="tab">Pengaturan</div>
-    </div>
-
-    <div class="tab-content">
-      <?= htmlspecialchars($riwayat) ?>
-    </div>
-  </div>
-  <footer>
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="../Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
-      <div>
-        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS FOR WONDERS</span></h5>
-      </div>
-    </div>
-    <div class="footbar">
-      <table>
-        <tr>
-          <td><a href="AboutUs.php">Tentang Kami</a></td>
-          <td><a href="Komunitas.php">Komunitas</a></td>
-          <td><a href="Profil.php">Profil</a></td>
-        </tr>
-        <tr>
-          <td><a href="ContactUs.php">Kontak Kami</a></td>
-          <td><a href="Tips.php">Tips & Trick</a></td>
-          <td><a href="Agenda.php">Agenda</a></td>
-        </tr>
-        <tr>
-          <td><a href="FAQs.php">FAQs</a></td>
-          <td><a href="Promo.php">Promo</a></td>
-          <td><a href="Home.php">Home</a></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-</footer>
-
-</body>
-</html>
+<?php include 'Footer.php'; ?>

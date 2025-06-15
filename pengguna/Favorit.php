@@ -1,104 +1,84 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) session_start();
+include "config.php";
+
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'wisatawan') {
+    header("Location: login.php");
+    exit();
+}
+
+$wisatawan_id = $_SESSION['user_id'];
+
+if (isset($_POST['hapus_favorit'])) {
+    $hapus_id = $_POST['tempatwisata_id'];
+    mysqli_query($conn, "DELETE FROM wishlist WHERE wisatawan_id = '$wisatawan_id' AND tempatwisata_id = '$hapus_id'");
+    header("Location: Favorit.php");
+    exit();
+}
+
+$query = "
+    SELECT tw.* 
+    FROM wishlist w 
+    JOIN tempatwisata tw ON w.tempatwisata_id = tw.tempatwisata_id 
+    WHERE w.wisatawan_id = '$wisatawan_id'
+";
+$result = mysqli_query($conn, $query);
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorit</title>
-    <link rel="stylesheet" href="Wanderlust2.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert+One">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Favorit Saya</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="pengguna/cssPengguna/Favorit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="header-logo">
-                <img src="Images/Wanderlust Logo Circle.png" height="50" width="50" alt="Wanderlust Logo">
-                <a href="Home.php">Wanderlust</a>
-            </div>
-            <nav class="navbar">
-                <ul>
-                    <li><a href="Login.php">Login</a></li>
-                    <li><a href="Promo.php">Promo</a></li>
-                    <li><a href="PemesananTiket.php">Tiket</a></li>
-                    <li><a href="Tips.php">Tips</a></li>
-                    <li><a href="ContactUs.php">Kontak Kami</a></li>
-                    <li><a href="Agenda.php">Agenda</a></li>
-                    <li><a href="Profil.php"><img src="Images/PP.jpg" alt="Foto Profil"></a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Main Content -->
-    <h2 class="home-heading">Favorit</h2>
-    <div class="card-gallery">
-        <?php
-        $destinasi = [
-            ["Bandung", "Masjid Al-Jabbar", "Images/Masjid Al-Jabbar.jpeg", "14K", "FREE", ["mosque", "square-parking"]],
-            ["Rancabali", "Glamping Lakeside", "Images/Glamping Ciwidey.jpg", "18K", "PAID", ["bed", "utensils", "camera"]],
-            ["Lembang", "The Great Asia Africa", "Images/The Great Asia Afrika.jpg", "21K", "PAID", ["utensils", "camera", "gifts"]],
-            ["Ciater", "D'Castello", "Images/D'Castello.jpg", "12K", "PAID", ["utensils", "camera", "gifts"]],
-        ];
-        foreach ($destinasi as [$lokasi, $nama, $gambar, $rating, $biaya, $ikon]) {
-            echo '<div class="cards-destination">
-                    <div class="card-images" style="background-image: url('.$gambar.');">
-                        <h4>'.$lokasi.'</h4>
-                    </div>
-                    <div class="destination-content">
-                        <h3>'.$nama.'</h3>
-                        <div class="stars">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <p>'.$rating.'</p>
-                        </div>
-                        <div class="home-icons">';
-            foreach ($ikon as $icon) {
-                echo '<i class="fa-solid fa-'.$icon.'"></i>';
-            }
-            echo '<p>'.$biaya.'</p>
-                        </div>
-                        <a href="#" class="card-button">Cek Info Lengkap</a>
-                    </div>
-                </div>';
-        }
+<?php include "pengguna/Header.php"; ?>
+
+<div class="container my-5">
+    <h2 class="mb-4">Destinasi Favorit Saya</h2>
+
+    <?php if (mysqli_num_rows($result) > 0): ?>
+    <div class="row">
+        <?php while ($row = mysqli_fetch_assoc($result)): 
+            $tempatwisata_id = $row['tempatwisata_id'];
+
+            $foto_query = mysqli_query($conn, "SELECT link_foto FROM fotowisata WHERE tempatwisata_id = '$tempatwisata_id' ORDER BY urutan ASC LIMIT 1");
+            $foto_data = mysqli_fetch_assoc($foto_query);
+            $foto = $foto_data ? $foto_data['link_foto'] : 'default.jpg';
         ?>
-    </div>
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow favorit-card">
+                <img src="pemilikWisata/foto/<?= $foto ?>" class="card-img-top" alt="<?= $row['nama_lokasi'] ?>" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><?= $row['nama_lokasi']; ?></h5>
+                    <p class="card-text"><?= $row['jenis_wisata']; ?></p>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="Images/Wanderlust Logo Circle.png" height="70" width="70" alt="Wanderlust Logo">
-                <div>
-                    <h5>
-                        Wanderlust
-                        <span style="display: block; font: 15px 'Concert One', sans-serif;">Wander for Wonders</span>
-                    </h5>
+                    <a href="detailDestinasiWisata.php?tempatwisata_id=<?= $tempatwisata_id ?>" class="btn btn-primary w-100 mb-2">
+                        <i class="fas fa-eye"></i> Lihat Detail
+                    </a>
+
+                    <form method="post">
+                        <input type="hidden" name="tempatwisata_id" value="<?= $tempatwisata_id ?>">
+                        <button type="submit" name="hapus_favorit" class="btn btn-danger w-100">
+                            <i class="fas fa-trash-alt"></i> Hapus dari Favorit
+                        </button>
+                    </form>
                 </div>
             </div>
-            <div class="footbar">
-                <table>
-                    <tr>
-                        <td><a href="AboutUs.php">Tentang Kami</a></td>
-                        <td><a href="Komunitas.php">Komunitas</a></td>
-                        <td><a href="Profil.php">Profil</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="ContactUs.php">Kontak Kami</a></td>
-                        <td><a href="Tips.php">Tips & Trick</a></td>
-                        <td><a href="Agenda.php">Agenda</a></td>
-                    </tr>
-                    <tr>
-                        <td><a href="FAQs.php">FAQs</a></td>
-                        <td><a href="Promo.php">Promo</a></td>
-                        <td><a href="Home.php">Home</a></td>
-                    </tr>
-                </table>
-            </div>
         </div>
-        <p>&copy; 2025 Wanderlust. All rights reserved.</p>
-    </footer>
+        <?php endwhile; ?>
+    </div>
+    <?php else: ?>
+    <div class="alert alert-info">Anda belum menambahkan destinasi favorit.</div>
+    <?php endif; ?>
+</div>
+
+<?php include "pengguna/Footer.php"; ?>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

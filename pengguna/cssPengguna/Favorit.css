@@ -1,0 +1,116 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #f9f9f9;
+  overscroll-behavior: none;
+}
+
+.page-title {
+  text-align: center;
+  margin: 30px 0 20px;
+  font-size: 28px;
+}
+
+.card-container {
+  width: 85%;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.card-empty {
+  padding: 30px;
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  margin-bottom: 300px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  align-items: center;
+  text-align: center;
+}
+
+.card {
+  display: flex;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  align-items: center;
+}
+
+.card-img {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  width: 100%;
+}
+
+.card-content > div:first-child {
+  flex-grow: 1;
+}
+
+.card-content h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.card-info {
+  margin-top: 10px;
+}
+
+.card-info p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.card-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.remove-btn, .book-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.remove-btn {
+  background-color: #ff4d4f;
+  color: white;
+}
+
+.book-btn {
+  background-color: #007bff;
+  color: white;
+}
+
+.favorit-card .btn-primary {
+  background-color: #3498db;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.favorit-card .btn-primary:hover {
+  background-color: #2c80b4;
+}
+
+.favorit-card .btn-danger {
+  background-color: #e74c3c;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.favorit-card .btn-danger:hover {
+  background-color: #c0392b;
+}

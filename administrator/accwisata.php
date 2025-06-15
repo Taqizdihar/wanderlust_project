@@ -11,9 +11,9 @@ $query = mysqli_query($conn, $sqlStatement);
 $PWProfile = mysqli_fetch_assoc($query);
 
 $sqlStatement3 = "
-    SELECT lokasi.*, foto_lokasi.url_photo, user.nama AS nama_pemilik
-    FROM lokasi LEFT JOIN foto_lokasi ON lokasi.id_lokasi = foto_lokasi.id_lokasi 
-    AND foto_lokasi.urutan = 1 LEFT JOIN pemilikwisata ON lokasi.pw_id = pemilikwisata.pw_id
+    SELECT tempatwisata.*, fotowisata.link_foto, user.nama AS nama_pemilik
+    FROM tempatwisata LEFT JOIN fotowisata ON tempatwisata.tempatwisata_id = fotowisata.tempatwisata_id 
+    AND fotowisata.urutan = 1 LEFT JOIN pemilikwisata ON tempatwisata.pw_id = pemilikwisata.pw_id
     LEFT JOIN user ON pemilikwisata.pw_id = user.user_id";
 $query = mysqli_query($conn, $sqlStatement3);
 
@@ -40,8 +40,8 @@ while ($row = mysqli_fetch_assoc($query)) {
         <?php
             if (!empty($lokasi)) {
                 foreach ($lokasi as $itemLokasi) {
-                    $lokasiID = $itemLokasi['id_lokasi'];
-                    $sqlFoto = "SELECT * FROM foto_lokasi WHERE id_lokasi='$lokasiID' AND urutan=1";
+                    $lokasiID = $itemLokasi['tempatwisata_id'];
+                    $sqlFoto = "SELECT * FROM fotowisata WHERE tempatwisata_id='$lokasiID' AND urutan=1";
                     $queryFoto = mysqli_query($conn, $sqlFoto);
 
                     $fotos = [];
@@ -54,7 +54,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                 ?>
 
                 <div class="image">
-                    <img src="pengelolaWisata/photos/<?= $itemLokasi['url_photo']?>" alt="Property Image">
+                    <img src="pemilikWisata/foto/<?= $itemLokasi['link_foto']?>" alt="Property Image">
                 </div>
 
                 <?php
@@ -73,7 +73,7 @@ while ($row = mysqli_fetch_assoc($query)) {
                 </div>
             </div>
             <div class="actions">
-                <a href="indeks.php?page=accproperti&id_lokasi=<?= $itemLokasi['id_lokasi']; ?>&PWID=" id="see">Review</a>
+                <a href="indeks.php?page=accproperti&id_lokasi=<?= $itemLokasi['tempatwisata_id']; ?>&PWID=" id="see">Review</a>
             </div>
         </div>
 

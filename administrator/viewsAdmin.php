@@ -1,64 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Views Admin</title>
-    <style>
-    .sidebar {
-    position: fixed;
-    width: 200px;
-    height: 100%;
-    background-color: #333;
-    color: white;
-    padding: 20px;
-    z-index: 999;
-    top: 0;
-    }
+<?php
+include 'config.php';
 
-    #halo {
-    font: 20px "verdana";
-    margin-bottom: 10px;
-    }
-  
-    .sidebar h2 {
-    margin-top: 10px;
-    margin-bottom: 40px;
-    }
+// Ambil data member
+$sql = "SELECT * FROM user";
+$result = mysqli_query($conn, $sql);
 
-    .sidebar ul {
-    list-style: none;
-    padding: 0;
-    }
+if (!$result) {
+    die("Terjadi kesalahan dalam mengambil data: " . mysqli_error($conn));
+}
 
-    .sidebar ul li {
-    margin-bottom: 10px;
-    }
+// Siapkan profil jika diperlukan
+$profile = ['nama' => 'Admin']; // atau ambil dari session/user login
 
-    .sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-    }
+// Tampilkan sidebar + layout dari viewsAdmin
+include 'viewsAdmin.php';
+?>
 
-    .sidebar ul li a:hover {
-    background-color: #555;
-    }
-    </style>
-</head>
-<body>
-    <aside class="sidebar">
-      <h2 id="halo">Hi</h2>
-      <h2><?= $profile['nama'];?></h2>
-      <ul>
-        <li><a href="indeks.php?page=dashboardAdmin">Dashboard</a></li>
-        <li><a href="indeks.php?page=accpengolah">Owner Verification</a></li>
-        <li><a href="indeks.php?page=accwisata">Property Verification</a></li>
-        <li><a href="notFound.php">Transaction Verification</a></li>
-        <li><a href="notFound.php">Member List</a></li>
-        <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
-      </ul>
-    </aside>
-</body>
-</html>
+<!-- Konten khusus halaman ini -->
+<h2>Daftar Member</h2>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nama</th>
+        <th>Email</th>
+        <th>No Telepon</th>
+        <th>Gender</th>
+        <th>Tanggal Lahir</th>
+        <th>Role</th>
+        <th>Saldo</th>
+    </tr>
+
+    <?php while ($row = mysqli_fetch_assoc($result)) : ?>
+        <tr>
+            <td><?= htmlspecialchars($row['user_id']) ?></td>
+            <td><?= htmlspecialchars($row['name']) ?></td>
+            <td><?= htmlspecialchars($row['email']) ?></td>
+            <td><?= htmlspecialchars($row['no_telepon']) ?></td>
+            <td><?= htmlspecialchars($row['gender']) ?></td>
+            <td><?= htmlspecialchars($row['tanggal_lahir']) ?></td>
+            <td><?= htmlspecialchars($row['role']) ?></td>
+            <td><?= htmlspecialchars($row['saldo']) ?></td>
+        </tr>
+    <?php endwhile; ?>
+</table>

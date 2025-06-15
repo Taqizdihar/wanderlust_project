@@ -1,0 +1,173 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to right, #e0f7fa, #e8f5e9);
+  margin: 0;
+  padding: 0;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #0077cc;
+  padding: 15px 25px;
+  color: white;
+  flex-wrap: wrap;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
+}
+
+.logo-text .title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.logo-text .subtitle {
+  font-size: 12px;
+  color: #f0f0f0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #ffcc00;
+}
+
+.profile-icon {
+  background: white;
+  color: #0077cc;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.saldo-card {
+  background: linear-gradient(to right, #0f66d0, #3da9f4);
+  color: white;
+  border-radius: 15px;
+  padding: 30px;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.saldo-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.saldo-amount {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.saldo-desc {
+  margin-top: 8px;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.topup-btn {
+  margin-top: 15px;
+  padding: 12px 25px;
+  border: none;
+  background-color: #ffffff;
+  color: #0f66d0;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.topup-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.riwayat-title {
+  margin-top: 40px;
+  font-size: 20px;
+  color: #0077cc;
+  text-align: center;
+}
+
+.riwayat-list {
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+}
+
+.riwayat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: #f4f8fb;
+  border-radius: 10px;
+  border-left: 4px solid #0077cc;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+footer {
+  background-color: #0077cc;
+  color: white;
+  padding: 30px 20px;
+  margin-top: 60px;
+  text-align: center;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footbar table {
+  color: white;
+}
+
+.footbar a {
+  text-decoration: none;
+  color: #ccc;
+  font-size: 0.9em;
+}
+
+.footbar a:hover {
+  color: #fff;
+}

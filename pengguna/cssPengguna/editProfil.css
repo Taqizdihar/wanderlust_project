@@ -1,0 +1,189 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6fa;
+  overscroll-behavior: none;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Mengubah .profile-container menjadi form */
+.profile-form {
+  display: flex;
+  padding: 30px;
+  flex: 1;
+  gap: 20px; /* Jarak antara sidebar dan profile-card */
+}
+
+.sidebar {
+  width: 250px;
+  background: #224f82;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content; /* Agar tinggi sidebar menyesuaikan konten */
+}
+
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 4px solid white;
+}
+
+.edit-btn {
+  display: block;
+  width: 80%;
+  text-align: center;
+  padding: 10px 20px;
+  background: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+.edit-btn:hover {
+  background: #3a7bc8;
+}
+
+.menu-options {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.menu-options li {
+  padding: 12px 0;
+  border-bottom: 1px solid #4a90e2;
+  text-align: center;
+}
+
+.menu-options li:last-child {
+  border-bottom: none;
+}
+
+.menu-options li a {
+  color: white;
+  display: block;
+  transition: background-color 0.2s;
+}
+.menu-options li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profile-card {
+  flex: 1; /* Mengisi sisa ruang */
+  background: white;
+  color: #333;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+.profile-card h2 {
+  font-size: 28px;
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #224f82;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+}
+
+/* Tata Letak Grid untuk Form */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 kolom untuk mobile */
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* 2 kolom untuk layar yang lebih besar */
+@media (min-width: 768px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box; /* Penting untuk padding */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+.form-group input[disabled] {
+    background-color: #f4f6fa;
+    cursor: not-allowed;
+    color: #888;
+}
+
+.form-group small {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end; /* Tombol di sebelah kanan */
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.save-btn {
+  background-color: #224f82;
+  color: white;
+}
+.save-btn:hover {
+  background-color: #1b3f68;
+}

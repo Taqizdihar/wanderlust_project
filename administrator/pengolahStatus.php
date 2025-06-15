@@ -4,7 +4,7 @@ include "config.php";
 $IDPW = $_GET['idpw'];
 $status = $_GET['status'];
 
-$sqlStatement = "UPDATE pemilikwisata SET entity_approval='$status' WHERE pw_id='$IDPW'";
+$sqlStatement = "UPDATE pemilikwisata SET status='$status' WHERE pw_id='$IDPW'";
 $query = mysqli_query($conn, $sqlStatement);
 
 if (mysqli_affected_rows($conn) != 0) {

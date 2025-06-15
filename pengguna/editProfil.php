@@ -1,115 +1,128 @@
 <?php
-$data = [
-    "email" => "faizsn@gmail.com",
-    "telepon" => "081234567890",
-    "tanggal_lahir" => "2005-04-04",
-    "jenis_kelamin" => "Laki-laki",
-    "alamat" => "Ciamis, Jawa Barat",
-    "preferensi" => "Pantai, Pegunungan"
-];
+include "config.php";
+
+$ID = $_SESSION['user_id'];
+$sqlStatement = "SELECT * FROM user WHERE user_id = '$ID'";
+$query = mysqli_query($conn, $sqlStatement);
+$profil = mysqli_fetch_assoc($query);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nama = $_POST['nama'];
+    $no_telepon = $_POST['no_telepon'];
+    $gender = $_POST['gender'];
+    $tanggal_lahir = $_POST['tanggal_lahir'];
+    $fotoProfil = $_FILES['foto_profil'];
+
+    if ($_FILES['foto_profil']['name'] != '') {
+      if (isset($fotoProfil)) {
+      $uploadFile = 'pengguna/foto/'.basename($fotoProfil['name']);
+      
+        if (move_uploaded_file($fotoProfil['tmp_name'], $uploadFile)) {
+          $uploadFoto = $fotoProfil['name'];
+        } else {
+          $uploadFoto = null;
+        }
+      } else if (empty($fotoProfil)) {
+        $uploadFoto = $profil['foto_profil'];
+      }
+
+    $updateStatement = "UPDATE user SET nama='$nama', no_telepon='$no_telepon', gender='$gender', tanggal_lahir='$tanggal_lahir', foto_profil='$uploadFoto' WHERE user_id='$ID'";   
+  } else {
+    $updateStatement = "UPDATE user SET nama='$nama', no_telepon='$no_telepon', gender='$gender', tanggal_lahir='$tanggal_lahir' WHERE user_id='$ID'";
+  }
+  $queryUpdate = mysqli_query($conn, $updateStatement);
+
+  if (mysqli_affected_rows($conn) != 0) {
+      header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=Profil");
+      exit();
+  } else {
+      echo "<p>Failed Profile Change</p>";
+  }
+}
+
+$profil['gender'] = $profil['gender'];
+$profil['tanggal_lahir'] = $profil['tanggal_lahir'];
+
 ?>
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Profil</title>
-    <link rel="stylesheet" href="Profil.css">
+  <meta charset="UTF-8">
+  <title>Edit My Profile</title>
+  <link rel="stylesheet" href="pengguna/cssPengguna/editProfil.css">
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="main-header">
-        <div class="logo-container">
-            <img src="../Umum/photos/Wanderlust Logo Plain.png" alt="Logo" class="logo">
-            <div class="logo-text">
-                <div class="title">Wanderlust</div>
-                <div class="subtitle">WANDERINGS FOR WONDERS</div>
+  <?php include "pengguna/Header.php";?>
+
+  <main class="profile-container">
+    
+    <form class="profile-form" method="POST" action="" enctype="multipart/form-data">
+        <aside class="sidebar">
+            <img src="pengguna/foto/<?= $profil['foto_profil'];?>" class="profile-pic" id="imagePreview" alt="Profile Picture">
+            <label for="foto_profil" class="edit-btn">Change Profile Picture</label>
+            <input type="file" id="foto_profil" name="foto_profil" accept="image/*" style="display: none;">
+            
+            <ul class="menu-options">
+              <li><a href="indeks.php?page=Saldo">My Balance</a></li>
+              <li><a href="notFound.php">My Tickets</a></li>
+              <li><a href="indeks.php?page=Favorit">My Bookmark</a></li>
+              <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a></li>
+            </ul>
+        </aside>
+
+        <section class="profile-card">
+            <h2>Edit Profile</h2>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="nama">Full Name</label>
+                    <input type="text" id="nama" name="nama" value="<?= $profil['nama'];?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="<?= $profil['email'];?>" disabled>
+                    <small>Email cannot be changed</small>
+                </div>
+                <div class="form-group">
+                    <label for="no_telepon">Phone Number</label>
+                    <input type="tel" id="no_telepon" name="no_telepon" value="<?= $profil['no_telepon'];?>" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal_lahir">Birthdate</label>
+                    <input type="date" id="tanggal_lahir" name="tanggal_lahir" value="<?= htmlspecialchars($profil['tanggal_lahir']);?>" required>
+                </div>
+                <div class="form-group">
+                  <div class="action-buttons">
+                      <button type="submit" class="btn save-btn">Save Changes</button>
+                  </div>
+                </div>
             </div>
-        </div>
-        <div class="search-bar">
-            <input type="text" placeholder="Search...">
-        </div>
-        <nav class="nav-links">
-            <a href="#">Opsi 1</a>
-            <a href="#">Opsi 2</a>
-            <a href="#">Favorit</a>
-            <div class="profile-icon">👤</div>
-        </nav>
-    </header>
+        </section>
+    </form>
+  </main>
 
-    <!-- Form Edit Profil -->
-    <section class="profil-container">
-        <div class="profil-card">
-            <img src="default-profile.png" alt="Foto Profil">
-            <h2>Edit Profil</h2>
-            <form action="SimpanEditProfil.php" method="POST">
-                <table class="profil-table">
-                    <tr>
-                        <th><label for="email">Email:</label></th>
-                        <td><input type="email" id="email" name="email" value="<?= $data['email'] ?>" required></td>
-                    </tr>
-                    <tr>
-                        <th><label for="telepon">Telepon:</label></th>
-                        <td><input type="text" id="telepon" name="telepon" value="<?= $data['telepon'] ?>" required></td>
-                    </tr>
-                    <tr>
-                        <th><label for="tanggal_lahir">Tanggal Lahir:</label></th>
-                        <td><input type="date" id="tanggal_lahir" name="tanggal_lahir" value="<?= $data['tanggal_lahir'] ?>" required></td>
-                    </tr>
-                    <tr>
-                        <th><label for="jenis_kelamin">Jenis Kelamin:</label></th>
-                        <td>
-                            <select id="jenis_kelamin" name="jenis_kelamin" required>
-                                <option value="Laki-laki" <?= $data['jenis_kelamin'] == 'Laki-laki' ? 'selected' : '' ?>>Laki-laki</option>
-                                <option value="Perempuan" <?= $data['jenis_kelamin'] == 'Perempuan' ? 'selected' : '' ?>>Perempuan</option>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th><label for="alamat">Alamat:</label></th>
-                        <td><input type="text" id="alamat" name="alamat" value="<?= $data['alamat'] ?>" required></td>
-                    </tr>
-                    <tr>
-                        <th><label for="preferensi">Preferensi Destinasi:</label></th>
-                        <td><input type="text" id="preferensi" name="preferensi" value="<?= $data['preferensi'] ?>" required></td>
-                    </tr>
-                </table>
-                <button type="submit" class="edit-button">Simpan Perubahan</button>
-            </form>
-        </div>
-    </section>
+  <?php include "pengguna/Footer.php";?>
 
-    <footer>
-  <div class="footer-container">
-    <div class="footer-logo">
-      <img src="../Umum/photos/Wanderlust Logo Plain.png" height="70" width="70" alt="Wanderlust Logo"/>
-      <div>
-        <h5>Wanderlust <span style="display: block; font: 15px 'Concert One', sans-serif;">WANDERINGS for Wonders</span></h5>
-      </div>
-    </div>
-    <div class="footbar">
-      <table>
-        <tr>
-          <td><a href="AboutUs.php">Tentang Kami</a></td>
-          <td><a href="Komunitas.php">Komunitas</a></td>
-          <td><a href="Profil.php">Profil</a></td>
-        </tr>
-        <tr>
-          <td><a href="ContactUs.php">Kontak Kami</a></td>
-          <td><a href="Tips.php">Tips & Trick</a></td>
-          <td><a href="Agenda.php">Agenda</a></td>
-        </tr>
-        <tr>
-          <td><a href="FAQs.php">FAQs</a></td>
-          <td><a href="Promo.php">Promo</a></td>
-          <td><a href="Home.php">Home</a></td>
-        </tr>
-      </table>
-    </div>
-  </div>
-  <p>Copyright © 2025 Wanderlust. All rights reserved</p>
-</footer>
+  <script>
+    document.getElementById('foto_profil').addEventListener('change', function(event) {
+        const [file] = event.target.files;
+        if (file) {
+            const preview = document.getElementById('imagePreview');
+            preview.src = URL.createObjectURL(file);
+            preview.onload = () => {
+                URL.revokeObjectURL(preview.src);
+            }
+        }
+    });
+  </script>
 
 </body>
 </html>

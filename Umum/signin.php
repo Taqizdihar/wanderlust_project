@@ -25,7 +25,7 @@ if (isset($_POST['signinBtn'])) {
 
         if (mysqli_affected_rows($conn) != 0) {
             if ($role == 'wisatawan') {
-                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=homeUmum");
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=Home");
                 exit();
             } else if ($role == 'pw') {
                 header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=verifikasiEntitas");
@@ -45,7 +45,7 @@ mysqli_close($conn);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
-    <link rel="stylesheet" href="Umum/cssUmum/signin.css?v=1.0.4">
+    <link rel="stylesheet" href="Umum/cssUmum/signin.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
 </head>
 
@@ -99,7 +99,7 @@ mysqli_close($conn);
         </form>
     </div>
     <div class="logo">
-        <img src="Umum/photos/Wanderings for Wonders side.png" alt="Wanderlust Logo">
+        <img src="Umum/foto/Wanderings for Wonders side.png" alt="Wanderlust Logo">
     </div>
 </body>
 </html>

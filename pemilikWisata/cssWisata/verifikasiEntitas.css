@@ -1,0 +1,221 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 20px 0;
+}
+
+.form-title {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    max-width: 950px;
+    padding: 0;
+    border: none;
+}
+
+form {
+    width: 100%;
+    max-width: 950px;
+}
+
+.form-section {
+    padding: 30px;
+    border-radius: 12px;
+    flex: 1;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.personal-info {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+}
+
+.agency-info {
+    background-color: #b45e1c;
+}
+
+.agency-info h2 {
+    color: white;
+}
+
+.form-section h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 1.6em;
+    font-weight: 600;
+    color: #333;
+}
+
+.input-group {
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.input-group input[type="text"],
+.input-group input[type="tel"],
+.input-group input[type="date"],
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1em;
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: #D9A984;
+    box-shadow: 0 0 0 2px rgba(217, 169, 132, 0.4);
+}
+
+.picture-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.picture-placeholder img {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    background-color: #e9ecef;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.picture-placeholder .profile-pic {
+    border-radius: 50%;
+}
+
+.picture-placeholder .logo-pic {
+    border-radius: 50%;
+}
+
+.picture-placeholder .change-pic-btn {
+    margin-top: 12px;
+    padding: 6px 15px;
+    border: none;
+    border-radius: 6px;
+    background-color: #A67B5B;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.85em;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-input-label {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px dashed #ccc;
+    background-color: #f9f9f9;
+    text-align: center;
+    cursor: pointer;
+}
+
+.file-input-label:hover {
+    background-color: #f1f1f1;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.form-buttons input {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.input-group-doc {
+    background-color: #8d4d00;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.btn-reset {
+    background-color: #B22222;
+    color: white;
+}
+
+.btn-reset:hover {
+    background-color: #c62828;
+}
+
+.btn-submit {
+    background-color: #2E7D32;
+    color: white;
+}
+
+.btn-submit:hover {
+    background-color: #388e3c;
+}
+
+.error-message,
+.success-message {
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 950px;
+    box-sizing: border-box;
+}
+
+.error-message {
+    background-color: #ffcdd2;
+    color: #c62828;
+}
+
+.success-message {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+}
