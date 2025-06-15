@@ -8,67 +8,29 @@ $profile = mysqli_fetch_assoc($query);
 
 $pesan = "";
 
-// Cek jika form telah disubmit menggunakan metode POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // --- 2. PENGAMBILAN & PEMBERSIHAN DATA DARI FORM ---
-    // Gunakan mysqli_real_escape_string untuk mencegah SQL Injection dasar.
-    // Ini adalah praktik keamanan minimum jika tidak menggunakan prepared statements.
-    $pw_id = mysqli_real_escape_string($conn, $_POST['pw_id']);
-    $nama_lokasi = mysqli_real_escape_string($conn, $_POST['nama_lokasi']);
-    $alamat_lokasi = mysqli_real_escape_string($conn, $_POST['alamat_lokasi']);
-    $jenis_wisata = mysqli_real_escape_string($conn, $_POST['jenis_wisata']);
-    $waktu_buka = mysqli_real_escape_string($conn, $_POST['waktu_buka']);
-    $waktu_tutup = mysqli_real_escape_string($conn, $_POST['waktu_tutup']);
-    $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
-    $sumir = mysqli_real_escape_string($conn, $_POST['sumir']);
-    $nomor_pic = mysqli_real_escape_string($conn, $_POST['nomor_pic']);
+    $nama_lokasi = $_POST['nama_lokasi'];
+    $alamat_lokasi = $_POST['alamat_lokasi'];
+    $jenis_wisata = $_POST['jenis_wisata'];
+    $waktu_buka = $_POST['waktu_buka'];
+    $waktu_tutup = $_POST['waktu_tutup'];
+    $deskripsi = $_POST['deskripsi'];
+    $sumir = $_POST['sumir'];
+    $nomor_pic = $_POST['nomor_pic'];
 
-    // Status diset langsung ke 'review' sesuai permintaan
     $status = "review";
-    $surat_izin_path = ""; // Inisialisasi path file surat izin
+    $surat_izin_path = "";
 
-    // --- 3. LOGIKA UNGGAH FILE SURAT IZIN ---
-    // Pastikan ada folder 'uploads/' di direktori yang sama dengan file PHP ini.
-    // Pastikan juga folder tersebut memiliki izin tulis (writable).
-    if (isset($_FILES['surat_izin']) && $_FILES['surat_izin']['error'] == 0) {
-        $target_dir = "uploads/";
-        
-        // Buat nama file unik untuk menghindari penimpaan file dengan nama yang sama
-        $file_extension = pathinfo($_FILES["surat_izin"]["name"], PATHINFO_EXTENSION);
-        $unique_filename = "suratizin_" . time() . "." . $file_extension;
-        $target_file = $target_dir . $unique_filename;
-
-        // Validasi tipe file yang diizinkan
-        $allowed_types = ['pdf', 'doc', 'docx', 'docs'];
-        if (in_array(strtolower($file_extension), $allowed_types)) {
-            // Pindahkan file dari temporary location ke folder 'uploads/'
-            if (move_uploaded_file($_FILES["surat_izin"]["tmp_name"], $target_file)) {
-                $surat_izin_path = $target_file;
-            } else {
-                $pesan = "Maaf, terjadi error saat mengunggah file Anda.";
-            }
-        } else {
-            $pesan = "Maaf, hanya file dengan format PDF, DOC, dan DOCX yang diizinkan.";
-        }
-    } else {
-        $pesan = "Error: Surat izin wajib diunggah.";
-    }
-
-    // --- 4. PROSES INSERT DATA KE DATABASE ---
-    // Lanjutkan hanya jika tidak ada error pada unggahan file
-    if (empty($pesan) && !empty($surat_izin_path)) {
-        // Buat query SQL untuk memasukkan data ke tabel
-        $sql = "INSERT INTO tempatwisata (pw_id, nama_lokasi, alamat_lokasi, jenis_wisata, waktu_buka, waktu_tutup, deskripsi, sumir, nomor_pic, surat_izin, status) 
+    $sql = "INSERT INTO tempatwisata (pw_id, nama_lokasi, alamat_lokasi, jenis_wisata, waktu_buka, waktu_tutup, deskripsi, sumir, nomor_pic, surat_izin, status) 
                 VALUES ('$pw_id', '$nama_lokasi', '$alamat_lokasi', '$jenis_wisata', '$waktu_buka', '$waktu_tutup', '$deskripsi', '$sumir', '$nomor_pic', '$surat_izin_path', '$status')";
 
-        // Eksekusi query
-        if (mysqli_query($conn, $sql)) {
-            $pesan = "Data tempat wisata baru berhasil ditambahkan dan sedang dalam status review.";
-        } else {
-            // Jika query gagal, tampilkan pesan error
-            $pesan = "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
+    // Eksekusi query
+    if (mysqli_query($conn, $sql)) {
+        $pesan = "Data tempat wisata baru berhasil ditambahkan dan sedang dalam status review.";
+    } else {
+        // Jika query gagal, tampilkan pesan error
+        $pesan = "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
     
     mysqli_close($conn);
@@ -81,21 +43,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Tambah Tempat Wisata</title>
-    <link rel="stylesheet" href="pemilikWisata/cssWisata/Home.css">
+    <link rel="stylesheet" href="pemilikWisata/cssWisata/addWisata.css">
 </head>
 <body>
     <?php include "pemilikWisata/viewsWisata.php";?>
     <div class="container">
         <h2>Formulir Penambahan Tempat Wisata</h2>
 
-        <!-- Tampilkan pesan sukses/error di sini -->
         <?php if (!empty($pesan)): ?>
             <div class="pesan"><?php echo htmlspecialchars($pesan); ?></div>
         <?php endif; ?>
-
-        <!-- Form HTML -->
-        <!-- `enctype="multipart/form-data"` wajib untuk upload file -->
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
             
             <div class="form-group">
                 <label for="pw_id">ID Pengguna Wisata (pw_id)</label>
