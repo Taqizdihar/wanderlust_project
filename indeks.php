@@ -14,6 +14,7 @@ if (isset($_GET['page'])) {
     $pages_admin = ['acctransaksi', 'dashboardAdmin', 'pengolahStatus', 'propertiStatus', 'verifikasiTopUp', 'memberlist', 'member', 'accwisata'];
     $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'riwayatReservasi'];
 
+    
     if (in_array($page, $pages_umum)) {
         include "Umum/$page.php";
     } elseif (in_array($page, $pages_pw)) {
