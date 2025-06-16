@@ -16,10 +16,10 @@ if (isset($_POST['loginBtn'])) {
         $passwordSecured = password_hash($password, PASSWORD_DEFAULT);
         $sqlResetPassword = "UPDATE user SET password='$passwordSecured'";
         $queryReset = mysqli_query($conn, $sqlResetPassword);
-        $registeredUser = mysqli_fetch_assoc($queryReset);
         
             if (mysqli_affected_rows($conn) != 0) {
-                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=login");
+                echo "<script>alert('Hooray! Password has been reset. Take care of your lovely pet!');
+                window.location.href = 'indeks.php?page=login';</script>";
                 exit();
             }
         } else {
@@ -58,7 +58,7 @@ mysqli_close($conn);
             </div>
             <div class="form-item">
                 <label for="petname">Input your lovely pet name</label>
-                <input type="text" name="petname" placeholder="Who is your lovely pet's name?" required>
+                <input type="text" name="petname" placeholder="Who is your lovely pet's name?" required autocomplete="off">
             </div>
             <div class="form-item">
                 <label for="password">New Password</label>
