@@ -8,38 +8,38 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $message = "";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['user_id'];
     $jumlah = $_POST['jumlah'];
     $metode = $_POST['metode'];
 
-    // Upload bukti
-    $upload_dir = "uploads/bukti_transaksi/";
-    if (!file_exists($upload_dir)) {
-        mkdir($upload_dir, 0777, true);
-    }
+    // Validasi file upload
+    $allowed_types = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+    $upload_dir = "uploads/";
 
-    $bukti = $_FILES['bukti'];
-    $bukti_name = basename($bukti['name']);
-    $file_ext = strtolower(pathinfo($bukti_name, PATHINFO_EXTENSION));
-    $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
+    if (isset($_FILES['bukti']) && $_FILES['bukti']['error'] == 0) {
+        $file_type = $_FILES['bukti']['type'];
+        if (in_array($file_type, $allowed_types)) {
+            $file_name = time() . '_' . basename($_FILES["bukti"]["name"]);
+            $target_path = $upload_dir . $file_name;
 
-    $new_file_name = time() . "_" . $bukti_name;
-    $target_file = $upload_dir . $new_file_name;
-
-    if (in_array($file_ext, $allowed_types) && move_uploaded_file($bukti['tmp_name'], $target_file)) {
-        $stmt = $conn->prepare("INSERT INTO topup (user_id, jumlah, metode_pembayaran, bukti) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("idss", $user_id, $jumlah, $metode, $target_file);
-
-        if ($stmt->execute()) {
-            header("Location: indeks.php?page=Saldo&status=sukses");
-            exit();
+            if (move_uploaded_file($_FILES["bukti"]["tmp_name"], $target_path)) {
+                $stmt = $conn->prepare("INSERT INTO topup (user_id, jumlah, metode_pembayaran, bukti_transfer) VALUES (?, ?, ?, ?)");
+                $stmt->bind_param("idss", $user_id, $jumlah, $metode, $file_name);
+                if ($stmt->execute()) {
+                    header("Location: indeks.php?page=Saldo&status=sukses");
+                    exit();
+                } else {
+                    $message = "Gagal menyimpan data topup.";
+                }
+            } else {
+                $message = "Gagal upload file bukti transfer.";
+            }
         } else {
-            $message = "Gagal simpan data: " . $conn->error;
+            $message = "Gagal upload bukti transaksi. Pastikan file berupa gambar (jpg, png, jpeg, gif).";
         }
     } else {
-        $message = "Gagal upload bukti transaksi. Pastikan file berupa gambar (jpg, png, jpeg, gif).";
+        $message = "Harap upload bukti transaksi.";
     }
 }
 
@@ -56,9 +56,7 @@ include 'Header.php';
             <div class="saldo-desc">Masukkan nominal, metode pembayaran, dan bukti transfer</div>
 
             <?php if ($message): ?>
-                <div style="color: red; font-weight: bold; margin: 15px 0;">
-                    <?= htmlspecialchars($message) ?>
-                </div>
+                <div style="color: red; font-weight: bold; margin: 15px 0;"><?= htmlspecialchars($message) ?></div>
             <?php endif; ?>
 
             <form method="post" class="topup-form" enctype="multipart/form-data">
@@ -71,18 +69,15 @@ include 'Header.php';
                     <option value="bank_transfer">Bank Transfer</option>
                     <option value="lainnya">Lainnya</option>
                 </select>
-
-                <label>Upload Bukti Transaksi:</label>
+                <label>Upload Bukti Transaksi (gambar):</label>
                 <input type="file" name="bukti" accept="image/*" required>
-
                 <button type="submit" class="topup-btn">
                     <i class="ri-send-plane-line" style="margin-right: 6px;"></i>Kirim Permintaan
                 </button>
             </form>
         </section>
-
         <div style="margin-top: 20px;">
-            <a href="indeks.php?page=Saldo" style="text-decoration: none; color: #0077cc;">← Kembali ke Saldo</a>
+            <a href="indeks.php?page=Saldo" style="text-decoration: none; color: #0077cc; font-weight: 500;">← Kembali ke Saldo</a>
         </div>
     </div>
 </main>
