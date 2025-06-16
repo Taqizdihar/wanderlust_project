@@ -1,16 +1,11 @@
 <?php
-include 'config.php';
+
 if (!isset($profile) || !is_array($profile)) {
     $profile = ['nama' => 'Guest', 'role' => 'Unknown'];
-    // Pindahkan error_reporting dan ini_set ke sini agar selalu aktif
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
-} else {
-    // Jika $profile sudah ada, pastikan error reporting juga aktif
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
 }
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 $servername = "localhost";
 $username = "root";       // Ganti dengan username database Anda
@@ -20,30 +15,33 @@ $dbname = "wanderlust";   // Ganti dengan nama database Anda yang sebenarnya
 // Membuat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Memeriksa apakah koneksi berhasil
+// Memeriksa apakah koneksi berhasil. Jika gagal, hentikan eksekusi skrip.
 if ($conn->connect_error) {
-    // Gunakan die() agar skrip berhenti jika koneksi gagal dan tampilkan pesan
     die("Koneksi database gagal: " . $conn->connect_error);
 }
 
 // =========================================================
-// 2. LOGIKA PEMROSESAN FORMULIR UNTUK VERIFIKASI TRANSAKSI (Setujui/Tolak)
+// LOGIKA PEMROSESAN FORMULIR UNTUK VERIFIKASI TRANSAKSI
 // =========================================================
 $message = ""; // Variabel untuk menyimpan pesan sukses atau error
 
+// Memeriksa apakah formulir verifikasi transaksi telah dikirim via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $transaksi_id = $_POST['transaksi_id'];
     $action = '';
 
+    // Menentukan aksi (setujui atau tolak) berdasarkan tombol yang diklik
     if (isset($_POST['setujui_transaksi'])) {
         $action = 'setujui';
     } elseif (isset($_POST['tolak_transaksi'])) {
         $action = 'tolak';
     }
 
+    // Memastikan ID transaksi valid dan numerik
     if (!empty($transaksi_id) && is_numeric($transaksi_id)) {
         $new_status = '';
         $success_message = '';
+        // Kondisi: Hanya transaksi dengan status 'pending' yang dapat diverifikasi
         $current_status_condition = "status = 'pending'"; 
 
         if ($action === 'setujui') {
@@ -57,10 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (!empty($new_status)) {
+            // Prepared statement untuk update status transaksi
             $sql = "UPDATE transaksi SET status = ? WHERE transaksi_id = ? AND " . $current_status_condition;
             $stmt = $conn->prepare($sql);
 
             if ($stmt) {
+                // Binding parameter: 's' untuk string, 'i' untuk integer
                 $stmt->bind_param("si", $new_status, $transaksi_id);
 
                 if ($stmt->execute()) {
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     $message = "<p style='color: red;'>Error memperbarui record: " . $stmt->error . "</p>";
                 }
-                $stmt->close();
+                $stmt->close(); // Tutup statement
             } else {
                 $message = "<p style='color: red;'>Error menyiapkan pernyataan: " . $conn->error . "</p>";
             }
@@ -83,14 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // =========================================================
-// 3. MENGAMBIL DATA TRANSAKSI PENDING DARI DATABASE UNTUK DITAMPILKAN
+// MENGAMBIL DATA TRANSAKSI PENDING DARI DATABASE UNTUK DITAMPILKAN
 // =========================================================
 $transactions = [];
 $sql_select = "SELECT transaksi_id, wisatawan_id, total_harga, tanggal_transaksi, status FROM transaksi WHERE status = 'pending' ORDER BY tanggal_transaksi ASC";
 $result = $conn->query($sql_select);
 
 if (!$result) {
-    // Tangani error jika query SELECT gagal
     $message .= "<p style='color: red;'>Error mengambil data transaksi: " . $conn->error . "</p>";
 } else if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -99,33 +98,34 @@ if (!$result) {
 }
 
 // =========================================================
-// 4. MENUTUP KONEKSI DATABASE
-//    (Penting untuk menutup koneksi setelah selesai menggunakan database)
+// MENUTUP KONEKSI DATABASE
 // =========================================================
 $conn->close();
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
+    /* Reset margin dan font-family dasar */
     body {
         margin: 0;
         font-family: 'Segoe UI', sans-serif;
         background-color: #f5f7fa;
     }
 
+    /* Gaya untuk Sidebar */
     .sidebar {
         height: 100vh;
         width: 250px;
         position: fixed;
         left: 0;
         top: 0;
-        background-color: #1e4db7;
+        background-color: #1e4db7; /* Warna biru gelap */
         color: white;
         display: flex;
         flex-direction: column;
         padding: 20px 0;
-        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        z-index: 999;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Sedikit bayangan */
+        z-index: 999; /* Pastikan sidebar di atas konten lain */
     }
 
     .sidebar-header {
@@ -146,7 +146,7 @@ $conn->close();
         list-style-type: none;
         padding: 0;
         margin: 0;
-        flex-grow: 1;
+        flex-grow: 1; /* Memastikan menu mengisi sisa ruang vertikal */
     }
 
     .sidebar-menu li {
@@ -154,21 +154,22 @@ $conn->close();
     }
 
     .sidebar-menu li a {
-        display: flex;
+        display: flex; /* Untuk ikon dan teks sejajar */
         align-items: center;
-        gap: 10px;
+        gap: 10px; /* Jarak antara ikon dan teks */
         color: white;
         text-decoration: none;
         padding: 12px 20px;
         font-weight: 500;
-        transition: background-color 0.2s ease-in-out;
+        transition: background-color 0.2s ease-in-out; /* Transisi halus saat hover */
     }
 
     .sidebar-menu li a:hover {
-        background-color: #163a8a;
-        border-left: 4px solid #fff;
-        padding-left: 16px;
+        background-color: #163a8a; /* Warna lebih gelap saat hover */
+        border-left: 4px solid #fff; /* Garis putih di kiri */
+        padding-left: 16px; /* Dorong sedikit ke kanan untuk efek */
     }
+    /* Gaya untuk item menu yang aktif (jika halaman ini sedang aktif) */
     .sidebar-menu li.active a {
         background-color: #163a8a;
         border-left: 4px solid #fff;
@@ -176,37 +177,38 @@ $conn->close();
     }
 
 
+    /* Gaya untuk Konten Utama */
     .main-content {
-        margin-left: 250px; /* Menyesuaikan dengan lebar sidebar */
-        padding: 30px;
+        margin-left: 250px; /* Menyesuaikan dengan lebar sidebar agar tidak tertutup */
+        padding: 30px; /* Padding di sekitar konten */
     }
 
-    /* Gaya tabel dari sebelumnya */
+    /* Gaya tabel */
     table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: collapse; /* Hilangkan spasi antar sel */
         background-color: white;
-        box-shadow: 0 0 10px rgba(0,0,0,0.05);
-        margin-top: 20px; /* Tambahkan margin atas untuk tabel */
+        box-shadow: 0 0 10px rgba(0,0,0,0.05); /* Bayangan lembut */
+        margin-top: 20px; /* Jarak dari elemen di atasnya */
     }
 
     table th, table td {
         padding: 12px 15px;
-        border: 1px solid #ddd;
+        border: 1px solid #ddd; /* Garis tipis antar sel */
         text-align: left;
     }
 
     table th {
-        background-color: #f0f0f0;
+        background-color: #f0f0f0; /* Latar belakang header tabel */
     }
 
     table tr:hover {
-        background-color: #f9f9f9;
+        background-color: #f9f9f9; /* Efek hover pada baris */
     }
 
-    /* Gaya untuk form aksi di dalam tabel */
+    /* Gaya untuk form aksi di dalam tabel (tombol Setujui/Tolak) */
     .action-form {
-        display: flex;
+        display: flex; /* Mengatur tombol sejajar */
         gap: 5px; /* Jarak antar tombol aksi */
     }
     .action-form input[type="submit"] {
@@ -221,16 +223,16 @@ $conn->close();
         background-color: #28a745; /* Hijau */
     }
     .action-form input[name="setujui_transaksi"]:hover {
-        background-color: #218838;
+        background-color: #218838; /* Hijau lebih gelap saat hover */
     }
     .action-form input[name="tolak_transaksi"] {
         background-color: #dc3545; /* Merah */
     }
     .action-form input[name="tolak_transaksi"]:hover {
-        background-color: #c82333;
+        background-color: #c82333; /* Merah lebih gelap saat hover */
     }
 
-    /* Gaya untuk pesan notifikasi */
+    /* Gaya untuk pesan notifikasi (sukses, peringatan, error) */
     .message {
         margin-bottom: 20px;
         padding: 15px;
@@ -238,10 +240,33 @@ $conn->close();
         font-size: 16px;
         text-align: center;
     }
-    .message p { margin: 0; }
-    .message p[style*="green"] { background-color: #d4edda; border-color: #c3e6cb; color: #155724; border: 1px solid; }
-    .message p[style*="orange"] { background-color: #fff3cd; border-color: #ffeeba; color: #856404; border: 1px solid; }
-    .message p[style*="red"] { background-color: #f8d7da; border-color: #f5c6cb; color: #721c24; border: 1px solid; }
+    .message p { margin: 0; } /* Hapus margin default dari paragraf dalam pesan */
+    .message p[style*="green"] { /* Gaya untuk pesan sukses */
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+        border: 1px solid;
+    }
+    .message p[style*="orange"] { /* Gaya untuk pesan peringatan */
+        background-color: #fff3cd;
+        border-color: #ffeeba;
+        color: #856404;
+        border: 1px solid;
+    }
+    .message p[style*="red"] { /* Gaya untuk pesan error */
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+        border: 1px solid;
+    }
+
+    /* Gaya untuk catatan di bawah form/tabel */
+    .note {
+        margin-top: 20px;
+        font-size: 0.9em;
+        color: #777;
+        text-align: center;
+    }
 
 </style>
 
@@ -254,7 +279,7 @@ $conn->close();
         <li><a href="indeks.php?page=accpengolah"><i class="fas fa-user-check"></i> Owner Verification</a></li>
         <li><a href="indeks.php?page=accwisata"><i class="fas fa-home"></i> Property Verification</a></li>
         <li><a href="indeks.php?page=verifikasiTopUp"><i class="fas fa-wallet"></i> Verifikasi Top Up</a></li>
-        <li class="active"><a href="indeks.php?page=transactionVerification"><i class="fas fa-file-invoice-dollar"></i> Transaction Verification</a></li>
+        <li class="active"><a href="indeks.php?page=transaksiverifikasi"><i class="fas fa-file-invoice-dollar"></i> Transaction Verification</a></li>
         <li><a href="indeks.php?page=memberlist"><i class="fas fa-users"></i> Member List</a></li>
         <li><a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
     </ul>

@@ -14,7 +14,7 @@ if (isset($_POST['tambah_favorit'])) {
     }
 }
 
-$ID = $_SESSION['user_id'];
+$ID = $_SESSION['user_id'] ?? null;
 $tempatwisata_id = $_GET['tempatwisata_id'];
 
 $sqlStatement1 = "SELECT * FROM tempatwisata WHERE tempatwisata_id = '$tempatwisata_id'";
