@@ -5,28 +5,33 @@ $ID = $_SESSION['user_id'];
 $tempatwisata_id = $_GET['tempatwisata_id'];
 $paket_id = $_GET['paket_id'];
 
-$sqlStatement1 = "SELECT * FROM tempatwisata WHERE tempatwisata_id = '$tempatwisata_id'";
-$query1 = mysqli_query($conn, $sqlStatement1);
-$tempatwisata = mysqli_fetch_assoc($query1);
+$sqlUser = "SELECT * FROM user WHERE user_id = '$ID'";
+$queryUser = mysqli_query($conn, $sqlUser);
+$user = mysqli_fetch_assoc($queryUser);
 
-$sqlStatement2 = "SELECT * FROM ulasan WHERE tempatwisata_id = '$tempatwisata_id'";
-$query2 = mysqli_query($conn, $sqlStatement2);
+$sqlTempatWisata = "SELECT * FROM tempatwisata WHERE tempatwisata_id = '$tempatwisata_id'";
+$queryTempatWisata = mysqli_query($conn, $sqlTempatWisata);
+$tempatwisata = mysqli_fetch_assoc($queryTempatWisata);
 
-$sqlStatement3 = "SELECT * FROM paketwisata WHERE tempatwisata_id = '$tempatwisata_id' AND paket_id = '$paket_id'";
-$query3 = mysqli_query($conn, $sqlStatement3);
-$paket = mysqli_fetch_assoc($query3);
+$sqlUlasan = "SELECT * FROM ulasan WHERE tempatwisata_id = '$tempatwisata_id'";
+$queryUlasan = mysqli_query($conn, $sqlUlasan);
+$ulasan = mysqli_fetch_assoc($queryUlasan);
 
-$sqlStatement4 = "SELECT link_foto FROM fotowisata WHERE tempatwisata_id='$tempatwisata_id' ORDER BY urutan";
-$foto_query = mysqli_query($conn, $sqlStatement4);
+$sqlPaket = "SELECT * FROM paketwisata WHERE tempatwisata_id = '$tempatwisata_id' AND paket_id = '$paket_id'";
+$queryPaket = mysqli_query($conn, $sqlPaket);
+$paket = mysqli_fetch_assoc($queryPaket);
+
+$sqlFoto = "SELECT link_foto FROM fotowisata WHERE tempatwisata_id='$tempatwisata_id' ORDER BY urutan";
+$foto_query = mysqli_query($conn, $sqlFoto);
 $fotos = [];
 while ($barisTabel = mysqli_fetch_assoc($foto_query)) {
     $fotos[] = $barisTabel['link_foto'];
 }
 
 $pw_id = $tempatwisata['pw_id'];
-$sqlStatement5 = "SELECT * FROM pemilikwisata WHERE pw_id = '$pw_id'";
-$query5 = mysqli_query($conn, $sqlStatement5);
-$pemilikwisata = mysqli_fetch_assoc($query5);
+$sqlPW = "SELECT * FROM pemilikwisata WHERE pw_id = '$pw_id'";
+$queryPW = mysqli_query($conn, $sqlPW);
+$pemilikwisata = mysqli_fetch_assoc($queryPW);
 
 $sqlRating = "SELECT AVG(rating) as avg_rating, COUNT(ulasan_id) as total_reviews FROM ulasan WHERE tempatwisata_id = '$tempatwisata_id'";
 $ratingQuery = mysqli_query($conn, $sqlRating);
@@ -65,135 +70,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserve a ticket</title>
-    <style>
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-        }
-        .container {
-            display: flex;
-            gap: 2rem;
-            max-width: 1100px;
-            width: 100%;
-        }
-        .left-column, .right-column {
-            background: #ffffff;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .left-column {
-            flex: 1.5;
-        }
-        .right-column {
-            flex: 1;
-            height: fit-content;
-        }
-        .main-image {
-            width: 100%;
-            border-radius: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        .destination-name {
-            font-size: 1.75rem;
-            font-weight: bold;
-            margin: 0;
-        }
-        .rating {
-            font-size: 1.25rem;
-            font-weight: bold;
-            color: #ffc107;
-            margin: 0.5rem 0;
-        }
-        .rating span {
-            color: #000;
-        }
-        .address {
-            color: #6c757d;
-            margin-bottom: 1.5rem;
-        }
-        .package-box {
-            border: 1px solid #dee2e6;
-            border-radius: 0.5rem;
-            padding: 1rem;
-        }
-        .package-box h3 {
-            font-size: 1.2rem;
-            margin: 0 0 0.5rem 0;
-        }
-        .package-box p {
-            color: #6c757d;
-            margin: 0 0 1rem 0;
-        }
-        .price {
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-        .price small {
-            font-size: 0.8rem;
-            font-weight: normal;
-            color: #6c757d;
-        }
-        h2.form-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin: 0 0 1.5rem 0;
-        }
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #495057;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ced4da;
-            border-radius: 0.25rem;
-            box-sizing: border-box;
-        }
-        .operational-hours, .ticket-stock {
-            font-size: 0.85rem;
-            color: #6c757d;
-            margin-top: 0.5rem;
-        }
-        .balance-box {
-            background-color: #0d6efd;
-            color: white;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            margin: 2rem 0 1.5rem 0;
-        }
-        .balance-box .label {
-            font-size: 1rem;
-        }
-        .balance-box .amount {
-            font-size: 2rem;
-            font-weight: bold;
-            margin: 0.25rem 0;
-        }
-        .balance-box a {
-            color: white;
-            text-decoration: underline;
-        }
-        .submit-button {
-            width: 100%;
-            background-color: #198754;
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 0.25rem;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="pengguna/cssPengguna/reservasiTiket.css">
 </head>
 <body>
   <button onclick="history.back()" class="back-button">Go back</button>
@@ -243,8 +120,8 @@ if (isset($_POST['submit'])) {
 
                 <div class="balance-box">
                     <div class="label">Balance</div>
-                    <div class="amount">Rp. 1.000.000</div>
-                    <a href="#">Top up</a>
+                    <div class="amount"><?= $user['saldo'];?></div>
+                    <a href="indeks.php?page=Saldo">Top up</a>
                 </div>
 
                 <button type="submit" name="submit" class="submit-button">Buy Now</button>
