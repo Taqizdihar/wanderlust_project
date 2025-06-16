@@ -39,6 +39,7 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
     <link rel="stylesheet" href="administrator/cssAdmin/verifikasiTopUp.css">
 </head>
 <body>
+<?php include "viewsAdmin.php";?>
 
 <h2 class="judul">Permintaan Top Up Menunggu Verifikasi</h2>
 
