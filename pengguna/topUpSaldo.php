@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $metode = $_POST['metode'];
 
     $allowed_types = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
-    $upload_dir = "uploads/";
+    $upload_dir = "pengguna/foto/";
 
     if (!file_exists($upload_dir)) {
         mkdir($upload_dir, 0775, true);

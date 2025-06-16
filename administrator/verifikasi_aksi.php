@@ -2,103 +2,93 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 include 'config.php';
 
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    echo "<h2>Akses ditolak: Anda bukan admin.</h2>";
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
     exit();
 }
 
-if (isset($_GET['id']) && isset($_GET['aksi'])) {
-    $topup_id = intval($_GET['id']);
-    $aksi = $_GET['aksi'];
+$message = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_id = $_SESSION['user_id'];
+    $jumlah = floatval($_POST['jumlah']);
+    $metode = $_POST['metode'];
 
-    $query = mysqli_query($conn, "SELECT * FROM topup WHERE topup_id = $topup_id");
-    $data = mysqli_fetch_assoc($query);
+    $bukti = $_FILES['bukti'] ?? null;
+    $uploadNewBukti = null;
 
-    if ($data) {
-        $user_id = $data['user_id'];
-        $jumlah = floatval($data['jumlah']);
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+    $uploadDir = 'uploads/';
 
-        if ($aksi === 'setujui') {
-            mysqli_query($conn, "UPDATE topup SET status = 'disetujui', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
-            mysqli_query($conn, "UPDATE user SET saldo = IFNULL(saldo, 0) + $jumlah WHERE user_id = $user_id");
-        } elseif ($aksi === 'tolak') {
-            mysqli_query($conn, "UPDATE topup SET status = 'ditolak', tanggal_verifikasi = NOW() WHERE topup_id = $topup_id");
-        }
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0775, true);
     }
 
-    header("Location: indeks.php?page=verifikasiTopUp&msg=update");
-    exit();
-}
-?>
+    if (isset($bukti) && $bukti['error'] === 0) {
+        $fileType = mime_content_type($bukti['tmp_name']);
+        
+        if (in_array($fileType, $allowedTypes)) {
+            $uploadPath = $uploadDir . basename($bukti['name']);
+            if (move_uploaded_file($bukti['tmp_name'], $uploadPath)) {
+                $uploadNewBukti = $bukti['name'];
 
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>Top Up Verification</title>
-    <link rel="stylesheet" href="administrator/cssAdmin/verifikasiTopUp.css">
-    <style>
-        .bukti-img {
-            max-width: 100px;
-            max-height: 100px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            object-fit: cover;
-        }
-    </style>
-</head>
-<body>
-<?php include "viewsAdmin.php";?>
+                // Simpan ke database (tanpa prepared statement)
+                $sql = "INSERT INTO topup (user_id, jumlah, metode_pembayaran, bukti_transfer, status, tanggal_pengajuan) 
+                        VALUES ($user_id, $jumlah, '$metode', '$uploadNewBukti', 'menunggu', NOW())";
 
-<h2 class="judul">Permintaan Top Up Menunggu Verifikasi</h2>
-
-<?php if (isset($_GET['msg']) && $_GET['msg'] === 'update'): ?>
-    <div class="notifikasi">Status berhasil diperbarui.</div>
-<?php endif; ?>
-
-<table class="tabel-topup">
-    <thead>
-        <tr>
-            <th>User ID</th>
-            <th>Jumlah (Rp)</th>
-            <th>Metode</th>
-            <th>Tanggal</th>
-            <th>Bukti</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php
-        $query = mysqli_query($conn, "SELECT * FROM topup WHERE status = 'menunggu' ORDER BY tanggal_pengajuan DESC");
-        if (mysqli_num_rows($query) > 0) {
-            while ($row = mysqli_fetch_assoc($query)) {
-                echo "<tr>
-                    <td>{$row['user_id']}</td>
-                    <td>Rp " . number_format($row['jumlah'], 0, ',', '.') . "</td>
-                    <td>" . ucfirst($row['metode_pembayaran']) . "</td>
-                    <td>" . date('d M Y, H:i', strtotime($row['tanggal_pengajuan'])) . "</td>
-                    <td>";
-                        if (!empty($row['bukti_transfer']) && file_exists("uploads/{$row['bukti_transfer']}")) {
-                            echo "<a href='uploads/{$row['bukti_transfer']}' target='_blank'>
-                                    <img src='uploads/{$row['bukti_transfer']}' class='bukti-img' alt='Bukti Transfer'>
-                                  </a>";
-                        } else {
-                            echo "-";
-                        }
-                echo "</td>
-                    <td>
-                        <a href='indeks.php?page=verifikasiTopUp&id={$row['topup_id']}&aksi=setujui' class='btn setujui'>Setujui</a>
-                        <a href='indeks.php?page=verifikasiTopUp&id={$row['topup_id']}&aksi=tolak' class='btn tolak'>Tolak</a>
-                    </td>
-                </tr>";
+                if (mysqli_query($conn, $sql)) {
+                    header("Location: indeks.php?page=Saldo&status=sukses");
+                    exit();
+                } else {
+                    $message = "Gagal menyimpan data ke database.";
+                }
+            } else {
+                $message = "Gagal meng-upload bukti transfer.";
             }
         } else {
-            echo "<tr><td colspan='6' style='text-align:center;'>Tidak ada permintaan top up.</td></tr>";
+            $message = "Tipe file tidak didukung.";
         }
-        ?>
-    </tbody>
-</table>
+    } else {
+        $message = "Harap upload bukti transfer.";
+    }
+}
 
-</body>
-</html>
+include 'Header.php';
+?>
 
+<link rel="stylesheet" href="pengguna/cssPengguna/topUpSaldo.css">
+
+<main style="padding: 40px 20px;">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <section class="saldo-card">
+            <div class="saldo-icon"><i class="ri-bank-card-line"></i></div>
+            <div class="saldo-amount">Top Up Saldo</div>
+            <div class="saldo-desc">Masukkan nominal, metode pembayaran, dan bukti transfer</div>
+
+            <?php if ($message): ?>
+                <div style="color: red; font-weight: bold; margin: 15px 0;"><?= htmlspecialchars($message) ?></div>
+            <?php endif; ?>
+
+            <form method="post" class="topup-form" enctype="multipart/form-data">
+                <input type="number" name="jumlah" placeholder="Jumlah Top Up (Rp)" required min="1000" step="1000">
+                <select name="metode" required>
+                    <option value="" disabled selected>Pilih Metode Pembayaran</option>
+                    <option value="gopay">GoPay</option>
+                    <option value="dana">DANA</option>
+                    <option value="shopeepay">ShopeePay</option>
+                    <option value="bank_transfer">Bank Transfer</option>
+                    <option value="lainnya">Lainnya</option>
+                </select>
+                <label>Upload Bukti Transaksi (gambar):</label>
+                <input type="file" name="bukti" accept="image/*" required>
+                <button type="submit" class="topup-btn">
+                    <i class="ri-send-plane-line" style="margin-right: 6px;"></i>Kirim Permintaan
+                </button>
+            </form>
+        </section>
+        <div style="margin-top: 20px;">
+            <a href="indeks.php?page=Saldo" style="text-decoration: none; color: #0077cc; font-weight: 500;">← Kembali ke Saldo</a>
+        </div>
+    </div>
+</main>
+
+<?php include 'Footer.php'; ?>
