@@ -2,12 +2,12 @@
 session_start();
 ?>
 <main>
-<main>
 <?php
     if (isset($_GET['page'])) {
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
         $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata', 'addPaket', 'daftarPaket', 'kelolaPaket', 'deletePaket'];
+        // $pages_owner_verif = ['acc', 'accpengolah', 'accproperti']; // <-- Pindahkan ke array tersendiri
         $pages_admin = ['acc', 'accpengolah', 'accproperti', 'acctransaksi', 'dashboardAdmin', 'pengolahStatus', 'propertiStatus', 'verifikasiTopUp', 'memberlist', 'member', 'accwisata'];
         $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'riwayatReservasi'];
         

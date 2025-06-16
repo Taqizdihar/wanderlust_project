@@ -115,7 +115,7 @@ if (!$result) {
 <!-- ✅ Sidebar -->
 <div class="sidebar">
     <div class="sidebar-header">
-        <p>Hi, Admin<br><strong>r</strong></p>
+        <p>Hi, Admin<br><strong>Riska Dea Bakri</strong></p>
     </div>
     <ul class="sidebar-menu">
         <li><a href="indeks.php?page=dashboardAdmin"><i class="fas fa-globe"></i> Dashboard</a></li>

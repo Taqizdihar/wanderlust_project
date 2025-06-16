@@ -650,7 +650,7 @@ if ($sqlPending) {
             <span class="notif-dot"></span>
           </button>
           <div class="profile-box">
-            <img src="<?= htmlspecialchars($profile['profile_pic_url'] ?? 'https://via.placeholder.com/45/007bff/ffffff?text=AD') ?>" alt="Profile" class="profile-icon"/>
+            <img src="administrator/foto/<?= $profile['foto_profil'] ?>" alt="Profile" class="profile-icon"/>
             <div class="profile-info">
               <div class="profile-name"><?= htmlspecialchars($profile['nama'] ?? 'Riska Dea Bakri') ?></div>
               <div class="profile-role"><?= htmlspecialchars($profile['role'] ?? 'Admin') ?></div>
