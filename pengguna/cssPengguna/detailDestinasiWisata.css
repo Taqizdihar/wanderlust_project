@@ -68,3 +68,71 @@ body {
 .favorit-btn:hover {
     background-color: #c0392b;
 }
+
+.card-review {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.review-form textarea,
+.review-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+  margin-bottom: 12px;
+}
+
+.review-form button {
+  background-color: #198754;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.review-form button:hover {
+  background-color: #157347;
+}
+
+.review-action {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.review-action form {
+  display: inline;
+}
+
+.review-action button {
+  padding: 4px 10px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.review-action .btn-edit {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+.review-action .btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.review-action .btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.review-action .btn-delete:hover {
+  background-color: #b02a37;
+}
