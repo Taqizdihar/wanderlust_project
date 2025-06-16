@@ -93,7 +93,7 @@ mysqli_close($conn);
             </div>
             <div class="form-item">
                 <label for="email">Your pet's name!</label>
-                <input type="text" name="petname" placeholder="Pet name" required>
+                <input type="text" name="petname" placeholder="Pet name! Don't worry, it's only for reset password!" required>
             </div>
             <input type="submit" value="Register" name="signinBtn" id="submitButton">
             <div class="login-footer">
