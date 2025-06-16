@@ -7,13 +7,7 @@ session_start();
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
         $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata', 'addPaket', 'daftarPaket', 'kelolaPaket', 'deletePaket'];
-<<<<<<< HEAD
-        $pages_admin = ['acc', 'accpengolah', 'accproperti', 'acctransaksi', 'dashboardAdmin', 'pengolahStatus', 'propertiStatus', 'verifikasiTopUp', 'memberlist', 'member', 'accwisata'];
-=======
         $pages_admin = ['acc', 'accpengolah', 'accproperti', 'acctransaksi', 'dashboardAdmin', 'pengolahStatus', 'propertiStatus', 'verifikasiTopUp', 'memberlist', 'member', 'accwisata', 'transactionVerification'];
-        // --- AKHIR BAGIAN YANG DIUBAH ---
-
->>>>>>> 13c3f7ed2dd99bc97f5fb7c6698587f219b47343
         $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'riwayatReservasi'];
         
         if (in_array($page, $pages_umum)) {
@@ -21,7 +15,6 @@ session_start();
         } else if (in_array($page, $pages_pw)) {
             include "pemilikWisata/$page.php";
         } else if (in_array($page, $pages_admin)) {
-            // Asumsi file 'transactionVerification.php' ada di dalam folder 'administrator/'
             include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {
             include "pengguna/$page.php";
