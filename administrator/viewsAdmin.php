@@ -1,6 +1,10 @@
 <?php
 if (!isset($profile) || !is_array($profile)) {
     $profile = ['nama' => 'Guest', 'role' => 'Unknown'];
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 }
 ?>
 
@@ -99,7 +103,7 @@ if (!isset($profile) || !is_array($profile)) {
 
 <div class="sidebar">
     <div class="sidebar-header">
-        <p>Selamat Datang<br><strong><?= htmlspecialchars($profile['nama']) ?></strong></p>
+        <p>Hi, Admin<br><strong><?= htmlspecialchars($profile['nama']) ?></strong></p>
     </div>
     <ul class="sidebar-menu">
         <li><a href="indeks.php?page=dashboardAdmin"><i class="fas fa-globe"></i> Dashboard</a></li>

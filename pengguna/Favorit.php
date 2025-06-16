@@ -3,16 +3,20 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 include "config.php";
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'wisatawan') {
-    header("Location: login.php");
+    echo "<script>alert('Destinasi dihapus dari favorit!'); window.location.href='indeks.php?page=Favorit';</script>";
     exit();
 }
 
 $wisatawan_id = $_SESSION['user_id'];
 
-if (isset($_POST['hapus_favorit'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['hapus_favorit'])) {
     $hapus_id = $_POST['tempatwisata_id'];
     mysqli_query($conn, "DELETE FROM wishlist WHERE wisatawan_id = '$wisatawan_id' AND tempatwisata_id = '$hapus_id'");
-    header("Location: Favorit.php");
+
+    echo "<script>
+        alert('Destinasi dihapus dari favorit!');
+        window.location.href='indeks.php?page=Favorit';
+    </script>";
     exit();
 }
 
@@ -35,11 +39,18 @@ $result = mysqli_query($conn, $query);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
 </head>
 <body>
+<div class="wrapper">
+    <?php include "pengguna/Header.php"; ?>
 
-<?php include "pengguna/Header.php"; ?>
-
-<div class="container my-5">
+    <main class="content container my-5">
     <h2 class="mb-4">Destinasi Favorit Saya</h2>
+
+    <?php if (mysqli_num_rows($result) > 0): ?>
+    <?php else: ?>
+
+        <div class="alert alert-info">Anda belum menambahkan destinasi favorit.</div>
+    <?php endif; ?>
+</main>
 
     <?php if (mysqli_num_rows($result) > 0): ?>
     <div class="row">
@@ -57,28 +68,30 @@ $result = mysqli_query($conn, $query);
                     <h5 class="card-title"><?= $row['nama_lokasi']; ?></h5>
                     <p class="card-text"><?= $row['jenis_wisata']; ?></p>
 
-                    <a href="detailDestinasiWisata.php?tempatwisata_id=<?= $tempatwisata_id ?>" class="btn btn-primary w-100 mb-2">
+                    <a href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $tempatwisata_id ?>" class="btn btn-primary w-100 mb-2">
                         <i class="fas fa-eye"></i> Lihat Detail
                     </a>
 
-                    <form method="post">
+                    <form method="post" action="indeks.php?page=Favorit">
                         <input type="hidden" name="tempatwisata_id" value="<?= $tempatwisata_id ?>">
                         <button type="submit" name="hapus_favorit" class="btn btn-danger w-100">
                             <i class="fas fa-trash-alt"></i> Hapus dari Favorit
                         </button>
                     </form>
+
+
                 </div>
             </div>
         </div>
         <?php endwhile; ?>
     </div>
     <?php else: ?>
-    <div class="alert alert-info">Anda belum menambahkan destinasi favorit.</div>
     <?php endif; ?>
 </div>
 
-<?php include "pengguna/Footer.php"; ?>
-
+    <?php include "pengguna/Footer.php"; ?>
+</div> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

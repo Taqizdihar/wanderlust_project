@@ -16,6 +16,7 @@ $PWProfile = mysqli_fetch_assoc($query3);
 ?>
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <title>Identitas Pemilik Wisata</title>
@@ -23,15 +24,16 @@ $PWProfile = mysqli_fetch_assoc($query3);
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
   <div class="wrapper">
-    <?php include "viewsAdmin.php";?>
+    <?php include "viewsAdmin.php"; ?>
 
     <main class="main">
       <div class="card">
         <h2>Owner Identity Verification</h2>
         <div class="profile-info">
-          <h2 class="name"><?= $allPW['nama']?></h2>
+          <h2 class="name"><?= $allPW['nama'] ?></h2>
 
             <?php
                 if ($PWProfile['status'] == 'review') {
@@ -50,20 +52,20 @@ $PWProfile = mysqli_fetch_assoc($query3);
             ?>
 
           <div class="info-grid">
-              <div class="info-left">
+            <div class="info-left">
               <p>Email</p>
-              <div class="value-box"><?= $allPW['email']?></div>
+              <div class="value-box"><?= $allPW['email'] ?></div>
 
               <p>Phone</p>
               <div class="value-box"><?= $allPW['no_telepon']?></div>
               </div>
 
-              <div class="info-right">
+            <div class="info-right">
               <p>Legal Tax Document</p>
-              <a href="pemilikWisata/foto/<?= $PWProfile['npwp']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a href="pengelolaWisata/photos/<?= $PWProfile['npwp']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 
               <p>Legal Business Document</p>
-              <a href="pemilikWisata/foto/<?= $PWProfile['siup']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a href="pengelolaWisata/photos/<?= $PWProfile['siup']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
               </div>
           </div>
           <div class="address">
@@ -82,4 +84,5 @@ $PWProfile = mysqli_fetch_assoc($query3);
     </main>
   </div>
 </body>
+
 </html>
