@@ -2,11 +2,13 @@
 if (session_status() === PHP_SESSION_NONE) session_start();
 include 'config.php';
 
+// Pastikan hanya admin yang bisa mengakses
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo "<h2>Akses ditolak: Anda bukan admin.</h2>";
     exit();
 }
 
+// Proses setujui / tolak
 if (isset($_GET['id']) && isset($_GET['aksi'])) {
     $topup_id = intval($_GET['id']);
     $aksi = $_GET['aksi'];
@@ -35,11 +37,21 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Top Up Verification</title>
+    <title>Verifikasi Top Up</title>
     <link rel="stylesheet" href="administrator/cssAdmin/verifikasiTopUp.css">
+    <style>
+        .bukti-preview {
+            width: 100px;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-<?php include "viewsAdmin.php";?>
+
+<?php include "viewsAdmin.php"; ?>
 
 <h2 class="judul">Permintaan Top Up Menunggu Verifikasi</h2>
 
@@ -54,6 +66,7 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
             <th>Jumlah (Rp)</th>
             <th>Metode</th>
             <th>Tanggal</th>
+            <th>Bukti Transfer</th>
             <th>Aksi</th>
         </tr>
     </thead>
@@ -67,6 +80,15 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
                     <td>Rp " . number_format($row['jumlah'], 0, ',', '.') . "</td>
                     <td>" . ucfirst($row['metode_pembayaran']) . "</td>
                     <td>" . date('d M Y, H:i', strtotime($row['tanggal_pengajuan'])) . "</td>
+                    <td>";
+                        if (!empty($row['bukti_transfer']) && file_exists("uploads/{$row['bukti_transfer']}")) {
+                            echo "<a href='uploads/{$row['bukti_transfer']}' target='_blank'>
+                                    <img src='uploads/{$row['bukti_transfer']}' class='bukti-preview' alt='Bukti Transfer'>
+                                  </a>";
+                        } else {
+                            echo "-";
+                        }
+                    echo "</td>
                     <td>
                         <a href='indeks.php?page=verifikasiTopUp&id={$row['topup_id']}&aksi=setujui' class='btn setujui'>Setujui</a>
                         <a href='indeks.php?page=verifikasiTopUp&id={$row['topup_id']}&aksi=tolak' class='btn tolak'>Tolak</a>
@@ -74,7 +96,7 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
                 </tr>";
             }
         } else {
-            echo "<tr><td colspan='5' style='text-align:center;'>Tidak ada permintaan top up.</td></tr>";
+            echo "<tr><td colspan='6' style='text-align:center;'>Tidak ada permintaan top up.</td></tr>";
         }
         ?>
     </tbody>

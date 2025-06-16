@@ -13,41 +13,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $jumlah = floatval($_POST['jumlah']);
     $metode = $_POST['metode'];
 
-    $allowed_types = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
-    $upload_dir = "pengguna/foto/";
+    $bukti = $_FILES['bukti'] ?? null;
+    $uploadNewBukti = null;
 
-    if (!file_exists($upload_dir)) {
-        mkdir($upload_dir, 0775, true);
+    $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+    $uploadDir = 'uploads/';
+
+    if (!file_exists($uploadDir)) {
+        mkdir($uploadDir, 0775, true);
     }
 
-    if (isset($_FILES['bukti']) && $_FILES['bukti']['error'] === 0) {
-        $file_tmp = $_FILES["bukti"]["tmp_name"];
-        $file_name_original = $_FILES["bukti"]["name"];
-        $file_type = mime_content_type($file_tmp);
-        $file_ext = strtolower(pathinfo($file_name_original, PATHINFO_EXTENSION));
+    if (isset($bukti) && $bukti['error'] === 0) {
+        $fileType = mime_content_type($bukti['tmp_name']);
+        
+        if (in_array($fileType, $allowedTypes)) {
+            $uploadPath = $uploadDir . basename($bukti['name']);
+            if (move_uploaded_file($bukti['tmp_name'], $uploadPath)) {
+                $uploadNewBukti = $bukti['name'];
 
-        if (in_array($file_type, $allowed_types)) {
-            $new_file_name = time() . '_' . uniqid() . '.' . $file_ext;
-            $target_path = $upload_dir . $new_file_name;
+                // Simpan ke database (tanpa prepared statement)
+                $sql = "INSERT INTO topup (user_id, jumlah, metode_pembayaran, bukti_transfer, status, tanggal_pengajuan) 
+                        VALUES ($user_id, $jumlah, '$metode', '$uploadNewBukti', 'menunggu', NOW())";
 
-            if (move_uploaded_file($file_tmp, $target_path)) {
-                $stmt = $conn->prepare("INSERT INTO topup (user_id, jumlah, metode_pembayaran, bukti_transfer, status, tanggal_pengajuan) VALUES (?, ?, ?, ?, 'menunggu', NOW())");
-                $stmt->bind_param("idss", $user_id, $jumlah, $metode, $new_file_name);
-                
-                if ($stmt->execute()) {
+                if (mysqli_query($conn, $sql)) {
                     header("Location: indeks.php?page=Saldo&status=sukses");
                     exit();
                 } else {
-                    $message = "Gagal menyimpan data topup: " . $stmt->error;
+                    $message = "Gagal menyimpan data ke database.";
                 }
             } else {
-                $message = "Gagal upload file bukti transfer.";
+                $message = "Gagal meng-upload bukti transfer.";
             }
         } else {
-            $message = "Format file tidak valid. Harus JPG, JPEG, PNG, atau GIF.";
+            $message = "Tipe file tidak didukung.";
         }
     } else {
-        $message = "Harap upload bukti transaksi.";
+        $message = "Harap upload bukti transfer.";
     }
 }
 
