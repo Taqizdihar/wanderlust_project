@@ -1,28 +1,29 @@
 <?php
-// Pastikan $profile sudah didefinisikan atau setel default jika tidak
+include 'config.php';
 if (!isset($profile) || !is_array($profile)) {
     $profile = ['nama' => 'Guest', 'role' => 'Unknown'];
+    // Pindahkan error_reporting dan ini_set ke sini agar selalu aktif
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
+} else {
+    // Jika $profile sudah ada, pastikan error reporting juga aktif
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 }
 
-// Aktifkan pelaporan kesalahan untuk debugging
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
-// =========================================================
-// 1. PENGATURAN KONEKSI DATABASE
-//    (Bagian ini bisa Anda pindahkan ke file konfigurasi terpisah jika Anda punya)
-// =========================================================
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "wanderlust";
+$username = "root";       // Ganti dengan username database Anda
+$password = "";           // Ganti dengan password database Anda (kosongkan jika tidak ada)
+$dbname = "wanderlust";   // Ganti dengan nama database Anda yang sebenarnya
 
 // Membuat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 // Memeriksa apakah koneksi berhasil
 if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
+    // Gunakan die() agar skrip berhenti jika koneksi gagal dan tampilkan pesan
+    die("Koneksi database gagal: " . $conn->connect_error);
 }
 
 // =========================================================
@@ -82,13 +83,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 // =========================================================
-// 3. MENGAMBIL DATA TRANSAKSI PENDING DARI DATABASE
+// 3. MENGAMBIL DATA TRANSAKSI PENDING DARI DATABASE UNTUK DITAMPILKAN
 // =========================================================
 $transactions = [];
 $sql_select = "SELECT transaksi_id, wisatawan_id, total_harga, tanggal_transaksi, status FROM transaksi WHERE status = 'pending' ORDER BY tanggal_transaksi ASC";
 $result = $conn->query($sql_select);
 
-if ($result && $result->num_rows > 0) {
+if (!$result) {
+    // Tangani error jika query SELECT gagal
+    $message .= "<p style='color: red;'>Error mengambil data transaksi: " . $conn->error . "</p>";
+} else if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         $transactions[] = $row;
     }
@@ -96,6 +100,7 @@ if ($result && $result->num_rows > 0) {
 
 // =========================================================
 // 4. MENUTUP KONEKSI DATABASE
+//    (Penting untuk menutup koneksi setelah selesai menggunakan database)
 // =========================================================
 $conn->close();
 ?>
@@ -164,12 +169,19 @@ $conn->close();
         border-left: 4px solid #fff;
         padding-left: 16px;
     }
+    .sidebar-menu li.active a {
+        background-color: #163a8a;
+        border-left: 4px solid #fff;
+        padding-left: 16px;
+    }
+
 
     .main-content {
         margin-left: 250px; /* Menyesuaikan dengan lebar sidebar */
         padding: 30px;
     }
 
+    /* Gaya tabel dari sebelumnya */
     table {
         width: 100%;
         border-collapse: collapse;
@@ -192,9 +204,10 @@ $conn->close();
         background-color: #f9f9f9;
     }
 
+    /* Gaya untuk form aksi di dalam tabel */
     .action-form {
         display: flex;
-        gap: 5px;
+        gap: 5px; /* Jarak antar tombol aksi */
     }
     .action-form input[type="submit"] {
         padding: 8px 12px;
@@ -217,6 +230,7 @@ $conn->close();
         background-color: #c82333;
     }
 
+    /* Gaya untuk pesan notifikasi */
     .message {
         margin-bottom: 20px;
         padding: 15px;
@@ -249,13 +263,13 @@ $conn->close();
 <div class="main-content">
     <h2>Verifikasi Transaksi Pending</h2>
 
-    <?php if (!empty($message)): ?>
+    <?php if (!empty($message)): // Menampilkan pesan jika ada ?>
         <div class="message">
             <?php echo $message; ?>
         </div>
     <?php endif; ?>
 
-    <?php if (!empty($transactions)): ?>
+    <?php if (!empty($transactions)): // Jika ada transaksi yang perlu diverifikasi ?>
         <table>
             <thead>
                 <tr>
@@ -286,7 +300,7 @@ $conn->close();
                 <?php endforeach; ?>
             </tbody>
         </table>
-    <?php else: ?>
+    <?php else: // Jika tidak ada transaksi pending ?>
         <p style="text-align: center; margin-top: 30px; font-size: 1.1em; color: #555;">Tidak ada transaksi pending untuk diverifikasi.</p>
     <?php endif; ?>
 </div>
