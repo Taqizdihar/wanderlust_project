@@ -19,7 +19,7 @@ $PWProfile = mysqli_fetch_assoc($query3);
 
 <head>
   <meta charset="UTF-8">
-  <title>Identitas Pemilik Wisata</title>
+  <title>Owner Verification</title>
   <link rel="stylesheet" href="administrator/cssAdmin/acc.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -36,17 +36,17 @@ $PWProfile = mysqli_fetch_assoc($query3);
           <h2 class="name"><?= $allPW['nama'] ?></h2>
 
             <?php
-                if ($PWProfile['entity_approval'] == 'review') {
+                if ($PWProfile['status'] == 'review') {
             ?>
-                <div class="status" id="review">Status : <?= $PWProfile['entity_approval']?></div>
+                <div class="status" id="review">Status : <?= $PWProfile['status']?></div>
             <?php
-                } else if ($PWProfile['entity_approval'] == 'approved') {
+                } else if ($PWProfile['status'] == 'approved') {
             ?>
-                <div class="status" id="approved">Status : <?= $PWProfile['entity_approval']?></div>
+                <div class="status" id="approved">Status : <?= $PWProfile['status']?></div>
             <?php
-                } else if ($PWProfile['entity_approval'] == 'rejected') {
+                } else if ($PWProfile['status'] == 'rejected') {
             ?>
-                <div class="status" id="rejected">Status : <?= $PWProfile['entity_approval']?></div>
+                <div class="status" id="rejected">Status : <?= $PWProfile['status']?></div>
             <?php
                 }
             ?>
@@ -57,23 +57,23 @@ $PWProfile = mysqli_fetch_assoc($query3);
               <div class="value-box"><?= $allPW['email'] ?></div>
 
               <p>Phone</p>
-              <div class="value-box"><?= $allPW['phonenumber']?></div>
+              <div class="value-box"><?= $allPW['no_telepon']?></div>
               </div>
 
             <div class="info-right">
               <p>Legal Tax Document</p>
-              <a href="pengelolaWisata/photos/<?= $PWProfile['tax_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a href="pengelolaWisata/photos/<?= $PWProfile['npwp']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 
               <p>Legal Business Document</p>
-              <a href="pengelolaWisata/photos/<?= $PWProfile['legal_business_document']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+              <a href="pengelolaWisata/photos/<?= $PWProfile['siup']?>" target="_blank" class="doc-btn">See Document <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
               </div>
           </div>
           <div class="address">
               <p>Address</p>
-              <div class="value-box"><?= $PWProfile['legal_document_address']?></div>
+              <div class="value-box"><?= $PWProfile['alamat_bisnis']?></div>
           </div>
           
-          <?php if ($PWProfile['entity_approval'] == 'review') : ?>
+          <?php if ($PWProfile['status'] == 'review') : ?>
           <div class="buttons">
             <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=approved" class="edit-btn" id="approve" onclick="return confirm('Are you sure you want to approve <?= $allPW['nama']?>?')">Approve</a>
             <a href="indeks.php?page=pengolahStatus&idpw=<?= $allPW['user_id']?>&status=rejected" class="edit-btn" id="rejected" onclick="return confirm('Are you sure you want to reject <?= $allPW['nama']?>?')">Reject</a>

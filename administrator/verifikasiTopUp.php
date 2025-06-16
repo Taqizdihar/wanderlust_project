@@ -35,10 +35,11 @@ if (isset($_GET['id']) && isset($_GET['aksi'])) {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Verifikasi Top Up</title>
+    <title>Top Up Verification</title>
     <link rel="stylesheet" href="administrator/cssAdmin/verifikasiTopUp.css">
 </head>
 <body>
+<?php include "viewsAdmin.php";?>
 
 <h2 class="judul">Permintaan Top Up Menunggu Verifikasi</h2>
 

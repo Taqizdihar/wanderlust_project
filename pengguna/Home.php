@@ -27,13 +27,13 @@ while ($row = mysqli_fetch_assoc($query)) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wanderlust | Home</title>
+  <title>Home</title>
   <link rel="stylesheet" href="pengguna/cssPengguna/Home.css">
 </head>
 <body>
   <?php include "pengguna/Header.php"; ?>
 
-  <h2 class="section-title">Destinasi Populer</h2>
+  <h2 class="section-title">Popular Destinations</h2>
   <div class="card-gallery">
     <?php foreach ($lokasi as $itemLokasi): 
       $foto = $itemLokasi['link_foto'] ?? 'default.jpg';
@@ -45,12 +45,13 @@ while ($row = mysqli_fetch_assoc($query)) {
       <div class="destination-content">
         <p><?= $itemLokasi['sumir']; ?></p>
         <div class="stars"></div>
-        <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>">Lihat Selengkapnya</a>
+        <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>">Details</a>
       </div>
     </div>
     <?php endforeach; ?>
   </div>
 
+<<<<<<< HEAD
   <h2 class="section-title">Rekomendasi Destinasi</h2>
   <div class="card-gallery">
     <?php foreach ($lokasi as $itemLokasi): 
@@ -59,6 +60,21 @@ while ($row = mysqli_fetch_assoc($query)) {
     <div class="cards-destination">
       <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $foto; ?>');">
         <h4><?= $itemLokasi['nama_lokasi']; ?></h4>
+=======
+  <h2 class="section-title">Recommendations</h2>
+<div class="card-gallery">
+  <?php foreach ($lokasi as $itemLokasi): ?>
+    <a href="">
+      <div class="cards-destination">
+        <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $itemLokasi['link_foto']; ?>');">
+          <h4><?= $itemLokasi['nama_lokasi']; ?></h4>
+        </div>
+        <div class="destination-content">
+          <p><?= $itemLokasi['sumir']; ?></p>
+          <div class="stars"></div>
+          <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>">Details</a>
+        </div>
+>>>>>>> 7302301b496f3c305bbe7fc333a582bd99dcc3a5
       </div>
       <div class="destination-content">
         <p><?= $itemLokasi['sumir']; ?></p>

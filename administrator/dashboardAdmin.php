@@ -86,7 +86,7 @@ if ($sqlPending) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard Admin</title>
+  <title>Dashboard</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
@@ -650,7 +650,7 @@ if ($sqlPending) {
             <span class="notif-dot"></span>
           </button>
           <div class="profile-box">
-            <img src="<?= htmlspecialchars($profile['profile_pic_url'] ?? 'https://via.placeholder.com/45/007bff/ffffff?text=AD') ?>" alt="Profile" class="profile-icon"/>
+            <img src="administrator/foto/<?= $profile['foto_profil'] ?>" alt="Profile" class="profile-icon"/>
             <div class="profile-info">
               <div class="profile-name"><?= htmlspecialchars($profile['nama'] ?? 'Riska Dea Bakri') ?></div>
               <div class="profile-role"><?= htmlspecialchars($profile['role'] ?? 'Admin') ?></div>

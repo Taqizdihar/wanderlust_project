@@ -3,9 +3,15 @@ include "config.php";
 
 $ID = $_SESSION['user_id'] ?? null;
 
-$sqlStatement = "SELECT * FROM user WHERE user_id = '$ID'";
-$query = mysqli_query($conn, $sqlStatement);
-$profil = mysqli_fetch_assoc($query);
+$sqlUser = "SELECT * FROM user WHERE user_id = '$ID'";
+$queryUser = mysqli_query($conn, $sqlUser);
+$profil = mysqli_fetch_assoc($queryUser);
+
+$sqlTransaksi = "SELECT COUNT(transaksi_id) AS total_visit, SUM(total_harga) AS total_pembayaran FROM transaksi WHERE wisatawan_id = '$ID'";
+$queryTransaksi = mysqli_query($conn, $sqlTransaksi);
+$transaksi = mysqli_fetch_assoc($queryTransaksi);
+$totalPembayaran = $transaksi['total_pembayaran'];
+$totalVisit = $transaksi['total_visit'];
 
 ?>
 
@@ -37,11 +43,11 @@ $profil = mysqli_fetch_assoc($query);
       <div class="stats">
         <div class="stat-box">
           <p>Total Visit</p>
-          <strong></strong>
+          <strong><?= $totalVisit?></strong>
         </div>
         <div class="stat-box">
           <p>Total Payment</p>
-          <strong></strong>
+          <strong><?= $totalPembayaran;?></strong>
         </div>
       </div>
 

@@ -94,8 +94,6 @@ $PTWprofile = mysqli_fetch_assoc($queryProfile);
     <div class="sidebar">
         <a href="indeks.php?page=dashboardWisata">Dashboard</a>
         <a href="indeks.php?page=daftarWisata">Properties</a>
-        <a href="notFound.php">Tickets</a>
-        <a href="notFound.php">Help Centre</a>
         <a href="indeks.php?page=logout" onclick="return confirm('Are you sure to Log Out?')">Log Out</a>
     </div>
 </body>

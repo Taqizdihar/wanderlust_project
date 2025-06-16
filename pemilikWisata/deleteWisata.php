@@ -2,26 +2,29 @@
 include "config.php";
 
 $ID = $_SESSION['user_id'];
-$lokasi_id = $_GET['id_lokasi'];
+$tempatwisata_id = $_GET['tempatwisata_id'];
 
-$sqlStatement = "SELECT * FROM lokasi WHERE id_lokasi='$lokasi_id' AND pw_id ='$ID'";
+$sqlStatement = "SELECT * FROM tempatwisata WHERE tempatwisata_id='$tempatwisata_id' AND pw_id ='$ID'";
 $query = mysqli_query($conn, $sqlStatement);
 $dataLokasi = mysqli_fetch_assoc($query);
 
 if ($dataLokasi) {
     
-    $deleteFoto = "DELETE FROM foto_lokasi WHERE id_lokasi = '$lokasi_id'";
+    $deleteFoto = "DELETE FROM fotowisata WHERE tempatwisata_id = '$tempatwisata_id'";
     mysqli_query($conn, $deleteFoto);
 
-    $deleteLokasi = "DELETE FROM lokasi WHERE id_lokasi = '$lokasi_id'";
+    $deletePaket = "DELETE FROM paketwisata WHERE tempatwisata_id = $tempatwisata_id";
+    mysqli_query($conn, $deletePaket);
+
+    $deleteLokasi = "DELETE FROM tempatwisata WHERE tempatwisata_id = '$tempatwisata_id'";
     mysqli_query($conn, $deleteLokasi);
 
-    $deleteFotoFolder = "SELECT url_photo FROM foto_lokasi WHERE id_lokasi='$lokasi_id'";
+    $deleteFotoFolder = "SELECT link_foto FROM fotowisata WHERE tempatwisata_id='$tempatwisata_id'";
     $queryFolder = mysqli_query($conn, $deleteFotoFolder);
     $foto = mysqli_fetch_assoc($queryFolder);
 
     while ($foto) {
-            $path = 'pengelolaWisata/photos/'.$foto['url_photo'];
+            $path = 'pemilikWisata/foto/'.$foto['link_foto'];
             if (file_exists($path)) {
             unlink($path);
         }

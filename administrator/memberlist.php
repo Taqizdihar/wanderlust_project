@@ -13,7 +13,7 @@ if (!$result) {
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Daftar Member</title>
+    <title>Member List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <style>
@@ -115,7 +115,7 @@ if (!$result) {
 <!-- ✅ Sidebar -->
 <div class="sidebar">
     <div class="sidebar-header">
-        <p>Hi, Admin<br><strong>r</strong></p>
+        <p>Hi, Admin<br><strong>Riska Dea Bakri</strong></p>
     </div>
     <ul class="sidebar-menu">
         <li><a href="indeks.php?page=dashboardAdmin"><i class="fas fa-globe"></i> Dashboard</a></li>
