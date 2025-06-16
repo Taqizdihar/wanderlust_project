@@ -8,19 +8,38 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $message = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_SESSION['user_id'];
     $jumlah = $_POST['jumlah'];
     $metode = $_POST['metode'];
 
-    $stmt = $conn->prepare("INSERT INTO topup (user_id, jumlah, metode_pembayaran) VALUES (?, ?, ?)");
-    $stmt->bind_param("ids", $user_id, $jumlah, $metode);
+    // Upload bukti
+    $upload_dir = "uploads/bukti_transaksi/";
+    if (!file_exists($upload_dir)) {
+        mkdir($upload_dir, 0777, true);
+    }
 
-    if ($stmt->execute()) {
-        header("Location: indeks.php?page=Saldo&status=sukses");
-        exit();
+    $bukti = $_FILES['bukti'];
+    $bukti_name = basename($bukti['name']);
+    $file_ext = strtolower(pathinfo($bukti_name, PATHINFO_EXTENSION));
+    $allowed_types = ['jpg', 'jpeg', 'png', 'gif'];
+
+    $new_file_name = time() . "_" . $bukti_name;
+    $target_file = $upload_dir . $new_file_name;
+
+    if (in_array($file_ext, $allowed_types) && move_uploaded_file($bukti['tmp_name'], $target_file)) {
+        $stmt = $conn->prepare("INSERT INTO topup (user_id, jumlah, metode_pembayaran, bukti) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("idss", $user_id, $jumlah, $metode, $target_file);
+
+        if ($stmt->execute()) {
+            header("Location: indeks.php?page=Saldo&status=sukses");
+            exit();
+        } else {
+            $message = "Gagal simpan data: " . $conn->error;
+        }
     } else {
-        $message = "Gagal melakukan top up: " . $conn->error;
+        $message = "Gagal upload bukti transaksi. Pastikan file berupa gambar (jpg, png, jpeg, gif).";
     }
 }
 
@@ -31,11 +50,10 @@ include 'Header.php';
 
 <main style="padding: 40px 20px;">
     <div style="display: flex; flex-direction: column; align-items: center;">
-
         <section class="saldo-card">
             <div class="saldo-icon"><i class="ri-bank-card-line"></i></div>
             <div class="saldo-amount">Top Up Saldo</div>
-            <div class="saldo-desc">Masukkan nominal dan metode pembayaran</div>
+            <div class="saldo-desc">Masukkan nominal, metode pembayaran, dan bukti transfer</div>
 
             <?php if ($message): ?>
                 <div style="color: red; font-weight: bold; margin: 15px 0;">
@@ -43,9 +61,8 @@ include 'Header.php';
                 </div>
             <?php endif; ?>
 
-            <form method="post" class="topup-form">
+            <form method="post" class="topup-form" enctype="multipart/form-data">
                 <input type="number" name="jumlah" placeholder="Jumlah Top Up (Rp)" required min="1000" step="1000">
-
                 <select name="metode" required>
                     <option value="" disabled selected>Pilih Metode Pembayaran</option>
                     <option value="gopay">GoPay</option>
@@ -55,6 +72,9 @@ include 'Header.php';
                     <option value="lainnya">Lainnya</option>
                 </select>
 
+                <label>Upload Bukti Transaksi:</label>
+                <input type="file" name="bukti" accept="image/*" required>
+
                 <button type="submit" class="topup-btn">
                     <i class="ri-send-plane-line" style="margin-right: 6px;"></i>Kirim Permintaan
                 </button>
@@ -62,7 +82,7 @@ include 'Header.php';
         </section>
 
         <div style="margin-top: 20px;">
-            <a href="indeks.php?page=Saldo" style="text-decoration: none; color: #0077cc; font-weight: 500;">← Kembali ke Saldo</a>
+            <a href="indeks.php?page=Saldo" style="text-decoration: none; color: #0077cc;">← Kembali ke Saldo</a>
         </div>
     </div>
 </main>
