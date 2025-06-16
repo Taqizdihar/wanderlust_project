@@ -27,8 +27,5 @@ if (isset($_GET['page'])) {
     } else {
         echo "<h2>404 - Halaman tidak ditemukan</h2>";
     }
-} else {
-    include "Umum/homeUmum.php";
-}
-?>
+}?>
 </main>
