@@ -22,8 +22,8 @@ function getTickets($conn, $ID, $statuses)
     return $tiket;
 }
 
-$active_tickets = getTickets($conn, $ID, ['pending', 'dipakai']);
-$history_tickets = getTickets($conn, $ID, ['dibayarkan']);
+$active_tickets = getTickets($conn, $ID, ['pending', 'active']);
+$history_tickets = getTickets($conn, $ID, ['inactive']);
 ?>
 
 <!DOCTYPE html>
