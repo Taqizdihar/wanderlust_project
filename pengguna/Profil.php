@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 
-$ID = $_SESSION['user_id'];
+$ID = $_SESSION['user_id'] ?? null;
 
 $sqlStatement = "SELECT * FROM user WHERE user_id = '$ID'";
 $query = mysqli_query($conn, $sqlStatement);

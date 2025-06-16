@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 
-$ID = $_SESSION['user_id'];
+$ID = $_SESSION['user_id'] ?? null;
 $kataKunci = $_GET['kataKunci'];
 
 $sqlStatement1 = "SELECT tempatwisata.*, fotowisata.link_foto FROM tempatwisata JOIN fotowisata
