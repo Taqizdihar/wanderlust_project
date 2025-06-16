@@ -26,7 +26,7 @@ if (isset($_POST['submit'])) {
     }
 
     $sqlTempatWisata = "INSERT INTO tempatwisata (pw_id, nama_lokasi, alamat_lokasi, jenis_wisata, waktu_buka, waktu_tutup, deskripsi, sumir, nomor_pic, surat_izin, status) 
-                         VALUES ('$ID', '$nama_lokasi', '$alamat_lokasi', '$jenis_wisata', '$waktu_buka', '$waktu_tutup', '$deskripsi', '$sumir', '$nomor_pic', '$uploadSuratIzin', '$status')";
+                         VALUES ('$ID', '$nama_lokasi', '$alamat_lokasi', '$jenis_wisata', '$waktu_buka', '$waktu_tutup', '$deskripsi', '$sumir', '$nomor_pic', '$uploadNewSIUP', '$status')";
     $queryTempatWisata = mysqli_query($conn, $sqlTempatWisata);
 
     $tempatwisata_id = mysqli_insert_id($conn);

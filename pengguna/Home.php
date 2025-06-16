@@ -52,27 +52,22 @@ while ($row = mysqli_fetch_assoc($query)) {
   </div>
 
   <h2 class="section-title">Recommendations</h2>
-<div class="card-gallery">
-  <?php foreach ($lokasi as $itemLokasi): ?>
-    <a href="">
-      <div class="cards-destination">
-        <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $itemLokasi['link_foto']; ?>');">
-          <h4><?= $itemLokasi['nama_lokasi']; ?></h4>
-        </div>
-        <div class="destination-content">
-          <p><?= $itemLokasi['sumir']; ?></p>
-          <div class="stars"></div>
-          <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>">Details</a>
-        </div>
+  <div class="card-gallery">
+    <?php foreach ($lokasi as $itemLokasi): 
+      $foto = $itemLokasi['link_foto'] ?? 'default.jpg';
+    ?>
+    <div class="cards-destination">
+      <div class="card-images" style="background-image: url('pemilikWisata/foto/<?= $foto; ?>');">
+        <h4><?= $itemLokasi['nama_lokasi']; ?></h4>
       </div>
       <div class="destination-content">
         <p><?= $itemLokasi['sumir']; ?></p>
         <div class="stars"></div>
-        <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>">Lihat Selengkapnya</a>
+        <a class="card-button" href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $itemLokasi['tempatwisata_id']; ?>">Details</a>
       </div>
     </div>
     <?php endforeach; ?>
-  </div>
+  </div>    
 
   <?php include "pengguna/Footer.php"; ?>
 </body>

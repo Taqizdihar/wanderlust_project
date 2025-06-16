@@ -43,12 +43,12 @@ $result = mysqli_query($conn, $query);
     <?php include "pengguna/Header.php"; ?>
 
     <main class="content container my-5">
-    <h2 class="mb-4">Destinasi Favorit Saya</h2>
+    <h2 class="mb-4">My Bookmark</h2>
 
     <?php if (mysqli_num_rows($result) > 0): ?>
     <?php else: ?>
 
-        <div class="alert alert-info">Anda belum menambahkan destinasi favorit.</div>
+        <div class="alert alert-info">You haven't added any destination into bookmark yet</div>
     <?php endif; ?>
 </main>
 
@@ -69,13 +69,13 @@ $result = mysqli_query($conn, $query);
                     <p class="card-text"><?= $row['jenis_wisata']; ?></p>
 
                     <a href="indeks.php?page=detailDestinasiWisata&tempatwisata_id=<?= $tempatwisata_id ?>" class="btn btn-primary w-100 mb-2">
-                        <i class="fas fa-eye"></i> Lihat Detail
+                        <i class="fas fa-eye"></i> Details
                     </a>
 
                     <form method="post" action="indeks.php?page=Favorit">
                         <input type="hidden" name="tempatwisata_id" value="<?= $tempatwisata_id ?>">
                         <button type="submit" name="hapus_favorit" class="btn btn-danger w-100">
-                            <i class="fas fa-trash-alt"></i> Hapus dari Favorit
+                            <i class="fas fa-trash-alt"></i> Delete from bookmark
                         </button>
                     </form>
 
