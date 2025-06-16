@@ -1,19 +1,13 @@
 <?php
-include "config.php";
-// Pastikan $profile sudah didefinisikan atau setel default jika tidak
+
 if (!isset($profile) || !is_array($profile)) {
     $profile = ['nama' => 'Guest', 'role' => 'Unknown'];
 }
 
-// Aktifkan pelaporan kesalahan untuk debugging. Ini harus selalu ada di file PHP development.
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// =========================================================
-// 1. PENGATURAN KONEKSI DATABASE
-//    (Bagian ini bisa Anda pindahkan ke file konfigurasi terpisah jika Anda punya)
-// =========================================================
-$servername = "localhost"; // Umumnya "localhost"
+$servername = "localhost";
 $username = "root";       // Ganti dengan username database Anda
 $password = "";           // Ganti dengan password database Anda (kosongkan jika tidak ada)
 $dbname = "wanderlust";   // Ganti dengan nama database Anda yang sebenarnya
@@ -21,32 +15,33 @@ $dbname = "wanderlust";   // Ganti dengan nama database Anda yang sebenarnya
 // Membuat koneksi ke database
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Memeriksa apakah koneksi berhasil
+// Memeriksa apakah koneksi berhasil. Jika gagal, hentikan eksekusi skrip.
 if ($conn->connect_error) {
-    // Gunakan die() agar skrip berhenti jika koneksi gagal dan tampilkan pesan
     die("Koneksi database gagal: " . $conn->connect_error);
 }
 
 // =========================================================
-// 2. LOGIKA PEMROSESAN FORMULIR UNTUK VERIFIKASI TRANSAKSI (Setujui/Tolak)
+// LOGIKA PEMROSESAN FORMULIR UNTUK VERIFIKASI TRANSAKSI
 // =========================================================
 $message = ""; // Variabel untuk menyimpan pesan sukses atau error
 
-// Memeriksa apakah formulir telah dikirim (metode POST)
+// Memeriksa apakah formulir verifikasi transaksi telah dikirim via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $transaksi_id = $_POST['transaksi_id'];
     $action = '';
 
+    // Menentukan aksi (setujui atau tolak) berdasarkan tombol yang diklik
     if (isset($_POST['setujui_transaksi'])) {
         $action = 'setujui';
     } elseif (isset($_POST['tolak_transaksi'])) {
         $action = 'tolak';
     }
 
+    // Memastikan ID transaksi valid dan numerik
     if (!empty($transaksi_id) && is_numeric($transaksi_id)) {
         $new_status = '';
         $success_message = '';
-        // Kondisi default: hanya transaksi dengan status 'pending' yang bisa diubah
+        // Kondisi: Hanya transaksi dengan status 'pending' yang dapat diverifikasi
         $current_status_condition = "status = 'pending'"; 
 
         if ($action === 'setujui') {
@@ -56,60 +51,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $new_status = 'dibatalkan';
             $success_message = "berhasil ditolak menjadi 'dibatalkan'.";
         } else {
-            // Jika tidak ada tombol aksi yang valid diklik
             $message = "<p style='color: red;'>Aksi tidak valid. Pilih Setujui atau Tolak.</p>";
         }
 
         if (!empty($new_status)) {
-            // Menyiapkan SQL query untuk memperbarui status transaksi
-            // Menggunakan placeholder '?' untuk nilai yang akan dimasukkan
+            // Prepared statement untuk update status transaksi
             $sql = "UPDATE transaksi SET status = ? WHERE transaksi_id = ? AND " . $current_status_condition;
-
-            // Menggunakan prepared statement untuk keamanan (sangat penting untuk mencegah SQL Injection)
             $stmt = $conn->prepare($sql);
 
             if ($stmt) {
-                // Mengikat parameter ke placeholder dalam query:
-                // 's' untuk tipe string (new_status), 'i' untuk tipe integer (transaksi_id)
+                // Binding parameter: 's' untuk string, 'i' untuk integer
                 $stmt->bind_param("si", $new_status, $transaksi_id);
 
-                // Mengeksekusi query yang sudah disiapkan
                 if ($stmt->execute()) {
-                    // Memeriksa berapa banyak baris yang terpengaruh oleh operasi UPDATE
-                    // Jika affected_rows > 0, berarti ada baris yang berhasil diubah
                     if ($stmt->affected_rows > 0) {
                         $message = "<p style='color: green;'>Transaksi ID " . htmlspecialchars($transaksi_id) . " " . $success_message . "</p>";
                     } else {
-                        // Jika affected_rows adalah 0, berarti tidak ada baris yang memenuhi kondisi WHERE
-                        // (misal: ID tidak ditemukan, atau statusnya sudah tidak 'pending')
                         $message = "<p style='color: orange;'>Tidak ada transaksi dengan ID " . htmlspecialchars($transaksi_id) . " yang berstatus 'pending' atau transaksi tidak ditemukan.</p>";
                     }
                 } else {
-                    // Jika ada error saat mengeksekusi query
                     $message = "<p style='color: red;'>Error memperbarui record: " . $stmt->error . "</p>";
                 }
-                // Menutup statement untuk membebaskan sumber daya
-                $stmt->close();
+                $stmt->close(); // Tutup statement
             } else {
-                // Jika ada error saat menyiapkan prepared statement
                 $message = "<p style='color: red;'>Error menyiapkan pernyataan: " . $conn->error . "</p>";
             }
         }
     } else {
-        // Jika input ID Transaksi tidak valid
         $message = "<p style='color: red;'>Mohon masukkan ID Transaksi yang valid (harus angka).</p>";
     }
 }
 
 // =========================================================
-// 3. MENGAMBIL DATA TRANSAKSI PENDING DARI DATABASE UNTUK DITAMPILKAN
+// MENGAMBIL DATA TRANSAKSI PENDING DARI DATABASE UNTUK DITAMPILKAN
 // =========================================================
 $transactions = [];
 $sql_select = "SELECT transaksi_id, wisatawan_id, total_harga, tanggal_transaksi, status FROM transaksi WHERE status = 'pending' ORDER BY tanggal_transaksi ASC";
 $result = $conn->query($sql_select);
 
 if (!$result) {
-    // Tangani error jika query SELECT gagal
     $message .= "<p style='color: red;'>Error mengambil data transaksi: " . $conn->error . "</p>";
 } else if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -118,8 +98,7 @@ if (!$result) {
 }
 
 // =========================================================
-// 4. MENUTUP KONEKSI DATABASE
-//    (Penting untuk menutup koneksi setelah selesai menggunakan database)
+// MENUTUP KONEKSI DATABASE
 // =========================================================
 $conn->close();
 ?>
@@ -190,7 +169,7 @@ $conn->close();
         border-left: 4px solid #fff; /* Garis putih di kiri */
         padding-left: 16px; /* Dorong sedikit ke kanan untuk efek */
     }
-    /* Gaya untuk item menu yang aktif */
+    /* Gaya untuk item menu yang aktif (jika halaman ini sedang aktif) */
     .sidebar-menu li.active a {
         background-color: #163a8a;
         border-left: 4px solid #fff;
@@ -204,7 +183,7 @@ $conn->close();
         padding: 30px; /* Padding di sekitar konten */
     }
 
-    /* Gaya tabel dari sebelumnya */
+    /* Gaya tabel */
     table {
         width: 100%;
         border-collapse: collapse; /* Hilangkan spasi antar sel */
