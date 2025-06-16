@@ -1,7 +1,7 @@
 <?php
 include "config.php";
 
-$ID = $_SESSION['user_id'];
+$ID = $_SESSION['user_id'] ?? null;
 $tempatwisata_id = $_GET['tempatwisata_id'];
 $paket_id = $_GET['paket_id'];
 
