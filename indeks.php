@@ -27,5 +27,6 @@ include "config.php";
     } else {
         echo "<h2>404 - Halaman tidak ditemukan</h2>";
     }
-    ?>
+
+}    ?>
 </main>
