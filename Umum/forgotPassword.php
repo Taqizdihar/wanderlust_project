@@ -17,9 +17,13 @@ if (isset($_POST['loginBtn'])) {
         $sqlResetPassword = "UPDATE user SET password='$passwordSecured'";
         $queryReset = mysqli_query($conn, $sqlResetPassword);
         $registeredUser = mysqli_fetch_assoc($queryReset);
-
+        
+            if (mysqli_affected_rows($conn) != 0) {
+                header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=login");
+                exit();
+            }
         } else {
-            $warning = "Wrong pet name!";
+            $warning = "Wrong pet name! <br> Try uppercase and lowercase combination";
         }
     } else {
         $warning = "Unregistered email, choose Sign Up option instead";
