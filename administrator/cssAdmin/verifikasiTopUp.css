@@ -1,7 +1,8 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: #f2f9ff;
-    padding: 30px;
+    padding: 100px 150px;
+    max-width: 1080px;
 }
 
 .judul {
@@ -29,6 +30,7 @@ body {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    margin-left: 200px;
 }
 
 .tabel-topup th, .tabel-topup td {
