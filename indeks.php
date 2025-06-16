@@ -7,8 +7,9 @@ session_start();
         $page = $_GET['page'];
         $pages_umum = ['login', 'signin', 'homeUmum', 'choice', 'logout'];
         $pages_pw = ['verifikasiEntitas', 'dashboardWisata', 'profilPemilikWisata', 'editProfilWisata', 'daftarWisata', 'addWisata', 'editWisata', 'deleteWisata', 'seeWisata', 'addPaket', 'daftarPaket', 'kelolaPaket', 'deletePaket'];
-        $pages_admin = ['acc', 'accpengolah', 'accproperti', 'acctransaksi', 'dashboardAdmin', 'pengolahStatus', 'propertiStatus', 'verifikasiTopUp', 'memberlist', 'member', 'accwisata', 'transactionVerification'];
-        // --- AKHIR BAGIAN YANG DIUBAH ---
+        
+        // Pastikan 'transaksiverifikasi' ada di dalam array $pages_admin
+        $pages_admin = ['acc', 'accpengolah', 'accproperti', 'acctransaksi', 'dashboardAdmin', 'pengolahStatus', 'propertiStatus', 'verifikasiTopUp', 'memberlist', 'member', 'accwisata', 'transaksiverifikasi'];
 
         $pages_wisatawan = ['Home', 'detailDestinasiWisata', 'reservasiTiket', 'Favorit', 'Pencarian', 'Profil', 'editProfil', 'Saldo', 'topUpSaldo', 'riwayatReservasi'];
         
@@ -17,7 +18,7 @@ session_start();
         } else if (in_array($page, $pages_pw)) {
             include "pemilikWisata/$page.php";
         } else if (in_array($page, $pages_admin)) {
-            // Asumsi file 'transactionVerification.php' ada di dalam folder 'administrator/'
+            // Ini akan mencari file seperti "administrator/transaksiverifikasi.php"
             include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {
             include "pengguna/$page.php";
@@ -25,6 +26,7 @@ session_start();
             echo "<h2>404 - Halaman tidak ditemukan</h2>";
         }
     } else {
+        // Halaman default jika tidak ada parameter 'page'
         include "Umum/homeUmum.php";
     }
 ?>
