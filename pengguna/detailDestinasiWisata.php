@@ -83,7 +83,7 @@ if (isset($_POST['tambah_favorit'])) {
             <form method="post" action="">
                 <input type="hidden" name="tempatwisata_id" value="<?= $tempatwisata['tempatwisata_id']; ?>">
                 <button type="submit" name="tambah_favorit" class="favorit-btn">
-                    🌟 Tambah ke Favorit
+                    🌟 Add to bookmark
                 </button>
             </form>
             <?php endif; ?>
