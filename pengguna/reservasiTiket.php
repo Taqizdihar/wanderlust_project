@@ -46,20 +46,37 @@ if (isset($_POST['submit'])) {
     $tanggalKunjungan = $_POST['visit_date'];
     $jumlahTiket = $_POST['ticket_count'];
     $totalHarga = $jumlahTiket * $paket['harga'];
-    $sisaTiket = $paket['jumlah_tiket'] - $jumlahTiket;
-
-    $insertStatement = "INSERT INTO transaksi (wisatawan_id, tempatwisata_id, paket_id, jumlah_tiket, total_harga, status, tanggal_kunjungan, tanggal_transaksi)
-    VALUES ('$ID', '$tempatwisata_id', '$paket_id', '$jumlahTiket', '$totalHarga', 'pending', '$tanggalKunjungan', CURRENT_TIMESTAMP)";
-    $transaksiBaru = mysqli_query($conn, $insertStatement);
-
-    $updateStatement = "UPDATE paketwisata SET jumlah_tiket = '$sisaTiket' WHERE paket_id = '$paket_id'";
-    $updateTransaksi = mysqli_query($conn, $updateStatement);
-
-    if (mysqli_affected_rows($conn) != 0) {
-        header("location: /Proyek Wanderlust/wanderlust_project/indeks.php?page=Home");
+    $saldoUser = $user['saldo'];
+    
+    if ($saldoUser < $totalHarga) {
+        echo "<script>
+        alert('Saldo Anda tidak cukup untuk melakukan transaksi ini. Silakan Top Up terlebih dahulu.');
+        window.location.href = 'indeks.php?page=Saldo';
+        </script>";
         exit();
     } else {
-        echo "<p>Transaction Failed</p>";
+        $sisaTiket = $paket['jumlah_tiket'] - $jumlahTiket;
+        $sisaSaldo = $saldoUser - $totalHarga;
+
+        $insertStatement = "INSERT INTO transaksi (wisatawan_id, tempatwisata_id, paket_id, jumlah_tiket, total_harga, status, tanggal_kunjungan, tanggal_transaksi)
+        VALUES ('$ID', '$tempatwisata_id', '$paket_id', '$jumlahTiket', '$totalHarga', 'pending', '$tanggalKunjungan', CURRENT_TIMESTAMP)";
+        $transaksiBaru = mysqli_query($conn, $insertStatement);
+
+        $updateStatement = "UPDATE paketwisata SET jumlah_tiket = '$sisaTiket' WHERE paket_id = '$paket_id'";
+        $updateTransaksi = mysqli_query($conn, $updateStatement);
+
+        $updateUserStatement = "UPDATE user SET saldo = '$sisaSaldo' WHERE user_id = '$ID'";
+        mysqli_query($conn, $updateUserStatement);
+
+        if (mysqli_affected_rows($conn) != 0) {
+            echo "<script>
+                    alert('Pemesanan tiket berhasil!');
+                    window.location.href = '/Proyek Wanderlust/wanderlust_project/indeks.php?page=Home';
+                  </script>";
+            exit();
+        } else {
+            echo "<p>Transaction Failed</p>";
+        }
     }
 }
 
