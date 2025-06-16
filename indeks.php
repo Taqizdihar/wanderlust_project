@@ -18,7 +18,7 @@ session_start();
         } else if (in_array($page, $pages_pw)) {
             include "pemilikWisata/$page.php";
         } else if (in_array($page, $pages_admin)) {
-            // Ini akan mencari file seperti "administrator/transaksiverifikasi.php"
+
             include "administrator/$page.php"; 
         } else if (in_array($page, $pages_wisatawan)) {
             include "pengguna/$page.php";

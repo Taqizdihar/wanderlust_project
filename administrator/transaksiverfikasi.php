@@ -1,4 +1,5 @@
 <?php
+include "config.php";
 // Pastikan $profile sudah didefinisikan atau setel default jika tidak
 if (!isset($profile) || !is_array($profile)) {
     $profile = ['nama' => 'Guest', 'role' => 'Unknown'];
