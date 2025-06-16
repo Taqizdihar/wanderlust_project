@@ -4,6 +4,7 @@ $warning = "";
 
 if (isset($_POST['loginBtn'])) {
     $email = $_POST['email'];
+    $petName = $_POST['petname'];
     $password = $_POST['password'];
 
     $sqlStatement = "SELECT * FROM user WHERE email = '$email'";
@@ -11,28 +12,21 @@ if (isset($_POST['loginBtn'])) {
     $registeredUser = mysqli_fetch_assoc($query);
 
     if ($registeredUser) {
-        if (password_verify($password, $registeredUser['password'])) {
-           
-            $_SESSION['user_id'] = $registeredUser['user_id'];
-            $_SESSION['id'] = $registeredUser['user_id']; 
-            $_SESSION['email'] = $registeredUser['email'];
-            $_SESSION['role'] = $registeredUser['role'];
-
-            if ($registeredUser['role'] == 'wisatawan') {
-                header("location: indeks.php?page=Home");
-                exit();
-            } else if ($registeredUser['role'] == 'pw') {
-                header("location: indeks.php?page=dashboardWisata");
-                exit();
-            } else if ($registeredUser['role'] == 'admin') {
-                header("location: indeks.php?page=dashboardAdmin");
+        if ($petName == $registeredUser['nama_peliharaan']) {
+        $passwordSecured = password_hash($password, PASSWORD_DEFAULT);
+        $sqlResetPassword = "UPDATE user SET password='$passwordSecured'";
+        $queryReset = mysqli_query($conn, $sqlResetPassword);
+        
+            if (mysqli_affected_rows($conn) != 0) {
+                echo "<script>alert('Hooray! Password has been reset. Take care of your lovely pet!');
+                window.location.href = 'indeks.php?page=login';</script>";
                 exit();
             }
         } else {
-            $warning = "Wrong password, please try again";
+            $warning = "Wrong pet name! <br> Try uppercase and lowercase combination";
         }
     } else {
-        $warning = "Unregistered email, choose Sign Up option";
+        $warning = "Unregistered email, choose Sign Up option instead";
     }
 }
 mysqli_close($conn);
@@ -43,14 +37,15 @@ mysqli_close($conn);
 <head>
     <meta charset="UTF-8">
     <title>Log in</title>
-    <link rel="stylesheet" href="Umum/cssUmum/login.css">
+    <link rel="stylesheet" href="Umum/cssUmum/forgotPassword.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=MuseoModerno|Concert One">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <h2>Welcome back!</h2>
+    <h2>Uh oh, wait...</h2>
     <div class="login-container">
-        <h3>Log In</h3>
+        <h3>Forgot your password?</h3>
+        <p class="info">To reset your password, <br> please enter the name <br> of your favorite pet!</p>
 
         <?php if (!empty($warning)) : ?>
         <p id="warning"><?= $warning ?></p>
@@ -62,16 +57,16 @@ mysqli_close($conn);
                 <input type="text" name="email" placeholder="Email" required>
             </div>
             <div class="form-item">
-                <label for="password">Password</label>
+                <label for="petname">Input your lovely pet name</label>
+                <input type="text" name="petname" placeholder="Who is your lovely pet's name?" required autocomplete="off">
+            </div>
+            <div class="form-item">
+                <label for="password">New Password</label>
                 <input type="password" name="password" placeholder="Password" required>
             </div>
-            <div class="password-item">
-                <a href="indeks.php?page=forgotPassword">Forgot password</a>
-            </div>
-            <input type="submit" value="Log In" name="loginBtn" id="submitButton">
+            <input type="submit" value="Reset Password" name="loginBtn" id="submitButton">
             <div class="login-footer">
-                <p>Don't have any account? <a href="indeks.php?page=choice">Sign In</a></p>
-                <a href="indeks.php?page=homeUmum" id="backButton">Back to the start</a>
+                <a href="indeks.php?page=login" id="backButton">Back to Login</a>
             </div>
         </form>
     </div>
