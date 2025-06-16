@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+.title {
+    margin: 400px 200px;
+}
+
 .main-content {
     margin-left: 220px;
     padding: 20px;
