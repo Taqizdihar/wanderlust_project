@@ -66,7 +66,7 @@ mysqli_close($conn);
                 <input type="password" name="password" placeholder="Password" required>
             </div>
             <div class="password-item">
-                <a href="indeks.php?forgotPassword">Forgot password</a>
+                <a href="indeks.php?page=forgotPassword">Forgot password</a>
             </div>
             <input type="submit" value="Log In" name="loginBtn" id="submitButton">
             <div class="login-footer">
