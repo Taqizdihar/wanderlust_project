@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
     }
 
     $sqlPaketWisata = "INSERT INTO paketwisata (tempatwisata_id, foto_paket, nama_paket, deskripsi, harga, jumlah_tiket) 
-                         VALUES ('$tempatwisata_id', '$uploadNewPaket', '$nama_paket', '$deskripsi', '$harga', '$jumlah')";
+                        VALUES ('$tempatwisata_id', '$uploadNewPaket', '$nama_paket', '$deskripsi', '$harga', '$jumlah')";
     $queryPaket = mysqli_query($conn, $sqlPaketWisata);
 
     if (mysqli_affected_rows($conn) != 0) {
