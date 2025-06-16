@@ -25,7 +25,6 @@ mysqli_close($conn);
 </head>
 <body>
     <?php include "pemilikWisata/viewsWisata.php";?>
-    <h1 class="title">Your Profile</h1>
     <div class="main-content">
         <div class="profile-card">
             <h2>Personal Information</h2>
