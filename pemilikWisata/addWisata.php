@@ -70,12 +70,12 @@ if (isset($_POST['submit'])) {
             
             <div class="form-group">
                 <label for="nama_lokasi">Property Name</label>
-                <input type="text" id="nama_lokasi" name="nama_lokasi" required placeholder="Contoh: Kawah Putih">
+                <input type="text" id="nama_lokasi" name="nama_lokasi" required placeholder="Example: Mount Ebott">
             </div>
 
             <div class="form-group">
                 <label for="alamat_lokasi">Property Address</label>
-                <textarea id="alamat_lokasi" name="alamat_lokasi" rows="3" required placeholder="Masukkan alamat jalan, kota, dan provinsi"></textarea>
+                <textarea id="alamat_lokasi" name="alamat_lokasi" rows="3" required placeholder="Fill the address"></textarea>
             </div>
 
             <div class="form-group">
@@ -104,17 +104,17 @@ if (isset($_POST['submit'])) {
 
             <div class="form-group">
                 <label for="deskripsi">Description</label>
-                <textarea id="deskripsi" name="deskripsi" required placeholder="Jelaskan secara detail tentang tempat wisata Anda"></textarea>
+                <textarea id="deskripsi" name="deskripsi" required placeholder="Describe your property"></textarea>
             </div>
 
             <div class="form-group">
                 <label for="sumir">Summary</label>
-                <textarea id="sumir" name="sumir" rows="2" required placeholder="Tulis ringkasan singkat yang menarik (maksimal 150 karakter)"></textarea>
+                <textarea id="sumir" name="sumir" rows="2" required placeholder="Write your property summary"></textarea>
             </div>
             
             <div class="form-group">
                 <label for="nomor_pic">Person in Charge (PIC) Phone Number</label>
-                <input type="text" id="nomor_pic" name="nomor_pic" required placeholder="Contoh: 081234567890">
+                <input type="text" id="nomor_pic" name="nomor_pic" required placeholder="Example: 0812-3456-7890">
             </div>
 
             <div class="form-group">
