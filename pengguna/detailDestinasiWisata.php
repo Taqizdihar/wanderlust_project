@@ -110,6 +110,14 @@ $total_reviews = $ratingData['total_reviews'];
         <div class="col-lg-8">
             <h2><?= $tempatwisata['nama_lokasi']; ?></h2>
             <p class="text-muted"><?= $tempatwisata['jenis_wisata']; ?></p>
+
+            <?php if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'wisatawan') : ?>
+            <form method="post">
+                <input type="hidden" name="tempatwisata_id" value="<?= $tempatwisata['tempatwisata_id']; ?>">
+                <button type="submit" name="tambah_favorit" class="favorit-btn">🌟 Add to Bookmark</button>
+            </form>
+            <?php endif; ?>
+
             <p><strong><i class="fas fa-clock"></i> Operational Hours:</strong> <?= $tempatwisata['waktu_buka']; ?> - <?= $tempatwisata['waktu_tutup']; ?></p>
             <hr>
             <h3>Description</h3>
